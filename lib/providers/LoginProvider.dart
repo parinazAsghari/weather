@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:loyalty_app/utils/SharedPrefsUtil.dart';
+import 'package:emdad_khodro_saipa/utils/SharedPrefsUtil.dart';
 
 class LoginProvider with ChangeNotifier {
 
@@ -50,7 +50,7 @@ class LoginProvider with ChangeNotifier {
   }
 
   void saveRememberMe()async{
-    await SharedPrefsUtil.prefsInstance.saveBoolToPrefs('RememberMe', _rememberMe);
+     SharedPrefsUtil.prefsInstance.saveBoolToPrefs('RememberMe', _rememberMe);
   }
 
   void loadUserPass()async{
@@ -60,8 +60,8 @@ class LoginProvider with ChangeNotifier {
   }
 
   void saveUserPass()async{
-    await SharedPrefsUtil.prefsInstance.saveStringToPrefs('UserName', _userName);
-    await SharedPrefsUtil.prefsInstance.saveStringToPrefs('PassWord', _passWord);
+     SharedPrefsUtil.prefsInstance.saveStringToPrefs('UserName', _userName);
+     SharedPrefsUtil.prefsInstance.saveStringToPrefs('PassWord', _passWord);
   }
 
 

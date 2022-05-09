@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
-import 'package:loyalty_app/models/MemberInfoModel.dart';
-import 'package:loyalty_app/repository/MemberRepository.dart';
-import 'package:loyalty_app/utils/SharedPrefsUtil.dart';
+import 'package:emdad_khodro_saipa/models/MemberInfoModel.dart';
+import 'package:emdad_khodro_saipa/repository/MemberRepository.dart';
+import 'package:emdad_khodro_saipa/utils/SharedPrefsUtil.dart';
 
 
 class HomeProvider extends ChangeNotifier {
 
-  MemberInfoModel _memberInfoModel;
+  MemberInfoModel? _memberInfoModel;
   String _programName = "---" ;
 
 
-  MemberInfoModel get getMemberInfoModel => _memberInfoModel;
+  MemberInfoModel get getMemberInfoModel => _memberInfoModel!;
 
   set setMemberInfoModel(MemberInfoModel value) {
     _memberInfoModel = value;
@@ -25,9 +25,10 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<MemberInfoModel> fetchMemberInfo(String userName)async{
-    var memberInfoModel = await MemberRepository().callFetchMemberInfo(userName);
-    await SharedPrefsUtil.prefsInstance.saveStringToPrefs('MemberId', memberInfoModel.result[0].memberId);
+  Future<MemberInfoModel?> fetchMemberInfo(String userName)async{
+    var memberInfoModel ;
+    // var memberInfoModel = await MemberRepository().callFetchMemberInfo(userName);
+     SharedPrefsUtil.prefsInstance.saveStringToPrefs('MemberId', memberInfoModel.result[0].memberId);
     this._memberInfoModel = memberInfoModel;
     notifyListeners();
     return _memberInfoModel;

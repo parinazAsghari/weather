@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:loyalty_app/utils/SharedPrefsUtil.dart';
+import 'package:emdad_khodro_saipa/utils/SharedPrefsUtil.dart';
 
 class SettingProvider with ChangeNotifier {
 
@@ -22,7 +22,7 @@ class SettingProvider with ChangeNotifier {
   }
 
   void saveUseBiometric() async {
-    await SharedPrefsUtil.prefsInstance.saveBoolToPrefs('UseBiometric', _useBiometric);
+     SharedPrefsUtil.prefsInstance.saveBoolToPrefs('UseBiometric', _useBiometric);
   }
 
 

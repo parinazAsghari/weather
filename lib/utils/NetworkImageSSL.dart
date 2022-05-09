@@ -15,7 +15,7 @@ class NetworkImageSSL extends ImageProvider<NetworkImageSSL> {
 
   final double scale;
 
-  final Map<String, String> headers;
+  final Map<String, String>? headers;
 
   @override
   Future<NetworkImageSSL> obtainKey(ImageConfiguration configuration) {

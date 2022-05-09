@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:loyalty_app/models/IntroducedPeopleModel.dart';
-import 'package:loyalty_app/repository/MemberRepository.dart';
+import 'package:emdad_khodro_saipa/models/IntroducedPeopleModel.dart';
+import 'package:emdad_khodro_saipa/repository/MemberRepository.dart';
 
 class IntroduceProvider extends ChangeNotifier {
 
@@ -17,7 +17,8 @@ class IntroduceProvider extends ChangeNotifier {
 
   Future<IntroducedPeopleModel> fetchIntroducedPeopleList(String programId)async{
 
-    var introducedListModel = await MemberRepository().callFetchIntroducedPeopleList(programId);
+    var introducedListModel ;
+    // var introducedListModel = await MemberRepository().callFetchIntroducedPeopleList(programId);
     this._introducedPeopleList = introducedListModel;
     return this._introducedPeopleList;
     //notifyListeners();

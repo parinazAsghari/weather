@@ -1,7 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
-import 'package:convert/convert.dart';
+// import 'package:convert/convert.dart';
+// import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:crypto/crypto.dart' as crypto;
@@ -95,17 +96,17 @@ String getSubStringBetween(String mainStr,String startStr,String endStr){
 
 
 //get substring after a last specific word
-String subStringAfterLastWord(String mainStr,String wordStr){
-  String result;
-  try{
-    mainStr.substring(mainStr.lastIndexOf("$wordStr")+1);
-  }
-  catch (exc) {
-    result = "-";
-  }
-
-  return result;
-}
+// String subStringAfterLastWord(String mainStr,String wordStr){
+//   String result;
+//   try{
+//     mainStr.substring(mainStr.lastIndexOf("$wordStr")+1);
+//   }
+//   catch (exc) {
+//     result = "-";
+//   }
+//
+//   return result;
+// }
 
 
 
@@ -413,18 +414,18 @@ double getFileSizeInMB(int size , [int round = 2]){
 
 //----------------------------- convert file to base64 -------------------------
 
-String convertFileToBase64(File attachedFile){
-
-  if (attachedFile==null){
-    return null;
-  }
-  else{
-
-    List<int> fileBytes = attachedFile.readAsBytesSync();
-    String base64File = base64.encode(fileBytes);
-    return base64File;
-  }
-}
+// String convertFileToBase64(File attachedFile){
+//
+//   if (attachedFile==null){
+//     return null;
+//   }
+//   else{
+//
+//     List<int> fileBytes = attachedFile.readAsBytesSync();
+//     String base64File = base64.encode(fileBytes);
+//     return base64File;
+//   }
+// }
 
 
 
@@ -433,20 +434,20 @@ String convertFileToBase64(File attachedFile){
 //----------------------------- convert date to string -------------------------
 
 
-DateTime convertStringToDate(String dateValue){
-
-  try{
-    DateTime dateTime = DateTime.now();
-
-    dateTime =  DateFormat("yyyy-MM-dd").parse(dateValue) ?? dateTime;
-
-    return dateTime;
-  }
-  catch(exc){
-    return null;
-  }
-
-}
+// DateTime convertStringToDate(String dateValue){
+//
+//   try{
+//     DateTime dateTime = DateTime.now();
+//
+//     dateTime =  DateFormat("yyyy-MM-dd").parse(dateValue) ?? dateTime;
+//
+//     return dateTime;
+//   }
+//   catch(exc){
+//     return null;
+//   }
+//
+// }
 
 TimeOfDay convertStringToTimeOfDay(String dateValue){
 
@@ -591,12 +592,12 @@ bool isStringBlank(String strValue){
 
 //----------------------------- convert string to mD5 --------------------------
 
-String generateMd5(String data) {
-  var content = new Utf8Encoder().convert(data);
-  var md5 = crypto.md5;
-  var digest = md5.convert(content);
-  return hex.encode(digest.bytes);
-}
+// String generateMd5(String data) {
+//   var content = new Utf8Encoder().convert(data);
+//   var md5 = crypto.md5;
+//   var digest = md5.convert(content);
+//   return hex.encode(digest.bytes);
+// }
 
 //----------------------------- number converter -------------------------------
 String replaceFarsiNumber(String input) {
@@ -655,7 +656,7 @@ Map<String,String> basicAuthHeaderMaker(String userName,String passWord){
 // fade in
 class FadeRoute extends PageRouteBuilder {
   final Widget page;
-  FadeRoute({this.page})
+  FadeRoute({required this.page})
       : super(
     pageBuilder: (
         BuildContext context,
@@ -679,7 +680,7 @@ class FadeRoute extends PageRouteBuilder {
 // scale
 class ScaleRoute extends PageRouteBuilder {
   final Widget page;
-  ScaleRoute({this.page}) : super(opaque : false,
+  ScaleRoute({required this.page}) : super(opaque : false,
     pageBuilder: (
         BuildContext context,
         Animation<double> animation,
@@ -710,7 +711,7 @@ class ScaleRoute extends PageRouteBuilder {
 // size
 class SizeRoute extends PageRouteBuilder {
   final Widget page;
-  SizeRoute({this.page})
+  SizeRoute({required this.page})
       : super(
     pageBuilder: (
         BuildContext context,
@@ -736,7 +737,7 @@ class SizeRoute extends PageRouteBuilder {
 //slide right
 class SlideRightRoute extends PageRouteBuilder {
   final Widget page;
-  SlideRightRoute({this.page})
+  SlideRightRoute({required this.page})
       : super(
     pageBuilder: (
         BuildContext context,
@@ -764,7 +765,7 @@ class SlideRightRoute extends PageRouteBuilder {
 //slide up
 class SlideUpRoute extends PageRouteBuilder {
   final Widget page;
-  SlideUpRoute({this.page})
+  SlideUpRoute({required this.page})
       : super(opaque:false,
     pageBuilder: (
         BuildContext context,
@@ -792,7 +793,7 @@ class SlideUpRoute extends PageRouteBuilder {
 //rotaion
 class RotationRoute extends PageRouteBuilder {
   final Widget page;
-  RotationRoute({this.page})
+  RotationRoute({required this.page})
       : super(
     pageBuilder: (
         BuildContext context,

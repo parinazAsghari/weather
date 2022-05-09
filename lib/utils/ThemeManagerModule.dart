@@ -289,7 +289,7 @@ class ThemeManagerModule {
   }
 
   void setTheme(String themeNameval) async {
-    await SharedPrefsUtil.prefsInstance.saveThemeNameToPref(themeName: themeNameval);
+    SharedPrefsUtil.prefsInstance.saveThemeNameToPref(themeName: themeNameval);
     initTheme();
   }
 

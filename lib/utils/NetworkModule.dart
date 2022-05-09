@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:loyalty_app/models/MainResponseModel.dart';
+// import 'package:loyalty_app/models/MainResponseModel.dart';
 import 'dart:convert';
 import 'Consts.dart';
 
@@ -17,6 +17,7 @@ class NetworkModule {
 
   //------------------------- https methods
 
+  /*
   Future<MainResponseModel> postRequest ({@required var url,@required var body,@required var header,var enCode,int timeOutSecond}) async {
 
     try {
@@ -59,6 +60,7 @@ class NetworkModule {
 
   }
 
+   */
 
 
   Future<String> getRequest (var url,Map<String,String> header) async {
@@ -93,6 +95,7 @@ class NetworkModule {
 //--------------------
 
 
+  /*
   MainResponseModel responseErrorHandling(int code,String result){
     MainResponseModel mainResponseModel = MainResponseModel();
     if(code==200){
@@ -124,6 +127,8 @@ class NetworkModule {
     print('-----------------------x-x-x-x-x 22222222 ---------- ${mainResponseModel.code} -------- ${mainResponseModel.description} ------- ${mainResponseModel.data}');
     return mainResponseModel;
   }
+
+   */
 
 
   void loggingInterceptor(HttpClientResponse response,String result){
