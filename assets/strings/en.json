@@ -1,0 +1,94 @@
+{
+  "AppName_txt": "Loyalty",
+  "Setting_txt" : "Setting",
+  "LoyaltyProfile_txt" : "Loyalty Profile",
+  "Language_txt": "English",
+
+  "AboutUs_txt": "About us",
+  "MyScore_txt": "My Scores",
+  "TierRank_txt": "Tier Rank",
+  "Agreement_txt": "Terms & conditions",
+  "Questions_txt": "Common questions",
+  "ContactUs_txt": "Contact us",
+  "Exit_txt": "Exit",
+
+  "TermsAndConditions_txt" : "Terms & Conditions",
+  "CommonQuestions_txt": "Common Question",
+  "Transaction_txt": "Transactions",
+  "AccountManagement_txt":"Account Management",
+  "UseScore_txt": "Use Score",
+
+  "ThemeA_txt" : "Blue Theme",
+  "ThemeB_txt" : "Orange Theme",
+  "ThemeC_txt" : "Grey Theme",
+
+  "LanguageFA": "Farsi",
+  "LanguageEN": "English",
+
+  "LastLoginDate_txt": "Last Login",
+  "Version_txt": "Demo version",
+  "UseScores_txt": "Use Scores",
+  "UserName_txt" : "User name",
+
+
+  "Messages_txt": "Messages",
+  "Loan_txt": "Loan",
+  "TransportScore_txt":"Transport Score",
+  "RankingLog_txt":"Ranking Log",
+
+  "BusinessCo_txt":"Business Co",
+  "MiladTower_txt": "Milad Tower",
+  "Hakopian_txt": "Hakopian",
+  "Mahan_txt": "Mahan Flight",
+  "Mci_txt": "MCI",
+
+  "TransactionNumber_txt": "Number",
+  "TransactionDate_txt": " Date",
+  "TransactionType_txt": "Type",
+
+  "MembershipType_txt": "Membership Type",
+  "RowName_txt": "Row Name",
+  "ProgramName_txt": "Program Name",
+  "JoinDate_txt": "Join Date",
+  "Submit_txt": "Submit",
+
+  "CouponsList_txt": "Coupons",
+  "CouponsDetails_txt": "Coupon Details",
+
+  "RemainedScores_txt": "Remained Scores",
+  "GainedScoresAmount_txt": "Gained Scores Amount",
+  "SpentScoresAmount_txt": "Spent Scores Amount",
+  "N-A_txt": "N/A",
+
+  "Introduce_txt":"Brief Introduce",
+  "AboutBehpardaz_txt": "Behpardaz Co is one the best Co in the field of IT",
+
+  "Laws_txt": "Terms",
+  "Terms_txt": "The english version of terms and condition will be shown here",
+
+
+  "CommonQuestionTitle_txt": "This the list of common questions",
+  "CommonQuestion1_txt": "this is question one",
+  "CommonQuestion2_txt": "this is question two",
+  "CommonQuestion3_txt": "this is question three",
+
+  "BehpardazMail_txt": "info@behpardaz.net",
+  "BehpardazAddress_txt": "Behpardaz Jahan Ltd.Tehran Province, Tehran, No. 45, street, Ashrafi Ave., Zamani, Iran",
+  "BehpardazPhone_txt": "02144493907",
+
+  "BalanceDate_txt": "Balance Date",
+
+  "MiladTowerRestaurant_txt": "Milad Round Restaurant",
+
+
+  "From_txt": "From",
+  "To_txt": "To",
+  "MoreDescription_txt": "More Description",
+  "BiometricUsage_txt": "Use Biometric",
+
+  "CodeVersion_txt": "99.08.28"
+
+
+
+
+}
