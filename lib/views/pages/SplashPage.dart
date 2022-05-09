@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 
 
   void navigation() async {
-    bool _decider = await SharedPrefsUtil.prefsInstance.loadFromPrefs('UserLoggedIn');
+    bool _decider = await SharedPrefsUtil.prefsInstance.loadFromPrefs('UserLoggedIn') ?? false;
     print('=>>>>> decider : $_decider');
 
 //    if (_decider) {
@@ -46,8 +46,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 ////    }
 
     Future.delayed(Duration(milliseconds: 2200),(){
-      Navigator.pushReplacement(context, FadeRoute(page: PreLoginPage()));
-      // Navigator.pushReplacement(context, FadeRoute(page: LoginPage('customer')));
+      // Navigator.pushReplacement(context, FadeRoute(page: PreLoginPage()));
+      Navigator.pushReplacement(context, FadeRoute(page: LoginPage('customer')));
     });
 
 
@@ -79,6 +79,17 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
     _animationControllerText.dispose();
     _animationControllerLogo.dispose();
   }
+
+
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: Center(
+  //       child: Text('this is splash page'),
+  //     ),
+  //   );
+  // }
 
 
 
@@ -183,236 +194,44 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 
 
   Widget BodyContent(){
-    if(ThemeManagerModule.themeManagerModule.getThemeName() == 'theme SkyBlue'){
-      return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.5)
-          ),
-          child: ThemeManagerModule.themeManagerModule.getThemeName() == 'theme SkyBlue'?
-          SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
 
-                  SlideTransition(
-                    position: _animationOffsetLogo,
-                    child: Container(
-                      height: 150.0,
-                      width: 200.0,
-                      // child: Image.asset('assets/images/logo.png'),
-                      child: Image.asset('assets/images/behsa.png'),
-                    ),
-                  ),
-                  SizedBox(height: 16.0,),
-                  SlideTransition(
-                    position: _animationOffsetText,
-                    child: Container(
-                      child: Text('همراه ما',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-                    ),
-                  ),
-
-                ],
-              )
-          )
-              :
-          SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-
-                  SlideTransition(
-                    position: _animationOffsetLogo,
-                    child: Container(
-                      height: 150.0,
-                      width: 200.0,
-                      child: Image.asset('assets/images/logo.png'),
-                      // child: Image.asset('assets/images/logo_bpj_login.png'),
-                    ),
-                  ),
-                  SizedBox(height: 16.0,),
-                  SlideTransition(
-                    position: _animationOffsetText,
-                    child: Container(
-                      child: Text('سامانه وفاداری',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-                    ),
-                  ),
-
-                ],
-              )
-          ),
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.5)
         ),
-      );
+        child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
 
-    }
-    else if(ThemeManagerModule.themeManagerModule.getThemeName() == 'theme NavyBlue'){
-      return SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-
-              SlideTransition(
-                position: _animationOffsetLogo,
-                child: Container(
-                  height: 150.0,
-                  width: 200.0,
-                  // child: Image.asset('assets/images/logo.png'),
-                  child: Image.asset('assets/images/behsa.png'),
-                ),
-              ),
-              SizedBox(height: 16.0,),
-              SlideTransition(
-                position: _animationOffsetText,
-                child: Container(
-                  child: Text('سامانه وفاداری',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-                ),
-              ),
-
-            ],
-          )
-      );
-
-    }
-    else if(ThemeManagerModule.themeManagerModule.getThemeName() == 'theme GoldBlue'){
-      return SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-
-              SlideTransition(
-                position: _animationOffsetLogo,
-                child: Container(
-                  height: 150.0,
-                  width: 200.0,
-                  // child: Image.asset('assets/images/logo.png'),
-                  child: Image.asset('assets/images/behsa.png'),
-                ),
-              ),
-              SizedBox(height: 16.0,),
-              SlideTransition(
-                position: _animationOffsetText,
-                child: Container(
-                  child: Text('سامانه وفاداری',textAlign: TextAlign.center,style: TextStyle(color: Color(0xffD5A261),fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-                ),
-              ),
-
-            ],
-          )
-      );
-
-    }
-    else if(ThemeManagerModule.themeManagerModule.getThemeName() == 'theme WhiteBlue'){
-      return SafeArea(
-          child: Container(
-            child: Center(
-              child: Stack(
-                children:[
-                  Column(
-                 // mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-
-                    SlideTransition(
-                      position: _animationOffsetLogo,
-                      child: Container(
-                        height: 150.0,
-                        width: 200.0,
-                        // child: Image.asset('assets/images/logo.png'),
-                        child: Image.asset('assets/images/behsa.png'),
-                      ),
-                    ),
-                    SizedBox(height: 16.0,),
-                    SlideTransition(
-                      position: _animationOffsetText,
-                      child: Container(
-                        child: Text('سامانه وفاداری',textAlign: TextAlign.center,style: TextStyle(color: Color(0xffD5A261),fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-                      ),
-                    ),
-
-
-
-
-                  ],
-                ),
-                  Align(alignment: Alignment.bottomCenter
-                    ,
-                    child: Container(
-                      child: Image.asset('assets/images/Golden_tree.png',width: 400,height: 220,),
-                    ),
-                  )
-        ]
-              ),
-            ),
-          )
-      );
-
-    }
-    else{
-      return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.5)
-          ),
-          child: ThemeManagerModule.themeManagerModule.getThemeName() == 'theme SkyBlue'?
-          SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-
-                  SlideTransition(
-                    position: _animationOffsetLogo,
-                    child: Container(
-                      height: 150.0,
-                      width: 200.0,
-                      // child: Image.asset('assets/images/logo.png'),
-                      child: Image.asset('assets/images/logo_bpj_login.png'),
-                    ),
+                SlideTransition(
+                  position: _animationOffsetLogo,
+                  child: Container(
+                    height: 150.0,
+                    width: 200.0,
+                    child: Image.asset('assets/images/emdad_khodro_logo_single.png'),
                   ),
-                  SizedBox(height: 16.0,),
-                  SlideTransition(
-                    position: _animationOffsetText,
-                    child: Container(
-                      child: Text('سامانه وفاداری',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-                    ),
+                ),
+                SizedBox(height: 16.0,),
+                SlideTransition(
+                  position: _animationOffsetText,
+                  child: Container(
+                    child: Text('امداد خودرو سایپا',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
                   ),
+                ),
 
-                ],
-              )
-          )
-              :
-          SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-
-                  SlideTransition(
-                    position: _animationOffsetLogo,
-                    child: Container(
-                      height: 150.0,
-                      width: 200.0,
-                      child: Image.asset('assets/images/logo.png'),
-                      // child: Image.asset('assets/images/logo_bpj_login.png'),
-                    ),
-                  ),
-                  SizedBox(height: 16.0,),
-                  SlideTransition(
-                    position: _animationOffsetText,
-                    child: Container(
-                      child: Text('سامانه وفاداری',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-                    ),
-                  ),
-
-                ],
-              )
-          ),
+              ],
+            )
         ),
-      );
 
-    }
+      ),
+    );
+
   }
+
+
 
 
 

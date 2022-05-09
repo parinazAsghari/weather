@@ -1,7 +1,13 @@
 
+import 'package:emdad_khodro_saipa/providers/LanguageProvider.dart';
+import 'package:emdad_khodro_saipa/providers/ThemeProvider.dart';
+import 'package:emdad_khodro_saipa/utils/AppLocalizationModule.dart';
+import 'package:emdad_khodro_saipa/utils/Consts.dart';
+import 'package:emdad_khodro_saipa/views/pages/SplashPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:emdad_khodro_saipa/providers/LanguageProvider.dart';
 // import 'package:emdad_khodro_saipa/providers/ThemeProvider.dart';
 // import 'package:emdad_khodro_saipa/utils/AppLocalizationModule.dart';
@@ -16,44 +22,43 @@ void main()async{
   );
 
 
-  // LanguageProvider languageProvider = LanguageProvider();
-  // await languageProvider.fetchLocale();
-  //
-  // ThemeProvider themeProvider = ThemeProvider();
-  // await themeProvider.fetchTheme();
+  LanguageProvider languageProvider = LanguageProvider();
+  await languageProvider.fetchLocale();
+
+  ThemeProvider themeProvider = ThemeProvider();
+  await themeProvider.fetchTheme();
 
   runApp(
-      MyApp()
-      // MultiProvider(
-      //   providers: [
-      //     ChangeNotifierProvider<ThemeProvider>(create: (_)=>themeProvider),
-      //     ChangeNotifierProvider<LanguageProvider>(create: (_)=>languageProvider,)
-      //   ],
-      //   child: MyApp(),
-      // )
+      // MyApp()
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ThemeProvider>(create: (_)=>themeProvider),
+          ChangeNotifierProvider<LanguageProvider>(create: (_)=>languageProvider,)
+        ],
+        child: MyApp(),
+      )
   );
 }
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//
+//       home: Scaffold(
+//         body: Center(
+//           child: Container(
+//             child: Text('Welcome to Emdad Khodro App'),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            child: Text('Welcome to Emdad Khodro App'),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 
-
-/*
 
 class MyApp extends StatelessWidget {
 
@@ -83,6 +88,5 @@ class MyApp extends StatelessWidget {
   }
 }
 
- */
 
 
