@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:emdad_khodro_saipa/views/pages/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:emdad_khodro_saipa/utils/CommonUtils.dart';
 import 'package:emdad_khodro_saipa/utils/SharedPrefsUtil.dart';
@@ -47,7 +48,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 
     Future.delayed(Duration(milliseconds: 2200),(){
       // Navigator.pushReplacement(context, FadeRoute(page: PreLoginPage()));
-      Navigator.pushReplacement(context, FadeRoute(page: LoginPage('customer')));
+      Navigator.pushAndRemoveUntil(context, FadeRoute(page: HomePage(userName: 'کاربر مهمان')), (Route<dynamic> route) => false);
     });
 
 

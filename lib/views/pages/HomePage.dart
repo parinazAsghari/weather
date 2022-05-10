@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
+import 'package:emdad_khodro_saipa/views/pages/EmdadPage.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                         // padding: EdgeInsets.only(left: 20,top: 10,right: 20,bottom: 20),
                         shrinkWrap: true,
                         children: <Widget>[
-                          GridTileWidget(context,'ic_diamond.png','امداد',()=>Navigator.push(context, FadeRoute(page: DevelopingPage()))),
+                          GridTileWidget(context,'ic_diamond.png','امداد',()=>Navigator.push(context, FadeRoute(page: EmdadPage()))),
                           GridTileWidget(context,'ic_promotion.png','خریداشتراک',()=>Navigator.push(context, FadeRoute(page: DevelopingPage()))),
                           GridTileWidget(context,'ic_product.png','محصولات',()=>Navigator.push(context, FadeRoute(page: DevelopingPage()))),
                           GridTileWidget(context,'ic_loan.png','پشتیبانی',()=>Navigator.push(context, FadeRoute(page: DevelopingPage()))),
