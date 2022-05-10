@@ -1,5 +1,5 @@
 {
-  "AppName_txt": "همراه ما",
+  "AppName_txt": "امداد خودرو سایپا",
   "Setting_txt" : "تنظیمات",
   "LoyaltyProfile_txt" : "پروفایل وفاداری",
   "Language_txt": "فارسی",
@@ -21,7 +21,7 @@
   "LanguageFA": "فارسی",
   "LanguageEN": "انگلیسی",
   "LastLoginDate_txt": "آخرین ورود",
-  "Version_txt": "ورژن آزمایشی",
+  "Version_txt": "نسخه دمو",
   "UseScores_txt": "امتیاز",
   "UserName_txt" : "نام کاربری",
   "Messages_txt": "پیام ها",
@@ -90,7 +90,7 @@
   "LoanDetail_txt": "جزئیات وام",
   "LoanRepayment_txt": "بازپرداخت وام",
 
-  "CodeVersion_txt": "99.08.28",
+  "CodeVersion_txt": "01.02.24",
   "Exclusive_package": "بسته همراهی"
 
 

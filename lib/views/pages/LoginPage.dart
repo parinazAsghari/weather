@@ -100,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
 
 
   }
-  
 
   void initBiometric(BuildContext context)async{
     if (await _isBiometricAvailable()&&loginProvider.getUseBiometric) {
@@ -108,7 +107,6 @@ class _LoginPageState extends State<LoginPage> {
       await _authenticateUser(context);
     }
   }
-
 
   void loginByBiometric(BuildContext context) async{
 
@@ -230,10 +228,7 @@ class _LoginPageState extends State<LoginPage> {
 
   }
 
-
   Widget BodyContent(BuildContext context){
-
-
     return SafeArea(
         child:  BackdropFilter(filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
             child: Container(
@@ -241,21 +236,20 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.white.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(12.0)
               ),
-              margin: EdgeInsets.only(right: 16.0, left: 16.0, top: 32.0, bottom: 8.0),
-
+              margin: EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0, bottom: 16.0),
               child: BackgroundObjectsWidget(
                 widget: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      SizedBox(height: 10,)
-                      ,
+                      // SizedBox(height: 10,)
+                      // ,
                       Container(
-                        child: Image.asset('assets/images/emdad_khodro_logo_single.png',width: 120,height: 100,fit: BoxFit.contain,),
+                        child: Image.asset('assets/images/emdad_khodro_logo_single.png',height: 100,fit: BoxFit.contain,),
                       )
                       ,
                       SizedBox(
-                        height: 40,
+                        height: 24,
                       ),
                       LoginTextField(ctx: context,controller: userNameController,label: 'نام کاربری')
                       ,

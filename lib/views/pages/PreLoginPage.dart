@@ -174,7 +174,7 @@ class PreLoginPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
                               Container(
-                                child: Image.asset('assets/images/behsa.png',width: 228,height: 131,),
+                                child: Image.asset('assets/images/emdad_khodro_logo_single.png',width: 228,height: 131,),
                               )
                               ,
 

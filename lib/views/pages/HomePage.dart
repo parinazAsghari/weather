@@ -52,86 +52,15 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-
-String? selectedProgramName,selectedMemberId,selectedProgramId;
-
-
 class _HomePageState extends State<HomePage> {
 
   HomeProvider _homeProvider = HomeProvider();
-  Future<Member_Info.MemberInfoModel>? _memberFuture;
-
-  void showProgramListPop(BuildContext context,List<Member_Info.Result> programList){
-
-    showDialog(
-      context: context,
-      builder: (BuildContext ctx){
-        return Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.only(left: 30,top: 70,right: 30,bottom: 50),
-            decoration: BoxDecoration(
-                color: ctx.watch<ThemeProvider>().getThemeData.primaryColorDark,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-                border: Border.all(width: 1,color: ctx.watch<ThemeProvider>().getThemeData.indicatorColor),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                      offset: Offset(0,3)
-                  )
-                ]
-            ),
-            child: Material(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-              child: ListView.separated(
-                itemCount: programList.length,shrinkWrap: true,
-                padding: EdgeInsets.all(5),
-                itemBuilder: (ctx,index){
-                  return ListTile(
-                    onTap: (){
-                      // _homeProvider.setProgramName = programList[index].programName;
-                      selectedMemberId = programList[index].memberId;
-                      selectedProgramId = programList[index].programId;
-                      selectedProgramName = programList[index].programName;
-                      Navigator.pop(context);
-                    },
-                    trailing: Text(replaceFarsiNumber('${index+1}')),
-                    title: Text('${programList[index].programName}',textDirection: TextDirection.rtl,textAlign: TextAlign.center,maxLines: 1,style: TextStyle(fontSize: 13),),
-                  );
-                },
-                separatorBuilder: (ctx,index){
-                  return Divider(color: context.read<ThemeProvider>().getThemeData.primaryColor,indent: 3,endIndent: 3,height: 1,thickness: 0.3,);
-                }
-              ),
-            ),
-          ),
-        );
-      },
-      barrierDismissible: true
-    );
-
-  }
-
 
   @override
   void initState() {
     super.initState();
     // _memberFuture = _homeProvider.fetchMemberInfo(widget.userName);
   }
-
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: Center(
-  //       child: Text('this is home page...'),
-  //     ),
-  //   );
-  // }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +90,6 @@ class _HomePageState extends State<HomePage> {
           ),
         )
     );
-
   }
 
   Widget BodyContent(BuildContext context){
@@ -356,7 +284,7 @@ class _HomePageState extends State<HomePage> {
                       // ,
                       SizedBox(height: 15,)
                       ,
-                      Image.asset('assets/images/behsa.png',height: 80,width: 80,)
+                      Image.asset('assets/images/emdad_khodro_logo_single.png',height: 80,width: 80,)
                       ,
                       SizedBox(height: 20,)
                       ,
@@ -368,37 +296,6 @@ class _HomePageState extends State<HomePage> {
                       )
                       ,
                       SizedBox(height: 20,)
-                      ,
-                      Divider(height: 5,thickness: 0.25,color: context.watch<ThemeProvider>().getThemeData.primaryColor,indent: 20,endIndent: 20,)
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: ThemeManagerModule.themeManagerModule.getInUseTheme.accentColor)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child: Icon(Icons.account_circle,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,),
-                              )
-                          ),
-                          onTap: (){
-                            Navigator.pop(context);
-                            // Navigator.push(context, FadeRoute(page: LoyaltyProfilePage(memberId: selectedMemberId,)));
-                          },
-                          trailing: Text('${AppLocalizations.of(context)!.getText('LoyaltyProfile_txt')}',textAlign: TextAlign.end,style: TextStyle(color: context.watch<ThemeProvider>().getThemeData.indicatorColor),),
-                        ),
-                      )
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Divider(height: 5,thickness: 0.25,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,indent: 20,endIndent: 20,)
-                      ,
-                      SizedBox(height: 3,)
                       ,
                       Padding(
                         padding: EdgeInsets.only(left: 15,right: 15),
@@ -428,93 +325,10 @@ class _HomePageState extends State<HomePage> {
                       ,
                       SizedBox(height: 3,)
                       ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: ThemeManagerModule.themeManagerModule.getInUseTheme.accentColor)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child:
-                                Icon(Icons.score,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,),
-                              )
-                          ),
 
-                          onTap: (){
-                            Navigator.pop(context);
-                            // Navigator.push(context, FadeRoute(page: ScorePage(memberId: selectedMemberId,)));
-                          },
-                          trailing: Text('${AppLocalizations.of(context)!.getText('MyScore_txt')}',textAlign: TextAlign.end,style: TextStyle(color: context.watch<ThemeProvider>().getThemeData.indicatorColor),),
-                        ),
-                      )
-                      ,
                       SizedBox(height: 3,)
                       ,
-                      Divider(height: 5,thickness: 0.25,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,indent: 20,endIndent: 20,)
-                      ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: ThemeManagerModule.themeManagerModule.getInUseTheme.accentColor)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child:
-                                Icon(Icons.equalizer,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,),
-                              )
-                          ),
 
-
-
-                          onTap: (){
-                            Navigator.pop(context);
-                            // Navigator.push(context, FadeRoute(page: TierRankPage(memberId: selectedMemberId,)));
-                          },
-                          trailing: Text('${AppLocalizations.of(context)!.getText('TierRank_txt')}',textAlign: TextAlign.end,style: TextStyle(color: context.watch<ThemeProvider>().getThemeData.indicatorColor),),
-                        ),
-                      )
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Divider(height: 5,thickness: 0.25,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,indent: 20,endIndent: 20,)
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: ThemeManagerModule.themeManagerModule.getInUseTheme.accentColor)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child:
-                                Icon(Icons.people,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,),
-                              )
-                          ),
-
-
-
-                          onTap: (){
-                            Navigator.pop(context);
-                            // Navigator.push(context, FadeRoute(page: IntroducedListPage(selectedMemberId)));
-                          },
-                          trailing: Text('${AppLocalizations.of(context)!.getText('IntroducedList_txt')}',textAlign: TextAlign.end,style: TextStyle(fontSize: 12,color: context.watch<ThemeProvider>().getThemeData.indicatorColor)),
-                        ),
-                      )
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Divider(height: 5,thickness: 0.25,color: context.watch<ThemeProvider>().getThemeData.indicatorColor,indent: 20,endIndent: 20,)
-                      ,
                       SizedBox(height: 3,)
                       ,
                       Padding(
@@ -650,206 +464,4 @@ class _HomePageState extends State<HomePage> {
 
   }
 
-
-  Widget _homePageDropDown(List<Member_Info.Result> programList){
-    return Column(
-      children: [
-        Directionality(
-          textDirection: TextDirection.rtl,
-          child: ExpandableNotifier(
-
-            child: Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-              child: ScrollOnExpand(
-
-                child: Container(
-                  // padding: EdgeInsets.only(top: 12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: ThemeManagerModule.themeManagerModule.getInUseTheme.indicatorColor
-                  ),
-
-                  child: Column(
-                    children: [
-                      Expandable(
-                        collapsed:Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Padding(
-                              padding:  EdgeInsets.zero,
-                              child: Builder(
-                                builder: (context){
-                                  var controller = ExpandableController.of(context);
-                                  return Padding(
-                                    padding: EdgeInsets.zero,
-                                    child: InkWell(
-                                      onTap: (){
-                                        controller!.toggle();
-                                      },
-                                      child: Container(
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                            color: ThemeManagerModule.themeManagerModule.getInUseTheme.accentColor,
-                                            borderRadius: BorderRadius.circular(20),
-                                            border: Border.all(width: 2, color: Colors.white)
-                                        ),
-                                        child: Stack(
-
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Consumer<HomeProvider>(
-                                                      builder: (_,data,__){
-                                                        return Text('${data.getProgramName}',textAlign: TextAlign.center,style: TextStyle(color: context.read<ThemeProvider>().getThemeData.primaryColorDark),maxLines: 1,);
-                                                      },
-                                                    ),
-                                                    // Text('${programList[0].programName}',style: TextStyle(fontSize: 14),),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-
-                                                    Icon(Icons.keyboard_arrow_down_rounded,color: ThemeManagerModule.themeManagerModule.getInUseTheme.primaryColorDark,),
-                                                    SizedBox(width: 20,),
-
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-
-                              ),
-                            )
-
-                          ],
-                        ),
-                        expanded: Container(
-                          decoration: BoxDecoration(
-                              color: ThemeManagerModule.themeManagerModule.getInUseTheme.primaryColorDark,
-                              borderRadius: BorderRadius.circular(20)
-
-                          ),
-                          child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.start,mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Padding(
-                                padding:  EdgeInsets.zero,
-                                child: Builder(
-                                  builder: (context){
-                                    var controller = ExpandableController.of(context);
-                                    return Padding(
-                                      padding: EdgeInsets.zero,
-                                      child: InkWell(
-                                        onTap: (){
-                                          controller!.toggle();
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                              color: ThemeManagerModule.themeManagerModule.getInUseTheme.accentColor,
-                                              borderRadius: BorderRadius.circular(20),
-                                              border: Border.all(width: 2, color: ThemeManagerModule.themeManagerModule.getInUseTheme.primaryColorDark)
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Consumer<HomeProvider>(
-                                                builder: (_,data,__){
-                                                  return Text('${data.getProgramName}',textAlign: TextAlign.center,style: TextStyle(fontSize: 14,color: context.read<ThemeProvider>().getThemeData.primaryColorDark),maxLines: 1,);
-                                                },
-                                              ),
-                                              // Icon(Icons.account_balance)
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding:  EdgeInsets.zero,
-                                child: Builder(
-                                  builder: (context){
-                                    var controller = ExpandableController.of(context);
-                                    return Padding(
-                                      padding: EdgeInsets.zero,
-                                      child: InkWell(
-                                        onTap: (){
-                                          controller!.toggle();
-                                        },
-                                        child: Material(
-
-                                          color: ThemeManagerModule.themeManagerModule.getInUseTheme.primaryColorDark,
-                                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                                          child: ListView.separated(
-                                              itemCount: programList.length,shrinkWrap: true,
-                                              padding: EdgeInsets.all(5),
-                                              itemBuilder: (ctx,index){
-
-                                                return ListTile(
-                                                  onTap: (){
-                                                    controller!.toggle();
-                                                    _homeProvider.setProgramName = programList[index].programName!;
-                                                    selectedMemberId = programList[index].memberId;
-                                                    selectedProgramId = programList[index].programId;
-                                                    selectedProgramName = programList[index].programName;
-
-
-
-                                                  },
-                                                  // trailing: Text(replaceFarsiNumber('${index+1}')),
-                                                  title: Text('${programList[index].programName}',textDirection: TextDirection.rtl,textAlign: TextAlign.center,maxLines: 1,style: TextStyle(fontSize: 12,color: ThemeManagerModule.themeManagerModule.getInUseTheme.indicatorColor),),
-                                                );
-                                              },
-                                              separatorBuilder: (ctx,index){
-                                                return Divider(color: ThemeManagerModule.themeManagerModule.getInUseTheme.indicatorColor,indent: 10,endIndent: 10,height: 1,thickness: 0.5  ,);
-                                              }
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                  ,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-
-  }
-
-
 }
-
