@@ -27,6 +27,7 @@ dependencies:
   local_auth: ^2.0.1
   provider: ^6.0.2
   shared_preferences: ^2.0.13
+  sliding_up_panel: ^2.0.0+1
   url_launcher: ^6.1.0
 
 dev_dependencies:
@@ -38,6 +39,7 @@ dev_dependencies:
 
 
 flutter:
+  uses-material-design: true
 
   assets:
     - assets/strings/en.json
