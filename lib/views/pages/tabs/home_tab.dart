@@ -22,6 +22,9 @@ class _HomeTabState extends State<HomeTab> {
             children: [
 
               SizedBox(height: defaultPadding/2,),
+
+
+              //top box - car selection
               Container(
                 height: 150,
                 margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding/2),
@@ -40,7 +43,7 @@ class _HomeTabState extends State<HomeTab> {
                       padding: EdgeInsets.all(defaultPadding/2),
                       decoration: BoxDecoration(
                         color: color_holoGrey_primaryDark,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(16),
                       ),
 
                       child: Column(
@@ -52,8 +55,8 @@ class _HomeTabState extends State<HomeTab> {
 
                           ),
 
-                          Text('نام خودرو'),
-                          Text('سال ساخت'),
+                          Text('تیبا سفید'),
+                          Text('۱۳۹۸'),
                           // Text('مشخصات'),
 
                         ],
@@ -66,7 +69,7 @@ class _HomeTabState extends State<HomeTab> {
                       padding: EdgeInsets.all(defaultPadding/2),
                       decoration: BoxDecoration(
                         color: color_holoGrey_primaryDark,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(16),
                       ),
 
                       child: Column(
@@ -78,8 +81,8 @@ class _HomeTabState extends State<HomeTab> {
 
                           ),
 
-                          Text('نام خودرو'),
-                          Text('سال ساخت'),
+                          Text('پراید نقره ای'),
+                          Text('۱۳۹۶'),
                           // Text('مشخصات'),
 
                         ],
@@ -126,6 +129,7 @@ class _HomeTabState extends State<HomeTab> {
 
 
 
+
               Container(
                 margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding/2),
                   child: Row(
@@ -149,7 +153,7 @@ class _HomeTabState extends State<HomeTab> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Image.asset('assets/images/weather.png', height: 50,),
+                              Image.asset('assets/images/weather.png', height: 50,fit: BoxFit.cover,),
                               SizedBox(height: defaultPadding/2,),
                               Text('هواشناسی')
 
