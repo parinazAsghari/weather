@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
 import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../../constants.dart';
 
@@ -19,7 +23,16 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _OTPCodeController = TextEditingController();
 
+  var rng = new Random();
+  late int code;
 
+
+  @override
+  void initState() {
+    super.initState();
+    code = rng.nextInt(900000) + 100000;
+    print('otp code is:   $code');
+  }
 
   Future<void> onLoginButtonPressed() async {
 
@@ -62,27 +75,77 @@ class _LoginPageState extends State<LoginPage> {
         );
       });
 
-      await Future.delayed(Duration(milliseconds: 4000));
+      // await Future.delayed(Duration(milliseconds: 4000));
+
+
+      Map data = {
+        'MobileNumber': '${_phoneController.text}',
+        'Message': "رمز ورود شما به اپلیکیشن ${code.toString()} می باشد  //سایپا همراه//"
+      };
+
+
+      var url ='http://185.94.99.204:5252/api/Sms/Send';
+
+
+      //encode Map to JSON
+      var body = json.encode(data);
+
+      var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
+          headers: {"Content-Type": "application/json"},
+          body: body
+      );
 
       Navigator.pop(context);
 
-      showDialog(context: context, builder: (BuildContext context){
+      if(result.statusCode == 200){
+        showDialog(context: context, builder: (BuildContext context){
 
-        return MessageDialogWidget(
-          dismissable: true,
-          title: 'پیام ارسال شد',
-          body:  'رمز پیامک شده را وارد نمائید',
-          positiveTxt: 'باشه',
-        );
-      });
+          return MessageDialogWidget(
+            dismissable: true,
+            title: 'پیام ارسال شد',
+            body:  'رمز پیامک شده را وارد نمائید',
+            positiveTxt: 'باشه',
+          );
+        });
 
-      state =  1;
-      setState(() {
+        state =  1;
+        setState(() {
 
-      });
+        });
+      }
+      else{
+        showDialog(context: context, builder: (BuildContext context){
+
+          print(result.body.toString());
+          return MessageDialogWidget(
+            dismissable: true,
+            title: 'خطا در ارسال پیام',
+            body:  'خطا در ارتباط با سرور. لطفا دوباره تلاش کنید',
+            positiveTxt: 'باشه',
+          );
+        });
+        return;
+      }
+
 
     }
     else if(state==1){
+
+      print(_OTPCodeController.text);
+      print(code);
+      if(_OTPCodeController.text != code.toString()){
+
+        showDialog(context: context, builder: (BuildContext context){
+
+          return MessageDialogWidget(
+            dismissable: true,
+            title: 'رمز عبور اشتباه است',
+            body:  'رمز عبور اشتباه است. دوباره سعی کنید',
+            positiveTxt: 'باشه',
+          );
+        });
+        return;
+      }
       showDialog(context: context, builder: (BuildContext context){
         return CircleLoadingWidget(
           dismissable: false,

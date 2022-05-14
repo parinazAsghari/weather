@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       title: 'Emdad Khodro',
 
 
-      // home: SplashPage(),
-      home: HomePage(),
+      home: SplashPage(),
+      // home: HomePage(),
 
 
 

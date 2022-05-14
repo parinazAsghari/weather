@@ -9,6 +9,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../../../constants.dart';
 import '../../widgets/DialogWidgets.dart';
 import '../../widgets/LoadingWidgets.dart';
+import 'package:location/location.dart';
 
 
 class EmdadTab extends StatefulWidget {
@@ -23,7 +24,7 @@ class _EmdadTabState extends State<EmdadTab> {
 
   //map
   GoogleMapController? _controller;
-  static const LatLng _center = const LatLng(35.748, 51.328);
+  static  LatLng _center = const LatLng(35.748, 51.328);
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   BitmapDescriptor? customIcon;
   LatLng _lastMapPosition = _center;
@@ -36,6 +37,9 @@ class _EmdadTabState extends State<EmdadTab> {
   double _panelHeightOpen = 300;
   double _panelHeightClosed = 80.0;
   PanelController _panelController = PanelController();
+
+  Location currentLocation = Location();
+
 
   int requestState = 0;
 
@@ -124,7 +128,29 @@ class _EmdadTabState extends State<EmdadTab> {
   }
 
 
-  void _onCurrentLocationButtonPressed(){
+  Future<void> _onCurrentLocationButtonPressed() async {
+
+    var location = await currentLocation.getLocation();
+    // currentLocation.onLocationChanged.listen((LocationData loc){
+    //
+    //   _controller?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
+    //     target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
+    //     zoom: 12.0,
+    //   )));
+    //
+    //   _center = LatLng(loc.latitude!, loc.longitude!);
+    //   print(loc.latitude);
+    //   print(loc.longitude);
+    //   setState(() {
+    //
+    //   });
+    // });
+
+    print('this is latlong:    ${location.longitude!} + ${location.latitude!} ');
+    _center = LatLng(location.latitude!, location.longitude!);
+
+
+
     setState(() {
       final marker = Marker(
         markerId: MarkerId('place_name'),
@@ -145,7 +171,7 @@ class _EmdadTabState extends State<EmdadTab> {
               zoom: 17
           )));
 
-      _panelController.open();
+      // _panelController.open();
 
     });
   }
@@ -183,6 +209,24 @@ class _EmdadTabState extends State<EmdadTab> {
 
     });
 
+  }
+
+
+  void getLocation() async{
+    var location = await currentLocation.getLocation();
+    currentLocation.onLocationChanged.listen((LocationData loc){
+
+      _controller?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
+        target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
+        zoom: 12.0,
+      )));
+
+      print(loc.latitude);
+      print(loc.longitude);
+      setState(() {
+
+      });
+    });
   }
 
 
@@ -258,7 +302,7 @@ class _EmdadTabState extends State<EmdadTab> {
 
                   FloatingActionButton(
                     onPressed: () {
-                      _panelController.open();
+                      _panelController.isPanelClosed? _panelController.open() : _panelController.close();
                     },
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     backgroundColor: color_sharp_orange_low,

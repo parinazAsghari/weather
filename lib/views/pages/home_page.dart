@@ -70,7 +70,9 @@ class _HomePageState extends State<HomePage> {
   Widget _showBottomNav()
   {
     return BottomNavigationBar(
+      enableFeedback: false,
       showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
 
       items: [
         BottomNavigationBarItem(

@@ -12,6 +12,12 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+
+
+  int carItemSelectedState = 0;
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,55 +43,82 @@ class _HomeTabState extends State<HomeTab> {
                   children: [
 
 
-                    Container(
-                      width: 100,
-                      margin: EdgeInsets.all(defaultPadding/2),
-                      padding: EdgeInsets.all(defaultPadding/2),
-                      decoration: BoxDecoration(
-                        color: color_holoGrey_primaryDark,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+                    //tiba sefid - car item
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                          carItemSelectedState = 0;
+                        });
+                      },
+                      child: Container(
+                        width: 100,
+                        margin: EdgeInsets.all(defaultPadding/2),
+                        padding: EdgeInsets.all(defaultPadding/2),
+                        decoration: BoxDecoration(
+                          color: color_holoGrey_primaryDark,
+                          borderRadius: BorderRadius.circular(16),
 
-                      child: Column(
-                        children: [
 
-                          Padding(
-                              padding: EdgeInsets.all(defaultPadding/4),
-                              child: Image.asset('assets/images/car_icon.png', height: 60,),
+                            border: carItemSelectedState==0? Border.all(
+                              color: color_holoGrey_primaryLow
+                            ) :null
+                        ),
 
-                          ),
+                        child: Column(
+                          children: [
 
-                          Text('تیبا سفید'),
-                          Text('۱۳۹۸'),
-                          // Text('مشخصات'),
+                            Padding(
+                                padding: EdgeInsets.all(defaultPadding/4),
+                                child: Image.asset('assets/images/car_icon.png', height: 60,),
 
-                        ],
+                            ),
+
+                            Text('تیبا سفید'),
+                            Text('۱۳۹۸'),
+                            // Text('مشخصات'),
+
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      width: 100,
 
-                      margin: EdgeInsets.all(defaultPadding/2),
-                      padding: EdgeInsets.all(defaultPadding/2),
-                      decoration: BoxDecoration(
-                        color: color_holoGrey_primaryDark,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
 
-                      child: Column(
-                        children: [
+                    //pride  noghrei
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                          carItemSelectedState = 1;
+                        });
+                      },
+                      child: Container(
+                        width: 100,
 
-                          Padding(
-                              padding: EdgeInsets.all(defaultPadding/4),
-                              child: Image.asset('assets/images/car2_icon.png', height: 60,),
+                        margin: EdgeInsets.all(defaultPadding/2),
+                        padding: EdgeInsets.all(defaultPadding/2),
+                        decoration: BoxDecoration(
+                          color: color_holoGrey_primaryDark,
+                          borderRadius: BorderRadius.circular(16),
 
-                          ),
+                          border: carItemSelectedState==1? Border.all(
+                            color: color_holoGrey_primaryLow
+                          ) :null
+                        ),
 
-                          Text('پراید نقره ای'),
-                          Text('۱۳۹۶'),
-                          // Text('مشخصات'),
+                        child: Column(
+                          children: [
 
-                        ],
+                            Padding(
+                                padding: EdgeInsets.all(defaultPadding/4),
+                                child: Image.asset('assets/images/car2_icon.png', height: 60,),
+
+                            ),
+
+                            Text('پراید نقره ای'),
+                            Text('۱۳۹۶'),
+                            // Text('مشخصات'),
+
+                          ],
+                        ),
                       ),
                     ),
 
@@ -130,6 +163,7 @@ class _HomeTabState extends State<HomeTab> {
 
 
 
+              //second section - row menu items - roads/weather/news
               Container(
                 margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding/2),
                   child: Row(
@@ -226,6 +260,312 @@ class _HomeTabState extends State<HomeTab> {
 
                     ],
                   )
+              ),
+
+
+
+
+
+
+              Container(
+                height: 220,
+                margin: EdgeInsets.all(defaultPadding),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: color_holoGrey_primaryLight
+                ),
+
+                child: carItemSelectedState==0?
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+
+                      //etelaate khodro
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('اطلاعات خودرو',style: TextStyle(fontSize: 22),),
+                          ),
+                        ],
+                      ),
+
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('تیبا سفید'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('نام/برند'),
+                          ),
+
+                        ],
+                      ),
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('1398'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('سال ساخت'),
+                          ),
+
+                        ],
+                      ),
+
+
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('1401/06/25'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('انقضای اشتراک'),
+                          ),
+
+                        ],
+                      ),
+
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('1401/04/02'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('معاینه فنی'),
+                          ),
+
+                        ],
+                      )
+
+
+                    ],
+                  ),
+                )
+                :
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+
+                      //etelaate khodro
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('اطلاعات خودرو',style: TextStyle(fontSize: 22),),
+                          ),
+                        ],
+                      ),
+
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('پراید نقره ای'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('نام/برند'),
+                          ),
+
+                        ],
+                      ),
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('1396'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('سال ساخت'),
+                          ),
+
+                        ],
+                      ),
+
+
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('منقضی شده'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('انقضای اشتراک'),
+                          ),
+
+                        ],
+                      ),
+
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('1402/12/02'),
+                          ),
+
+
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                              height: 3,
+                              color: color_holoGrey_primaryLow,
+
+                            ),
+                          ),
+
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('معاینه فنی'),
+                          ),
+
+                        ],
+                      )
+
+
+                    ],
+                  ),
+                )
+                ,
               )
 
 
