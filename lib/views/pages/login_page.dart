@@ -6,6 +6,7 @@ import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
 import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
 
@@ -33,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     code = rng.nextInt(900000) + 100000;
     print('otp code is:   $code');
   }
+
 
   Future<void> onLoginButtonPressed() async {
 
@@ -80,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
 
       Map data = {
         'MobileNumber': '${_phoneController.text}',
-        'Message': "رمز ورود شما به اپلیکیشن ${code.toString()} می باشد  //سایپا همراه//"
+        'Message': "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code.toString()} \n امداد خودرو سایپا\n "
       };
 
 
@@ -133,6 +135,10 @@ class _LoginPageState extends State<LoginPage> {
 
       print(_OTPCodeController.text);
       print(code);
+
+
+
+
       if(_OTPCodeController.text != code.toString()){
 
         showDialog(context: context, builder: (BuildContext context){
@@ -153,9 +159,14 @@ class _LoginPageState extends State<LoginPage> {
         );
       });
 
+
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      await sharedPreferences.setBool('loggedIn', true);
+
       await Future.delayed(Duration(milliseconds: 4000));
 
       Navigator.pop(context);
+
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=> HomePage()));
     }

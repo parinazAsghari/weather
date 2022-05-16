@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:emdad_khodro_saipa/constants.dart';
+import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
 
@@ -20,17 +23,37 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
   late Animation<Offset> _animationOffsetLogo;
 
 
+  //shared prefs
+   bool? _loggedIn;
+
+
+
   void navigation() async {
 
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    _loggedIn = sharedPreferences.getBool('loggedIn') ?? false;
+
+    bool loggedIn = sharedPreferences.getBool('loggedIn')??false;
+    print('this is shared insplash===> ${sharedPreferences.getBool('loggedIn')}');
+
     Future.delayed(Duration(milliseconds: 4000),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+      if(loggedIn){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+
+      }
+      else{
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+
+      }
     });
   }
+
 
 
   @override
   void initState() {
     super.initState();
+
 
     _animationControllerText = AnimationController(vsync: this, duration: Duration(milliseconds: 700));
     _animationOffsetText = Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero).animate(_animationControllerText);

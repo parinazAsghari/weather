@@ -8,8 +8,10 @@ import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/questionnaire_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/subscribe/subscribe_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
+import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,6 +35,17 @@ class _HomePageState extends State<HomePage> {
   ];
   int _selectedIndex = 0;
 
+
+  getSharedPref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print('this is shared in home ==== > ${sharedPreferences.getBool('loggedIn')}');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSharedPref();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -270,9 +283,12 @@ class _HomePageState extends State<HomePage> {
 
 
 
-                          onTap: (){
+                          onTap: () async {
+                            SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+                            await sharedPrefs.setBool('loggedIn', false);
+
                             Navigator.pop(context);
-                            // Navigator.pushAndRemoveUntil(context, FadeRoute(page: LoginPage('customer')), (Route<dynamic >route) => false);
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
                           },
                           trailing: Text('خروج  از حساب',textAlign: TextAlign.end,style: TextStyle(color: color_sharp_orange_low)),
                         ),
