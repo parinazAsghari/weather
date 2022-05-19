@@ -92,7 +92,8 @@ class _LoginPageState extends State<LoginPage> {
       //encode Map to JSON
       var body = json.encode(data);
 
-      var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
+      // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
+      var result = await http.post(Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
           headers: {"Content-Type": "application/json"},
           body: body
       );
@@ -183,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: color_holoGrey_primaryDark,
+        color: primary_grey_color,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -198,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
+            // Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
             SizedBox(height: defaultPadding*2,),
             SizedBox(height: defaultPadding,),
 
@@ -219,6 +220,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextField(
+
                   keyboardType: TextInputType.phone,
                   maxLength: 11,
 
@@ -227,15 +229,17 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontWeight: FontWeight.normal),
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
+                    fillColor: secondary_light_grey_color,
 
                       isDense: true,filled: true,
                     hintText: '09xx xxx xxxx',
                     // fillColor: Colors.white,
                       contentPadding: EdgeInsets.only(left: 10,top: 10,right: 10,bottom: 10),
                       labelText: 'شماره همراه',labelStyle: TextStyle(),
+                      floatingLabelStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_sharp_orange_light)),
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_holoGrey_primary,width: 0.8)),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_holoGrey_primary,width: 0.8)),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: primary_grey_color,width: 0.8)),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: primary_grey_color,width: 0.8)),
                       disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
                   ),
                 ),
@@ -284,9 +288,9 @@ class _LoginPageState extends State<LoginPage> {
 
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: color_holoGrey_primaryLight
+                  primary: secondary_dark_purple_color
                 ),
-                child: Text('ورود', style: TextStyle(color: color_holoGrey_primaryLow),),
+                child: Text('ورود', style: TextStyle(color: Colors.grey),),
                 onPressed: (){
                   onLoginButtonPressed();
                 },

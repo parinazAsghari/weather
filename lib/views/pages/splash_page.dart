@@ -34,7 +34,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
     _loggedIn = sharedPreferences.getBool('loggedIn') ?? false;
 
     bool loggedIn = sharedPreferences.getBool('loggedIn')??false;
-    print('this is shared insplash===> ${sharedPreferences.getBool('loggedIn')}');
 
     Future.delayed(Duration(milliseconds: 4000),(){
       if(loggedIn){
@@ -43,6 +42,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
       }
       else{
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
 
       }
     });
@@ -58,7 +58,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
     _animationControllerText = AnimationController(vsync: this, duration: Duration(milliseconds: 700));
     _animationOffsetText = Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero).animate(_animationControllerText);
 
-    _animationControllerLogo = AnimationController(vsync: this, duration: Duration(milliseconds: 900));
+    _animationControllerLogo = AnimationController(vsync: this, duration: Duration(milliseconds: 700));
     _animationOffsetLogo = Tween<Offset>(begin: Offset(-3.0, 0.0), end: Offset.zero).animate(_animationControllerLogo);
 
     Future.delayed(Duration.zero, () {
@@ -96,7 +96,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
       filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
       child: Container(
         decoration: BoxDecoration(
-            color: color_holoGrey_primaryDark
+            color: secondary_light_grey_color
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,
@@ -106,23 +106,23 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
             SlideTransition(
               position: _animationOffsetLogo,
               child: Container(
-                height: 150.0,
-                width: 200.0,
-                child: Image.asset('assets/images/emdad_khodro_logo_single.png'),
+                // height: 150.0,
+                // width: 200.0,
+                child: Image.asset('assets/images/emdad_khodro_logo.png', height: 120,fit: BoxFit.cover,),
               ),
             ),
             SizedBox(height: defaultPadding,),
-            SlideTransition(
-              position: _animationOffsetText,
-              child: Container(
-                child: Text('امداد خودرو سایپا',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
-              ),
-            ),
+            // SlideTransition(
+            //   position: _animationOffsetText,
+            //   child: Container(
+            //     child: Text('امداد خودرو سایپا',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26,blurRadius: 10,offset: Offset(1,1))]),),
+            //   ),
+            // ),
 
             SizedBox(height: defaultPadding,),
 
             CircularProgressIndicator(
-              color: color_sharp_orange,
+              color: primary_orange_color,
             ),
 
           ],

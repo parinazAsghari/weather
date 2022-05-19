@@ -53,21 +53,26 @@ class _HomePageState extends State<HomePage> {
       onWillPop: ()async=> false,
       child: Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/emdad_khodro_logo_single.png', height: 20, width: 20,fit: BoxFit.cover,),
+          // title: Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Image.asset('assets/images/emdad_khodro_logo_single.png', height: 20, width: 20,fit: BoxFit.cover,),
+          //
+          //     SizedBox(width: defaultPadding/2,),
+          //
+          //     Text('امداد خودرو سایپا'),
+          //   ],
+          // ),
+          // centerTitle: true,
+          backgroundColor: secondary_dark_purple_color,
 
-              SizedBox(width: defaultPadding/2,),
-
-              Text('امداد خودرو سایپا'),
-            ],
+          iconTheme: IconThemeData(
+            color: Colors.grey
           ),
-          centerTitle: true,
-          backgroundColor: color_holoGrey_primary,
 
         ),
-        endDrawer: DrawerWidget(),
+
+        drawer: DrawerWidget(),
 
         body:Center(
             child: IndexedStack(
@@ -83,14 +88,26 @@ class _HomePageState extends State<HomePage> {
   Widget _showBottomNav()
   {
     return BottomNavigationBar(
-      enableFeedback: false,
+      // enableFeedback: false,
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
+      backgroundColor: secondary_dark_purple_color,
+      selectedIconTheme: IconThemeData(
+        color: secondary_light_purple_color,
+      ),
+      selectedLabelStyle: TextStyle(color: secondary_light_purple_color),
+
+
+      unselectedIconTheme: IconThemeData(
+        color: secondary_light_grey_color,
+      ),
+      unselectedLabelStyle: TextStyle(color: secondary_light_grey_color),
 
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home,),
           label: 'خانه',
+
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.miscellaneous_services),
@@ -107,7 +124,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.green,
+      selectedItemColor: secondary_light_purple_color,
       unselectedItemColor: Colors.grey,
       onTap: _onTap,
 

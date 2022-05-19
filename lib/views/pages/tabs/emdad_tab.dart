@@ -359,7 +359,7 @@ class _EmdadTabState extends State<EmdadTab> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
-                  color: color_holoGrey_primaryDark
+                  color: primary_grey_color
                 ),
               ),
             ),

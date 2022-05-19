@@ -48,7 +48,7 @@ class MessageDialogWidget extends StatelessWidget{
                           positiveFunc!();
                         }
                       },
-                      color: color_holoGrey_primaryDark,
+                      color: primary_grey_color,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                           side: BorderSide(width: 2,color: color_holoGrey_primaryLow)

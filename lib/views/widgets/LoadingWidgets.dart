@@ -36,7 +36,7 @@ CircleLoadingWidget({this.msgTxt,this.dismissable = false});
               children: <Widget>[
                 CircularProgressIndicator(backgroundColor: color_holoGrey_primaryLow, valueColor: AlwaysStoppedAnimation(color_sharp_orange),),
                 SizedBox(height: 5.0,),
-                Text(msgTxt,style: TextStyle(color: color_holoGrey_primary, fontSize: 14.0,fontWeight: FontWeight.normal),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
+                Text(msgTxt,style: TextStyle(color: primary_grey_color, fontSize: 14.0,fontWeight: FontWeight.normal),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               ],
 
             ),
