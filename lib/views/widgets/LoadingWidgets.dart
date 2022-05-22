@@ -22,7 +22,7 @@ CircleLoadingWidget({this.msgTxt,this.dismissable = false});
             height: 100,width: 150,
             padding: EdgeInsets.all(5.0),
             decoration: ShapeDecoration(
-              color: Colors.white,
+              color: secondary_light_grey_color,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
             ),
@@ -34,7 +34,7 @@ CircleLoadingWidget({this.msgTxt,this.dismissable = false});
               crossAxisAlignment: CrossAxisAlignment.center,
 
               children: <Widget>[
-                CircularProgressIndicator(backgroundColor: color_holoGrey_primaryLow, valueColor: AlwaysStoppedAnimation(color_sharp_orange),),
+                CircularProgressIndicator(backgroundColor: secondary_dark_purple_color, valueColor: AlwaysStoppedAnimation(primary_orange_color),),
                 SizedBox(height: 5.0,),
                 Text(msgTxt,style: TextStyle(color: primary_grey_color, fontSize: 14.0,fontWeight: FontWeight.normal),textDirection: TextDirection.rtl,textAlign: TextAlign.center,),
               ],

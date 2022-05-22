@@ -27,6 +27,11 @@ class MessageDialogWidget extends StatelessWidget{
           child: Container(
               height: 180,
 
+              decoration: BoxDecoration(
+                color: secondary_light_grey_color,
+
+                borderRadius: BorderRadius.circular(18)
+              ),
 
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -51,9 +56,9 @@ class MessageDialogWidget extends StatelessWidget{
                       color: primary_grey_color,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(width: 2,color: color_holoGrey_primaryLow)
+                          side: BorderSide(width: 2,color: secondary_light_grey_color)
                       ),
-                      child: Text('$positiveTxt',style: TextStyle(color: color_holoGrey_primaryLow),),
+                      child: Text('$positiveTxt',style: TextStyle(color: secondary_light_grey_color),),
                     ),
                   )
                   ,                    ],

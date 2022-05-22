@@ -77,9 +77,11 @@ class _LoginPageState extends State<LoginPage> {
         );
       });
 
-      // await Future.delayed(Duration(milliseconds: 4000));
+      await Future.delayed(Duration(milliseconds: 4000));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=> HomePage()));
 
 
+      /*
       Map data = {
         'MobileNumber': '${_phoneController.text}',
         'Message': "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code.toString()} \n امداد خودرو سایپا\n "
@@ -130,6 +132,8 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
 
+
+       */
 
     }
     else if(state==1){

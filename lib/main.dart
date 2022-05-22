@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
 
 
 
-      // home: SplashPage(),
-      home: HomePage(),
+      home: SplashPage(),
+      // home: HomePage(),
 
       localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,

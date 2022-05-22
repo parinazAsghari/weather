@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 
 
-String versionName = 'نسخه دمو   0.0.1';
+String versionName = 'نسخه دمو   ۰.۰.۲';
 
 
 double defaultPadding = 16.0;

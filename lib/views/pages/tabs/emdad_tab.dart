@@ -246,6 +246,7 @@ class _EmdadTabState extends State<EmdadTab> {
             defaultPanelState: PanelState.CLOSED,
 
             // parallaxOffset: .5,
+            color: primary_grey_color,
             body: _body(),
             panelBuilder: (sc) => _panel(sc),
             borderRadius: BorderRadius.only(
@@ -292,10 +293,10 @@ class _EmdadTabState extends State<EmdadTab> {
                       _onCurrentLocationButtonPressed();
                     },
                     materialTapTargetSize: MaterialTapTargetSize.padded,
-                    backgroundColor: color_sharp_orange_low,
+                    backgroundColor: secondary_dark_purple_color,
                     child:  Icon(Icons.location_on_rounded,
-                        color: color_holoGrey_primaryLight,
-                        size: 36.0),
+                        color: secondary_light_purple_color,
+                        size: 20.0),
                   ),
 
                   SizedBox(height: defaultPadding,),
@@ -305,10 +306,10 @@ class _EmdadTabState extends State<EmdadTab> {
                       _panelController.isPanelClosed? _panelController.open() : _panelController.close();
                     },
                     materialTapTargetSize: MaterialTapTargetSize.padded,
-                    backgroundColor: color_sharp_orange_low,
+                    backgroundColor: secondary_dark_purple_color,
                     child:  Icon(Icons.add_box_rounded,
-                        color: color_holoGrey_primaryLight,
-                        size: 36.0),
+                        color: secondary_light_purple_color,
+                        size: 20.0),
                   ),
                 ],
               ),
@@ -342,7 +343,7 @@ class _EmdadTabState extends State<EmdadTab> {
                   width: 30,
                   height: 5,
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: primary_orange_color,
                       borderRadius: BorderRadius.all(Radius.circular(12.0))),
                 ),
               ],
@@ -359,7 +360,8 @@ class _EmdadTabState extends State<EmdadTab> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
-                  color: primary_grey_color
+                  color: secondary_light_grey_color,
+                  fontWeight: FontWeight.bold
                 ),
               ),
             ),
@@ -380,9 +382,15 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: color_holoGrey_primaryLight
+                      color: secondary_light_grey_color
                     ),
-                    child: Center(child: Text(' حمل خودرو')),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('حمل خودرو', style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                        Icon(Icons.warning_rounded)
+                      ],
+                    ),
                   ),
                 ),
 
@@ -396,9 +404,16 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: color_holoGrey_primaryLight
+                      color: secondary_light_grey_color
                     ),
-                    child: Center(child: Text('خدمات در محل',textAlign: TextAlign.center,)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                      children: [
+                        Text('خدمات در محل',textAlign: TextAlign.center, style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                        Icon(Icons.home_repair_service_rounded)
+                      ],
+                    ),
                   ),
                 ),
 
@@ -423,9 +438,15 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: color_holoGrey_primaryLight
+                      color: secondary_light_grey_color
                     ),
-                    child: Center(child: Text('پنچری')),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('پنچری', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                        Icon(Icons.airport_shuttle_rounded)
+                      ],
+                    ),
                   ),
                 ),
 
@@ -440,9 +461,15 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: color_holoGrey_primaryLight
+                      color: secondary_light_grey_color
                     ),
-                    child: Center(child: Text('بنزین')),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('بنزین', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                        Icon(Icons.local_gas_station_rounded, )
+                      ],
+                    ),
                   ),
                 ),
 
@@ -489,21 +516,24 @@ class _EmdadTabState extends State<EmdadTab> {
 
 
   Widget _body(){
-    return GoogleMap(
-      onMapCreated: _onMapCreated,
-      initialCameraPosition: CameraPosition(
-        target: _center,
-        zoom: 17.0,
+    return Container(
+      color: primary_grey_color,
+      child: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 17.0,
 
+        ),
+        onCameraMove: _onCameraMove,
+        markers: markers.values.toSet(),
+        myLocationEnabled: true,
+        myLocationButtonEnabled: true,
+
+
+        zoomControlsEnabled: true,
+        zoomGesturesEnabled: true,
       ),
-      onCameraMove: _onCameraMove,
-      markers: markers.values.toSet(),
-      myLocationEnabled: true,
-      myLocationButtonEnabled: true,
-
-
-      zoomControlsEnabled: true,
-      zoomGesturesEnabled: true,
     );
   }
 

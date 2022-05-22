@@ -8,8 +8,10 @@ class DevelopingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_grey_color,
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        backgroundColor: secondary_dark_purple_color,
       ),
       body: Container(
         height: double.maxFinite,
@@ -20,7 +22,7 @@ class DevelopingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
 
           children: [
-            Image.asset('assets/images/mobile_app_dev.png', height: 120, width: 120,fit: BoxFit.contain,),
+            Image.asset('assets/images/mobile_app_dev.png', height: 150, width: 150,fit: BoxFit.cover,),
 
             // SizedBox(
             //   height: defaultPadding,

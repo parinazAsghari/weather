@@ -14,7 +14,9 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primary_grey_color,
       body: Container(
+
         margin: EdgeInsets.all(defaultPadding),
 
         child: GridView.count(
@@ -34,7 +36,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: color_holoGrey_primaryLight,
+                    color: secondary_light_grey_color,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
@@ -73,7 +75,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: color_holoGrey_primaryLight,
+                      color: secondary_light_grey_color,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
@@ -112,7 +114,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: color_holoGrey_primaryLight,
+                      color: secondary_light_grey_color,
                     borderRadius: BorderRadius.circular(30)
 
                   ),

@@ -34,26 +34,30 @@ class _SubscribeTabState extends State<SubscribeTab> with SingleTickerProviderSt
       length: 3,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
+          preferredSize: Size.fromHeight(kToolbarHeight+20),
           child: Container(
-            height: 50.0,
+            color: secondary_dark_purple_color,
+            height: 70.0,
             child: new TabBar(
 
               controller: tabController,
-              indicatorColor: color_sharp_orange,
-              unselectedLabelColor: Colors.grey,
-              labelColor: color_sharp_orange,
+              indicatorColor: primary_orange_color,
+              unselectedLabelColor: secondary_light_grey_color,
+              labelColor: primary_orange_color,
               tabs: [
                 Tab(
                   text: "خرید امداد",
+                  icon: Icon(Icons.payment),
                 ),
 
                 Tab(
                   text: "تمدید",
+                  icon: Icon(Icons.update),
                 ),
 
                 Tab(
                   text: "گارانتی بدنه",
+                  icon: Icon(Icons.verified_user),
                 ),
               ],
             ),

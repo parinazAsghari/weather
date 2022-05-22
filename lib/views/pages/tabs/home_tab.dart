@@ -44,6 +44,163 @@ class _HomeTabState extends State<HomeTab> {
 
 
 
+  void _onAddNewCarDetailsTap(){
+
+    showDialog(context: context, builder: (BuildContext context){
+      return WillPopScope(
+        onWillPop: (){
+          return new Future(()=>false);
+        },
+        child: AlertDialog(
+
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+
+          backgroundColor: primary_grey_color,
+          title: Column(
+            children: [
+              TextButton(
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+
+                    Icon(Icons.close, size: 16, color: secondary_dark_purple_color,),
+                    SizedBox(width: defaultPadding/4,),
+                    Text('لغو', style: TextStyle(fontSize: 10, color: secondary_dark_purple_color),),
+
+                  ],
+                ),
+              ),
+
+              Align(
+                  alignment: Alignment.center,
+                  child: Text("اطلاعات مورد نیاز را وارد نمائید",textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)),
+
+            ],
+          ),
+
+
+          content: Container(
+              height: 300,
+
+              margin: EdgeInsets.all(defaultPadding),
+              padding: EdgeInsets.all(defaultPadding),
+
+
+              child: Stack(
+
+                children: [
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+
+                      //name + textfield
+                      Row(
+                        children: [
+                          Text('نام/برند خودرو:'),
+
+                          Expanded(
+                            child: TextField(
+                              controller: TextEditingController(),
+
+
+                            ),
+                          )
+                        ],
+                      ),
+
+                      //سال ساخت
+                      Row(
+                        children: [
+                          Text('سال ساخت:'),
+
+                          Expanded(
+                            child: TextField(
+                              controller: TextEditingController(),
+
+
+                            ),
+                          )
+                        ],
+                      ),
+
+                      //رنگ
+                      Row(
+                        children: [
+                          Text('رنگ:'),
+
+                          Expanded(
+                            child: TextField(
+                              controller: TextEditingController(),
+
+
+                            ),
+                          )
+                        ],
+                      ),
+
+                      //شماره پلاک
+                      Row(
+                        children: [
+                          Text('پلاک خودرو:'),
+
+                          Expanded(
+                            child: TextField(
+                              controller: TextEditingController(),
+
+
+                            ),
+                          )
+                        ],
+                      ),
+
+
+
+
+                      Expanded(child: Container()),
+
+                      Container(
+                        // margin: EdgeInsets.all(defaultPadding),
+                        // padding: EdgeInsets.all(defaultPadding),
+                        height: 30,
+                        width: double.maxFinite,
+
+                        child: RaisedButton(
+                          onPressed: (){
+                            Navigator.of(context, rootNavigator: true).pop(null);
+                            // if(positiveFunc!=null){
+                            //   positiveFunc!();
+                            // }
+                          },
+                          color: secondary_dark_purple_color,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              // side: BorderSide(width: 2,color: color_holoGrey_primaryLow)
+                          ),
+                          child: Text('ثبت',style: TextStyle(color: secondary_light_grey_color),),
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                ],
+              )
+          ),
+
+
+
+
+        ),
+      );
+    });
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +211,7 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    _panelHeightOpen = MediaQuery.of(context).size.height * 0.65;
+    _panelHeightOpen = MediaQuery.of(context).size.height * 0.67;
     _panelHeightClosed = MediaQuery.of(context).size.height * 0.45;
 
     return Scaffold(
@@ -113,14 +270,14 @@ class _HomeTabState extends State<HomeTab> {
         child: Column(
           children: [
 
-            SizedBox(height: defaultPadding,),
+            // SizedBox(height: defaultPadding,),
 
 
             //logo
-            Image.asset('assets/images/emdad_khodro_logo_single.png', height: 40, width: 40,fit: BoxFit.cover,),
+            // Image.asset('assets/images/emdad_khodro_logo_single.png', height: 40, width: 40,fit: BoxFit.cover,),
 
 
-            // SizedBox(height: defaultPadding,),
+            SizedBox(height: defaultPadding/2,),
 
 
             //top box - car selection
@@ -174,450 +331,468 @@ class _HomeTabState extends State<HomeTab> {
 
               front: Container(
                 height: MediaQuery.of(context).size.height * 0.29,
-                margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding/2),
+                margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: secondary_light_grey_color,
-                    image: DecorationImage(
-                      alignment: Alignment.bottomLeft,
-
-                      opacity: 0.5,
+                    // image: DecorationImage(
+                    //   alignment: Alignment.bottomLeft,
+                    //   opacity: 0.5,
+                    //   scale: 1.5,
                       // fit: BoxFit.cover,
-                      image: carItemSelectedState==0?
-                      AssetImage('assets/images/car_icon.png',)
-                          :
-                      AssetImage('assets/images/car2_icon.png',)
+                      // image: carItemSelectedState==0?
+                      // AssetImage('assets/images/car_icon.png',)
+                      //     :
+                      // AssetImage('assets/images/car2_icon.png',)
 
-                    )
+                    // )
                 ),
 
-                child: Column(
+                child: Stack(
 
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Opacity(
+                        opacity: 0.5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(carItemSelectedState==0? 'assets/images/car_icon.png':'assets/images/car2_icon.png',
+                          scale: 1.3,
 
-                        //sample cars items
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+
+                      children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
 
-                            //tiba sefid - car item
-                            InkWell(
-                              onTap: (){
-                                setState(() {
-                                  carItemSelectedState = 0;
-                                });
-                              },
-                              child: Container(
-                                width: 80,
-                                margin: EdgeInsets.only(top: defaultPadding/2, right: defaultPadding),
-                                padding: EdgeInsets.all(defaultPadding/4),
-                                decoration: BoxDecoration(
-                                    color: primary_grey_color,
-                                    borderRadius: BorderRadius.circular(16),
+                            //sample cars items
+                            Row(
+                              children: [
+
+                                //tiba sefid - car item
+                                InkWell(
+                                  onTap: (){
+                                    setState(() {
+                                      carItemSelectedState = 0;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 80,
+                                    margin: EdgeInsets.only(top: defaultPadding, right: defaultPadding),
+                                    padding: EdgeInsets.all(defaultPadding/4),
+                                    decoration: BoxDecoration(
+                                        color: primary_grey_color,
+                                        borderRadius: BorderRadius.circular(16),
 
 
-                                    border: carItemSelectedState==0? Border.all(
-                                        color: color_holoGrey_primaryLow
-                                    ) :null
-                                ),
-
-                                child: Column(
-                                  children: [
-
-                                    Padding(
-                                      padding: EdgeInsets.all(defaultPadding/4),
-                                      child: Image.asset('assets/images/car_icon.png', height: 50,),
-
+                                        border: carItemSelectedState==0? Border.all(
+                                            color: color_holoGrey_primaryLow
+                                        ) :null
                                     ),
 
-                                    Text('تیبا سفید',style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-                                    Text('۱۳۹۸',style: TextStyle(fontSize: 10),),
-                                    // Text('مشخصات'),
+                                    child: Column(
+                                      children: [
 
+                                        Padding(
+                                          padding: EdgeInsets.all(defaultPadding/4),
+                                          child: Image.asset('assets/images/car_icon.png', height: 50,),
+
+                                        ),
+
+                                        Text('تیبا سفید',style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                                        Text('۱۳۹۸',style: TextStyle(fontSize: 10),),
+                                        // Text('مشخصات'),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                                //pride  noghrei
+                                InkWell(
+                                  onTap: (){
+                                    setState(() {
+                                      carItemSelectedState = 1;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 80,
+
+                                    margin: EdgeInsets.only(top: defaultPadding, right: defaultPadding),
+                                    padding: EdgeInsets.all(defaultPadding/4),
+                                    decoration: BoxDecoration(
+                                        color: primary_grey_color,
+                                        borderRadius: BorderRadius.circular(16),
+
+                                        border: carItemSelectedState==1? Border.all(
+                                            color: color_holoGrey_primaryLow
+                                        ) :null
+                                    ),
+
+                                    child: Column(
+                                      children: [
+
+                                        Padding(
+                                          padding: EdgeInsets.all(defaultPadding/4),
+                                          child: Image.asset('assets/images/car2_icon.png', height: 50,),
+
+                                        ),
+
+                                        Text('پراید نقره ای', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+                                        Text('۱۳۹۶', style: TextStyle(fontSize: 10),),
+                                        // Text('مشخصات'),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+
+
+
+
+
+
+                              ],
+                            ),
+
+
+                            //add + button
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextButton(
+                                onPressed: (){
+
+                                  _flipCardController.toggleCard();
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.add, size: 20,color: primary_grey_color,),
+                                    SizedBox(width: defaultPadding/4,),
+                                    Text('اضافه کردن', style: TextStyle(fontSize: 12,color: primary_grey_color),)
                                   ],
                                 ),
                               ),
                             ),
-
-                            //pride  noghrei
-                            InkWell(
-                              onTap: (){
-                                setState(() {
-                                  carItemSelectedState = 1;
-                                });
-                              },
-                              child: Container(
-                                width: 80,
-
-                                margin: EdgeInsets.only(top: defaultPadding/2, right: defaultPadding),
-                                padding: EdgeInsets.all(defaultPadding/4),
-                                decoration: BoxDecoration(
-                                    color: primary_grey_color,
-                                    borderRadius: BorderRadius.circular(16),
-
-                                    border: carItemSelectedState==1? Border.all(
-                                        color: color_holoGrey_primaryLow
-                                    ) :null
-                                ),
-
-                                child: Column(
-                                  children: [
-
-                                    Padding(
-                                      padding: EdgeInsets.all(defaultPadding/4),
-                                      child: Image.asset('assets/images/car2_icon.png', height: 50,),
-
-                                    ),
-
-                                    Text('پراید نقره ای', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-                                    Text('۱۳۹۶', style: TextStyle(fontSize: 10),),
-                                    // Text('مشخصات'),
-
-                                  ],
-                                ),
-                              ),
-                            ),
-
-
-
-
-
-
 
                           ],
                         ),
 
 
-                        //add + button
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextButton(
-                            onPressed: (){
+                        Expanded(child: Container()),
 
-                              _flipCardController.toggleCard();
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add, size: 20,color: primary_grey_color,),
-                                SizedBox(width: defaultPadding/4,),
-                                Text('اضافه کردن', style: TextStyle(fontSize: 12,color: primary_grey_color),)
-                              ],
-                            ),
+                        Container(
+                            padding:  EdgeInsets.all(defaultPadding),
+                            alignment: Alignment.centerRight,
+                            // color: Colors.yellow,
+                            child: Image.asset('assets/images/car_plate.png', width: MediaQuery.of(context).size.width*0.45, fit: BoxFit.cover,))
+
+
+
+
+                        /*
+                        carItemSelectedState==0?
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+
+                              //etelaate khodro
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('اطلاعات خودرو',style: TextStyle(fontSize: 22),),
+                                  ),
+                                ],
+                              ),
+
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('تیبا سفید'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('نام/برند'),
+                                  ),
+
+                                ],
+                              ),
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('1398'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('سال ساخت'),
+                                  ),
+
+                                ],
+                              ),
+
+
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('1401/06/25'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('انقضای اشتراک'),
+                                  ),
+
+                                ],
+                              ),
+
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('1401/04/02'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('معاینه فنی'),
+                                  ),
+
+                                ],
+                              )
+
+
+                            ],
                           ),
-                        ),
+                        )
+                            :
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
 
+                              //etelaate khodro
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('اطلاعات خودرو',style: TextStyle(fontSize: 22),),
+                                  ),
+                                ],
+                              ),
+
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('پراید نقره ای'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('نام/برند'),
+                                  ),
+
+                                ],
+                              ),
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('1396'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('سال ساخت'),
+                                  ),
+
+                                ],
+                              ),
+
+
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('منقضی شده'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('انقضای اشتراک'),
+                                  ),
+
+                                ],
+                              ),
+
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('1402/12/02'),
+                                  ),
+
+
+                                  Expanded(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+                                      height: 3,
+                                      color: color_holoGrey_primaryLow,
+
+                                    ),
+                                  ),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text('معاینه فنی'),
+                                  ),
+
+                                ],
+                              )
+
+
+                            ],
+                          ),
+                        )
+                        ,
+
+                         */
                       ],
                     ),
-
-
-                    Expanded(child: Container()),
-
-                    Container(
-                        padding:  EdgeInsets.all(defaultPadding),
-                        alignment: Alignment.centerRight,
-                        // color: Colors.yellow,
-                        child: Image.asset('assets/images/car_plate.png', width: MediaQuery.of(context).size.width*0.45, fit: BoxFit.cover,))
-
-
-
-
-                    /*
-                    carItemSelectedState==0?
-                    Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-
-                          //etelaate khodro
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('اطلاعات خودرو',style: TextStyle(fontSize: 22),),
-                              ),
-                            ],
-                          ),
-
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('تیبا سفید'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('نام/برند'),
-                              ),
-
-                            ],
-                          ),
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('1398'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('سال ساخت'),
-                              ),
-
-                            ],
-                          ),
-
-
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('1401/06/25'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('انقضای اشتراک'),
-                              ),
-
-                            ],
-                          ),
-
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('1401/04/02'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('معاینه فنی'),
-                              ),
-
-                            ],
-                          )
-
-
-                        ],
-                      ),
-                    )
-                        :
-                    Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-
-                          //etelaate khodro
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('اطلاعات خودرو',style: TextStyle(fontSize: 22),),
-                              ),
-                            ],
-                          ),
-
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('پراید نقره ای'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('نام/برند'),
-                              ),
-
-                            ],
-                          ),
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('1396'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('سال ساخت'),
-                              ),
-
-                            ],
-                          ),
-
-
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('منقضی شده'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('انقضای اشتراک'),
-                              ),
-
-                            ],
-                          ),
-
-
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('1402/12/02'),
-                              ),
-
-
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  height: 3,
-                                  color: color_holoGrey_primaryLow,
-
-                                ),
-                              ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('معاینه فنی'),
-                              ),
-
-                            ],
-                          )
-
-
-                        ],
-                      ),
-                    )
-                    ,
-
-                     */
                   ],
                 ),
               ),
@@ -642,41 +817,95 @@ class _HomeTabState extends State<HomeTab> {
 
                     ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: primary_grey_color
+
+
+
+                    //buttons scan qrcode and add car details
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: primary_grey_color
+                              ),
+                              onPressed: () async {
+                                await Permission.camera.request();
+                                String? barcode = await scanner.scan();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.qr_code_rounded, size: 20, color: secondary_light_grey_color,),
+
+
+                                  SizedBox(width: defaultPadding/4,),
+
+                                  Text('اسکن QR Code خودرو', style: TextStyle(fontSize: 12, color: secondary_light_grey_color),),
+
+                                ],
+                              )
                           ),
-                          onPressed: () async {
-                            await Permission.camera.request();
-                            String? barcode = await scanner.scan();
-                          },
-                          child: Text('اسکن بارکد خودرو')
+                        ),
+
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
+                          child: Text('یا',style: TextStyle(fontSize: 12, )),
+                        ),
+
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: primary_grey_color
+                              ),
+                              onPressed: (){
+                                _onAddNewCarDetailsTap();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+
+                                  Icon(Icons.add_box_rounded, size: 20, color: secondary_light_grey_color,),
+
+                                  SizedBox(width: defaultPadding/4,),
+
+                                  Text('ثبت اطلاعات', style: TextStyle(fontSize: 12, color: secondary_light_grey_color)),
+
+                                ],
+                              )
+                          ),
+                        ),
+
+
+
+                      ],
+                    ),
+
+                    Container(
+                      padding: EdgeInsets.all(defaultPadding),
+                      alignment: Alignment.topLeft,
+                      child: TextButton(
+                        onPressed: (){
+                          _flipCardController.toggleCard();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.close,size: 20, color: primary_grey_color,),
+
+                            SizedBox(width: defaultPadding/4,),
+
+                            Text('لغو', style: TextStyle(fontSize: 12,color: primary_grey_color))
+                          ],
+                        ),
                       ),
                     ),
-
-                    Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
-                      child: Text('یا'),
-                    ),
-
-                    Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: primary_grey_color
-                          ),
-                          onPressed: (){},
-                          child: Text('ثبت اطلاعات')
-                      ),
-                    ),
-
-
 
                   ],
                 ),
@@ -1011,6 +1240,7 @@ class _HomeTabState extends State<HomeTab> {
           // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           child:
 
+
           index == 0? Container(
               alignment: Alignment.topCenter,
               margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding/2),
@@ -1020,9 +1250,6 @@ class _HomeTabState extends State<HomeTab> {
                 maxCrossAxisExtent:90,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-
-
-
 
                 children: [
 
@@ -1053,46 +1280,46 @@ class _HomeTabState extends State<HomeTab> {
 
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
+                    imagePath: 'assets/images/renew.png',
+                    title: 'مسیریابی',
 
                   ),
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
+                    imagePath: 'assets/images/renew.png',
+                    title: 'تاکسی',
 
                   ),
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
+                    imagePath: 'assets/images/renew.png',
+                    title: 'بیمه',
 
                   ),
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
+                    imagePath: 'assets/images/renew.png',
+                    title: 'خلافی',
 
                   ),
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
+                    imagePath: 'assets/images/renew.png',
+                    title: 'پارکینگ',
 
                   ),
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
+                    imagePath: 'assets/images/renew.png',
+                    title: 'جریمه',
 
                   ),
-                  _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
-
-                  ),
+                  // _serviceWidget(
+                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/renew.png',
+                  //   title: 'فروشگاه',
+                  //
+                  // ),
 
 
                 ],
@@ -1114,6 +1341,29 @@ class _HomeTabState extends State<HomeTab> {
 
                     children: [
 
+
+                      //news
+                      _serviceWidget(
+                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                        imagePath: 'assets/images/news.png',
+                        title: 'اخبار',
+
+                      ),
+
+
+                      _serviceWidget(
+                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                        imagePath: 'assets/images/renew.png',
+                        title: 'شارژ',
+
+                      ),
+                      _serviceWidget(
+                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                        imagePath: 'assets/images/renew.png',
+                        title: 'سیمکارت',
+
+                      ),
+
                       //weather
                       _serviceWidget(
                           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -1130,57 +1380,6 @@ class _HomeTabState extends State<HomeTab> {
 
                       ),
 
-                      //news
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-
-
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
 
 
                     ],
@@ -1227,48 +1426,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
 
 
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
 
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
 
 
                     ],
@@ -1290,71 +1448,35 @@ class _HomeTabState extends State<HomeTab> {
 
                     children: [
 
-                      //weather
-                      _serviceWidget(
-                          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                          imagePath: 'assets/images/weather.png',
-                          title: 'هواشناسی'
-                      ),
-
-
-                      //roads
-                      _serviceWidget(
-                        onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/road.png',
-                        title: 'وضعیت راه',
-
-                      ),
-
-                      //news
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-
 
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                         imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
+                        title: 'بانک',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                         imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
+                        title: 'اینترنت',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                         imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
+                        title: 'قرعه کشی',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                         imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
+                        title: 'مسابقه',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                         imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
-
-                      ),
-                      _serviceWidget(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
-                        title: 'اطلاعیه',
+                        title: 'رمزارز',
 
                       ),
 
@@ -1370,6 +1492,9 @@ class _HomeTabState extends State<HomeTab> {
       margin: EdgeInsets.symmetric(horizontal: defaultPadding),
       child: Column(
         children: [
+
+          SizedBox(height: defaultPadding,),
+          Text( 'خدمات ویژه امداد خودرو',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
 
           SizedBox(
             height: MediaQuery.of(context).size.height*0.58,

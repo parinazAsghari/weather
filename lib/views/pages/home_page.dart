@@ -52,7 +52,11 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: ()async=> false,
       child: Scaffold(
+        extendBodyBehindAppBar: false,
         appBar: AppBar(
+          title: Image.asset('assets/images/emdad_khodro_logo_single.png', height: 40, width: 40,fit: BoxFit.cover,),
+          centerTitle: true,
+          elevation: 0,
           // title: Row(
           //   mainAxisAlignment: MainAxisAlignment.center,
           //   children: [
@@ -142,186 +146,176 @@ class _HomePageState extends State<HomePage> {
 
 
   Widget DrawerWidget(){
-    return Theme(
-      data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-        child: Container(
-            width: 240,
-            decoration: BoxDecoration(
-
-                color: color_holoGrey_primaryDark.withOpacity(0.9),
-                border: Border.all(width: 3,color: color_holoGrey_primaryLow),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), bottomLeft: Radius.circular(20.0))
-
-            ),
-            child: Drawer(
-                elevation: 0,
-                child: Directionality(
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+      child: Drawer(
+          backgroundColor: secondary_dark_purple_color,
+          elevation: 0,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: ListView(shrinkWrap: true,
+              children: <Widget>[
+                // SizedBox(height: 25,)
+                // ,
+                // Container(
+                //   margin: EdgeInsets.only(top: 15,left: 15),
+                //   alignment: Alignment.centerLeft,
+                //   child: IconButton(
+                //     onPressed: (){
+                //       Navigator.pop(context);
+                //     },
+                //     icon: Icon(Icons.close,color: context.watch<ThemeProvider>().getThemeData.primaryColor,),
+                //   ),
+                // )
+                // ,
+                SizedBox(height: defaultPadding*2,)
+                ,
+                Image.asset('assets/images/emdad_khodro_logo.png',height: 100)
+                ,
+                SizedBox(height: 20,)
+                ,
+                Directionality(
                   textDirection: TextDirection.rtl,
-                  child: ListView(shrinkWrap: true,
-                    children: <Widget>[
-                      // SizedBox(height: 25,)
-                      // ,
-                      // Container(
-                      //   margin: EdgeInsets.only(top: 15,left: 15),
-                      //   alignment: Alignment.centerLeft,
-                      //   child: IconButton(
-                      //     onPressed: (){
-                      //       Navigator.pop(context);
-                      //     },
-                      //     icon: Icon(Icons.close,color: context.watch<ThemeProvider>().getThemeData.primaryColor,),
-                      //   ),
-                      // )
-                      // ,
-                      SizedBox(height: 15,)
-                      ,
-                      Image.asset('assets/images/emdad_khodro_logo_single.png',height: 80,width: 80,)
-                      ,
-                      SizedBox(height: 20,)
-                      ,
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Text('کاربر مهمان',textAlign: TextAlign.center,style: TextStyle(fontSize: 20,color: color_holoGrey_primaryLow),)
-                        ,
+                  child: Text('کاربر مهمان',textAlign: TextAlign.center,style: TextStyle(fontSize: 16,color: secondary_light_grey_color),)
+                  ,
 
-                      )
-                      ,
-                      SizedBox(height: 20,)
-                      ,
-                      Divider(height: 5,thickness: 0.25,color: color_sharp_orange_low,indent: 20,endIndent: 20,)
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: color_sharp_orange)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child: Icon(Icons.account_circle,color: color_holoGrey_primaryLow,),
-                              )
-                          ),
-                          onTap: (){
-                            // Navigator.pop(context);
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
-                          },
-                          trailing: Text('پروفایل کاربری',textAlign: TextAlign.end,style: TextStyle(color: color_holoGrey_primaryLow),),
+                )
+                ,
+                SizedBox(height: 20,)
+                ,
+                Divider(height: 5,thickness: 0.25,color: secondary_light_grey_color,indent: 20,endIndent: 20,)
+                ,
+                SizedBox(height: 3,)
+                ,
+                Padding(
+                  padding: EdgeInsets.only(left: 15,right: 15),
+                  child: ListTile(
+                    leading: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(width: 1, color: primary_orange_color)
                         ),
-                      )
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-
-
-                      Divider(height: 5,thickness: 0.25,color: color_sharp_orange_low,indent: 20,endIndent: 20,)
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: color_sharp_orange)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child:
-                                Icon(Icons.settings,color: color_sharp_orange_low,),
-                              )
-                          ),
-
-
-
-                          onTap: (){
-                            // Navigator.pop(context);
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Settings()));
-                          },
-                          trailing: Text('تنظیمات',textAlign: TextAlign.end,style: TextStyle(color: color_sharp_orange_low),),
-                        ),
-                      )
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Divider(height: 5,thickness: 0.25,color: color_sharp_orange_low,indent: 20,endIndent: 20,)
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: color_sharp_orange)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child:
-                                Icon(Icons.info,color: color_sharp_orange_low,),
-                              )
-                          ),
-
-
-                          onTap: (){
-                            // Navigator.pop(context);
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AboutUs()));
-                          },
-                          trailing: Text('درباره ما',textAlign: TextAlign.end,style: TextStyle(color: color_sharp_orange_low)),
-                        ),
-                      )
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Divider(height: 5,thickness: 0.25,color: color_sharp_orange_low,indent: 20,endIndent: 20,)
-                      ,
-                      SizedBox(height: 3,)
-                      ,
-                      Padding(
-                        padding: EdgeInsets.only(left: 15,right: 15),
-                        child: ListTile(
-                          leading: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(width: 1, color: color_sharp_orange)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child:
-                                Icon(Icons.exit_to_app,color: color_sharp_orange_low,),
-                              )
-                          ),
-
-
-
-                          onTap: () async {
-                            SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-                            await sharedPrefs.setBool('loggedIn', false);
-
-                            Navigator.pop(context);
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
-                          },
-                          trailing: Text('خروج  از حساب',textAlign: TextAlign.end,style: TextStyle(color: color_sharp_orange_low)),
-                        ),
-                      )
-                      ,
-                      SizedBox(height: 20,)
-                      ,
-                      Text( versionName, textAlign: TextAlign.center,style: TextStyle(color: color_sharp_orange_low),)
-                      ,
-                      SizedBox(height: 10,)
-
-                    ],
+                        child: Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Icon(Icons.account_circle,color: secondary_light_grey_color,),
+                        )
+                    ),
+                    onTap: (){
+                      // Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
+                    },
+                    trailing: Text('پروفایل کاربری',textAlign: TextAlign.end,style: TextStyle(color: secondary_light_grey_color),),
                   ),
                 )
-            )
-        ),
+                ,
+                SizedBox(height: 3,)
+                ,
+
+
+                Divider(height: 5,thickness: 0.25,color: secondary_light_grey_color,indent: 20,endIndent: 20,)
+                ,
+                SizedBox(height: 3,)
+                ,
+                Padding(
+                  padding: EdgeInsets.only(left: 15,right: 15),
+                  child: ListTile(
+                    leading: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(width: 1, color: primary_orange_color)
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(2),
+                          child:
+                          Icon(Icons.settings,color: secondary_light_grey_color,),
+                        )
+                    ),
+
+
+
+                    onTap: (){
+                      // Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Settings()));
+                    },
+                    trailing: Text('تنظیمات',textAlign: TextAlign.end,style: TextStyle(color: secondary_light_grey_color),),
+                  ),
+                )
+                ,
+                SizedBox(height: 3,)
+                ,
+                Divider(height: 5,thickness: 0.25,color: secondary_light_grey_color,indent: 20,endIndent: 20,)
+                ,
+                SizedBox(height: 3,)
+                ,
+                Padding(
+                  padding: EdgeInsets.only(left: 15,right: 15),
+                  child: ListTile(
+                    leading: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(width: 1, color: primary_orange_color)
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(2),
+                          child:
+                          Icon(Icons.info,color: secondary_light_grey_color,),
+                        )
+                    ),
+
+
+                    onTap: (){
+                      // Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AboutUs()));
+                    },
+                    trailing: Text('درباره ما',textAlign: TextAlign.end,style: TextStyle(color: secondary_light_grey_color)),
+                  ),
+                )
+                ,
+                SizedBox(height: 3,)
+                ,
+                Divider(height: 5,thickness: 0.25,color: secondary_light_grey_color,indent: 20,endIndent: 20,)
+                ,
+                SizedBox(height: 3,)
+                ,
+                Padding(
+                  padding: EdgeInsets.only(left: 15,right: 15),
+                  child: ListTile(
+                    leading: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(width: 1, color: primary_orange_color)
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(2),
+                          child:
+                          Icon(Icons.exit_to_app,color: secondary_light_grey_color,),
+                        )
+                    ),
+
+
+
+                    onTap: () async {
+                      SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+                      await sharedPrefs.setBool('loggedIn', false);
+
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+                    },
+                    trailing: Text('خروج  از حساب',textAlign: TextAlign.end,style: TextStyle(color: secondary_light_grey_color)),
+                  ),
+                )
+                ,
+                SizedBox(height: 20,)
+                ,
+                Expanded(child: Container()),
+
+                Text( versionName, textAlign: TextAlign.center,style: TextStyle(color: secondary_light_grey_color),)
+                ,
+                SizedBox(height: 10,)
+
+              ],
+            ),
+          )
       ),
     );
 
