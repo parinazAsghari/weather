@@ -13,7 +13,7 @@ class _QuestionnaireTabState extends State<QuestionnaireTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primary_grey_color,
+      // backgroundColor: primary_grey_color,
 
       body: Container(
         width: double.maxFinite,
@@ -22,7 +22,9 @@ class _QuestionnaireTabState extends State<QuestionnaireTab> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
-            Icon(Icons.question_answer_rounded, size: 130, color: secondary_light_grey_color,),
+            Icon(Icons.question_answer_rounded, size: 130,
+              // color: secondary_light_grey_color,
+            ),
 
             SizedBox(height: defaultPadding,),
 
@@ -31,14 +33,16 @@ class _QuestionnaireTabState extends State<QuestionnaireTab> {
             SizedBox(height: defaultPadding,),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: secondary_light_grey_color
+              // primary: secondary_light_grey_color
             ),
           onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> DevelopingPage()));
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('شروع نظرسنجی', style: TextStyle(color: primary_grey_color),),
+            child: Text('شروع نظرسنجی', style: TextStyle(
+                // color: primary_grey_color
+            ),),
           )
     )
 

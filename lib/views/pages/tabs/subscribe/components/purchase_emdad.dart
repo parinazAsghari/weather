@@ -14,7 +14,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primary_grey_color,
+      // backgroundColor: primary_grey_color,
       body: Container(
 
         margin: EdgeInsets.all(defaultPadding),
@@ -36,7 +36,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: secondary_light_grey_color,
+                    // color: secondary_light_grey_color,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
@@ -75,7 +75,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                      color: secondary_light_grey_color,
+                      // color: secondary_light_grey_color,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
@@ -114,7 +114,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                      color: secondary_light_grey_color,
+                      // color: secondary_light_grey_color,
                     borderRadius: BorderRadius.circular(30)
 
                   ),

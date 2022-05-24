@@ -25,6 +25,7 @@ dependencies:
   google_maps_flutter: ^2.1.4
   http: ^0.13.4
   intl: ^0.17.0
+  mapir_raster: ^0.0.1
   local_auth: ^2.0.1
   location: ^4.4.0
   provider: ^6.0.2

@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: primary_grey_color,
+        // color: primary_grey_color,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -233,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontWeight: FontWeight.normal),
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
-                    fillColor: secondary_light_grey_color,
+                    // fillColor: secondary_light_grey_color,
 
                       isDense: true,filled: true,
                     hintText: '09xx xxx xxxx',
@@ -242,8 +242,12 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'شماره همراه',labelStyle: TextStyle(),
                       floatingLabelStyle: TextStyle(color: Colors.black),
                       border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_sharp_orange_light)),
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: primary_grey_color,width: 0.8)),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: primary_grey_color,width: 0.8)),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(
+                          // color: primary_grey_color,
+                          width: 0.8)),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(
+                          // color: primary_grey_color,
+                          width: 0.8)),
                       disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
                   ),
                 ),
@@ -292,7 +296,7 @@ class _LoginPageState extends State<LoginPage> {
 
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: secondary_dark_purple_color
+                  // primary: secondary_dark_purple_color
                 ),
                 child: Text('ورود', style: TextStyle(color: Colors.grey),),
                 onPressed: (){

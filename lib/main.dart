@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
 
 
 
-      home: SplashPage(),
-      // home: HomePage(),
+      // home: SplashPage(),
+      home: HomePage(),
 
       localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,
@@ -48,13 +48,61 @@ class MyApp extends StatelessWidget {
 
 
 
+      darkTheme: ThemeData(
+        scaffoldBackgroundColor: dark_theme_white_low,
+        primaryColor: dark_theme_primary,
+
+
+        appBarTheme: AppBarTheme(
+          color: dark_theme_primary,
+          centerTitle: false,
+          iconTheme: IconThemeData(
+            color: dark_theme_secondary
+          ),
+            actionsIconTheme: IconThemeData(
+                color: dark_theme_secondary
+            ),
+
+
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: dark_theme_primary,
+          unselectedItemColor: dark_theme_white,
+          selectedItemColor: dark_theme_secondary,
+          selectedLabelStyle: TextStyle(color: dark_theme_white),
+          unselectedLabelStyle: TextStyle(color: dark_theme_white),
+          showUnselectedLabels: true,
+          showSelectedLabels: true
+        ),
+
+        accentColor: dark_theme_secondary,
+        backgroundColor: dark_theme_primary,
+        navigationBarTheme: NavigationBarThemeData(
+          backgroundColor:dark_theme_primary,
+          labelTextStyle: MaterialStateProperty.all(TextStyle(
+            color: dark_theme_white
+          )),
+          indicatorColor: dark_theme_secondary,
+          iconTheme: MaterialStateProperty.all(IconThemeData(
+            color: dark_theme_primary_light
+          ))
+        )
+      ),
+
+
+
+
+
+
       theme: ThemeData(
-        backgroundColor: primary_grey_color,
-        primaryColor: primary_grey_color,
+
+        backgroundColor: dark_theme_white_low,
+        primaryColor: dark_theme_primary,
         fontFamily: 'Vazir',
-        accentColor: primary_orange_color,
+        accentColor: dark_theme_secondary,
       ),
       themeMode: ThemeMode.dark,
+      // themeMode: ThemeMode.dark,
     );
   }
 }

@@ -55,7 +55,7 @@ class _HomeTabState extends State<HomeTab> {
 
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 
-          backgroundColor: primary_grey_color,
+          // backgroundColor: primary_grey_color,
           title: Column(
             children: [
               TextButton(
@@ -66,9 +66,13 @@ class _HomeTabState extends State<HomeTab> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
 
-                    Icon(Icons.close, size: 16, color: secondary_dark_purple_color,),
+                    Icon(Icons.close, size: 16,
+                      // color: secondary_dark_purple_color
+                      ),
                     SizedBox(width: defaultPadding/4,),
-                    Text('لغو', style: TextStyle(fontSize: 10, color: secondary_dark_purple_color),),
+                    Text('لغو', style: TextStyle(fontSize: 10,
+                        // color: secondary_dark_purple_color
+                    ),),
 
                   ],
                 ),
@@ -176,12 +180,14 @@ class _HomeTabState extends State<HomeTab> {
                             //   positiveFunc!();
                             // }
                           },
-                          color: secondary_dark_purple_color,
+                          // color: secondary_dark_purple_color,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               // side: BorderSide(width: 2,color: color_holoGrey_primaryLow)
                           ),
-                          child: Text('ثبت',style: TextStyle(color: secondary_light_grey_color),),
+                          child: Text('ثبت',style: TextStyle(
+                              // color: secondary_light_grey_color
+                          ),),
                         ),
                       ),
 
@@ -215,7 +221,7 @@ class _HomeTabState extends State<HomeTab> {
     _panelHeightClosed = MediaQuery.of(context).size.height * 0.45;
 
     return Scaffold(
-      backgroundColor: primary_grey_color,
+      // backgroundColor: primary_grey_color,
       body: Stack(
 
         children: [
@@ -232,7 +238,7 @@ class _HomeTabState extends State<HomeTab> {
 
             body: _body(),
             panelBuilder: (sc) => _panel(sc),
-            color: secondary_light_grey_color,
+            // color: secondary_light_grey_color,
             margin: EdgeInsets.symmetric(horizontal: defaultPadding),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30.0),
@@ -288,7 +294,7 @@ class _HomeTabState extends State<HomeTab> {
               margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding/2),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: secondary_light_grey_color
+                  // color: secondary_light_grey_color
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -334,7 +340,7 @@ class _HomeTabState extends State<HomeTab> {
                 margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: secondary_light_grey_color,
+                    // color: secondary_light_grey_color,
                     // image: DecorationImage(
                     //   alignment: Alignment.bottomLeft,
                     //   opacity: 0.5,
@@ -387,7 +393,7 @@ class _HomeTabState extends State<HomeTab> {
                                     margin: EdgeInsets.only(top: defaultPadding, right: defaultPadding),
                                     padding: EdgeInsets.all(defaultPadding/4),
                                     decoration: BoxDecoration(
-                                        color: primary_grey_color,
+                                        // color: primary_grey_color,
                                         borderRadius: BorderRadius.circular(16),
 
 
@@ -427,7 +433,7 @@ class _HomeTabState extends State<HomeTab> {
                                     margin: EdgeInsets.only(top: defaultPadding, right: defaultPadding),
                                     padding: EdgeInsets.all(defaultPadding/4),
                                     decoration: BoxDecoration(
-                                        color: primary_grey_color,
+                                        // color: primary_grey_color,
                                         borderRadius: BorderRadius.circular(16),
 
                                         border: carItemSelectedState==1? Border.all(
@@ -474,9 +480,13 @@ class _HomeTabState extends State<HomeTab> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.add, size: 20,color: primary_grey_color,),
+                                    Icon(Icons.add, size: 20,
+                                      // color: primary_grey_color
+                                      ),
                                     SizedBox(width: defaultPadding/4,),
-                                    Text('اضافه کردن', style: TextStyle(fontSize: 12,color: primary_grey_color),)
+                                    Text('اضافه کردن', style: TextStyle(fontSize: 12,
+                                        // color: primary_grey_color
+                                    ),)
                                   ],
                                 ),
                               ),
@@ -804,7 +814,7 @@ class _HomeTabState extends State<HomeTab> {
                 margin: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding/2),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: secondary_light_grey_color,
+                    // color: secondary_light_grey_color,
                     image: DecorationImage(
                         alignment: Alignment.bottomLeft,
 
@@ -832,7 +842,7 @@ class _HomeTabState extends State<HomeTab> {
                           padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: primary_grey_color
+                                // primary: primary_grey_color
                               ),
                               onPressed: () async {
                                 await Permission.camera.request();
@@ -841,12 +851,16 @@ class _HomeTabState extends State<HomeTab> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.qr_code_rounded, size: 20, color: secondary_light_grey_color,),
+                                  Icon(Icons.qr_code_rounded, size: 20,
+                                    // color: secondary_light_grey_color,
+                                  ),
 
 
                                   SizedBox(width: defaultPadding/4,),
 
-                                  Text('اسکن QR Code خودرو', style: TextStyle(fontSize: 12, color: secondary_light_grey_color),),
+                                  Text('اسکن QR Code خودرو', style: TextStyle(fontSize: 12,
+                                      // color: secondary_light_grey_color
+                                  ),),
 
                                 ],
                               )
@@ -862,7 +876,7 @@ class _HomeTabState extends State<HomeTab> {
                           padding:  EdgeInsets.symmetric(horizontal: defaultPadding),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: primary_grey_color
+                                  // primary: primary_grey_color
                               ),
                               onPressed: (){
                                 _onAddNewCarDetailsTap();
@@ -871,11 +885,15 @@ class _HomeTabState extends State<HomeTab> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
 
-                                  Icon(Icons.add_box_rounded, size: 20, color: secondary_light_grey_color,),
+                                  Icon(Icons.add_box_rounded, size: 20,
+                                    // color: secondary_light_grey_color
+                                    ),
 
                                   SizedBox(width: defaultPadding/4,),
 
-                                  Text('ثبت اطلاعات', style: TextStyle(fontSize: 12, color: secondary_light_grey_color)),
+                                  Text('ثبت اطلاعات', style: TextStyle(fontSize: 12,
+                                      // color: secondary_light_grey_color
+                                  )),
 
                                 ],
                               )
@@ -897,11 +915,15 @@ class _HomeTabState extends State<HomeTab> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.close,size: 20, color: primary_grey_color,),
+                            Icon(Icons.close,size: 20,
+                              // color: primary_grey_color
+                              ),
 
                             SizedBox(width: defaultPadding/4,),
 
-                            Text('لغو', style: TextStyle(fontSize: 12,color: primary_grey_color))
+                            Text('لغو', style: TextStyle(fontSize: 12,
+                                // color: primary_grey_color
+                            ))
                           ],
                         ),
                       ),
@@ -1511,7 +1533,7 @@ class _HomeTabState extends State<HomeTab> {
             controller: controller,
             count: 4,
             effect: WormEffect(
-              activeDotColor: primary_grey_color,
+              // activeDotColor: primary_grey_color,
               dotHeight: 16,
               dotWidth: 16,
               type: WormType.thin,
@@ -1658,7 +1680,7 @@ class _HomeTabState extends State<HomeTab> {
         padding: EdgeInsets.all(defaultPadding/2),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: primary_grey_color
+            // color: primary_grey_color
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

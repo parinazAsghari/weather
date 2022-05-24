@@ -4,6 +4,11 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapir_raster/mapir_raster.dart';
+import 'package:latlong2/latlong.dart' as latlng;
+import 'package:flutter_map/flutter_map.dart' as flutterMap;
+
+
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../constants.dart';
@@ -29,6 +34,8 @@ class _EmdadTabState extends State<EmdadTab> {
   BitmapDescriptor? customIcon;
   LatLng _lastMapPosition = _center;
 
+  List<Marker> markersList = [];
+
 
 
   //sliding up panel
@@ -40,14 +47,9 @@ class _EmdadTabState extends State<EmdadTab> {
 
   Location currentLocation = Location();
 
-
   int requestState = 0;
 
-
-
-
-
-
+  flutterMap.MapController _mapController = flutterMap.MapController();
 
   @override
   void initState() {
@@ -107,7 +109,6 @@ class _EmdadTabState extends State<EmdadTab> {
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
   }
 
-
   void _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
     setState(() {
@@ -126,7 +127,6 @@ class _EmdadTabState extends State<EmdadTab> {
 
     });
   }
-
 
   Future<void> _onCurrentLocationButtonPressed() async {
 
@@ -176,9 +176,6 @@ class _EmdadTabState extends State<EmdadTab> {
     });
   }
 
-
-
-
   //sliding up panel methods
   _onRequestItemTap() async {
 
@@ -210,7 +207,6 @@ class _EmdadTabState extends State<EmdadTab> {
     });
 
   }
-
 
   void getLocation() async{
     var location = await currentLocation.getLocation();
@@ -246,7 +242,7 @@ class _EmdadTabState extends State<EmdadTab> {
             defaultPanelState: PanelState.CLOSED,
 
             // parallaxOffset: .5,
-            color: primary_grey_color,
+            // color: primary_grey_color,
             body: _body(),
             panelBuilder: (sc) => _panel(sc),
             borderRadius: BorderRadius.only(
@@ -293,9 +289,9 @@ class _EmdadTabState extends State<EmdadTab> {
                       _onCurrentLocationButtonPressed();
                     },
                     materialTapTargetSize: MaterialTapTargetSize.padded,
-                    backgroundColor: secondary_dark_purple_color,
+                    // backgroundColor: secondary_dark_purple_color,
                     child:  Icon(Icons.location_on_rounded,
-                        color: secondary_light_purple_color,
+                        // color: secondary_light_purple_color,
                         size: 20.0),
                   ),
 
@@ -306,9 +302,9 @@ class _EmdadTabState extends State<EmdadTab> {
                       _panelController.isPanelClosed? _panelController.open() : _panelController.close();
                     },
                     materialTapTargetSize: MaterialTapTargetSize.padded,
-                    backgroundColor: secondary_dark_purple_color,
+                    // backgroundColor: secondary_dark_purple_color,
                     child:  Icon(Icons.add_box_rounded,
-                        color: secondary_light_purple_color,
+                        // color: secondary_light_purple_color,
                         size: 20.0),
                   ),
                 ],
@@ -319,11 +315,11 @@ class _EmdadTabState extends State<EmdadTab> {
         ],
       ),
     );
+
+
+
+
   }
-
-
-
-
 
   Widget _panel(ScrollController sc) {
     return MediaQuery.removePadding(
@@ -343,7 +339,7 @@ class _EmdadTabState extends State<EmdadTab> {
                   width: 30,
                   height: 5,
                   decoration: BoxDecoration(
-                      color: primary_orange_color,
+                      // color: primary_orange_color,
                       borderRadius: BorderRadius.all(Radius.circular(12.0))),
                 ),
               ],
@@ -360,7 +356,7 @@ class _EmdadTabState extends State<EmdadTab> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
-                  color: secondary_light_grey_color,
+                  // color: secondary_light_grey_color,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -382,7 +378,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: secondary_light_grey_color
+                      // color: secondary_light_grey_color
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -404,7 +400,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: secondary_light_grey_color
+                      // color: secondary_light_grey_color
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -438,7 +434,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: secondary_light_grey_color
+                      // color: secondary_light_grey_color
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -461,7 +457,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     width: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: secondary_light_grey_color
+                      // color: secondary_light_grey_color
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -485,9 +481,6 @@ class _EmdadTabState extends State<EmdadTab> {
           ],
         ));
   }
-
-
-
 
   Widget _button(String label, IconData icon, Color color) {
     return Column(
@@ -514,10 +507,33 @@ class _EmdadTabState extends State<EmdadTab> {
     );
   }
 
-
   Widget _body(){
     return Container(
-      color: primary_grey_color,
+      // color: primary_grey_color,
+
+      child: MapirMap(
+        apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
+        options: flutterMap.MapOptions(
+          center: latlng.LatLng(35.7324556, 51.4229012),
+          zoom: 16.0,
+        ),
+        mapController: _mapController,
+
+        layers: [
+          flutterMap.MarkerLayerOptions(
+            markers: [
+              flutterMap.Marker(
+                width: 80.0,
+                height: 80.0,
+                point: latlng.LatLng(35.7324556, 51.4229012),
+                builder: (ctx) => const FlutterLogo(),
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      /*
       child: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
@@ -534,6 +550,8 @@ class _EmdadTabState extends State<EmdadTab> {
         zoomControlsEnabled: true,
         zoomGesturesEnabled: true,
       ),
+
+       */
     );
   }
 

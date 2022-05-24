@@ -28,7 +28,7 @@ class MessageDialogWidget extends StatelessWidget{
               height: 180,
 
               decoration: BoxDecoration(
-                color: secondary_light_grey_color,
+                // color: secondary_light_grey_color,
 
                 borderRadius: BorderRadius.circular(18)
               ),
@@ -53,12 +53,16 @@ class MessageDialogWidget extends StatelessWidget{
                           positiveFunc!();
                         }
                       },
-                      color: primary_grey_color,
+                      // color: primary_grey_color,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(width: 2,color: secondary_light_grey_color)
+                          side: BorderSide(width: 2,
+                              // color: secondary_light_grey_color
+                          )
                       ),
-                      child: Text('$positiveTxt',style: TextStyle(color: secondary_light_grey_color),),
+                      child: Text('$positiveTxt',style: TextStyle(
+                          // color: secondary_light_grey_color
+                      ),),
                     ),
                   )
                   ,                    ],

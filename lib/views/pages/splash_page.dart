@@ -96,7 +96,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
       filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
       child: Container(
         decoration: BoxDecoration(
-            color: secondary_light_grey_color
+            // color: secondary_light_grey_color
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,
@@ -122,7 +122,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
             SizedBox(height: defaultPadding,),
 
             CircularProgressIndicator(
-              color: primary_orange_color,
+              // color: primary_orange_color,
             ),
 
           ],

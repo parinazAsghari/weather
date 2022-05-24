@@ -41,7 +41,7 @@ class _RenewState extends State<Renew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondary_light_grey_color,
+      // backgroundColor: secondary_light_grey_color,
       body: Container(
         width: double.maxFinite,
         child: Column(
@@ -58,14 +58,16 @@ class _RenewState extends State<Renew> {
             SizedBox(height: defaultPadding,),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: primary_grey_color
+                    // primary: primary_grey_color
                 ),
                 onPressed: (){
                   _onContinueSubscribeTap();
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('تمدید اشتراک', style: TextStyle(color: secondary_light_grey_color),),
+                  child: Text('تمدید اشتراک', style: TextStyle(
+                      // color: secondary_light_grey_color
+                  ),),
                 )
             )
 

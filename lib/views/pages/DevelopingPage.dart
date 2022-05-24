@@ -8,10 +8,10 @@ class DevelopingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primary_grey_color,
+      // backgroundColor: primary_grey_color,
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: secondary_dark_purple_color,
+        // backgroundColor: secondary_dark_purple_color,
       ),
       body: Container(
         height: double.maxFinite,

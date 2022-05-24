@@ -40,7 +40,7 @@ class _BodyGarantyState extends State<BodyGaranty> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: secondary_light_grey_color,
+      // backgroundColor: secondary_light_grey_color,
       body: Container(
         width: double.maxFinite,
         child: Column(
@@ -57,14 +57,16 @@ class _BodyGarantyState extends State<BodyGaranty> {
             SizedBox(height: defaultPadding,),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: primary_grey_color
+                    // primary: primary_grey_color
                 ),
                 onPressed: (){
                   _onBodyGarantyButtonTap();
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('گارانتی بدنه', style: TextStyle(color: secondary_light_grey_color),),
+                  child: Text('گارانتی بدنه', style: TextStyle(
+                      // color: secondary_light_grey_color
+                  ),),
                 )
             )
 

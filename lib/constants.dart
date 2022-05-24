@@ -33,15 +33,12 @@ final color_sharp_orange_gradient4 = Color(0xffFFEBDF);
 
 
 
-final primary_orange_color = Color.fromRGBO(255, 107, 0, 1.0);
-final primary_grey_color = Color.fromRGBO(113, 114, 113, 1.0);
 
-final secondary_light_grey_color = Color.fromRGBO(177, 169, 159, 1.0);
 
-final secondary_dark_purple_color = Color.fromRGBO(0, 86, 105, 1.0);
-final secondary_light_purple_color = Color.fromRGBO(99, 208, 223, 1.0);
-
-final secondary_dark_orange_color = Color.fromRGBO(190, 166, 0, 1.0);
-final secondary_light_orange_color = Color.fromRGBO(255, 184, 0, 1.0);
-
+final dark_theme_primary = Color(0xff2E3D3D);
+final dark_theme_primary_light = Color(0xff8E8E8E);
+final dark_theme_primary_low = Color(0xffE4E4E4);
+final dark_theme_secondary = Color(0xffFF6B00);
+final dark_theme_white = Color(0xffffffff);
+final dark_theme_white_low = Color(0xffFFE6E6);
 

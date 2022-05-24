@@ -36,14 +36,14 @@ class _SubscribeTabState extends State<SubscribeTab> with SingleTickerProviderSt
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight+20),
           child: Container(
-            color: secondary_dark_purple_color,
+            // color: secondary_dark_purple_color,
             height: 70.0,
             child: new TabBar(
 
               controller: tabController,
-              indicatorColor: primary_orange_color,
-              unselectedLabelColor: secondary_light_grey_color,
-              labelColor: primary_orange_color,
+              // indicatorColor: primary_orange_color,
+              // unselectedLabelColor: secondary_light_grey_color,
+              // labelColor: primary_orange_color,
               tabs: [
                 Tab(
                   text: "خرید امداد",
