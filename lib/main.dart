@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
 
 
       darkTheme: ThemeData(
-        scaffoldBackgroundColor: dark_theme_white_low,
+        // scaffoldBackgroundColor: dark_theme_white_low,
         primaryColor: dark_theme_primary,
 
 
@@ -77,6 +77,7 @@ class MyApp extends StatelessWidget {
 
         accentColor: dark_theme_secondary,
         backgroundColor: dark_theme_primary,
+
         navigationBarTheme: NavigationBarThemeData(
           backgroundColor:dark_theme_primary,
           labelTextStyle: MaterialStateProperty.all(TextStyle(

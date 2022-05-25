@@ -217,6 +217,62 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.28,
+            width: double.maxFinite,
+            // color: Colors.blue,
+
+            child: Stack(
+              children: [
+
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    // alignment: Alignment.bottomRight,
+                    width: MediaQuery.of(context).size.width * 0.80,
+                    margin: EdgeInsets.only(top: defaultPadding*2, bottom: defaultPadding, right: defaultPadding, left: defaultPadding),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2
+                        )
+                      ]
+
+
+                    ),
+
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    margin: EdgeInsets.all(defaultPadding),
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  } //old sliding up panel
+
+  /*
+
+  @override
+  Widget build(BuildContext context) {
     _panelHeightOpen = MediaQuery.of(context).size.height * 0.67;
     _panelHeightClosed = MediaQuery.of(context).size.height * 0.45;
 
@@ -1667,6 +1723,8 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
+
+   */
 
   Widget _serviceWidget({required Function onTap, required String imagePath, required String title}){
     return InkWell(

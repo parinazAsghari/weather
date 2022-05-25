@@ -73,11 +73,21 @@ class _HomePageState extends State<HomePage> {
 
         drawer: DrawerWidget(),
 
-        body:Center(
-            child: IndexedStack(
-                index: _selectedIndex,
-                children: _items
-            )//_items.elementAt(_index),
+        body:Stack(
+          children: [
+            Container(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              child: Image.asset('assets/images/img_bg_orange.png', fit: BoxFit.cover,),
+            ),
+
+            Center(
+                child: IndexedStack(
+                    index: _selectedIndex,
+                    children: _items
+                )//_items.elementAt(_index),
+            ),
+          ],
         ),
         bottomNavigationBar: _showBottomNav(),
       ),
