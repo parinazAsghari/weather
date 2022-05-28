@@ -42,3 +42,6 @@ final dark_theme_secondary = Color(0xffFF6B00);
 final dark_theme_white = Color(0xffffffff);
 final dark_theme_white_low = Color(0xffFFE6E6);
 
+final dark_theme_background_light = Color(0xffF5F5FA);
+final dark_theme_box_background_light = Color(0xffEEF0F6);
+final dark_theme_box_shadow_dark = Color(0xffAAAACC);

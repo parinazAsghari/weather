@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/about_us.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/settings.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/user_profile.dart';
@@ -25,11 +26,13 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _items = [
     HomeTab(),
 
+    QuestionnaireTab(),
+
     EmdadTab(),
 
     SubscribeTab(),
 
-    QuestionnaireTab(),
+    DevelopingPage()
 
 
   ];
@@ -65,29 +68,30 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         extendBodyBehindAppBar: false,
         appBar: AppBar(
-          actions: [
-            Image.asset('assets/images/emdad_khodro_logo_white_text.png', height: 30,width: MediaQuery.of(context).size.width*0.39, fit: BoxFit.contain,),
-          ],
+          title: Image.asset('assets/images/emdad_khodro_logo_white_text.png', height: 30,width: MediaQuery.of(context).size.width*0.35, fit: BoxFit.contain,),
 
+          actions: [
+
+            Container(
+                margin: EdgeInsets.only(left: defaultPadding),
+                height: 30,
+                width: 30,
+                padding: EdgeInsets.all(defaultPadding/2),
+                decoration:BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).accentColor
+                ),
+                child: Image.asset('assets/images/alert.png', ))
+          ],
         ),
 
         drawer: DrawerWidget(),
 
-        body:Stack(
-          children: [
-            Container(
-              height: double.maxFinite,
-              width: double.maxFinite,
-              child: Image.asset('assets/images/img_bg_orange.png', fit: BoxFit.cover,),
-            ),
-
-            Center(
-                child: IndexedStack(
-                    index: _selectedIndex,
-                    children: _items
-                )//_items.elementAt(_index),
-            ),
-          ],
+        body:Center(
+            child: IndexedStack(
+                index: _selectedIndex,
+                children: _items
+            )//_items.elementAt(_index),
         ),
         bottomNavigationBar: _showBottomNav(),
       ),
@@ -105,6 +109,12 @@ class _HomePageState extends State<HomePage> {
           label: 'خانه',
 
         ),
+
+        BottomNavigationBarItem(
+          icon: Icon(Icons.fact_check_rounded),
+          label: 'نظرسنجی',
+        ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.miscellaneous_services),
           label: 'امداد',
@@ -114,10 +124,14 @@ class _HomePageState extends State<HomePage> {
           label: 'اشتراک',
         ),
 
+
         BottomNavigationBarItem(
-          icon: Icon(Icons.fact_check_rounded),
-          label: 'نظرسنجی',
+          icon: Icon(Icons.person),
+          label: 'کاربری',
         ),
+
+
+
       ],
       currentIndex: _selectedIndex,
       // selectedItemColor: secondary_light_purple_color,

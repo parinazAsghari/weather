@@ -49,13 +49,16 @@ class MyApp extends StatelessWidget {
 
 
       darkTheme: ThemeData(
-        // scaffoldBackgroundColor: dark_theme_white_low,
+        scaffoldBackgroundColor: dark_theme_background_light,
         primaryColor: dark_theme_primary,
+        cardColor: dark_theme_box_background_light,
+        shadowColor: dark_theme_box_shadow_dark,
 
+        primaryColorLight: dark_theme_primary_low,
 
         appBarTheme: AppBarTheme(
           color: dark_theme_primary,
-          centerTitle: false,
+          centerTitle: true,
           iconTheme: IconThemeData(
             color: dark_theme_secondary
           ),
