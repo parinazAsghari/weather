@@ -5,6 +5,7 @@ import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -218,57 +219,185 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.28,
-            width: double.maxFinite,
-            // color: Colors.blue,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
 
-            child: Stack(
-              children: [
+            //top section - car info
+            Container(
+              height: MediaQuery.of(context).size.height * 0.28,
+              width: double.maxFinite,
+              // color: Colors.blue,
 
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    // alignment: Alignment.bottomRight,
-                    width: MediaQuery.of(context).size.width * 0.80,
-                    margin: EdgeInsets.only(top: defaultPadding*2, bottom: defaultPadding, right: defaultPadding, left: defaultPadding),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 2
-                        )
-                      ]
+              child: Stack(
+                children: [
 
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      // alignment: Alignment.bottomRight,
+                      height: 200,
+                      width: MediaQuery.of(context).size.width * 0.80,
+                      margin: EdgeInsets.only(top: defaultPadding*2, bottom: defaultPadding, right: defaultPadding, left: defaultPadding),
+                      child: Neumorphic(
+                        style: NeumorphicStyle(
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
+                          depth: 3,
+                          lightSource: LightSource.topLeft,
+                          color: Theme.of(context).cardColor,
+                          shadowDarkColor: Theme.of(context).shadowColor,
 
-                    ),
-
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                    margin: EdgeInsets.all(defaultPadding),
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset('assets/images/car_plate.png', width: MediaQuery.of(context).size.width*0.28, fit: BoxFit.cover,),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                )
-              ],
+
+
+
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(defaultPadding),
+                        width: 140,
+                        height: 140,
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                            shape: NeumorphicShape.flat,
+                            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
+                            depth: 3,
+                            lightSource: LightSource.topLeft,
+                            color: Theme.of(context).primaryColorLight,
+                            shadowDarkColor: Theme.of(context).shadowColor,
+
+                          ),
+                          child: Center(child: Image.asset('assets/images/ic_car_red.png', fit: BoxFit.contain,),),
+                        ),
+
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+
+
+            // SizedBox(height: defaultPadding,),
+
+            Container(
+              // padding: EdgeInsets.symmetric(horizontal: defaultPadding),
+
+              child: GridView.extent(
+                shrinkWrap: true,
+
+
+                maxCrossAxisExtent:120,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                padding: EdgeInsets.all(defaultPadding),
+
+                children: [
+
+                  //weather
+                  _serviceWidget(
+                      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                      imagePath: 'assets/images/weather.png',
+                      title: 'هواشناسی'
+                  ),
+
+
+                  //roads
+                  _serviceWidget(
+                    onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/roads.png',
+                    title: 'وضعیت راه',
+
+                  ),
+
+                  //news
+                  _serviceWidget(
+                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/news.png',
+                    title: 'اطلاعیه',
+
+                  ),
+
+
+                  _serviceWidget(
+                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/taxi.png',
+                    title: 'تاکسی',
+
+                  ),
+                  _serviceWidget(
+                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/diagnose.png',
+                    title: 'کارشناسی',
+
+                  ),
+                  _serviceWidget(
+                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/navigation.png',
+                    title: 'مسیریابی',
+
+                  ),
+                  // _serviceWidget(
+                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/renew.png',
+                  //   title: 'خلافی',
+                  //
+                  // ),
+                  _serviceWidget(
+                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/insurance.png',
+                    title: 'بیمه',
+
+                  ),
+
+                  _serviceWidget(
+                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/parking.png',
+                    title: 'پارکینگ',
+
+                  ),
+                  // _serviceWidget(
+                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/plus.png',
+                  //   title: 'اضافه',
+                  //
+                  // ),
+
+                  // _serviceWidget(
+                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/renew.png',
+                  //   title: 'فروشگاه',
+                  //
+                  // ),
+
+
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
-  } //old sliding up panel
+  }
 
+
+  //old sliding up panel
   /*
 
   @override
@@ -1727,30 +1856,36 @@ class _HomeTabState extends State<HomeTab> {
    */
 
   Widget _serviceWidget({required Function onTap, required String imagePath, required String title}){
-    return InkWell(
-      onTap: (){
-       onTap();
+    return NeumorphicButton(
+      onPressed: (){
+        onTap();
       },
-      child: Container(
-        // width: 70,
-        height: 100,
-        margin: EdgeInsets.all(defaultPadding/2),
-        padding: EdgeInsets.all(defaultPadding/2),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            // color: primary_grey_color
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(imagePath, height: 30,width: 30,),
-            SizedBox(height: defaultPadding/3,),
-            Text(title, style: TextStyle(fontSize: 10))
+      padding: EdgeInsets.only(top: defaultPadding, right: defaultPadding, left: defaultPadding),
+
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+          depth: 8,
+          lightSource: LightSource.topLeft,
+          color: Theme.of(context).cardColor,
+          shadowDarkColor: Theme.of(context).shadowColor,
+
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(imagePath,  fit: BoxFit.cover,),
+          // SizedBox(height: defaultPadding/3,),
+          Expanded(child: Container()),
 
 
-          ],
-        ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(title, style: TextStyle(fontSize: 12)),
+          ),
 
+
+        ],
       ),
     );
   }

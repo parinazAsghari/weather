@@ -1,5 +1,5 @@
-
-
+import 'package:emdad_khodro_saipa/views/pages/menu_side/contact_us.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/product_introduction.dart';
 import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,33 +8,23 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'constants.dart';
 import 'views/pages/home_page.dart';
 
-void main()async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
 
-
-
-  runApp(
-      MyApp()
-  );
+  runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       title: 'Emdad Khodro',
-
-
-
-      // home: SplashPage(),
-      home: HomePage(),
+      home: SplashPage(),
+      // home: HomePage(),
 
       localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,
@@ -46,57 +36,53 @@ class MyApp extends StatelessWidget {
       ],
       locale: Locale("fa", "IR"),
 
-
-
       darkTheme: ThemeData(
-        // scaffoldBackgroundColor: dark_theme_white_low,
-        primaryColor: dark_theme_primary,
-
-
-        appBarTheme: AppBarTheme(
-          color: dark_theme_primary,
-          centerTitle: false,
-          iconTheme: IconThemeData(
-            color: dark_theme_secondary
-          ),
-            actionsIconTheme: IconThemeData(
-                color: dark_theme_secondary
-            ),
-
-
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          scaffoldBackgroundColor: dark_theme_background_light,
+          primaryColor: dark_theme_primary,
+          cardColor: dark_theme_box_background_light,
+          shadowColor: dark_theme_box_shadow_dark,
+          accentColor: dark_theme_secondary,
           backgroundColor: dark_theme_primary,
-          unselectedItemColor: dark_theme_white,
-          selectedItemColor: dark_theme_secondary,
-          selectedLabelStyle: TextStyle(color: dark_theme_white),
-          unselectedLabelStyle: TextStyle(color: dark_theme_white),
-          showUnselectedLabels: true,
-          showSelectedLabels: true
-        ),
+          primaryColorLight: dark_theme_primary_low,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(dark_theme_primary),
+              textStyle: MaterialStateProperty.all(
+                TextStyle(
+                  color: dark_theme_white
+                )
+              )
 
-        accentColor: dark_theme_secondary,
-        backgroundColor: dark_theme_primary,
-
-        navigationBarTheme: NavigationBarThemeData(
-          backgroundColor:dark_theme_primary,
-          labelTextStyle: MaterialStateProperty.all(TextStyle(
-            color: dark_theme_white
-          )),
-          indicatorColor: dark_theme_secondary,
-          iconTheme: MaterialStateProperty.all(IconThemeData(
-            color: dark_theme_primary_light
-          ))
-        )
-      ),
-
-
-
-
-
+            )
+          ),
+          appBarTheme: AppBarTheme(
+            color: dark_theme_primary,
+            centerTitle: true,
+            titleTextStyle: TextStyle(color: dark_theme_white),
+            iconTheme: IconThemeData(color: dark_theme_secondary),
+            actionsIconTheme: IconThemeData(color: dark_theme_secondary),
+          ),
+          tabBarTheme: TabBarTheme(
+            labelColor: dark_theme_secondary,
+            unselectedLabelColor: dark_theme_primary_light
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor: dark_theme_primary,
+              unselectedItemColor: dark_theme_white,
+              selectedItemColor: dark_theme_secondary,
+              selectedLabelStyle: TextStyle(color: dark_theme_white),
+              unselectedLabelStyle: TextStyle(color: dark_theme_white),
+              showUnselectedLabels: true,
+              showSelectedLabels: true),
+          navigationBarTheme: NavigationBarThemeData(
+              backgroundColor: dark_theme_primary,
+              labelTextStyle:
+                  MaterialStateProperty.all(TextStyle(color: dark_theme_white)),
+              indicatorColor: dark_theme_secondary,
+              iconTheme: MaterialStateProperty.all(
+                  IconThemeData(color: dark_theme_primary_light)))),
 
       theme: ThemeData(
-
         backgroundColor: dark_theme_white_low,
         primaryColor: dark_theme_primary,
         fontFamily: 'Vazir',
@@ -107,6 +93,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

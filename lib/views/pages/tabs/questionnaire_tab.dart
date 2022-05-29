@@ -23,12 +23,13 @@ class _QuestionnaireTabState extends State<QuestionnaireTab> {
           children: [
 
             Icon(Icons.question_answer_rounded, size: 130,
+              color: Theme.of(context).accentColor,
               // color: secondary_light_grey_color,
             ),
 
             SizedBox(height: defaultPadding,),
 
-            Text('با شرکت در نظرسنجی ما را در ارائه بهتر خدمات یاری نمائید',style: TextStyle(fontWeight: FontWeight.bold),),
+            Text('با شرکت در نظرسنجی ما را در ارائه بهتر خدمات یاری نمائید',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
 
             SizedBox(height: defaultPadding,),
           ElevatedButton(

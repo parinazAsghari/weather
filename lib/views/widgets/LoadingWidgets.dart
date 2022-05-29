@@ -12,7 +12,6 @@ CircleLoadingWidget({this.msgTxt,this.dismissable = false});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return WillPopScope (
       onWillPop: () async => dismissable,
       child: Center(
@@ -22,7 +21,7 @@ CircleLoadingWidget({this.msgTxt,this.dismissable = false});
             height: 100,width: 150,
             padding: EdgeInsets.all(5.0),
             decoration: ShapeDecoration(
-              // color: secondary_light_grey_color,
+              color: Theme.of(context).primaryColorLight,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
             ),
@@ -35,8 +34,8 @@ CircleLoadingWidget({this.msgTxt,this.dismissable = false});
 
               children: <Widget>[
                 CircularProgressIndicator(
-                  // backgroundColor: secondary_dark_purple_color,
-                  // valueColor: AlwaysStoppedAnimation(primary_orange_color),
+                  backgroundColor: dark_theme_white,
+                  valueColor: AlwaysStoppedAnimation(dark_theme_secondary),
                 ),
                 SizedBox(height: 5.0,),
                 Text(msgTxt,style: TextStyle(

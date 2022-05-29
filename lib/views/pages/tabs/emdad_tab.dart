@@ -50,6 +50,15 @@ class _EmdadTabState extends State<EmdadTab> {
   int requestState = 0;
 
   flutterMap.MapController _mapController = flutterMap.MapController();
+  var pos =  latlng.LatLng(35.748, 51.328);
+  flutterMap.Marker _mapMarker = flutterMap.Marker(
+    point: latlng.LatLng(35.748, 51.328),
+    builder: (ctx) {
+      return Container(
+        child: Icon(Icons.location_on_rounded, size: 40),
+      );
+    },
+  );
 
   @override
   void initState() {
@@ -73,6 +82,33 @@ class _EmdadTabState extends State<EmdadTab> {
   // }
 
 
+  void _onFlutterMapCreated(flutterMap.MapController mapController){
+
+
+  }
+
+  void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status){
+
+    if(status){
+
+      setState(() {
+        pos = position.center!;
+
+        _mapMarker = flutterMap.Marker(
+          point: position.center!,
+          builder: (ctx) {
+            return Container(
+              child: Icon(Icons.location_on_rounded, size: 40),
+            );
+          },
+        );
+      });
+      setState(() {
+
+      });
+    }
+
+  }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
 
@@ -332,23 +368,21 @@ class _EmdadTabState extends State<EmdadTab> {
             SizedBox(
               height: 12.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: 30,
-                  height: 5,
-                  decoration: BoxDecoration(
-                      // color: primary_orange_color,
-                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
-                ),
-              ],
+
+
+            Center(
+              child: Container(
+                width: 30,
+                height: 8,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.all(Radius.circular(12.0))),
+              ),
             ),
+
             SizedBox(
               height: 18.0,
             ),
-
-
 
             Container(
               child: Text(
@@ -369,45 +403,50 @@ class _EmdadTabState extends State<EmdadTab> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
-                  onTap: (){
-                    _onRequestItemTap();
-                  },
-                  child: Container(
-                    height: 60,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      // color: secondary_light_grey_color
-                    ),
+                Container(
+                  height: 60,
+                  padding: EdgeInsets.all(defaultPadding),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context).primaryColorLight
+
+                    // color: secondary_light_grey_color
+                  ),
+                  child: InkWell(
+                    onTap: (){
+                      _onRequestItemTap();
+                    },
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('حمل خودرو', style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                        Icon(Icons.warning_rounded)
+                        Text('حمل خودرو', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),),
+                        SizedBox(width: defaultPadding,),
+                        Icon(Icons.warning_rounded,color: Theme.of(context).primaryColor)
                       ],
                     ),
                   ),
                 ),
 
-                InkWell(
-                  onTap: (){
-                    _onRequestItemTap();
+                Container(
+                  height: 60,
+                  // width: 100,
+                  padding: EdgeInsets.all(defaultPadding),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Theme.of(context).primaryColorLight
+                  ),
+                  child: InkWell(
+                    onTap: (){
+                      _onRequestItemTap();
 
-                  },
-                  child: Container(
-                    height: 60,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      // color: secondary_light_grey_color
-                    ),
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                       children: [
-                        Text('خدمات در محل',textAlign: TextAlign.center, style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                        Icon(Icons.home_repair_service_rounded)
+                        Text('خدمات در محل',textAlign: TextAlign.center, style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                        SizedBox(width: defaultPadding,),
+                        Icon(Icons.home_repair_service_rounded,color: Theme.of(context).primaryColor)
                       ],
                     ),
                   ),
@@ -423,47 +462,55 @@ class _EmdadTabState extends State<EmdadTab> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
-                  onTap: (){
-                    _onRequestItemTap();
+                Container(
+                  height: 60,
+                  // width: 100,
+                  padding: EdgeInsets.all(defaultPadding),
 
-                  },
-                  child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context).primaryColorLight
 
-                    height: 60,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      // color: secondary_light_grey_color
-                    ),
+                    // color: secondary_light_grey_color
+                  ),
+                  child: InkWell(
+                    onTap: (){
+                      _onRequestItemTap();
+
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text('پنچری', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                        Icon(Icons.airport_shuttle_rounded)
+                        Text('پنچری لاستیک', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                        SizedBox(width: defaultPadding,),
+                        Icon(Icons.airport_shuttle_rounded,color: Theme.of(context).primaryColor)
                       ],
                     ),
                   ),
                 ),
 
-                InkWell(
-                  onTap: (){
-                    _onRequestItemTap();
+                Container(
+                  height: 60,
+                  // width: 100,
+                  padding: EdgeInsets.all(defaultPadding),
 
-                  },
-                  child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                      color: Theme.of(context).primaryColorLight
 
-                    height: 60,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      // color: secondary_light_grey_color
-                    ),
+                    // color: secondary_light_grey_color
+                  ),
+                  child: InkWell(
+                    onTap: (){
+                      _onRequestItemTap();
+
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text('بنزین', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                        Icon(Icons.local_gas_station_rounded, )
+                        Text('اتمام سوخت', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                        SizedBox(width: defaultPadding,),
+                        Icon(Icons.local_gas_station_rounded, color: Theme.of(context).primaryColor)
                       ],
                     ),
                   ),
@@ -511,24 +558,58 @@ class _EmdadTabState extends State<EmdadTab> {
     return Container(
       // color: primary_grey_color,
 
-      child: MapirMap(
-        apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
-        options: flutterMap.MapOptions(
-          center: latlng.LatLng(35.7324556, 51.4229012),
-          zoom: 16.0,
-        ),
-        mapController: _mapController,
+      child: Stack(
 
-        layers: [
-          flutterMap.MarkerLayerOptions(
-            markers: [
-              flutterMap.Marker(
-                width: 80.0,
-                height: 80.0,
-                point: latlng.LatLng(35.7324556, 51.4229012),
-                builder: (ctx) => const FlutterLogo(),
+        children: [
+
+          MapirMap(
+            apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
+            options: flutterMap.MapOptions(
+              onMapCreated: _onFlutterMapCreated,
+              controller: _mapController,
+              onPositionChanged: _onFlutterMaoPositionChanged,
+              center: pos,
+              zoom: 16.0,
+            ),
+            mapController: _mapController,
+
+            layers: [
+              flutterMap.MarkerLayerOptions(
+                markers: [
+                  // _mapMarker
+                  // flutterMap.Marker(
+                  //   width: 80.0,
+                  //   height: 80.0,
+                  //   point: pos,
+                  //   // builder: (ctx) => const FlutterLogo(),
+                  //   builder: (ctx) {
+                  //     return Container(
+                  //         child: Icon(Icons.location_on_rounded, size: 40),
+                  //     );
+                  //   },
+                  // ),
+                ],
               ),
             ],
+          ),
+
+
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: (){
+                    _panelController.open();
+                  },
+                  child: Icon(Icons.location_on_rounded,size: 50,
+                  color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                SizedBox(height: defaultPadding*6,)
+              ],
+            ),
           ),
         ],
       ),

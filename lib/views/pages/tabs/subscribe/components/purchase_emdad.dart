@@ -36,11 +36,12 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                    // color: secondary_light_grey_color,
+                      color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
 
                       Padding(
@@ -48,17 +49,22 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                         child: Image.asset('assets/images/purchase_emdad.png', height: 80,width: 80, fit: BoxFit.cover,),
                       ),
 
-                      Expanded(child: Container()),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('هفت روزه'),
+                      // Expanded(child: Container()),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text('هفت روزه'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Text('۱۰.۰۰۰ تومان')),
+                          )
+
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Text('۱۰.۰۰۰ تومان')),
-                      )
 
                     ],
                   ),
@@ -75,11 +81,13 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                      // color: secondary_light_grey_color,
+                      color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+
                     children: [
 
                       Padding(
@@ -87,17 +95,22 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                         child: Image.asset('assets/images/purchase_emdad.png', height: 80,width: 80, fit: BoxFit.cover,),
                       ),
 
-                      Expanded(child: Container()),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('چهارده روزه'),
+                      // Expanded(child: Container()),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text('چهارده روزه'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Text('۱۸.۰۰۰ تومان')),
+                          )
+
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Text('۱۸.۰۰۰ تومان')),
-                      )
 
                     ],
                   ),
@@ -114,11 +127,12 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                      // color: secondary_light_grey_color,
+                      color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
 
                       Padding(
@@ -126,17 +140,22 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                         child: Image.asset('assets/images/purchase_emdad.png', height: 80,width: 80, fit: BoxFit.cover,),
                       ),
 
-                      Expanded(child: Container()),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('یک ساله'),
+                      // Expanded(child: Container()),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text('یک ساله'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Text('۱۹۰.۰۰۰ تومان')),
+                          )
+
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Text('۱۹۰.۰۰۰ تومان')),
-                      )
                     ],
                   ),
                 ),
