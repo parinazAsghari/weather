@@ -8,8 +8,12 @@ import 'package:emdad_khodro_saipa/views/pages/tabs/emdad_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/questionnaire_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/subscribe/subscribe_tab.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/user_profile_tab.dart';
+import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
+import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 import 'login_page.dart';
@@ -32,7 +36,7 @@ class _HomePageState extends State<HomePage> {
 
     SubscribeTab(),
 
-    DevelopingPage()
+    UserProfileTab()
 
 
   ];
@@ -55,6 +59,60 @@ class _HomePageState extends State<HomePage> {
   }
 
 
+  void _onImediateEmdadButtonTap(){
+
+    showDialog(context: context, builder: (BuildContext context){
+      return  MessageDialogWidget(
+        body: 'نیاز به امداد ضروری دارید؟',
+        dismissable: true,
+        positiveTxt: 'بله',
+        positiveFunc: () async {
+          // showDialog(context: context, builder: (BuildContext context){
+          //   return CircleLoadingWidget(
+          //     dismissable: false,
+          //     msgTxt: 'در حال ثبت درخواست',
+          //   );
+          // });
+          // // await Future.delayed(Duration(seconds: 3));
+          // // Navigator.of(context).pop();
+
+          showDialog(context: context, builder: (BuildContext context){
+            return MessageDialogWidget(
+              body: 'درخواست شما با موفقیت ثبت شد، همکاران ما تا دقایقی دیگر با شما تماس خواهند گرفت.',
+              positiveTxt: 'باشه',
+
+            );
+          });
+        },
+      );
+    });
+
+
+  }
+
+
+  void _onFloatingActionButtonTap()async{
+
+    showDialog(context: context, builder: (BuildContext context){
+      return MessageDialogWidget(
+        dismissable: true,
+        positiveTxt: 'برقراری تماس',
+        body: 'تماس مستقیم با پشتیبانی امداد خودرو سایپا؟',
+        positiveFunc: ()async{
+          const url = "tel:096550";
+          if (await canLaunch(url)) {
+          await launch(url);
+          } else {
+          throw 'Could not launch $url';
+          }
+        }
+      );
+    });
+
+
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -68,20 +126,26 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         extendBodyBehindAppBar: false,
         appBar: AppBar(
+          elevation: 0,
           title: Image.asset('assets/images/emdad_khodro_logo_white_text.png', height: 30,width: MediaQuery.of(context).size.width*0.35, fit: BoxFit.contain,),
 
           actions: [
 
-            Container(
-                margin: EdgeInsets.only(left: defaultPadding),
-                height: 30,
-                width: 30,
-                padding: EdgeInsets.all(defaultPadding/2),
-                decoration:BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).accentColor
-                ),
-                child: Image.asset('assets/images/alert.png', ))
+            InkWell(
+              onTap: (){
+                _onImediateEmdadButtonTap();
+              },
+              child: Container(
+                  margin: EdgeInsets.only(left: defaultPadding),
+                  height: 30,
+                  width: 30,
+                  padding: EdgeInsets.all(defaultPadding/2),
+                  decoration:BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).accentColor
+                  ),
+                  child: Image.asset('assets/images/alert.png', )),
+            )
           ],
         ),
 
@@ -94,6 +158,15 @@ class _HomePageState extends State<HomePage> {
             )//_items.elementAt(_index),
         ),
         bottomNavigationBar: _showBottomNav(),
+
+        floatingActionButton: FloatingActionButton(
+          heroTag: null,
+          onPressed: (){
+            _onFloatingActionButtonTap();
+          },
+          child: Icon(Icons.phone),
+          backgroundColor: Theme.of(context).accentColor,
+        ),
       ),
     );
   }

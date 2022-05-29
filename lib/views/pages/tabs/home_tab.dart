@@ -264,23 +264,29 @@ class _HomeTabState extends State<HomeTab> {
 
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Container(
-                      margin: EdgeInsets.all(defaultPadding),
-                      width: 140,
-                      height: 140,
-                      child: Neumorphic(
-                        style: NeumorphicStyle(
-                          shape: NeumorphicShape.flat,
-                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
-                          depth: 3,
-                          lightSource: LightSource.topLeft,
-                          color: Theme.of(context).primaryColorLight,
-                          shadowDarkColor: Theme.of(context).shadowColor,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
 
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(defaultPadding),
+                        width: 140,
+                        height: 140,
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                            shape: NeumorphicShape.flat,
+                            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
+                            depth: 3,
+                            lightSource: LightSource.topLeft,
+                            color: Theme.of(context).primaryColorLight,
+                            shadowDarkColor: Theme.of(context).shadowColor,
+
+                          ),
+                          child: Center(child: Image.asset('assets/images/ic_car_red.png', fit: BoxFit.contain,),),
                         ),
-                        child: Center(child: Image.asset('assets/images/ic_car_red.png', fit: BoxFit.contain,),),
-                      ),
 
+                      ),
                     ),
                   )
                 ],
@@ -295,6 +301,7 @@ class _HomeTabState extends State<HomeTab> {
 
               child: GridView.extent(
                 shrinkWrap: true,
+
 
                 maxCrossAxisExtent:120,
                 mainAxisSpacing: 16,
@@ -365,12 +372,12 @@ class _HomeTabState extends State<HomeTab> {
                     title: 'پارکینگ',
 
                   ),
-                  _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/plus.png',
-                    title: 'اضافه',
-
-                  ),
+                  // _serviceWidget(
+                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/plus.png',
+                  //   title: 'اضافه',
+                  //
+                  // ),
 
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -1856,7 +1863,7 @@ class _HomeTabState extends State<HomeTab> {
       padding: EdgeInsets.only(top: defaultPadding, right: defaultPadding, left: defaultPadding),
 
       style: NeumorphicStyle(
-          shape: NeumorphicShape.flat,
+          shape: NeumorphicShape.concave,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
           depth: 8,
           lightSource: LightSource.topLeft,

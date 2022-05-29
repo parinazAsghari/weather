@@ -78,10 +78,10 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       await Future.delayed(Duration(milliseconds: 4000));
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=> HomePage()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=> HomePage()));
 
 
-      /*
+
       Map data = {
         'MobileNumber': '${_phoneController.text}',
         'Message': "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code.toString()} \n امداد خودرو سایپا\n "
@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
       }
 
 
-       */
+
 
     }
     else if(state==1){
@@ -194,12 +194,12 @@ class _LoginPageState extends State<LoginPage> {
 
           children: [
 
-            SizedBox(height: defaultPadding*2,),
+            SizedBox(height: defaultPadding*4,),
 
             //Logo
             Container(
-              child: Image.asset('assets/images/emdad_khodro_logo_single.png',
-              height: 120,fit: BoxFit.contain,
+              child: Image.asset('assets/images/emdad_khodro_logo.png',
+              width: MediaQuery.of(context).size.width* 0.65 ,fit: BoxFit.contain,
               ),
             ),
 
@@ -207,22 +207,26 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: defaultPadding*2,),
             SizedBox(height: defaultPadding,),
 
-            state==0? Text('شماره همراه خود را وارد نمائید')
+            state==0? Text('شماره همراه خود را وارد نمائید', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),)
             :
-            Text(' رمز عبور را در کادر زیر وارد نمائید')
+            Text(' رمز عبور را در کادر زیر وارد نمائید', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))
             ,
+
+            SizedBox(height: defaultPadding,),
 
 
             //state 0: showing phone number textfield - state 1: showing otp code entery
             state == 0?
             Container(
+              height: 60,
+              width: MediaQuery.of(context).size.width* 0.70,
               margin: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8)
-              ),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(8)
+              // ),
 
               child: Directionality(
-                textDirection: TextDirection.rtl,
+                textDirection: TextDirection.ltr,
                 child: TextField(
 
                   keyboardType: TextInputType.phone,
@@ -235,70 +239,84 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     // fillColor: secondary_light_grey_color,
 
-                      isDense: true,filled: true,
+                      // isDense: true,filled: true,
                     hintText: '09xx xxx xxxx',
+                    counterText: '',
                     // fillColor: Colors.white,
                       contentPadding: EdgeInsets.only(left: 10,top: 10,right: 10,bottom: 10),
-                      labelText: 'شماره همراه',labelStyle: TextStyle(),
+                      // labelText: 'شماره همراه',labelStyle: TextStyle(),
                       floatingLabelStyle: TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_sharp_orange_light)),
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(
+                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: color_sharp_orange_light)),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(
                           // color: primary_grey_color,
                           width: 0.8)),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(
                           // color: primary_grey_color,
                           width: 0.8)),
-                      disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
+                      // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
                   ),
                 ),
               ),
             )
                 :
             Container(
+              height: 60,
+              width: MediaQuery.of(context).size.width* 0.70,
+
               margin: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8)
-              ),
+              // decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(8)
+              // ),
               child: Directionality(
-                textDirection: TextDirection.rtl,
+                textDirection: TextDirection.ltr,
                 child: TextField(
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.number,
                   maxLength: 6,
                   controller: _OTPCodeController,
                   obscureText: false,
                   style: TextStyle(fontWeight: FontWeight.normal),
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
-                      isDense: true,
-                      filled: true,
+                      // isDense: true,
+                      counterText: '',
+                      // filled: true,
                       hintText: 'xxx xxx',
                       // fillColor: Colors.white,
                       contentPadding: EdgeInsets.only(left: 10,top: 10,right: 10,bottom: 10),
-                      labelText: 'رمز عبور',labelStyle: TextStyle(),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_sharp_orange_light)),
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_holoGrey_primary,width: 0.8)),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: color_holoGrey_primary,width: 0.8)),
-                      disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
+                      // labelText: 'رمز عبور',labelStyle: TextStyle(),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: color_sharp_orange_light)),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: color_holoGrey_primary,width: 0.8)),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: color_holoGrey_primary,width: 0.8)),
+                      // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
                   ),
                 ),
               ),
             ),
 
 
-            SizedBox(height: defaultPadding,),
+            SizedBox(height: defaultPadding*2,),
 
-            Expanded(child: Container()),
+            // Expanded(child: Container()),
             
             
             Container(
-              width: double.maxFinite,
+              height: 40,
+              width: MediaQuery.of(context).size.width*0.55,
               margin: EdgeInsets.all(defaultPadding),
 
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)
+                    )
+                  )
                   // primary: secondary_dark_purple_color
                 ),
-                child: Text('ورود', style: TextStyle(color: Colors.grey),),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('ورود', textAlign: TextAlign.center,style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                ),
                 onPressed: (){
                   onLoginButtonPressed();
                 },

@@ -28,7 +28,7 @@ class MessageDialogWidget extends StatelessWidget{
               height: 180,
 
               decoration: BoxDecoration(
-                // color: secondary_light_grey_color,
+                // color: dark_theme_white,
 
                 borderRadius: BorderRadius.circular(18)
               ),
@@ -64,8 +64,8 @@ class MessageDialogWidget extends StatelessWidget{
                           // color: secondary_light_grey_color
                       ),),
                     ),
-                  )
-                  ,                    ],
+                  ),
+                ],
               )
           ),
         ),

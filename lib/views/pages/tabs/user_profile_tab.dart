@@ -2,16 +2,20 @@
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:flutter/material.dart';
 
-class DevelopingPage extends StatelessWidget {
-  const DevelopingPage({Key? key}) : super(key: key);
+class UserProfileTab extends StatelessWidget {
+  const UserProfileTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: primary_grey_color,
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        elevation: 0,
+        // automaticallyImplyLeading: true,
         // backgroundColor: secondary_dark_purple_color,
+
+        title: Text('پروفایل کاربری', style: TextStyle(color: Colors.white),),
+
       ),
       body: Container(
         height: double.maxFinite,

@@ -72,9 +72,10 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 
   @override
   void dispose() {
-    super.dispose();
     _animationControllerText.dispose();
     _animationControllerLogo.dispose();
+    super.dispose();
+
   }
 
   @override
@@ -122,6 +123,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
             SizedBox(height: defaultPadding,),
 
             CircularProgressIndicator(
+              color: Theme.of(context).accentColor,
               // color: primary_orange_color,
             ),
 
