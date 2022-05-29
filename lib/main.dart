@@ -1,5 +1,3 @@
-import 'package:emdad_khodro_saipa/views/pages/menu_side/contact_us.dart';
-import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/product_introduction.dart';
 import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Emdad Khodro',
+
       home: SplashPage(),
       // home: HomePage(),
 
