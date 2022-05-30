@@ -34,9 +34,9 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                 },
                 child: Container(
                   height: 180,
-                  width: 100,
+                  width: MediaQuery.of(context).size.width*0.4,
                   decoration: BoxDecoration(
-                      color: Color(0xFFEEF0F6),
+                      color: const Color(0xFFEEF0F6),
                     borderRadius: BorderRadius.circular(30)
 
                   ),
@@ -46,7 +46,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          width: 180,
+                          width: MediaQuery.of(context).size.width*0.32,
                           height: 80,
                           decoration: BoxDecoration(
                             color:  const Color(0xFF2E3D3D),
@@ -56,9 +56,9 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SizedBox(width: 5,),
-                              const Text('اشتراک سفر',style: TextStyle(color: Color(0xFFFF6B00)),),
+                              const Expanded(flex:1,child: Text('اشتراک سفر',style: TextStyle(color: Color(0xFFFF6B00)),)),
                               Container(
-                                width: 50,
+                                width: MediaQuery.of(context).size.width*0.32*1/3,
                                 height: 50,
                                 decoration: BoxDecoration(
                                   color:  const Color(0xFFD9D9D9),
@@ -71,6 +71,28 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                             ],
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        width: 150,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    )
+                                )
+                            ),
+                            onPressed: () {
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'پرداخت',
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                            )),
                       ),
 
                     ],
@@ -86,7 +108,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                 },
                 child: Container(
                   height: 180,
-                  width: 100,
+                  width: MediaQuery.of(context).size.width*0.4,
                   decoration: BoxDecoration(
                       color: const Color(0xFFEEF0F6),
                     borderRadius: BorderRadius.circular(30)
@@ -99,7 +121,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          width: 180,
+                          width: MediaQuery.of(context).size.width*0.32,
                           height: 80,
                           decoration: BoxDecoration(
                             color:  const Color(0xFF2E3D3D),
@@ -109,9 +131,9 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SizedBox(width: 5,),
-                              const Text('اشتراک عمومی',style: TextStyle(color: Color(0xFFFF6B00)),),
+                              const Expanded(flex:1,child: Text('اشتراک عمومی',style: TextStyle(color: Color(0xFFFF6B00)),)),
                               Container(
-                                  width: 50,
+                                  width: MediaQuery.of(context).size.width*0.32*1/3,
                                   height: 50,
                                   decoration: BoxDecoration(
                                     color:  const Color(0xFFD9D9D9),
