@@ -36,7 +36,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: MediaQuery.of(context).size.width*0.4,
                   decoration: BoxDecoration(
-                      color: const Color(0xFFEEF0F6),
+                      color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(30)
 
                   ),
@@ -110,7 +110,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: MediaQuery.of(context).size.width*0.4,
                   decoration: BoxDecoration(
-                      color: const Color(0xFFEEF0F6),
+                      color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(30)
 
                   ),

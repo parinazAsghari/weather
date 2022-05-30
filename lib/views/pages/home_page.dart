@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 import 'login_page.dart';
+import 'menu_side/social_responsibility.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,6 +27,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final Uri _url = Uri.parse('https://t.me/emdadsaipa');
+  final Uri _urlwhatsapp = Uri.parse('https://t.me/emdadsaipa');
+  final Uri _urlaparat = Uri.parse('https://t.me/emdadsaipa');
+  final Uri _urlinstagram = Uri.parse('https://t.me/emdadsaipa');
+  void _launchUrl() async {
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
+  }
+
+
 
   List<Widget> _items = [
     HomeTab(),
@@ -367,6 +377,45 @@ class _HomePageState extends State<HomePage> {
             ,
             SizedBox(height: 3,)
             ,
+
+            Divider(height: 5,thickness: 0.25,
+              // color: secondary_light_grey_color,
+              indent: 20,endIndent: 20,)
+            ,
+            SizedBox(height: 3,)
+            ,
+            Padding(
+              padding: EdgeInsets.only(left: 15,right: 15),
+              child: ListTile(
+                leading: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(width: 1,
+                          // color: primary_orange_color
+                        )
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(2),
+                      child: Icon(Icons.account_circle,
+                        // color: secondary_light_grey_color,
+                      ),
+                    )
+                ),
+                onTap: (){
+                  // Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>SocialResponsibility ()));
+                },
+                trailing: Text('مسولیت های اجتماعی',textAlign: TextAlign.end,style: TextStyle(
+                  // color: secondary_light_grey_color
+                ),),
+              ),
+            )
+            ,
+            SizedBox(height: 3,),
+
+
+
+
             Divider(height: 5,thickness: 0.25,
               // color: secondary_light_grey_color,
               indent: 20,endIndent: 20,)
@@ -409,10 +458,82 @@ class _HomePageState extends State<HomePage> {
             ,
             SizedBox(height: 20,),
             // Expanded(child: Container()),
-            Text( versionName, textAlign: TextAlign.center,style: TextStyle(
-                // color: secondary_light_grey_color
-            ),),
-            SizedBox(height: 10,)
+            // Text( versionName, textAlign: TextAlign.center,style: TextStyle(
+            //     // color: secondary_light_grey_color
+            // ),),
+            SizedBox(height: 20,),
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 15,right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              // border: Border.all(width: 1,
+                              //   // color: primary_orange_color
+                              // )
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(2),
+                            child:Image.asset('assets/images/aparat.png',height: 30,width: 30,),
+                          )
+                      ),
+                      Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              // border: Border.all(width: 1,
+                              //   // color: primary_orange_color
+                              // )
+                          ),
+                          child: GestureDetector(
+                            onTap: _launchUrl,
+                            child: Padding(
+                              padding: EdgeInsets.all(2),
+                              child:Image.asset('assets/images/telegram.png',height: 30,width: 30,),
+                            ),
+                          )
+                      ),
+                      Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              // border: Border.all(width: 1,
+                              //   // color: primary_orange_color
+                              // )
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(2),
+                            child:Image.asset('assets/images/instagram.png',height: 30,width: 30,),
+                          )
+                      ),
+                      Container(
+                          margin: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              // border: Border.all(width: 1,
+                              //   // color: primary_orange_color
+                              // )
+                          ),
+                          child: Container(
+                            child: Padding(
+                              padding: EdgeInsets.all(2),
+                              child:Image.asset('assets/images/whatsapp.png',height: 30,width: 30,),
+                            ),
+                          )
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )
 
           ],
         )
