@@ -28,12 +28,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Uri _url = Uri.parse('https://t.me/emdadsaipa');
-  final Uri _urlwhatsapp = Uri.parse('https://t.me/emdadsaipa');
-  final Uri _urlaparat = Uri.parse('https://t.me/emdadsaipa');
-  final Uri _urlinstagram = Uri.parse('https://t.me/emdadsaipa');
-  void _launchUrl() async {
-    if (!await launchUrl(_url)) throw 'Could not launch $_url';
+  final Uri _urltelegram = Uri.parse('https://t.me/emdadsaipa');
+  final Uri _urllinkedin = Uri.parse('https://www.linkedin.com/authwall?trk=ripf&trkInfo=AQG7KfpQ-FOLxgAAAYETvF5oKwOy6t1MLezA9lQXElA3cqrzXDUzSFJGZ-G7e6rUfZBXEJHbSsJPXBc10IA2rEHyA_J5WeQcQM1EfbpiSO0ht1e4a8qOfpbG51WRsd7gOTgUSVk=&original_referer=https://emdadsaipa.ir/&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fin%2Femdadsaipa');
+  final Uri _urlaparat = Uri.parse('https://www.aparat.com/emdadsaipa');
+  final Uri _urlinstagram = Uri.parse('https://www.instagram.com/accounts/login/?next=/emdadsaipa.ir/');
+   void _launchUrltelegram() async {
+    if (!await launchUrl(_urltelegram)) throw 'Could not launch $_urltelegram';
+  }
+  void _launchUrlinkedin() async {
+    if (!await launchUrl(_urllinkedin)) throw 'Could not launch $_urllinkedin';
+  }
+  void _launchUrlaparat() async {
+    if (!await launchUrl(_urlaparat)) throw 'Could not launch $_urlaparat';
+  }
+  void _launchUrlinstagram() async {
+    if (!await launchUrl(_urlinstagram)) throw 'Could not launch $_urlinstagram';
   }
 
 
@@ -481,9 +490,12 @@ class _HomePageState extends State<HomePage> {
                               //   // color: primary_orange_color
                               // )
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.all(2),
-                            child:Image.asset('assets/images/aparat.png',height: 30,width: 30,),
+                          child: GestureDetector(
+                             onTap:_launchUrlaparat,
+                            child: Padding(
+                              padding: EdgeInsets.all(2),
+                              child:Image.asset('assets/images/aparat.png',height: 30,width: 30,),
+                            ),
                           )
                       ),
                       Container(
@@ -495,7 +507,7 @@ class _HomePageState extends State<HomePage> {
                               // )
                           ),
                           child: GestureDetector(
-                            onTap: _launchUrl,
+                            onTap: _launchUrltelegram,
                             child: Padding(
                               padding: EdgeInsets.all(2),
                               child:Image.asset('assets/images/telegram.png',height: 30,width: 30,),
@@ -510,12 +522,16 @@ class _HomePageState extends State<HomePage> {
                               //   // color: primary_orange_color
                               // )
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.all(2),
-                            child:Image.asset('assets/images/instagram.png',height: 30,width: 30,),
+                          child: GestureDetector(
+                             onTap: _launchUrlinstagram,
+                            child: Padding(
+                              padding: EdgeInsets.all(2),
+                              child:Image.asset('assets/images/instagram.png',height: 30,width: 30,),
+                            ),
                           )
                       ),
                       Container(
+
                           margin: EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
@@ -524,9 +540,12 @@ class _HomePageState extends State<HomePage> {
                               // )
                           ),
                           child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.all(2),
-                              child:Image.asset('assets/images/whatsapp.png',height: 30,width: 30,),
+                            child: GestureDetector(
+                              onTap: _launchUrlinkedin,
+                              child: Padding(
+                                padding: EdgeInsets.all(2),
+                                child:Image.asset('assets/images/linkedin.png',height: 30,width: 30,),
+                              ),
                             ),
                           )
                       ),
