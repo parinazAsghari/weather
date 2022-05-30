@@ -13,6 +13,10 @@ class _ContactUsState extends State<ContactUs> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        title: Text(
+          'تماس با ما',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        ),
         // backgroundColor: secondary_dark_purple_color,
       ),
       body: _body(),
@@ -25,14 +29,7 @@ class _ContactUsState extends State<ContactUs> {
       child: Column(
         children: [
           SizedBox(
-            height: 10,
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              'تماس با ما',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
+            height: 13,
           ),
           SizedBox(height: 15,),
           _customText("آدرس پستی دفتر مرکزی:"," تهران- کیلومتر 14 جاده مخصوص کرج(شهید لشگری) - روبروی سایپا دیزل- شماره 140"),
