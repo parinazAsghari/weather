@@ -3,9 +3,10 @@ import 'dart:ui';
 
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login/login/login_page.dart';
 
 class SplashPage extends StatefulWidget {
 
