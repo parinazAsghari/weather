@@ -36,34 +36,41 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Color(0xFFEEF0F6),
                     borderRadius: BorderRadius.circular(30)
 
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/images/purchase_emdad.png', height: 80,width: 80, fit: BoxFit.cover,),
-                      ),
-
-                      // Expanded(child: Container()),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text('هفت روزه'),
+                        child: Container(
+                          width: 180,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color:  const Color(0xFF2E3D3D),
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('۱۰.۰۰۰ تومان')),
-                          )
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(width: 5,),
+                              const Text('اشتراک سفر',style: TextStyle(color: Color(0xFFFF6B00)),),
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color:  const Color(0xFFD9D9D9),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
 
-                        ],
+                                child: Image.asset('assets/images/travel_car.png',fit: BoxFit.cover,),
+                              ),
+                              const SizedBox(width: 5,),
+                            ],
+                          ),
+                        ),
                       ),
 
                     ],
@@ -81,7 +88,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   height: 180,
                   width: 100,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorLight,
+                      color: const Color(0xFFEEF0F6),
                     borderRadius: BorderRadius.circular(30)
 
                   ),
@@ -89,73 +96,58 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
 
                     children: [
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/images/purchase_emdad.png', height: 80,width: 80, fit: BoxFit.cover,),
-                      ),
-
-                      // Expanded(child: Container()),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text('چهارده روزه'),
+                        child: Container(
+                          width: 180,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color:  const Color(0xFF2E3D3D),
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('۱۸.۰۰۰ تومان')),
-                          )
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(width: 5,),
+                              const Text('اشتراک عمومی',style: TextStyle(color: Color(0xFFFF6B00)),),
+                              Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color:  const Color(0xFFD9D9D9),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
 
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ),
-              ),
-
-
-              // 1 year
-              InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
-                },
-                child: Container(
-                  height: 180,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorLight,
-                    borderRadius: BorderRadius.circular(30)
-
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/images/purchase_emdad.png', height: 80,width: 80, fit: BoxFit.cover,),
-                      ),
-
-                      // Expanded(child: Container()),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text('یک ساله'),
+                                  child: Image.asset('assets/images/public_car.png',fit: BoxFit.cover,),
+                              ),
+                              const SizedBox(width: 5,),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('۱۹۰.۰۰۰ تومان')),
-                          )
-
-                        ],
+                        ),
                       ),
+                      SizedBox(
+                        width: 150,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                    )
+                                )
+                            ),
+                            onPressed: () {
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'پرداخت',
+                                style: TextStyle(
+                                  color: Colors.white
+                                ),
+                              ),
+                            )),
+                      ),
+
                     ],
                   ),
                 ),
