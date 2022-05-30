@@ -138,11 +138,12 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         drawer: DrawerWidget(context),
-        body: Center(
-            child: IndexedStack(
-                index: _selectedIndex,
-                children: _items) //_items.elementAt(_index),
-            ),
+        body: _items[_selectedIndex],
+        // body: Center(
+        //     child: IndexedStack(
+        //         index: _selectedIndex,
+        //         children: _items) //_items.elementAt(_index),
+        //     ),
         bottomNavigationBar: _showBottomNav(),
         floatingActionButton: FloatingActionButton(
           heroTag: null,
