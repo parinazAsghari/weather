@@ -14,7 +14,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../constants.dart';
 import 'drawer.dart';
 import 'login/login/login_page.dart';
+import 'menu_side/about_us.dart';
+import 'menu_side/settings.dart';
 import 'menu_side/social_responsibility.dart';
+import 'menu_side/user_profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -45,9 +48,9 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _items = [
     HomeTab(),
-    QuestionnaireTab(),
-    EmdadTab(),
     SubscribeTab(),
+    EmdadTab(),
+    QuestionnaireTab(),
     UserProfileTab()
   ];
   int _selectedIndex = 0;
@@ -153,7 +156,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        drawer: DrawerWidget(context),
+        drawer: DrawerWidget(),
         body: _items[_selectedIndex],
         // body: Center(
         //     child: IndexedStack(
@@ -186,17 +189,20 @@ class _HomePageState extends State<HomePage> {
           label: 'خانه',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.fact_check_rounded),
-          label: 'نظرسنجی',
+          icon: Icon(Icons.shopping_bag),
+          label: 'اشتراک',
         ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.miscellaneous_services),
           label: 'امداد',
         ),
+
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_bag),
-          label: 'اشتراک',
+          icon: Icon(Icons.fact_check_rounded),
+          label: 'نظرسنجی',
         ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'کاربری',
@@ -448,85 +454,37 @@ class _HomePageState extends State<HomePage> {
             // ),),
             SizedBox(height: 20,),
 
-            Column(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 15,right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              // border: Border.all(width: 1,
-                              //   // color: primary_orange_color
-                              // )
-                          ),
-                          child: GestureDetector(
-                             onTap:_launchUrlaparat,
-                            child: Padding(
-                              padding: EdgeInsets.all(2),
-                              child:Image.asset('assets/images/aparat.png',height: 30,width: 30,),
-                            ),
-                          )
-                      ),
-                      Container(
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              // border: Border.all(width: 1,
-                              //   // color: primary_orange_color
-                              // )
-                          ),
-                          child: GestureDetector(
-                            onTap: _launchUrltelegram,
-                            child: Padding(
-                              padding: EdgeInsets.all(2),
-                              child:Image.asset('assets/images/telegram.png',height: 30,width: 30,),
-                            ),
-                          )
-                      ),
-                      Container(
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              // border: Border.all(width: 1,
-                              //   // color: primary_orange_color
-                              // )
-                          ),
-                          child: GestureDetector(
-                             onTap: _launchUrlinstagram,
-                            child: Padding(
-                              padding: EdgeInsets.all(2),
-                              child:Image.asset('assets/images/instagram.png',height: 30,width: 30,),
-                            ),
-                          )
-                      ),
-                      Container(
-
-                          margin: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              // border: Border.all(width: 1,
-                              //   // color: primary_orange_color
-                              // )
-                          ),
-                          child: Container(
-                            child: GestureDetector(
-                              onTap: _launchUrlinkedin,
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child:Image.asset('assets/images/linkedin.png',height: 30,width: 30,),
-                              ),
-                            ),
-                          )
-                      ),
-                    ],
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                     onTap:_launchUrlaparat,
+                    child: Image.asset('assets/images/aparat.png',height: 30,width: 30,),
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: _launchUrltelegram,
+                    child: Image.asset('assets/images/telegram.png',height: 30,width: 30,),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                     onTap: _launchUrlinstagram,
+                    child: Image.asset('assets/images/instagram.png',height: 30,width: 30,),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: _launchUrlinkedin,
+                    child: Image.asset('assets/images/linkedin.png',height: 30,width: 30,),
+                  ),
+                ),
               ],
             )
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -49,17 +50,33 @@ class _EmdadTabState extends State<EmdadTab> {
 
   int requestState = 0;
 
-  flutterMap.MapController _mapController = flutterMap.MapController();
-  var pos =  latlng.LatLng(35.748, 51.328);
-  flutterMap.Marker _mapMarker = flutterMap.Marker(
-    point: latlng.LatLng(35.748, 51.328),
-    builder: (ctx) {
-      return Container(
-        child: Icon(Icons.location_on_rounded, size: 40),
-      );
-    },
-  );
 
+ //map.ir map
+
+  // flutterMap.MapController _mapController = flutterMap.MapController();
+  // var pos =  latlng.LatLng(35.748, 51.328);
+  // flutterMap.Marker _mapMarker = flutterMap.Marker(
+  //   point: latlng.LatLng(35.748, 51.328),
+  //   builder: (ctx) {
+  //     return Container(
+  //       child: Icon(Icons.location_on_rounded, size: 40),
+  //     );
+  //   },
+  // );
+  //
+  void callApi(LatLng latLng)async{
+
+
+    var result = await ApiProvider.getAddress(latLng);
+
+    print(result.addressCompact);
+
+
+  }
+  
+  
+  
+  
   @override
   void initState() {
     super.initState();
@@ -68,47 +85,53 @@ class _EmdadTabState extends State<EmdadTab> {
     // markerLoadings();
 
     _fabHeight = _initFabHeight;
+    
+    
+    // callApi(_center);
 
+
+  }
+  
+ 
+
+
+  void markerLoadings()async{
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 100);
+    // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
+
+    setState(() {
+      customIcon = BitmapDescriptor.fromBytes(markerIcon);
+    });
   }
 
 
-  // void markerLoadings()async{
-  //   final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 100);
-  //   // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
+  // void _onFlutterMapCreated(flutterMap.MapController mapController){
   //
-  //   setState(() {
-  //     customIcon = BitmapDescriptor.fromBytes(markerIcon);
-  //   });
+  //
   // }
 
-
-  void _onFlutterMapCreated(flutterMap.MapController mapController){
-
-
-  }
-
-  void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status){
-
-    if(status){
-
-      setState(() {
-        pos = position.center!;
-
-        _mapMarker = flutterMap.Marker(
-          point: position.center!,
-          builder: (ctx) {
-            return Container(
-              child: Icon(Icons.location_on_rounded, size: 40),
-            );
-          },
-        );
-      });
-      setState(() {
-
-      });
-    }
-
-  }
+  // void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status){
+  //
+  //   if(status){
+  //
+  //     setState(() {
+  //       pos = position.center!;
+  //
+  //       _mapMarker = flutterMap.Marker(
+  //         point: position.center!,
+  //         builder: (ctx) {
+  //           return Container(
+  //             child: Icon(Icons.location_on_rounded, size: 40),
+  //           );
+  //         },
+  //       );
+  //     });
+  //     setState(() {
+  //
+  //     });
+  //   }
+  //
+  // }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
 
@@ -135,6 +158,8 @@ class _EmdadTabState extends State<EmdadTab> {
 
     setState(() {
       markers[MarkerId('place_name')] = marker;
+      _onCurrentLocationButtonPressed();
+
     });
   }
 
@@ -160,6 +185,8 @@ class _EmdadTabState extends State<EmdadTab> {
       );
 
       markers[MarkerId('place_name')] = marker;
+
+      // callApi(_lastMapPosition);
 
     });
   }
@@ -208,6 +235,10 @@ class _EmdadTabState extends State<EmdadTab> {
           )));
 
       // _panelController.open();
+
+
+      callApi(_center);
+
 
     });
   }
@@ -558,6 +589,9 @@ class _EmdadTabState extends State<EmdadTab> {
     return Container(
       // color: primary_grey_color,
 
+
+      //map.ir - map
+      /*
       child: Stack(
 
         children: [
@@ -614,7 +648,11 @@ class _EmdadTabState extends State<EmdadTab> {
         ],
       ),
 
-      /*
+
+       */
+
+
+
       child: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
@@ -624,15 +662,15 @@ class _EmdadTabState extends State<EmdadTab> {
         ),
         onCameraMove: _onCameraMove,
         markers: markers.values.toSet(),
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
+        myLocationEnabled: false,
+        myLocationButtonEnabled: false,
 
 
         zoomControlsEnabled: true,
         zoomGesturesEnabled: true,
       ),
 
-       */
+
     );
   }
 
