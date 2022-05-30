@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
+import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
@@ -266,7 +267,7 @@ class _HomeTabState extends State<HomeTab> {
                     alignment: Alignment.topLeft,
                     child: InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar()));
 
                       },
                       child: Container(
