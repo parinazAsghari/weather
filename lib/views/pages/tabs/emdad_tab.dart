@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapir_raster/mapir_raster.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:flutter_map/flutter_map.dart' as flutterMap;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -51,19 +52,19 @@ class _EmdadTabState extends State<EmdadTab> {
   int requestState = 0;
 
 
- //map.ir map
+ // map.ir map
 
-  // flutterMap.MapController _mapController = flutterMap.MapController();
-  // var pos =  latlng.LatLng(35.748, 51.328);
-  // flutterMap.Marker _mapMarker = flutterMap.Marker(
-  //   point: latlng.LatLng(35.748, 51.328),
-  //   builder: (ctx) {
-  //     return Container(
-  //       child: Icon(Icons.location_on_rounded, size: 40),
-  //     );
-  //   },
-  // );
-  //
+  flutterMap.MapController _mapController = flutterMap.MapController();
+  var pos =  latlng.LatLng(35.748, 51.328);
+  flutterMap.Marker _mapMarker = flutterMap.Marker(
+    point: latlng.LatLng(35.748, 51.328),
+    builder: (ctx) {
+      return Container(
+        child: Icon(Icons.location_on_rounded, size: 40),
+      );
+    },
+  );
+
   void callApi(LatLng latLng)async{
 
 
@@ -105,37 +106,38 @@ class _EmdadTabState extends State<EmdadTab> {
   }
 
 
-  // void _onFlutterMapCreated(flutterMap.MapController mapController){
-  //
-  //
-  // }
+  void _onFlutterMapCreated(flutterMap.MapController mapController){
 
-  // void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status){
-  //
-  //   if(status){
-  //
-  //     setState(() {
-  //       pos = position.center!;
-  //
-  //       _mapMarker = flutterMap.Marker(
-  //         point: position.center!,
-  //         builder: (ctx) {
-  //           return Container(
-  //             child: Icon(Icons.location_on_rounded, size: 40),
-  //           );
-  //         },
-  //       );
-  //     });
-  //     setState(() {
-  //
-  //     });
-  //   }
-  //
-  // }
+
+  }
+
+  void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status){
+
+    if(status){
+
+      setState(() {
+        pos = position.center!;
+
+        _mapMarker = flutterMap.Marker(
+          point: position.center!,
+          builder: (ctx) {
+            return Container(
+              child: Icon(Icons.location_on_rounded, size: 40),
+            );
+          },
+        );
+      });
+      setState(() {
+
+      });
+    }
+
+  }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
 
-    final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 200);
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/ic_marker.png', 200);
+    // final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 200);
     // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
 
     setState(() {
@@ -416,13 +418,18 @@ class _EmdadTabState extends State<EmdadTab> {
             ),
 
             Container(
-              child: Text(
-                'ثبت درخواست',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  // color: secondary_light_grey_color,
-                  fontWeight: FontWeight.bold
+              child: InkWell(
+                onTap: (){
+                  _panelController.open();
+                },
+                child: Text(
+                  'ثبت درخواست',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    // color: secondary_light_grey_color,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
               ),
             ),
@@ -557,7 +564,8 @@ class _EmdadTabState extends State<EmdadTab> {
 
 
           ],
-        ));
+        )
+    );
   }
 
   Widget _button(String label, IconData icon, Color color) {
@@ -653,22 +661,101 @@ class _EmdadTabState extends State<EmdadTab> {
 
 
 
-      child: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 17.0,
+      child: kIsWeb?
+      //PWA - map.ir map
+      Stack(
 
-        ),
-        onCameraMove: _onCameraMove,
-        markers: markers.values.toSet(),
-        myLocationEnabled: false,
-        myLocationButtonEnabled: false,
+        children: [
+
+          MapirMap(
+            apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
+            options: flutterMap.MapOptions(
+              onMapCreated: _onFlutterMapCreated,
+              controller: _mapController,
+              onPositionChanged: _onFlutterMaoPositionChanged,
+              center: pos,
+              zoom: 16.0,
+            ),
+            mapController: _mapController,
+
+            layers: [
+              flutterMap.MarkerLayerOptions(
+                markers: [
+                  // _mapMarker
+                  // flutterMap.Marker(
+                  //   width: 80.0,
+                  //   height: 80.0,
+                  //   point: pos,
+                  //   // builder: (ctx) => const FlutterLogo(),
+                  //   builder: (ctx) {
+                  //     return Container(
+                  //         child: Icon(Icons.location_on_rounded, size: 40),
+                  //     );
+                  //   },
+                  // ),
+                ],
+              ),
+            ],
+          ),
 
 
-        zoomControlsEnabled: true,
-        zoomGesturesEnabled: true,
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: (){
+                    _panelController.open();
+                  },
+                  child: Icon(Icons.location_on_rounded,size: 50,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                SizedBox(height: defaultPadding*6,)
+              ],
+            ),
+          ),
+        ],
+      )
+      :
+      //mobile app - android yet    
+      Stack(
+        children: [
+          
+
+          
+          
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 17.0,
+
+            ),
+            onCameraMove: _onCameraMove,
+            markers: markers.values.toSet(),
+            myLocationEnabled: false,
+            myLocationButtonEnabled: false,
+
+
+            zoomControlsEnabled: true,
+            zoomGesturesEnabled: true,
+          ),
+
+
+
+          Container(
+            height: 50,
+            width: double.maxFinite,
+            color: Colors.white,
+            margin: EdgeInsets.all(defaultPadding),
+          ),
+        ],
       ),
+
+
+
 
 
     );
