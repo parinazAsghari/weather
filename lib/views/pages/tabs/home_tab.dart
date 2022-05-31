@@ -302,6 +302,8 @@ class _HomeTabState extends State<HomeTab> {
 
               child: GridView.extent(
                 shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics:ClampingScrollPhysics(),
 
 
                 maxCrossAxisExtent:120,
@@ -317,6 +319,7 @@ class _HomeTabState extends State<HomeTab> {
                       imagePath: 'assets/images/ic_service.png',
                       title: 'امداد'
                   ),
+
 
 
                   //roads
