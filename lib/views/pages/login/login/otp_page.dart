@@ -233,38 +233,6 @@ class _OtpPageState extends State<OtpPage> {
           const SizedBox(
             height: 48,
           ),
-
-          Container(
-            height: 50,
-            padding: const EdgeInsets.all(8.0),
-            width: MediaQuery.of(context).size.width * 0.55,
-            margin: EdgeInsets.all(defaultPadding),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  backgroundColor: disableButton
-                      ? MaterialStateColor.resolveWith(
-                          (states) => dark_theme_primary_light)
-                      : MaterialStateColor.resolveWith(
-                          (states) => dark_theme_primary)),
-              child: const Text(
-                'تایید',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                if (disableButton) {
-                  return;
-                } else {
-                  onLoginButtonPressed();
-                }
-              },
-            ),
-          ),
         ],
       ),
     );

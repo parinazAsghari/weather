@@ -10,7 +10,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 
 class HomeTab extends StatefulWidget {
@@ -314,44 +313,44 @@ class _HomeTabState extends State<HomeTab> {
                   //weather
                   _serviceWidget(
                       onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/weather.png',
-                      title: 'هواشناسی'
+                      imagePath: 'assets/images/ic_service.png',
+                      title: 'امداد'
                   ),
 
 
                   //roads
                   _serviceWidget(
                     onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/roads.png',
-                    title: 'وضعیت راه',
+                    imagePath: 'assets/images/ic_roadcondition.png',
+                    title: 'امداد در محل',
 
                   ),
 
                   //news
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
-                    title: 'اطلاعیه',
+                    imagePath: 'assets/images/ic_cartransformation.png',
+                    title: 'حمل خودرو',
 
                   ),
 
 
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/taxi.png',
+                    imagePath: 'assets/images/ic_puncture.png',
+                    title: 'پنچری',
+
+                  ),
+                  _serviceWidget(
+                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    imagePath: 'assets/images/ic_taxi.png',
                     title: 'تاکسی',
 
                   ),
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/diagnose.png',
-                    title: 'کارشناسی',
-
-                  ),
-                  _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/navigation.png',
-                    title: 'مسیریابی',
+                    imagePath: 'assets/images/ic_information.png',
+                    title: 'اطلاعیه',
 
                   ),
                   // _serviceWidget(
@@ -362,14 +361,14 @@ class _HomeTabState extends State<HomeTab> {
                   // ),
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/insurance.png',
+                    imagePath: 'assets/images/ic_insurance.png',
                     title: 'بیمه',
 
                   ),
 
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/parking.png',
+                    imagePath: 'assets/images/ic_parking.png',
                     title: 'پارکینگ',
 
                   ),
@@ -1480,7 +1479,7 @@ class _HomeTabState extends State<HomeTab> {
                   //news
                   _serviceWidget(
                     onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/news.png',
+                    imagePath: 'assets/images/ic_information.png',
                     title: 'اطلاعیه',
 
                   ),
@@ -1553,7 +1552,7 @@ class _HomeTabState extends State<HomeTab> {
                       //news
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
+                        imagePath: 'assets/images/ic_information.png',
                         title: 'اخبار',
 
                       ),
@@ -1628,7 +1627,7 @@ class _HomeTabState extends State<HomeTab> {
                       //news
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
+                        imagePath: 'assets/images/ic_information.png',
                         title: 'اطلاعیه',
 
                       ),
@@ -1659,31 +1658,31 @@ class _HomeTabState extends State<HomeTab> {
 
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
+                        imagePath: 'assets/images/ic_information.png',
                         title: 'بانک',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
+                        imagePath: 'assets/images/ic_information.png',
                         title: 'اینترنت',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
+                        imagePath: 'assets/images/ic_information.png',
                         title: 'قرعه کشی',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
+                        imagePath: 'assets/images/ic_information.png',
                         title: 'مسابقه',
 
                       ),
                       _serviceWidget(
                         onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                        imagePath: 'assets/images/news.png',
+                        imagePath: 'assets/images/ic_information.png',
                         title: 'رمزارز',
 
                       ),
@@ -1761,7 +1760,7 @@ class _HomeTabState extends State<HomeTab> {
                     //news
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
@@ -1769,73 +1768,73 @@ class _HomeTabState extends State<HomeTab> {
 
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
                     _serviceWidget(
                       onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/news.png',
+                      imagePath: 'assets/images/ic_information.png',
                       title: 'اطلاعیه',
 
                     ),
@@ -1861,12 +1860,12 @@ class _HomeTabState extends State<HomeTab> {
       onPressed: (){
         onTap();
       },
-      padding: EdgeInsets.only(top: defaultPadding, right: defaultPadding, left: defaultPadding),
+      padding: EdgeInsets.only(top: defaultPadding/2, right: defaultPadding/2, left: defaultPadding/2),
 
       style: NeumorphicStyle(
-          shape: NeumorphicShape.concave,
+          shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-          depth: 8,
+          // depth: 8,
           lightSource: LightSource.topLeft,
           color: Theme.of(context).cardColor,
           shadowDarkColor: Theme.of(context).shadowColor,
@@ -1875,9 +1874,23 @@ class _HomeTabState extends State<HomeTab> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(imagePath,  fit: BoxFit.cover,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.more_vert,
+                size: 15,
+
+              ),
+            ],
+          ),
+          Expanded(child: Container(
+            // padding: EdgeInsets.all(1),
+            child: Image.asset(imagePath,  fit: BoxFit.cover,),
+          )),
+          // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
           // SizedBox(height: defaultPadding/3,),
-          Expanded(child: Container()),
+          // Expanded(child: Container()),
 
 
           Padding(
