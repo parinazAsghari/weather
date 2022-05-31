@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 
+import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/emdad_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/questionnaire_tab.dart';
@@ -121,7 +122,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getSharedPref();
+     // _hiveDb.getData(car, 'userBox');
   }
+
 
   @override
   Widget build(BuildContext context) {
