@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 
+import 'package:emdad_khodro_saipa/views/pages/menu_side/user_profile.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/emdad_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/questionnaire_tab.dart';
@@ -14,6 +15,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../constants.dart';
 import 'drawer.dart';
 import 'login/login/login_page.dart';
+import 'menu_side/about_us.dart';
+import 'menu_side/settings.dart';
 import 'menu_side/social_responsibility.dart';
 
 class HomePage extends StatefulWidget {
