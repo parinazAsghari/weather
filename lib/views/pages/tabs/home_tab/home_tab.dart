@@ -240,7 +240,6 @@ class _HomeTabState extends State<HomeTab> {
             isCarFromDataBase: false,
           ),
         );
-        print(sliderItemList.length);
       }
 
       isLoading = false;
