@@ -28,22 +28,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Uri _urltelegram = Uri.parse('https://t.me/emdadsaipa');
-  final Uri _urllinkedin = Uri.parse('https://www.linkedin.com/authwall?trk=ripf&trkInfo=AQG7KfpQ-FOLxgAAAYETvF5oKwOy6t1MLezA9lQXElA3cqrzXDUzSFJGZ-G7e6rUfZBXEJHbSsJPXBc10IA2rEHyA_J5WeQcQM1EfbpiSO0ht1e4a8qOfpbG51WRsd7gOTgUSVk=&original_referer=https://emdadsaipa.ir/&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fin%2Femdadsaipa');
-  final Uri _urlaparat = Uri.parse('https://www.aparat.com/emdadsaipa');
-  final Uri _urlinstagram = Uri.parse('https://www.instagram.com/accounts/login/?next=/emdadsaipa.ir/');
-   void _launchUrltelegram() async {
-    if (!await launchUrl(_urltelegram)) throw 'Could not launch $_urltelegram';
-  }
-  void _launchUrlinkedin() async {
-    if (!await launchUrl(_urllinkedin)) throw 'Could not launch $_urllinkedin';
-  }
-  void _launchUrlaparat() async {
-    if (!await launchUrl(_urlaparat)) throw 'Could not launch $_urlaparat';
-  }
-  void _launchUrlinstagram() async {
-    if (!await launchUrl(_urlinstagram)) throw 'Could not launch $_urlinstagram';
-  }
+
 
 
 
@@ -159,7 +144,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        drawer: DrawerWidget(),
+        drawer: DrawerWidget(context),
         body: _items[_selectedIndex],
         // body: Center(
         //     child: IndexedStack(
@@ -221,278 +206,278 @@ class _HomePageState extends State<HomePage> {
 
 
 
-  Widget DrawerWidget(){
-    return Drawer(
-        // backgroundColor: secondary_dark_purple_color,
-        // elevation: 0,
-        child: ListView(shrinkWrap: true,
-          children: <Widget>[
-            // SizedBox(height: 25,)
-            // ,
-            // Container(
-            //   margin: EdgeInsets.only(top: 15,left: 15),
-            //   alignment: Alignment.centerLeft,
-            //   child: IconButton(
-            //     onPressed: (){
-            //       Navigator.pop(context);
-            //     },
-            //     icon: Icon(Icons.close,color: context.watch<ThemeProvider>().getThemeData.primaryColor,),
-            //   ),
-            // )
-            // ,
-            SizedBox(height: defaultPadding*2,)
-            ,
-            Image.asset('assets/images/emdad_khodro_logo.png',height: 100)
-            ,
-            SizedBox(height: 20,)
-            ,
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: Text('کاربر مهمان',textAlign: TextAlign.center,style: TextStyle(fontSize: 16,
-                  // color: secondary_light_grey_color
-              ),)
-              ,
-
-            )
-            ,
-            SizedBox(height: 20,)
-            ,
-            Divider(height: 5,thickness: 0.25,
-              // color: secondary_light_grey_color,
-              indent: 20,endIndent: 20,)
-            ,
-            SizedBox(height: 3,)
-            ,
-            Padding(
-              padding: EdgeInsets.only(left: 15,right: 15),
-              child: ListTile(
-                leading: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 1,
-                            // color: primary_orange_color
-                        )
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(2),
-                      child: Icon(Icons.account_circle,
-                        // color: secondary_light_grey_color,
-                      ),
-                    )
-                ),
-                onTap: (){
-                  // Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
-                },
-                trailing: Text('پروفایل کاربری',textAlign: TextAlign.end,style: TextStyle(
-                    // color: secondary_light_grey_color
-                ),),
-              ),
-            )
-            ,
-            SizedBox(height: 3,)
-            ,
-
-
-            Divider(height: 5,thickness: 0.25,
-              // color: secondary_light_grey_color,
-              indent: 20,endIndent: 20,)
-            ,
-            SizedBox(height: 3,)
-            ,
-            Padding(
-              padding: EdgeInsets.only(left: 15,right: 15),
-              child: ListTile(
-                leading: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 1,
-                            // color: primary_orange_color
-                        )
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(2),
-                      child:
-                      Icon(Icons.settings,
-                        // color: secondary_light_grey_color,
-                      ),
-                    )
-                ),
-
-
-
-                onTap: (){
-                  // Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Settings()));
-                },
-                trailing: Text('تنظیمات',textAlign: TextAlign.end,style: TextStyle(
-                    // color: secondary_light_grey_color
-                ),),
-              ),
-            )
-            ,
-            SizedBox(height: 3,)
-            ,
-            Divider(height: 5,thickness: 0.25,
-              // color: secondary_light_grey_color,
-              indent: 20,endIndent: 20,)
-            ,
-            SizedBox(height: 3,)
-            ,
-            Padding(
-              padding: EdgeInsets.only(left: 15,right: 15),
-              child: ListTile(
-                leading: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 1,
-                            // color: primary_orange_color
-                        )
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(2),
-                      child:
-                      Icon(Icons.info,
-                        // color: secondary_light_grey_color,
-                      ),
-                    )
-                ),
-
-
-                onTap: (){
-                  // Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AboutUs()));
-                },
-                trailing: Text('درباره ما',textAlign: TextAlign.end,style: TextStyle(
-                    // color: secondary_light_grey_color
-                )),
-              ),
-            )
-            ,
-            SizedBox(height: 3,)
-            ,
-
-            Divider(height: 5,thickness: 0.25,
-              // color: secondary_light_grey_color,
-              indent: 20,endIndent: 20,)
-            ,
-            SizedBox(height: 3,)
-            ,
-            Padding(
-              padding: EdgeInsets.only(left: 15,right: 15),
-              child: ListTile(
-                leading: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 1,
-                          // color: primary_orange_color
-                        )
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(2),
-                      child: Icon(Icons.account_circle,
-                        // color: secondary_light_grey_color,
-                      ),
-                    )
-                ),
-                onTap: (){
-                  // Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>SocialResponsibility ()));
-                },
-                trailing: Text('مسولیت های اجتماعی',textAlign: TextAlign.end,style: TextStyle(
-                  // color: secondary_light_grey_color
-                ),),
-              ),
-            )
-            ,
-            SizedBox(height: 3,),
-
-
-
-
-            Divider(height: 5,thickness: 0.25,
-              // color: secondary_light_grey_color,
-              indent: 20,endIndent: 20,)
-            ,
-            SizedBox(height: 3,)
-            ,
-            Padding(
-              padding: EdgeInsets.only(left: 15,right: 15),
-              child: ListTile(
-                leading: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 1,
-                            // color: primary_orange_color
-                        )
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(2),
-                      child:
-                      Icon(Icons.exit_to_app,
-                        // color: secondary_light_grey_color,
-                      ),
-                    )
-                ),
-
-
-
-                onTap: () async {
-                  SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-                  await sharedPrefs.setBool('loggedIn', false);
-
-                  Navigator.pop(context);
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
-                },
-                trailing: Text('خروج  از حساب',textAlign: TextAlign.end,style: TextStyle(
-                    // color: secondary_light_grey_color
-                )),
-              ),
-            )
-            ,
-            SizedBox(height: 20,),
-            // Expanded(child: Container()),
-            // Text( versionName, textAlign: TextAlign.center,style: TextStyle(
-            //     // color: secondary_light_grey_color
-            // ),),
-            SizedBox(height: 20,),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                     onTap:_launchUrlaparat,
-                    child: Image.asset('assets/images/aparat.png',height: 30,width: 30,),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: _launchUrltelegram,
-                    child: Image.asset('assets/images/telegram.png',height: 30,width: 30,),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                     onTap: _launchUrlinstagram,
-                    child: Image.asset('assets/images/instagram.png',height: 30,width: 30,),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: _launchUrlinkedin,
-                    child: Image.asset('assets/images/linkedin.png',height: 30,width: 30,),
-                  ),
-                ),
-              ],
-            )
-
-          ],
-        )
-    );
-  }
+  // Widget DrawerWidget(){
+  //   return Drawer(
+  //       // backgroundColor: secondary_dark_purple_color,
+  //       // elevation: 0,
+  //       child: ListView(shrinkWrap: true,
+  //         children: <Widget>[
+  //           // SizedBox(height: 25,)
+  //           // ,
+  //           // Container(
+  //           //   margin: EdgeInsets.only(top: 15,left: 15),
+  //           //   alignment: Alignment.centerLeft,
+  //           //   child: IconButton(
+  //           //     onPressed: (){
+  //           //       Navigator.pop(context);
+  //           //     },
+  //           //     icon: Icon(Icons.close,color: context.watch<ThemeProvider>().getThemeData.primaryColor,),
+  //           //   ),
+  //           // )
+  //           // ,
+  //           SizedBox(height: defaultPadding*2,)
+  //           ,
+  //           Image.asset('assets/images/emdad_khodro_logo.png',height: 100)
+  //           ,
+  //           SizedBox(height: 20,)
+  //           ,
+  //           Directionality(
+  //             textDirection: TextDirection.rtl,
+  //             child: Text('کاربر مهمان',textAlign: TextAlign.center,style: TextStyle(fontSize: 16,
+  //                 // color: secondary_light_grey_color
+  //             ),)
+  //             ,
+  //
+  //           )
+  //           ,
+  //           SizedBox(height: 20,)
+  //           ,
+  //           Divider(height: 5,thickness: 0.25,
+  //             // color: secondary_light_grey_color,
+  //             indent: 20,endIndent: 20,)
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //           Padding(
+  //             padding: EdgeInsets.only(left: 15,right: 15),
+  //             child: ListTile(
+  //               leading: Container(
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(6),
+  //                       border: Border.all(width: 1,
+  //                           // color: primary_orange_color
+  //                       )
+  //                   ),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.all(2),
+  //                     child: Icon(Icons.account_circle,
+  //                       // color: secondary_light_grey_color,
+  //                     ),
+  //                   )
+  //               ),
+  //               onTap: (){
+  //                 // Navigator.pop(context);
+  //                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
+  //               },
+  //               trailing: Text('پروفایل کاربری',textAlign: TextAlign.end,style: TextStyle(
+  //                   // color: secondary_light_grey_color
+  //               ),),
+  //             ),
+  //           )
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //
+  //
+  //           Divider(height: 5,thickness: 0.25,
+  //             // color: secondary_light_grey_color,
+  //             indent: 20,endIndent: 20,)
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //           Padding(
+  //             padding: EdgeInsets.only(left: 15,right: 15),
+  //             child: ListTile(
+  //               leading: Container(
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(6),
+  //                       border: Border.all(width: 1,
+  //                           // color: primary_orange_color
+  //                       )
+  //                   ),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.all(2),
+  //                     child:
+  //                     Icon(Icons.settings,
+  //                       // color: secondary_light_grey_color,
+  //                     ),
+  //                   )
+  //               ),
+  //
+  //
+  //
+  //               onTap: (){
+  //                 // Navigator.pop(context);
+  //                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Settings()));
+  //               },
+  //               trailing: Text('تنظیمات',textAlign: TextAlign.end,style: TextStyle(
+  //                   // color: secondary_light_grey_color
+  //               ),),
+  //             ),
+  //           )
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //           Divider(height: 5,thickness: 0.25,
+  //             // color: secondary_light_grey_color,
+  //             indent: 20,endIndent: 20,)
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //           Padding(
+  //             padding: EdgeInsets.only(left: 15,right: 15),
+  //             child: ListTile(
+  //               leading: Container(
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(6),
+  //                       border: Border.all(width: 1,
+  //                           // color: primary_orange_color
+  //                       )
+  //                   ),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.all(2),
+  //                     child:
+  //                     Icon(Icons.info,
+  //                       // color: secondary_light_grey_color,
+  //                     ),
+  //                   )
+  //               ),
+  //
+  //
+  //               onTap: (){
+  //                 // Navigator.pop(context);
+  //                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AboutUs()));
+  //               },
+  //               trailing: Text('درباره ما',textAlign: TextAlign.end,style: TextStyle(
+  //                   // color: secondary_light_grey_color
+  //               )),
+  //             ),
+  //           )
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //
+  //           Divider(height: 5,thickness: 0.25,
+  //             // color: secondary_light_grey_color,
+  //             indent: 20,endIndent: 20,)
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //           Padding(
+  //             padding: EdgeInsets.only(left: 15,right: 15),
+  //             child: ListTile(
+  //               leading: Container(
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(6),
+  //                       border: Border.all(width: 1,
+  //                         // color: primary_orange_color
+  //                       )
+  //                   ),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.all(2),
+  //                     child: Icon(Icons.account_circle,
+  //                       // color: secondary_light_grey_color,
+  //                     ),
+  //                   )
+  //               ),
+  //               onTap: (){
+  //                 // Navigator.pop(context);
+  //                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>SocialResponsibility ()));
+  //               },
+  //               trailing: Text('مسولیت های اجتماعی',textAlign: TextAlign.end,style: TextStyle(
+  //                 // color: secondary_light_grey_color
+  //               ),),
+  //             ),
+  //           )
+  //           ,
+  //           SizedBox(height: 3,),
+  //
+  //
+  //
+  //
+  //           Divider(height: 5,thickness: 0.25,
+  //             // color: secondary_light_grey_color,
+  //             indent: 20,endIndent: 20,)
+  //           ,
+  //           SizedBox(height: 3,)
+  //           ,
+  //           Padding(
+  //             padding: EdgeInsets.only(left: 15,right: 15),
+  //             child: ListTile(
+  //               leading: Container(
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(6),
+  //                       border: Border.all(width: 1,
+  //                           // color: primary_orange_color
+  //                       )
+  //                   ),
+  //                   child: Padding(
+  //                     padding: EdgeInsets.all(2),
+  //                     child:
+  //                     Icon(Icons.exit_to_app,
+  //                       // color: secondary_light_grey_color,
+  //                     ),
+  //                   )
+  //               ),
+  //
+  //
+  //
+  //               onTap: () async {
+  //                 SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+  //                 await sharedPrefs.setBool('loggedIn', false);
+  //
+  //                 Navigator.pop(context);
+  //                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+  //               },
+  //               trailing: Text('خروج  از حساب',textAlign: TextAlign.end,style: TextStyle(
+  //                   // color: secondary_light_grey_color
+  //               )),
+  //             ),
+  //           )
+  //           ,
+  //           SizedBox(height: 20,),
+  //           // Expanded(child: Container()),
+  //           // Text( versionName, textAlign: TextAlign.center,style: TextStyle(
+  //           //     // color: secondary_light_grey_color
+  //           // ),),
+  //           SizedBox(height: 20,),
+  //
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               Padding(
+  //                 padding: const EdgeInsets.all(8.0),
+  //                 child: GestureDetector(
+  //                    onTap:_launchUrlaparat,
+  //                   child: Image.asset('assets/images/aparat.png',height: 30,width: 30,),
+  //                 ),
+  //               ),
+  //               Padding(
+  //                 padding: const EdgeInsets.all(8.0),
+  //                 child: GestureDetector(
+  //                   onTap: _launchUrltelegram,
+  //                   child: Image.asset('assets/images/telegram.png',height: 30,width: 30,),
+  //                 ),
+  //               ),
+  //               Padding(
+  //                 padding: const EdgeInsets.all(8.0),
+  //                 child: GestureDetector(
+  //                    onTap: _launchUrlinstagram,
+  //                   child: Image.asset('assets/images/instagram.png',height: 30,width: 30,),
+  //                 ),
+  //               ),
+  //               Padding(
+  //                 padding: const EdgeInsets.all(8.0),
+  //                 child: GestureDetector(
+  //                   onTap: _launchUrlinkedin,
+  //                   child: Image.asset('assets/images/linkedin.png',height: 30,width: 30,),
+  //                 ),
+  //               ),
+  //             ],
+  //           )
+  //
+  //         ],
+  //       )
+  //   );
+  // }
 }

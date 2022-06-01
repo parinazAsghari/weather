@@ -14,7 +14,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 
 class HomeTab extends StatefulWidget {
@@ -300,6 +299,8 @@ class _HomeTabState extends State<HomeTab> {
 
               child: GridView.extent(
                 shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics:ClampingScrollPhysics(),
 
 
                 maxCrossAxisExtent:120,
@@ -315,6 +316,7 @@ class _HomeTabState extends State<HomeTab> {
                       imagePath: 'assets/images/ic_service.png',
                       title: 'امداد'
                   ),
+
 
 
                   //roads
