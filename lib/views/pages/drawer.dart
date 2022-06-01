@@ -35,6 +35,7 @@ Widget DrawerWidget(BuildContext context) {
     if (!await launchUrl(_urltelegram)) throw 'Could not launch $_urltelegram';
   }
 
+
   return Drawer(
       backgroundColor: dark_theme_primary_low,
       // elevation: 0,
@@ -247,27 +248,103 @@ Widget DrawerWidget(BuildContext context) {
           // ),
 
           const SizedBox(
-            height: 3,
+            height: 20,
           ),
 
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _logoBox('ic_linkedin_dark_transparent.png', 10, _launchUrlinkedin),
-                _logoBox('ic_telegram_dark_transparent.png', 10, _launchUrltelegram),
-                _logoBox('ic_ins_dark_transparent.png', 10, _launchUrlinstagram),
-                _logoBox('ic_aparat_dark_transparent.png', 5, _launchUrlaparat),
-              ],
-            ),
-          ),
-
-          const SizedBox(
-            height: 3,
-          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          // border: Border.all(width: 1,
+                          //   // color: primary_orange_color
+                          // )
+                        ),
+                        child: GestureDetector(
+                          onTap: _launchUrlinkedin,
+                          child: Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Image.asset(
+                              'assets/images/ic_linkedin.png',
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        )),
+                    Container(
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          // border: Border.all(width: 1,
+                          //   // color: primary_orange_color
+                          // )
+                        ),
+                        child: GestureDetector(
+                          onTap:_launchUrltelegram ,
+                          child: Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Image.asset(
+                              'assets/images/telegram.png',
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        )),
+                    Container(
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          // border: Border.all(width: 1,
+                          //   // color: primary_orange_color
+                          // )
+                        ),
+                        child: GestureDetector(
+                          onTap: _launchUrlinstagram,
+                          child: Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Image.asset(
+                              'assets/images/ic_instagram.png',
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        )),
+                    Container(
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          // border: Border.all(width: 1,
+                          //   // color: primary_orange_color
+                          // )
+                        ),
+                        child: GestureDetector(
+                          onTap: _launchUrlaparat,
+                          child: Container(
+                            child: Padding(
+                              padding: EdgeInsets.all(2),
+                              child: Image.asset(
+                                'assets/images/aparat.png',
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                          ),
+                        )),
+                  ],
+                ),
+              )
+            ],
+          )
         ],
+
+
       ));
 }
 
@@ -311,6 +388,8 @@ Widget _itemBoxDrawer(BuildContext context, String _title, IconData _icon, _onTa
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Icon(
+
+
               _icon,
               color: Theme.of(context).accentColor,
             ),
@@ -323,3 +402,4 @@ Widget _itemBoxDrawer(BuildContext context, String _title, IconData _icon, _onTa
     ),
   );
 }
+
