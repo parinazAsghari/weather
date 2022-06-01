@@ -3,6 +3,7 @@ import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/views/pages/drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -24,8 +25,8 @@ class _AddNewCarState extends State<AddNewCar> {
   final FocusNode _seventhNumberNode = FocusNode();
   final FocusNode _eighthNumberNode = FocusNode();
   Map<String, dynamic> createYearListItem = {'': null, '1390': null,'1387':null};
-  Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک'};
-  List<String> pelakListItem = ['الف', 'ب'];
+  Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
+  List<String> pelakListItem = ['الف', 'ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ع','غ','ف','ق','ک','ل','م','ن','و','ه','ی'];
   var pelakDropDownValue;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _chassisNumberController = TextEditingController();
@@ -604,7 +605,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                                 //   border: InputBorder.none,
                                                 // ),
                                                 showCursor: false,
-                                                autofocus: true,
+                                                autofocus: false,
                                                 focusNode: _firstNumberNode,
                                                 keyboardType: TextInputType.number,
                                                 maxLines: 1,
@@ -654,7 +655,12 @@ class _AddNewCarState extends State<AddNewCar> {
                     Expanded(
                       flex: 3,
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
                               // primary: secondary_light_grey_color
                               ),
                           onPressed: ()async {
@@ -667,6 +673,17 @@ class _AddNewCarState extends State<AddNewCar> {
                                 _fifthNumberController.text.isEmpty &&
                                 _sixthNumberController.text.isEmpty &&
                                 _seventhNumberController.text.isEmpty) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return MessageDialogWidget(
+                                      body: 'فیلدها نباید خالی باشد',
+                                      dismissable: true,
+                                      positiveTxt: 'باشه',
+                                      positiveFunc: () async {
+                                      },
+                                    );
+                                  });
 
                             }else{
                               Car car = Car();
@@ -690,7 +707,18 @@ class _AddNewCarState extends State<AddNewCar> {
                               print(car.fourthCarTag);
                               HiveDB _hiveDb = HiveDB();
                               await _hiveDb.addData(car, 'userBox');
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return MessageDialogWidget(
+                                      body: 'اطلاعات شما با موفقیت ثبت شد',
+                                      dismissable: true,
+                                      positiveTxt: 'باشه',
+                                      positiveFunc: () async {
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                                      },
+                                    );
+                                  });
                             }
                             ;
                           },

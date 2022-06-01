@@ -235,7 +235,7 @@ class _HomeTabState extends State<HomeTab> {
         ];
       }else{
         myCarsList.forEach((element) {
-          sliderItemList.add(SliderItemWidget(imagePath: 'assets/images/khodro.png',showingTexts: Column(children: [Text(element.brand),Text(element.createDate)],)));
+          sliderItemList.add(SliderItemWidget(imagePath: 'assets/images/khodro.png',showingTexts: Column(children: [Text(element.brand),Text(' مدل ${element.createDate}')],)));
 
         });
         sliderItemList.add(SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید')));
