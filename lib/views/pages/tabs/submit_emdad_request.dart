@@ -1,19 +1,25 @@
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../api_provider/provider.dart';
 import '../../../constants.dart';
 import '../../widgets/DialogWidgets.dart';
+import '../../widgets/LoadingWidgets.dart';
 import '../drop_down.dart';
 
 class SubmitEmdadRequest extends StatefulWidget {
   final String title;
   final String address;
   final bool hasCarProblem;
+  final LatLng latLng;
 
   SubmitEmdadRequest({
     required this.title,
     this.address = '',
     required this.hasCarProblem,
+    required this.latLng,
     Key? key,
   }) : super(key: key);
 
@@ -49,6 +55,11 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   bool disabledAddress = true;
   bool disabledProblemCar = true;
 
+  String? phone;
+  String? fullName;
+  String? nationalCode;
+
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -57,7 +68,37 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     if (widget.address != '') {
       _addressCtrl.text = widget.address;
     }
+
+    getAddress();
+    getUserData();
   }
+
+  void getUserData()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    phone = preferences.getString('user_phone_number');
+    fullName = preferences.getString('user_full_name')??'';
+    nationalCode = preferences.getString('user_national_code')??'';
+
+
+    _nameCtrl.text = fullName!;
+    _idCtrl.text = nationalCode!;
+
+
+
+
+
+  }
+
+  void getAddress() async{
+    var result = await ApiProvider.getAddress(widget.latLng);
+
+    setState(() {
+      _addressCtrl.text = result.addressCompact!;
+    });
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,10 +138,10 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                       'ثبت درخواست ${widget.title}',
                     )),
                 _customTextField(
-                  title: 'نام و نام خانوادگی',
+                  title: 'نام و نام خانوادگی *',
                   controller: _nameCtrl,
                 ),
-                _customTextField(title: 'کدملی', controller: _idCtrl),
+                _customTextField(title: 'کدملی *', controller: _idCtrl),
                 if (widget.hasCarProblem) _customDropDown(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -117,7 +158,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                             dismissable: true,
                             hasTextBody: false,
                             widget: _customDialogBody(),
-                            positiveTxt: 'باشه',
+                            positiveTxt: 'ثبت',
                             positiveFunc: () {
                               _isPhysicalLimit = true;
                               setState(
@@ -135,8 +176,11 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                         });
                   },
                 ),
-                _customTextField(
-                    title: 'آدرس', height: 47, controller: _addressCtrl),
+                _addressCtrl.text.isEmpty?CircularProgressIndicator(
+
+                  color: Theme.of(context).accentColor,
+                ): _customTextField(
+                    title: 'آدرس *', height: 47, controller: _addressCtrl),
                 _customTextField(
                     title: 'توضیحات', height: 68, controller: _descriptionCtrl),
                 // Expanded(child: Container()),
@@ -295,7 +339,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
   Widget _submitButton() {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         print('carprob + $_carProblem');
         print('name + ${_nameCtrl.text}');
         print('id + ${_idCtrl.text}');
@@ -360,6 +404,21 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
           return;
         }
 
+
+
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CircleLoadingWidget(
+                dismissable: false,
+                msgTxt: 'لطفا منتظر بمانید',
+              );
+            });
+
+        await Future.delayed(const Duration(milliseconds: 4000));
+
+        Navigator.of(context).pop();
+
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -368,13 +427,20 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 hasTextBody: false,
                 widget: Column(
                   children: [
-                    Text('مشتری گرامی اطلاعات شما ثبت شد.'),
-                    Text('منتظر تماس کارشناسان ما بمانید.'),
-                    Text('تلفن ثبت شده: 09122992929'),
+                    Text('مشتری گرامی اطلاعات شما با شماره پیگیری 98995 ثبت شد.'),
+                    Text('همکاران ما بزودی با شما تماس خواهند گرفت.'),
+                    Text('شماره همراه ثبت شده: $phone}'),
                   ],
                 ),
                 positiveTxt: 'تایید',
-                positiveFunc: (){
+                positiveFunc: () async {
+
+                  //save to user data
+                  SharedPreferences preferences = await SharedPreferences.getInstance();
+                  preferences.setString('user_full_name', _nameCtrl.text);
+                  preferences.setString('user_national_code', _idCtrl.text);
+
+
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
                 },
               );

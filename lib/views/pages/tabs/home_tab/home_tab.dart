@@ -6,6 +6,9 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/tire_flat.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/tow.dart';
 import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -307,7 +310,7 @@ class _HomeTabState extends State<HomeTab> {
                 padding: EdgeInsets.all(defaultPadding),
                 children: [
                   //weather
-                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())), imagePath: 'assets/images/ic_service.png', title: 'امداد'),
+                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',))), imagePath: 'assets/images/ic_service.png', title: 'امداد'),
 
                   //roads
                   _serviceWidget(
@@ -318,13 +321,13 @@ class _HomeTabState extends State<HomeTab> {
 
                   //news
                   _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',))),
                     imagePath: 'assets/images/ic_cartransformation.png',
                     title: 'حمل خودرو',
                   ),
 
                   _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',))),
                     imagePath: 'assets/images/ic_puncture.png',
                     title: 'پنچری',
                   ),
