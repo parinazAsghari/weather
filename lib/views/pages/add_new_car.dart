@@ -9,7 +9,16 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class AddNewCar extends StatefulWidget {
-  const AddNewCar({Key? key}) : super(key: key);
+  const AddNewCar({Key? key, required this.isCarFromDataBase,  this.chassisNumber,  this.ownerNationalCode,  this.brand,  this.createDate,  this.firstCarTag,  this.secondCarTag,  this.thirdCarTag,  this.fourthCarTag}) : super(key: key);
+  final bool isCarFromDataBase;
+  final String? chassisNumber;
+  final String? ownerNationalCode;
+  final String? brand;
+  final String? createDate;
+  final int? firstCarTag;
+  final String? secondCarTag;
+  final int? thirdCarTag;
+  final int? fourthCarTag;
 
   @override
   State<AddNewCar> createState() => _AddNewCarState();
@@ -26,7 +35,7 @@ class _AddNewCarState extends State<AddNewCar> {
   final FocusNode _eighthNumberNode = FocusNode();
   Map<String, dynamic> createYearListItem = {'': null, '1390': null,'1387':null};
   Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
-  List<String> pelakListItem = ['الف', 'ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ع','غ','ف','ق','ک','ل','م','ن','و','ه','ی'];
+  List<String> pelakListItem = ['','الف', 'ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ع','غ','ف','ق','ک','ل','م','ن','و','ه','ی'];
   var pelakDropDownValue;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _chassisNumberController = TextEditingController();
@@ -43,9 +52,29 @@ class _AddNewCarState extends State<AddNewCar> {
   final TextEditingController _carModelController = TextEditingController();
   final TextEditingController _createDateController = TextEditingController();
 
+  String? _carModelDefaultValue;
+  String? _carCreateDateDefaultValue;
+  String? _carTagDefaultValue;
+
+
   @override
   void initState() {
     pelakDropDownValue = pelakListItem.first;
+    if(widget.isCarFromDataBase){
+      _chassisNumberController.text = widget.chassisNumber!;
+      _nationalCodeController.text = widget.ownerNationalCode!;
+      _firstNumberController.text = widget.firstCarTag.toString().characters.first;
+      _secondNumberController.text = widget.firstCarTag.toString().characters.last;
+      _thirdNumberController.text = widget.thirdCarTag.toString().characters.first;
+      _fourthNumberController.text = widget.thirdCarTag.toString().substring(1,2).characters.first;
+      _fifthNumberController.text =widget.thirdCarTag.toString().characters.last;
+      _sixthNumberController.text = widget.fourthCarTag.toString().characters.first;
+      _seventhNumberController.text = widget.fourthCarTag.toString().characters.last;
+      _carModelDefaultValue = widget.brand;
+      _carCreateDateDefaultValue = widget.createDate;
+      _carTagDefaultValue = widget.secondCarTag;
+      print(_carTagDefaultValue);
+    }
     super.initState();
   }
 
@@ -132,7 +161,7 @@ class _AddNewCarState extends State<AddNewCar> {
                             primaryBackgroundColor: Colors.transparent,
                             iconColor: Colors.pink,
                             dropdownMenuItemStyle: const TextStyle(color: Colors.black),
-                            // defaultValue: _defaultValue,
+                            defaultValue: _carModelDefaultValue,
                             // firstItemSelectMessage: 'انتخاب',
                             alignmentCenterLeft: false,
                             enabledBorderColor: Colors.black,
@@ -162,7 +191,7 @@ class _AddNewCarState extends State<AddNewCar> {
                             primaryBackgroundColor: Colors.transparent,
                             iconColor: Colors.pink,
                             dropdownMenuItemStyle: const TextStyle(color: Colors.black),
-                            // defaultValue: _defaultValue,
+                            defaultValue: _carCreateDateDefaultValue,
                             // firstItemSelectMessage: 'انتخاب',
                             alignmentCenterLeft: false,
                             enabledBorderColor: Colors.black,
@@ -517,14 +546,17 @@ class _AddNewCarState extends State<AddNewCar> {
                                           isExpanded: true,
                                           focusColor: Colors.transparent,
                                           borderRadius: BorderRadius.zero,
-                                          value: pelakDropDownValue,
+                                          value:widget.isCarFromDataBase?  _carTagDefaultValue : pelakDropDownValue,
                                           // borderRadius: BorderRadius.circular(12),
                                           items: pelakListItem.map((String value) {
                                             return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: const TextStyle(fontSize: 15),
+                                              value:value,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right: 5.0),
+                                                child: Text(
+                                                  value,
+                                                  style: const TextStyle(fontSize: 15),
+                                                ),
                                               ),
                                             );
                                           }).toList(),
