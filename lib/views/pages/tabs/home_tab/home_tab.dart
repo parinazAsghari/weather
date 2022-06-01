@@ -6,6 +6,7 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -231,7 +232,7 @@ class _HomeTabState extends State<HomeTab> {
     setState(() {
       if(myCarsList.isEmpty){
         sliderItemList =[
-          SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
+          SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید',))
         ];
       }else{
         myCarsList.forEach((element) {
@@ -312,7 +313,7 @@ class _HomeTabState extends State<HomeTab> {
 
                   //weather
                   _serviceWidget(
-                      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService())),
                       imagePath: 'assets/images/ic_service.png',
                       title: 'امداد'
                   ),

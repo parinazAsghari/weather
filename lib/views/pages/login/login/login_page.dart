@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: _body(),
     );
   }
@@ -150,14 +150,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget _body() {
     return SingleChildScrollView(
       child: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        // color: primary_grey_color,
+        width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 64,
+             SizedBox(
+              height: MediaQuery.of(context).size.height*64/520,
             ),
 
             //Logo
@@ -168,18 +166,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             // Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
-            const SizedBox(
-              height: 24,
+             SizedBox(
+              height: MediaQuery.of(context).size.height*24/520,
             ),
 
             const Text('ثبت نام در سامانه',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
-            const SizedBox(
-              height: 32,
+             SizedBox(
+              height: MediaQuery.of(context).size.height*32/520,
             ),
-            const SizedBox(
-              height: 12,
+             SizedBox(
+              height: MediaQuery.of(context).size.height*12/520,
             ),
 
             //state 0: showing phone number textfield - state 1: showing otp code entery
@@ -248,8 +246,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 4,
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height*4/520,
                 ),
                 Container(
                   height: 60,
@@ -308,12 +306,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 18,
+                 SizedBox(
+                  height: MediaQuery.of(context).size.height*18/520,
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*4/360),
                   width: MediaQuery.of(context).size.width * 100 / 360,
                   height: MediaQuery.of(context).size.width * 65 / 640,
                   decoration: BoxDecoration(
@@ -345,12 +343,12 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
 
-            const SizedBox(
-              height: 48,
+             SizedBox(
+              height: MediaQuery.of(context).size.height*10/520,
             ),
 
             Container(
-              height: 40,
+              height: MediaQuery.of(context).size.width * 65 / 640,
               width: MediaQuery.of(context).size.width * 0.55,
               margin: EdgeInsets.all(defaultPadding),
               child: ElevatedButton(
@@ -382,25 +380,25 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
             ),
-
-            Expanded(child: Container()),
-
-            InkWell(
-              onTap: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => const TermsPage()));
-              },
-              child: const Text(
-                'قوانین و مقررات استفاده از اپلیکیشن',
-                style:
-                    TextStyle(decoration: TextDecoration.underline, fontSize: 15),
-              ),
-            ),
-            SizedBox(
-              height: defaultPadding,
-            ),
+            //rules and condition commented
+            // SizedBox(height: MediaQuery.of(context).size.height*1.5/10,),
+            //
+            // InkWell(
+            //   onTap: (){
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (BuildContext context) => const TermsPage()));
+            //   },
+            //   child: const Text(
+            //     'قوانین و مقررات استفاده از اپلیکیشن',
+            //     style:
+            //         TextStyle(decoration: TextDecoration.underline, fontSize: 15),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: defaultPadding,
+            // ),
           ],
         ),
       ),
