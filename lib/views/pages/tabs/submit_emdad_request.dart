@@ -1,3 +1,4 @@
+import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -53,7 +54,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   @override
   void initState() {
     super.initState();
-    if(widget.address!=''){
+    if (widget.address != '') {
       _addressCtrl.text = widget.address;
     }
   }
@@ -89,14 +90,18 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 20 / 520,
                 ),
-                Container(padding: EdgeInsets.only(right: 10),alignment: Alignment.centerRight,child: Text('ثبت درخواست ${widget.title}',)),
+                Container(
+                    padding: EdgeInsets.only(right: 10),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'ثبت درخواست ${widget.title}',
+                    )),
                 _customTextField(
                   title: 'نام و نام خانوادگی',
                   controller: _nameCtrl,
                 ),
                 _customTextField(title: 'کدملی', controller: _idCtrl),
-                if(widget.hasCarProblem)
-                  _customDropDown(),
+                if (widget.hasCarProblem) _customDropDown(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
                 ),
@@ -137,8 +142,9 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 // Expanded(child: Container()),
               ],
             ),
+            //Todo if not responsive change size of textbox
             SizedBox(
-              height: MediaQuery.of(context).size.height * 1 / 10,
+              height: MediaQuery.of(context).size.height * 0.5 / 15,
             ),
             _submitButton(),
           ],
@@ -266,7 +272,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   }
 
   Widget _customTextField(
-      {@required String? title, double height = 45, controller}) {
+      {@required String? title, double height = 35, controller}) {
     return Container(
       margin: const EdgeInsets.only(
         right: 24,
@@ -281,7 +287,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
           contentPadding: EdgeInsets.only(top: height, right: 10),
           border: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.black),
-              borderRadius: BorderRadius.circular(8)),
+              borderRadius: BorderRadius.circular(8),),
         ),
       ),
     );
@@ -322,7 +328,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
           return;
         }
-        if(widget.hasCarProblem){
+        if (widget.hasCarProblem) {
           if (_carProblem == null) {
             showDialog(
                 context: context,
@@ -353,6 +359,26 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
           return;
         }
+
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MessageDialogWidget(
+                dismissable: false,
+                hasTextBody: false,
+                widget: Column(
+                  children: [
+                    Text('مشتری گرامی اطلاعات شما ثبت شد.'),
+                    Text('منتظر تماس کارشناسان ما بمانید.'),
+                    Text('تلفن ثبت شده: 09122992929'),
+                  ],
+                ),
+                positiveTxt: 'تایید',
+                positiveFunc: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                },
+              );
+            });
       },
       child: Container(
         alignment: Alignment.center,
