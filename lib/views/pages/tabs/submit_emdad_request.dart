@@ -39,6 +39,9 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   bool disabledAddress = true;
   bool disabledProblemCar = true;
 
+  final _formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,51 +61,64 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
   Widget _body() {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 44,
-          ),
-          _customTextField(title: 'نام و نام خانوادگی', controller: _nameCtrl),
-          _customTextField(title: 'کدملی', controller: _idCtrl),
-          _customDropDown(),
-          SizedBox(height: 11,),
-          _customCheckBox(
-            text: 'دارای محدودیت $limit می‌باشم',
-            value: _isPhysicalLimit,
-            onTap: (value) {
-              print('limit $value');
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return MessageDialogWidget(
-                      dismissable: true,
-                      hasTextBody: false,
-                      widget: _customDialogBody(),
-                      positiveTxt: 'باشه',
-                      positiveFunc: () {
-                        _isPhysicalLimit = true;
-                        setState(
-                          () {
-                            limit = _limitStatus(
-                              isPhysical: _isPhysicalLimit,
-                              isSpeech: _isSpeechLimit,
-                              isHearing: _isHearingLimit,
-                              isMovement: _isMovementLimit,
-                            );
-                          },
-                        );
-                      },
-                    );
-                  });
-            },
-          ),
-          _customTextField(title: 'آدرس', height: 47, controller: _addressCtrl),
-          _customTextField(
-              title: 'توضیحات', height: 68, controller: _descriptionCtrl),
-          Expanded(child: Container()),
-          _submitButton(),
-        ],
+      // key: _formKey,
+      child: SizedBox(
+        // height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height*35/520,),
+                _customTextField(title: 'نام و نام خانوادگی', controller: _nameCtrl,),
+                _customTextField(title: 'کدملی', controller: _idCtrl),
+                _customDropDown(),
+                 SizedBox(height: MediaQuery.of(context).size.height*11/520,),
+                _customCheckBox(
+                  text: 'دارای محدودیت $limit می‌باشم',
+                  value: _isPhysicalLimit,
+                  onTap: (value) {
+                    print('limit $value');
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return MessageDialogWidget(
+                            dismissable: true,
+                            hasTextBody: false,
+                            widget: _customDialogBody(),
+                            positiveTxt: 'باشه',
+                            positiveFunc: () {
+                              _isPhysicalLimit = true;
+                              setState(
+                                    () {
+                                  limit = _limitStatus(
+                                    isPhysical: _isPhysicalLimit,
+                                    isSpeech: _isSpeechLimit,
+                                    isHearing: _isHearingLimit,
+                                    isMovement: _isMovementLimit,
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        });
+                  },
+                ),
+                _customTextField(title: 'آدرس', height: 47, controller: _addressCtrl),
+                _customTextField(
+                    title: 'توضیحات', height: 68, controller: _descriptionCtrl),
+                // Expanded(child: Container()),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*1.9/10,
+            ),
+            _submitButton(),
+
+          ],
+        ),
       ),
     );
   }
@@ -306,8 +322,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
             ),
             color: color_sharp_orange),
         width: double.infinity,
-        height: 33,
-        margin: const EdgeInsets.only(right: 24, left: 24, bottom: 40),
+        height: MediaQuery.of(context).size.height*33/520,
+        margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
         child: const Text(
           'ثبت درخواست',
           style: TextStyle(
