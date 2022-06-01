@@ -277,7 +277,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 return MessageDialogWidget(
                   dismissable: true,
                   title: 'ورود اطلاعات',
-                  body: 'لطفا نام و نام خانوادگی همراه خود را وارد نمائید',
+                  body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
                   positiveTxt: 'باشه',
                 );
               });
@@ -291,7 +291,21 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 return MessageDialogWidget(
                   dismissable: true,
                   title: 'ورود اطلاعات',
-                  body: 'لطفا کدملی همراه خود را وارد نمائید',
+                  body: 'لطفا کدملی خود را وارد نمائید',
+                  positiveTxt: 'باشه',
+                );
+              });
+
+          return;
+        }
+        if (_carProblem==null) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return MessageDialogWidget(
+                  dismissable: true,
+                  title: 'ورود اطلاعات',
+                  body: 'لطفا ایراد ماشین ا مشخص کنید.',
                   positiveTxt: 'باشه',
                 );
               });
@@ -305,7 +319,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 return MessageDialogWidget(
                   dismissable: true,
                   title: 'ورود اطلاعات',
-                  body: 'لطفا آدرس همراه خود را وارد نمائید',
+                  body: 'لطفا آدرس خود را وارد نمائید',
                   positiveTxt: 'باشه',
                 );
               });
