@@ -71,7 +71,7 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.flat,
                   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
-                  depth: 3,
+                  depth: 1.5,
                   lightSource: LightSource.topLeft,
                   color: Theme.of(context).cardColor,
                   shadowDarkColor: Theme.of(context).shadowColor,

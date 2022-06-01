@@ -330,16 +330,16 @@ class _HomeTabState extends State<HomeTab> {
                     imagePath: 'assets/images/ic_puncture.png',
                     title: 'پنچری',
                   ),
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_taxi.png',
-                    title: 'تاکسی',
-                  ),
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_information.png',
-                    title: 'اطلاعیه',
-                  ),
+                  // _serviceWidget(
+                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/ic_taxi.png',
+                  //   title: 'تاکسی',
+                  // ),
+                  // _serviceWidget(
+                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/ic_information.png',
+                  //   title: 'اطلاعیه',
+                  // ),
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                   //   imagePath: 'assets/images/renew.png',
@@ -1846,7 +1846,7 @@ class _HomeTabState extends State<HomeTab> {
       style: NeumorphicStyle(
         shape: NeumorphicShape.flat,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-        // depth: 8,
+        depth: 1.5,
         lightSource: LightSource.topLeft,
         color: Theme.of(context).cardColor,
         shadowDarkColor: Theme.of(context).shadowColor,
@@ -1854,22 +1854,38 @@ class _HomeTabState extends State<HomeTab> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.more_vert,
-                size: 15,
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     Icon(
+          //       Icons.more_vert,
+          //       size: 15,
+          //     ),
+          //   ],
+          // ),
           Expanded(
               child: Container(
+                // height: 60,
+                // width: 60,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  // borderRadius: BorderRadius.circular(70),
+
+                    //TODO one final
+                    color: coor_sharp_orange_gradient3
+                  // color: dak_theme_box_shadow_dark
+
+                ),
             // padding: EdgeInsets.all(1),
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.cover,
-            ),
+            // child: Image.asset(
+            //   imagePath,
+            //   fit: BoxFit.cover,
+            // ),
+
+                //one final
+            child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
           )),
           // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
           // SizedBox(height: defaultPadding/3,),
@@ -1877,7 +1893,7 @@ class _HomeTabState extends State<HomeTab> {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(title, style: TextStyle(fontSize: 12)),
+            child: Text(title, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 12)),
           ),
         ],
       ),
