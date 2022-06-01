@@ -114,13 +114,15 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                                       Padding(
                                         padding: const EdgeInsets.only(right: 2.0),
                                         child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Expanded(
                                                 child: Text(
                                               'ایران',
-                                              style: const TextStyle(fontSize: 10),
+                                              style: const TextStyle(fontSize: 9),
                                             )),
-                                            Text(widget.fourthCarTag.toString()),
+                                            Text(widget.fourthCarTag.toString(), style: TextStyle(fontSize: 10),),
                                           ],
                                         ),
                                       ),

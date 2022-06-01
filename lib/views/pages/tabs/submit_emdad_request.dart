@@ -133,9 +133,10 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 ),
                 Container(
                     padding: EdgeInsets.only(right: 10),
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.center,
                     child: Text(
                       'ثبت درخواست ${widget.title}',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     )),
                 _customTextField(
                   title: 'نام و نام خانوادگی *',
@@ -380,7 +381,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                   return MessageDialogWidget(
                     dismissable: true,
                     title: 'ورود اطلاعات',
-                    body: 'لطفا ایراد ماشین ا مشخص کنید.',
+                    body: 'لطفا ایراد ماشین را مشخص نمایید.',
                     positiveTxt: 'باشه',
                   );
                 });
@@ -415,6 +416,13 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
               );
             });
 
+        //clear textFields
+        // _idCtrl.clear();
+        // _nameCtrl.clear();
+
+
+
+
         await Future.delayed(const Duration(milliseconds: 4000));
 
         Navigator.of(context).pop();
@@ -425,12 +433,15 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
               return MessageDialogWidget(
                 dismissable: false,
                 hasTextBody: false,
-                widget: Column(
-                  children: [
-                    Text('مشتری گرامی اطلاعات شما با شماره پیگیری 98995 ثبت شد.'),
-                    Text('همکاران ما بزودی با شما تماس خواهند گرفت.'),
-                    Text('شماره همراه ثبت شده: $phone}'),
-                  ],
+                widget: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text('مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',textAlign: TextAlign.center),
+                      Text('همکاران ما بزودی با شما تماس خواهند گرفت.',textAlign: TextAlign.center),
+                      Text('شماره همراه ثبت شده: $phone',textAlign: TextAlign.center,),
+                    ],
+                  ),
                 ),
                 positiveTxt: 'تایید',
                 positiveFunc: () async {

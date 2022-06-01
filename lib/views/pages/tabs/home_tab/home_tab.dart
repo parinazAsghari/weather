@@ -309,25 +309,25 @@ class _HomeTabState extends State<HomeTab> {
                 padding: EdgeInsets.all(defaultPadding),
                 children: [
                   //weather
-                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',))), imagePath: 'assets/images/ic_service.png', title: 'امداد'),
+                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',))), imagePath: 'assets/images/ic_service.png', title: 'امداد فوری'),
 
                   //roads
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_roadcondition.png',
-                    title: 'امداد در محل',
+                    imagePath: 'assets/images/ic_service_in_place.png',
+                    title: 'خدمات در محل',
                   ),
 
                   //news
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',))),
-                    imagePath: 'assets/images/ic_cartransformation.png',
+                    imagePath: 'assets/images/ic_car_movement.png',
                     title: 'حمل خودرو',
                   ),
 
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',))),
-                    imagePath: 'assets/images/ic_puncture.png',
+                    imagePath: 'assets/images/ic_flat_tire.png',
                     title: 'پنچری',
                   ),
                   // _serviceWidget(
@@ -1878,13 +1878,13 @@ class _HomeTabState extends State<HomeTab> {
 
                 ),
             // padding: EdgeInsets.all(1),
-            // child: Image.asset(
-            //   imagePath,
-            //   fit: BoxFit.cover,
-            // ),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+            ),
 
                 //one final
-            child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
             // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
           )),
           // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),

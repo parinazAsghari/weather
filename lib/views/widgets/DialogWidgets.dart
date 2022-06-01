@@ -97,7 +97,7 @@ class MessageDialogWidget extends StatelessWidget {
                     width: 152,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.0),
+                        borderRadius: BorderRadius.circular(8.0),
                         color: dark_theme_primary),
                     margin: const EdgeInsets.only(
                         left: 20, top: 0, right: 20, bottom: 10),
