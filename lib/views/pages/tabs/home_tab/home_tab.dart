@@ -1867,7 +1867,7 @@ class _HomeTabState extends State<HomeTab> {
               child: Container(
                 // height: 60,
                 // width: 60,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   // borderRadius: BorderRadius.circular(70),
