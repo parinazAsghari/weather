@@ -278,98 +278,153 @@ class _FormDropDownState extends State<FormDropDown> {
           ),
         if(widget.title!=null)
           const SizedBox(height: 8,),
-        SizedBox(
-          height: widget.height ?? 50,
-          child: FormField<String>(
-            enabled: widget.readOnly ?? false,
-            builder: (FormFieldState<String> state) {
-              return InputDecorator(
-                // isFocused: widget.focusNode!.hasFocus,
-                decoration: InputDecoration(
-                  // labelText: widget.labelText,
-                  // hintText: widget.items.keys.first,
-                  // hintStyle: widget.hintStyle,
-                  filled: true,
-                  fillColor: widget.primaryBackgroundColor??Colors.white,
-                  errorStyle:widget.errorStyle?? TextStyle(color: widget.errorColor ?? Colors.red ,fontSize: 12,fontWeight: FontWeight.normal),
-                  // errorMaxLines: widget.errorMaxLines??3,
-                  // helperText: widget.description?? '',
-                  helperStyle:widget.helperStyle??TextStyle(color: widget.helperColor ?? Colors.green,fontSize: 12,fontWeight: FontWeight.normal),
-                  // helperMaxLines:widget.helperMaxLines?? 1,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: widget.enabledBorderColor ??Colors.blue, width: 0.4),
-                    borderRadius:  BorderRadius.all(Radius.circular(widget.borderRadiusCircular??8)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: widget.focusedBorderColor??Colors.lightGreen, width: 0.4),
-                    borderRadius:  BorderRadius.all(Radius.circular(widget.borderRadiusCircular??8)),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: widget.errorBorderColor??Colors.red, width:0.4),
-                    borderRadius:  BorderRadius.all(Radius.circular(widget.borderRadiusCircular??8)),
-                  ),
-                  errorText: state.errorText,
-                ),
-                isEmpty: _currentSelectedValue == widget.items.keys.first,
-                child: DropdownButtonHideUnderline(
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                      hoverColor: Colors.transparent,
-                    ),
-                    child: DropdownButton<String>(
-                    icon: Icon(Icons.arrow_drop_down, color: dark_theme_secondary),
+        Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              width: 0.4,
+              color: Colors.black,
+            ),
+            color: Colors.transparent,
+          ),
+          child: DropdownButtonHideUnderline(
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                hoverColor: Colors.transparent,
+              ),
+              child: DropdownButton<String>(
+                icon: Icon(Icons.arrow_drop_down, color: dark_theme_secondary),
 
-                    style: widget.valueStyle ?? TextStyle(color: widget.textColor ?? Colors.red,fontSize: 15,fontWeight: FontWeight.w400),
-                      // focusNode:widget.focusNode ,
-                      itemHeight: kMinInteractiveDimension,
-                      // iconSize: 18,
-                      // icon: Icon(FeatherIcons.chevronDown, size: 25,color: widget.iconColor??Colors.blue),
-                      dropdownColor: widget.secondaryBackgroundColor??const Color(0xFFF0F0F0),
-                      elevation: 0,
-                      value: _currentSelectedValue,
-                      isDense: true,
-                      focusColor: Colors.transparent,
-                      onChanged:widget.readOnlyDropDown?null: (newValue) {
-                        // widget.focusNode!.unfocus();
-                        // FocusScope.of(context).requestFocus(widget.nextFocus);
-                        setState(() {
-                          _currentSelectedValue = newValue!;
-                          widget.onChange(_currentSelectedValue!);
-                          state.didChange(newValue);
-                          state.validate();
-                        });
-                      },
-                      items: widget.items.keys.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style:widget.dropdownMenuItemStyle??TextStyle(color: widget.textColor ?? Colors.grey,fontSize: 12,fontWeight: FontWeight.normal),
-                          ),
-                        );
-                      }).toList(),
+                style: widget.valueStyle ?? TextStyle(color: widget.textColor ?? Colors.red,fontSize: 15,fontWeight: FontWeight.w400),
+                // focusNode:widget.focusNode ,
+                itemHeight: kMinInteractiveDimension,
+                // iconSize: 18,
+                // icon: Icon(FeatherIcons.chevronDown, size: 25,color: widget.iconColor??Colors.blue),
+                dropdownColor: widget.secondaryBackgroundColor??const Color(0xFFF0F0F0),
+                elevation: 0,
+                value: _currentSelectedValue,
+                isDense: true,
+                focusColor: Colors.transparent,
+                onChanged:widget.readOnlyDropDown?null: (newValue) {
+                  // widget.focusNode!.unfocus();
+                  // FocusScope.of(context).requestFocus(widget.nextFocus);
+                  setState(() {
+                    _currentSelectedValue = newValue!;
+                    widget.onChange(_currentSelectedValue!);
+                    // state.didChange(newValue);
+                    // state.validate();
+                  });
+                },
+                items: widget.items.keys.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 12.0),
+                      child: Text(
+                        value,
+                        style:widget.dropdownMenuItemStyle??TextStyle(color: widget.textColor ?? Colors.grey,fontSize: 12,fontWeight: FontWeight.normal),
+                      ),
                     ),
-                  ),
-                ),
-              );
-            },
-            validator: (key) {
-              // String? message;
-              //
-              // if(widget.items[_currentSelectedValue] == null){
-              //   return widget.firstItemSelectMessage ?? 'You must select another item';
-              // }
-              // // for (var validator in widget.validations) {
-              // //   message = validator(key,widget.items[key]);
-              // // }
-              // if(message == null){
-              //   // widget.onChange(widget.items[_currentSelectedValue]);
-              //   widget.onChange(_currentSelectedValue!);
-              // }
-              // return message;
-            },
+                  );
+                }).toList(),
+              ),
+            ),
           ),
         ),
+        // SizedBox(
+        //   height: widget.height ?? 50,
+        //   child: FormField<String>(
+        //     enabled: widget.readOnly ?? false,
+        //     builder: (FormFieldState<String> state) {
+        //       return InputDecorator(
+        //         // isFocused: widget.focusNode!.hasFocus,
+        //         decoration: InputDecoration(
+        //           // labelText: widget.labelText,
+        //           // hintText: widget.items.keys.first,
+        //           // hintStyle: widget.hintStyle,
+        //           filled: true,
+        //           fillColor: widget.primaryBackgroundColor??Colors.white,
+        //           errorStyle:widget.errorStyle?? TextStyle(color: widget.errorColor ?? Colors.red ,fontSize: 12,fontWeight: FontWeight.normal),
+        //           // errorMaxLines: widget.errorMaxLines??3,
+        //           // helperText: widget.description?? '',
+        //           helperStyle:widget.helperStyle??TextStyle(color: widget.helperColor ?? Colors.green,fontSize: 12,fontWeight: FontWeight.normal),
+        //           // helperMaxLines:widget.helperMaxLines?? 1,
+        //           enabledBorder: OutlineInputBorder(
+        //             borderSide: BorderSide(color: widget.enabledBorderColor ??Colors.blue, width: 0.4),
+        //             borderRadius:  BorderRadius.all(Radius.circular(widget.borderRadiusCircular??8)),
+        //           ),
+        //           focusedBorder: OutlineInputBorder(
+        //             borderSide: BorderSide(color: widget.focusedBorderColor??Colors.lightGreen, width: 0.4),
+        //             borderRadius:  BorderRadius.all(Radius.circular(widget.borderRadiusCircular??8)),
+        //           ),
+        //           errorBorder: OutlineInputBorder(
+        //             borderSide: BorderSide(color: widget.errorBorderColor??Colors.red, width:0.4),
+        //             borderRadius:  BorderRadius.all(Radius.circular(widget.borderRadiusCircular??8)),
+        //           ),
+        //           errorText: state.errorText,
+        //         ),
+        //         isEmpty: _currentSelectedValue == widget.items.keys.first,
+        //         child: DropdownButtonHideUnderline(
+        //           child: Theme(
+        //             data: Theme.of(context).copyWith(
+        //               hoverColor: Colors.transparent,
+        //             ),
+        //             child: DropdownButton<String>(
+        //             icon: Icon(Icons.arrow_drop_down, color: dark_theme_secondary),
+        //
+        //             style: widget.valueStyle ?? TextStyle(color: widget.textColor ?? Colors.red,fontSize: 15,fontWeight: FontWeight.w400),
+        //               // focusNode:widget.focusNode ,
+        //               itemHeight: kMinInteractiveDimension,
+        //               // iconSize: 18,
+        //               // icon: Icon(FeatherIcons.chevronDown, size: 25,color: widget.iconColor??Colors.blue),
+        //               dropdownColor: widget.secondaryBackgroundColor??const Color(0xFFF0F0F0),
+        //               elevation: 0,
+        //               value: _currentSelectedValue,
+        //               isDense: true,
+        //               focusColor: Colors.transparent,
+        //               onChanged:widget.readOnlyDropDown?null: (newValue) {
+        //                 // widget.focusNode!.unfocus();
+        //                 // FocusScope.of(context).requestFocus(widget.nextFocus);
+        //                 setState(() {
+        //                   _currentSelectedValue = newValue!;
+        //                   widget.onChange(_currentSelectedValue!);
+        //                   state.didChange(newValue);
+        //                   state.validate();
+        //                 });
+        //               },
+        //               items: widget.items.keys.map((String value) {
+        //                 return DropdownMenuItem<String>(
+        //                   value: value,
+        //                   child: Text(
+        //                     value,
+        //                     style:widget.dropdownMenuItemStyle??TextStyle(color: widget.textColor ?? Colors.grey,fontSize: 12,fontWeight: FontWeight.normal),
+        //                   ),
+        //                 );
+        //               }).toList(),
+        //             ),
+        //           ),
+        //         ),
+        //       );
+        //     },
+        //     validator: (key) {
+        //       // String? message;
+        //       //
+        //       // if(widget.items[_currentSelectedValue] == null){
+        //       //   return widget.firstItemSelectMessage ?? 'You must select another item';
+        //       // }
+        //       // // for (var validator in widget.validations) {
+        //       // //   message = validator(key,widget.items[key]);
+        //       // // }
+        //       // if(message == null){
+        //       //   // widget.onChange(widget.items[_currentSelectedValue]);
+        //       //   widget.onChange(_currentSelectedValue!);
+        //       // }
+        //       // return message;
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

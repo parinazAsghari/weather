@@ -720,38 +720,21 @@ class _EmdadTabState extends State<EmdadTab> {
       )
       :
       //mobile app - android yet    
-      Stack(
-        children: [
-          
+      GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 17.0,
 
-          
-          
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: _center,
-              zoom: 17.0,
-
-            ),
-            onCameraMove: _onCameraMove,
-            markers: markers.values.toSet(),
-            myLocationEnabled: false,
-            myLocationButtonEnabled: false,
+        ),
+        onCameraMove: _onCameraMove,
+        markers: markers.values.toSet(),
+        myLocationEnabled: false,
+        myLocationButtonEnabled: false,
 
 
-            zoomControlsEnabled: true,
-            zoomGesturesEnabled: true,
-          ),
-
-
-
-          Container(
-            height: 50,
-            width: double.maxFinite,
-            color: Colors.white,
-            margin: EdgeInsets.all(defaultPadding),
-          ),
-        ],
+        zoomControlsEnabled: true,
+        zoomGesturesEnabled: true,
       ),
 
 

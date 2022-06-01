@@ -1,3 +1,4 @@
+import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -5,7 +6,16 @@ import '../../widgets/DialogWidgets.dart';
 import '../drop_down.dart';
 
 class SubmitEmdadRequest extends StatefulWidget {
-  const SubmitEmdadRequest({Key? key}) : super(key: key);
+  final String title;
+  final String address;
+  final bool hasCarProblem;
+
+  SubmitEmdadRequest({
+    required this.title,
+    this.address = '',
+    required this.hasCarProblem,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SubmitEmdadRequest> createState() => _SubmitEmdadRequestState();
@@ -39,6 +49,16 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   bool disabledAddress = true;
   bool disabledProblemCar = true;
 
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.address != '') {
+      _addressCtrl.text = widget.address;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +70,6 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
           width: MediaQuery.of(context).size.width * 0.35,
           fit: BoxFit.contain,
         ),
-
       ),
       body: _body(),
     );
@@ -58,51 +77,78 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
   Widget _body() {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 44,
-          ),
-          _customTextField(title: 'نام و نام خانوادگی', controller: _nameCtrl),
-          _customTextField(title: 'کدملی', controller: _idCtrl),
-          _customDropDown(),
-          SizedBox(height: 11,),
-          _customCheckBox(
-            text: 'دارای محدودیت $limit می‌باشم',
-            value: _isPhysicalLimit,
-            onTap: (value) {
-              print('limit $value');
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return MessageDialogWidget(
-                      dismissable: true,
-                      hasTextBody: false,
-                      widget: _customDialogBody(),
-                      positiveTxt: 'باشه',
-                      positiveFunc: () {
-                        _isPhysicalLimit = true;
-                        setState(
-                          () {
-                            limit = _limitStatus(
-                              isPhysical: _isPhysicalLimit,
-                              isSpeech: _isSpeechLimit,
-                              isHearing: _isHearingLimit,
-                              isMovement: _isMovementLimit,
-                            );
-                          },
-                        );
-                      },
-                    );
-                  });
-            },
-          ),
-          _customTextField(title: 'آدرس', height: 47, controller: _addressCtrl),
-          _customTextField(
-              title: 'توضیحات', height: 68, controller: _descriptionCtrl),
-          Expanded(child: Container()),
-          _submitButton(),
-        ],
+      // key: _formKey,
+      child: SizedBox(
+        // height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 20 / 520,
+                ),
+                Container(
+                    padding: EdgeInsets.only(right: 10),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'ثبت درخواست ${widget.title}',
+                    )),
+                _customTextField(
+                  title: 'نام و نام خانوادگی',
+                  controller: _nameCtrl,
+                ),
+                _customTextField(title: 'کدملی', controller: _idCtrl),
+                if (widget.hasCarProblem) _customDropDown(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 11 / 520,
+                ),
+                _customCheckBox(
+                  text: 'دارای محدودیت $limit می‌باشم',
+                  value: _isPhysicalLimit,
+                  onTap: (value) {
+                    print('limit $value');
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return MessageDialogWidget(
+                            dismissable: true,
+                            hasTextBody: false,
+                            widget: _customDialogBody(),
+                            positiveTxt: 'باشه',
+                            positiveFunc: () {
+                              _isPhysicalLimit = true;
+                              setState(
+                                () {
+                                  limit = _limitStatus(
+                                    isPhysical: _isPhysicalLimit,
+                                    isSpeech: _isSpeechLimit,
+                                    isHearing: _isHearingLimit,
+                                    isMovement: _isMovementLimit,
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        });
+                  },
+                ),
+                _customTextField(
+                    title: 'آدرس', height: 47, controller: _addressCtrl),
+                _customTextField(
+                    title: 'توضیحات', height: 68, controller: _descriptionCtrl),
+                // Expanded(child: Container()),
+              ],
+            ),
+            //Todo if not responsive change size of textbox
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5 / 15,
+            ),
+            _submitButton(),
+          ],
+        ),
       ),
     );
   }
@@ -226,7 +272,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   }
 
   Widget _customTextField(
-      {@required String? title, double height = 45, controller}) {
+      {@required String? title, double height = 35, controller}) {
     return Container(
       margin: const EdgeInsets.only(
         right: 24,
@@ -241,7 +287,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
           contentPadding: EdgeInsets.only(top: height, right: 10),
           border: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.black),
-              borderRadius: BorderRadius.circular(8)),
+              borderRadius: BorderRadius.circular(8),),
         ),
       ),
     );
@@ -261,7 +307,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 return MessageDialogWidget(
                   dismissable: true,
                   title: 'ورود اطلاعات',
-                  body: 'لطفا نام و نام خانوادگی همراه خود را وارد نمائید',
+                  body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
                   positiveTxt: 'باشه',
                 );
               });
@@ -275,13 +321,30 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 return MessageDialogWidget(
                   dismissable: true,
                   title: 'ورود اطلاعات',
-                  body: 'لطفا کدملی همراه خود را وارد نمائید',
+                  body: 'لطفا کدملی خود را وارد نمائید',
                   positiveTxt: 'باشه',
                 );
               });
 
           return;
         }
+        if (widget.hasCarProblem) {
+          if (_carProblem == null) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return MessageDialogWidget(
+                    dismissable: true,
+                    title: 'ورود اطلاعات',
+                    body: 'لطفا ایراد ماشین ا مشخص کنید.',
+                    positiveTxt: 'باشه',
+                  );
+                });
+
+            return;
+          }
+        }
+
         if (_addressCtrl.text.isEmpty) {
           showDialog(
               context: context,
@@ -289,13 +352,33 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 return MessageDialogWidget(
                   dismissable: true,
                   title: 'ورود اطلاعات',
-                  body: 'لطفا آدرس همراه خود را وارد نمائید',
+                  body: 'لطفا آدرس خود را وارد نمائید',
                   positiveTxt: 'باشه',
                 );
               });
 
           return;
         }
+
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MessageDialogWidget(
+                dismissable: false,
+                hasTextBody: false,
+                widget: Column(
+                  children: [
+                    Text('مشتری گرامی اطلاعات شما ثبت شد.'),
+                    Text('منتظر تماس کارشناسان ما بمانید.'),
+                    Text('تلفن ثبت شده: 09122992929'),
+                  ],
+                ),
+                positiveTxt: 'تایید',
+                positiveFunc: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                },
+              );
+            });
       },
       child: Container(
         alignment: Alignment.center,
@@ -306,8 +389,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
             ),
             color: color_sharp_orange),
         width: double.infinity,
-        height: 33,
-        margin: const EdgeInsets.only(right: 24, left: 24, bottom: 40),
+        height: MediaQuery.of(context).size.height * 33 / 520,
+        margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
         child: const Text(
           'ثبت درخواست',
           style: TextStyle(
