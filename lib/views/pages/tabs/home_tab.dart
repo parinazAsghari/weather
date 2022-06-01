@@ -15,7 +15,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
 
@@ -24,10 +23,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-
-
   int carItemSelectedState = 0;
-
 
   //sliding up panel
   final double _initFabHeight = 100.0;
@@ -36,216 +32,219 @@ class _HomeTabState extends State<HomeTab> {
   double _panelHeightClosed = 300;
   PanelController _panelController = PanelController();
 
-
-
   late FlipCardController _flipCardController;
-
-
 
   final controller = PageController(viewportFraction: 1.0, keepPage: true);
 
+  bool _isPanelOpen = false;
 
-  bool _isPanelOpen= false;
+  void _onAddNewCarDetailsTap() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () {
+              return new Future(() => false);
+            },
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
 
-
-
-  void _onAddNewCarDetailsTap(){
-
-    showDialog(context: context, builder: (BuildContext context){
-      return WillPopScope(
-        onWillPop: (){
-          return new Future(()=>false);
-        },
-        child: AlertDialog(
-
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-
-          // backgroundColor: primary_grey_color,
-          title: Column(
-            children: [
-              TextButton(
-                onPressed: (){
-                  Navigator.of(context).pop();
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-
-                    Icon(Icons.close, size: 16,
-                      // color: secondary_dark_purple_color
-                      ),
-                    SizedBox(width: defaultPadding/4,),
-                    Text('لغو', style: TextStyle(fontSize: 10,
-                        // color: secondary_dark_purple_color
-                    ),),
-
-                  ],
-                ),
+              // backgroundColor: primary_grey_color,
+              title: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.close, size: 16,
+                          // color: secondary_dark_purple_color
+                        ),
+                        SizedBox(
+                          width: defaultPadding / 4,
+                        ),
+                        Text(
+                          'لغو',
+                          style: TextStyle(
+                            fontSize: 10,
+                            // color: secondary_dark_purple_color
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "اطلاعات مورد نیاز را وارد نمائید",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      )),
+                ],
               ),
 
-              Align(
-                  alignment: Alignment.center,
-                  child: Text("اطلاعات مورد نیاز را وارد نمائید",textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)),
-
-            ],
-          ),
-
-
-          content: Container(
-              height: 300,
-
-              margin: EdgeInsets.all(defaultPadding),
-              padding: EdgeInsets.all(defaultPadding),
-
-
-              child: Stack(
-
-                children: [
-
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.stretch,
+              content: Container(
+                  height: 300,
+                  margin: EdgeInsets.all(defaultPadding),
+                  padding: EdgeInsets.all(defaultPadding),
+                  child: Stack(
                     children: [
-
-                      //name + textfield
-                      Row(
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text('نام/برند خودرو:'),
-
-                          Expanded(
-                            child: TextField(
-                              controller: TextEditingController(),
-
-
-                            ),
-                          )
-                        ],
-                      ),
-
-                      //سال ساخت
-                      Row(
-                        children: [
-                          Text('سال ساخت:'),
-
-                          Expanded(
-                            child: TextField(
-                              controller: TextEditingController(),
-
-
-                            ),
-                          )
-                        ],
-                      ),
-
-                      //رنگ
-                      Row(
-                        children: [
-                          Text('رنگ:'),
-
-                          Expanded(
-                            child: TextField(
-                              controller: TextEditingController(),
-
-
-                            ),
-                          )
-                        ],
-                      ),
-
-                      //شماره پلاک
-                      Row(
-                        children: [
-                          Text('پلاک خودرو:'),
-
-                          Expanded(
-                            child: TextField(
-                              controller: TextEditingController(),
-
-
-                            ),
-                          )
-                        ],
-                      ),
-
-
-
-
-                      Expanded(child: Container()),
-
-                      Container(
-                        // margin: EdgeInsets.all(defaultPadding),
-                        // padding: EdgeInsets.all(defaultPadding),
-                        height: 30,
-                        width: double.maxFinite,
-
-                        child: RaisedButton(
-                          onPressed: (){
-                            Navigator.of(context, rootNavigator: true).pop(null);
-                            // if(positiveFunc!=null){
-                            //   positiveFunc!();
-                            // }
-                          },
-                          // color: secondary_dark_purple_color,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              // side: BorderSide(width: 2,color: color_holoGrey_primaryLow)
+                          //name + textfield
+                          Row(
+                            children: [
+                              Text('نام/برند خودرو:'),
+                              Expanded(
+                                child: TextField(
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
                           ),
-                          child: Text('ثبت',style: TextStyle(
-                              // color: secondary_light_grey_color
-                          ),),
-                        ),
+
+                          //سال ساخت
+                          Row(
+                            children: [
+                              Text('سال ساخت:'),
+                              Expanded(
+                                child: TextField(
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          //رنگ
+                          Row(
+                            children: [
+                              Text('رنگ:'),
+                              Expanded(
+                                child: TextField(
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          //شماره پلاک
+                          Row(
+                            children: [
+                              Text('پلاک خودرو:'),
+                              Expanded(
+                                child: TextField(
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          Expanded(child: Container()),
+
+                          Container(
+                            // margin: EdgeInsets.all(defaultPadding),
+                            // padding: EdgeInsets.all(defaultPadding),
+                            height: 30,
+                            width: double.maxFinite,
+
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true).pop(null);
+                                // if(positiveFunc!=null){
+                                //   positiveFunc!();
+                                // }
+                              },
+                              // color: secondary_dark_purple_color,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                // side: BorderSide(width: 2,color: color_holoGrey_primaryLow)
+                              ),
+                              child: Text(
+                                'ثبت',
+                                style: TextStyle(
+                                    // color: secondary_light_grey_color
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-
-
                     ],
-                  ),
-                ],
-              )
-          ),
-
-
-
-
-        ),
-      );
-    });
+                  )),
+            ),
+          );
+        });
   }
+
   bool isLoading = true;
   CarouselController _controller = CarouselController();
-
 
   @override
   void initState() {
     super.initState();
     _flipCardController = FlipCardController();
     getCarsData();
-
   }
-  List myCarsList =[];
-  List<Widget> sliderItemList=[];
-  getCarsData()async{
-    HiveDB _hiveDb = HiveDB();
-    myCarsList =  await _hiveDb.getData('', 'userBox');
 
+  List myCarsList = [];
+  List<Widget> sliderItemList = [];
+
+  getCarsData() async {
+    HiveDB _hiveDb = HiveDB();
+    myCarsList = await _hiveDb.getData('', 'userBox');
 
     setState(() {
-      if(myCarsList.isEmpty){
-        sliderItemList =[
-          SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
+      if (myCarsList.isEmpty) {
+        sliderItemList = [
+          const SliderItemWidget(
+            imagePath: 'assets/images/ic_car_red.png',
+            showingTexts: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text('برای ثبت خودرو کلیک کنید'),
+            ),
+            isCarFromDataBase: false,
+          )
         ];
-      }else{
+      } else {
         myCarsList.forEach((element) {
-          sliderItemList.add(SliderItemWidget(imagePath: 'assets/images/khodro.png',showingTexts: Column(children: [Text(element.brand),Text(' مدل ${element.createDate}')],)));
-
+          sliderItemList.add(
+            SliderItemWidget(
+              imagePath: 'assets/images/khodro.png',
+              showingTexts: Padding(
+                padding: const EdgeInsets.only(right: 20.0,top: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [Text('نام/برند خودرو: ${element.brand}'), Text(' سال ساخت: ${element.createDate}')],
+                ),
+              ),
+              isCarFromDataBase: true, brand: element.brand, chassisNumber: element.chassisNumber, ownerNationalCode: element.ownerNationalCode, createDate: element.createDate, fourthCarTag: element.fourthCarTag, secondCarTag: element.secondCarTag, thirdCarTag:element.thirdCarTag , firstCarTag: element.firstCarTag,
+            ),
+          );
         });
-        sliderItemList.add(SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید')));
+        sliderItemList.add(
+           const SliderItemWidget(
+            imagePath: 'assets/images/ic_car_red.png',
+            showingTexts: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text('برای ثبت خودرو کلیک کنید'),
+            ),
+            isCarFromDataBase: false,
+          ),
+        );
         print(sliderItemList.length);
       }
 
       isLoading = false;
     });
   }
-  int _currentPage =0;
+
+  int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -253,44 +252,45 @@ class _HomeTabState extends State<HomeTab> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-
             //top section - car info
             Container(
-              height: MediaQuery.of(context).size.height * 0.28,
-              width: double.maxFinite,
-              // color: Colors.blue,
+                height: MediaQuery.of(context).size.height * 0.28,
+                width: double.maxFinite,
+                // color: Colors.blue,
 
-              child: isLoading ? const Center(child: CircularProgressIndicator()):
-              SizedBox(
-                height: 200,
-                width: MediaQuery.of(context).size.width * 0.80,
-                child: CarouselSlider(
-                  carouselController: _controller ,
-                  options: CarouselOptions(
-                    enableInfiniteScroll: false,
-                    viewportFraction: 1,
-                      reverse: true,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      }
-                  ),
-                  items: sliderItemList,
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : SizedBox(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width * 0.80,
+                        child: CarouselSlider(
+                          carouselController: _controller,
+                          options: CarouselOptions(
+                              enableInfiniteScroll: false,
+                              viewportFraction: 1,
+                              reverse: true,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _currentPage = index;
+                                });
+                              }),
+                          items: sliderItemList,
+                        ),
+                      )
+
+                // SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
                 ),
-              )
-
-              // SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
-            ),
-            !isLoading ?
-            CarouselIndicator(cornerRadius: 50,
-              color:const Color(0xFF8E8E8E) ,activeColor: const Color(0xFF2E3D3D),
-              width: 10,
-              height: 10,
-              count: sliderItemList.length,
-              index: _currentPage ,
-            ):const SizedBox(),
-
+            !isLoading
+                ? CarouselIndicator(
+                    cornerRadius: 50,
+                    color: const Color(0xFF8E8E8E),
+                    activeColor: const Color(0xFF2E3D3D),
+                    width: 10,
+                    height: 10,
+                    count: sliderItemList.length,
+                    index: _currentPage,
+                  )
+                : const SizedBox(),
 
             // SizedBox(height: defaultPadding,),
 
@@ -300,59 +300,43 @@ class _HomeTabState extends State<HomeTab> {
               child: GridView.extent(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                physics:ClampingScrollPhysics(),
-
-
-                maxCrossAxisExtent:120,
+                physics: ClampingScrollPhysics(),
+                maxCrossAxisExtent: 120,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 padding: EdgeInsets.all(defaultPadding),
-
                 children: [
-
                   //weather
-                  _serviceWidget(
-                      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                      imagePath: 'assets/images/ic_service.png',
-                      title: 'امداد'
-                  ),
-
-
+                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())), imagePath: 'assets/images/ic_service.png', title: 'امداد'),
 
                   //roads
                   _serviceWidget(
-                    onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_roadcondition.png',
                     title: 'امداد در محل',
-
                   ),
 
                   //news
                   _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_cartransformation.png',
                     title: 'حمل خودرو',
-
                   ),
 
-
                   _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_puncture.png',
                     title: 'پنچری',
-
                   ),
                   _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_taxi.png',
                     title: 'تاکسی',
-
                   ),
                   _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_information.png',
                     title: 'اطلاعیه',
-
                   ),
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -361,17 +345,15 @@ class _HomeTabState extends State<HomeTab> {
                   //
                   // ),
                   _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_insurance.png',
                     title: 'بیمه',
-
                   ),
 
                   _serviceWidget(
-                    onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_parking.png',
                     title: 'پارکینگ',
-
                   ),
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -386,8 +368,6 @@ class _HomeTabState extends State<HomeTab> {
                   //   title: 'فروشگاه',
                   //
                   // ),
-
-
                 ],
               ),
             )
@@ -396,7 +376,6 @@ class _HomeTabState extends State<HomeTab> {
       ),
     );
   }
-
 
   //old sliding up panel
   /*
@@ -1856,21 +1835,19 @@ class _HomeTabState extends State<HomeTab> {
 
    */
 
-  Widget _serviceWidget({required Function onTap, required String imagePath, required String title}){
+  Widget _serviceWidget({required Function onTap, required String imagePath, required String title}) {
     return NeumorphicButton(
-      onPressed: (){
+      onPressed: () {
         onTap();
       },
-      padding: EdgeInsets.only(top: defaultPadding/2, right: defaultPadding/2, left: defaultPadding/2),
-
+      padding: EdgeInsets.only(top: defaultPadding / 2, right: defaultPadding / 2, left: defaultPadding / 2),
       style: NeumorphicStyle(
-          shape: NeumorphicShape.flat,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-          // depth: 8,
-          lightSource: LightSource.topLeft,
-          color: Theme.of(context).cardColor,
-          shadowDarkColor: Theme.of(context).shadowColor,
-
+        shape: NeumorphicShape.flat,
+        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+        // depth: 8,
+        lightSource: LightSource.topLeft,
+        color: Theme.of(context).cardColor,
+        shadowDarkColor: Theme.of(context).shadowColor,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -1881,25 +1858,25 @@ class _HomeTabState extends State<HomeTab> {
               Icon(
                 Icons.more_vert,
                 size: 15,
-
               ),
             ],
           ),
-          Expanded(child: Container(
+          Expanded(
+              child: Container(
             // padding: EdgeInsets.all(1),
-            child: Image.asset(imagePath,  fit: BoxFit.cover,),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+            ),
           )),
           // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
           // SizedBox(height: defaultPadding/3,),
           // Expanded(child: Container()),
 
-
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(title, style: TextStyle(fontSize: 12)),
           ),
-
-
         ],
       ),
     );
