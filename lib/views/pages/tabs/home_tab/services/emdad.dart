@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../../../../../api_provider/provider.dart';
+import '../../../drop_down.dart';
 
 
 class EmdadService extends StatefulWidget {
@@ -32,6 +33,18 @@ class _EmdadServiceState extends State<EmdadService> {
 
 
   TextEditingController _addressController = TextEditingController();
+
+  String? _myAddress;
+
+
+
+  Map<String, dynamic> myAddressesListItem = {
+    'آدرس های من': 'آدرس های من',
+
+    'بلوار آیت الله کاشانی، استان تهران': 'بلوار آیت الله کاشانی، استان تهران',
+    'بن بست شكوفه، استان تهران': 'بن بست شكوفه، استان تهران',
+    'خیابان تیسفون، استان تهران': 'خیابان تیسفون، استان تهران',
+  };
 
 
   void markerLoadings()async{
@@ -203,11 +216,7 @@ class _EmdadServiceState extends State<EmdadService> {
               alignment: Alignment.topCenter,
               child: Padding(
                 padding:  EdgeInsets.all(defaultPadding),
-                child: Container(
-                  color: Colors.white,
-                  height: 50,
-                  width: double.maxFinite,
-                ),
+                child: _customDropDown(),
               ),
             ),
 
@@ -234,7 +243,7 @@ class _EmdadServiceState extends State<EmdadService> {
   Widget _submitButton() {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitEmdadRequest(title: 'امداد', hasCarProblem: true,)));
+        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitEmdadRequest(title: 'امداد', hasCarProblem: true,address: _addressController.text.isEmpty?'':_addressController.text,)));
       },
       child: Container(
         alignment: Alignment.center,
@@ -274,9 +283,38 @@ class _EmdadServiceState extends State<EmdadService> {
       margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
       child: TextField(
         controller: _addressController,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(icon: Icon(Icons.search),onPressed: (){},),
+        ),
 
       ),
     );
   }
+
+  Widget _customDropDown() {
+    return Container(
+      margin: const EdgeInsets.only(
+        right: 16,
+        left: 16,
+        top: 11,
+      ),
+      child: FormDropDown(
+        readOnlyDropDown: false,
+        primaryBackgroundColor: Colors.transparent,
+        iconColor: Colors.pink,
+        dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+        // defaultValue: _defaultValue,
+        // firstItemSelectMessage: 'انتخاب',
+        alignmentCenterLeft: false,
+        enabledBorderColor: Colors.black,
+        items: myAddressesListItem,
+        validations: const [],
+        onChange: (value) {
+          _myAddress = value;
+        },
+      ),
+    );
+  }
+
 
 }
