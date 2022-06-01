@@ -1,5 +1,8 @@
 import 'package:emdad_khodro_saipa/constants.dart';
+import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
+import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/views/pages/drop_down.dart';
+import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -20,9 +23,9 @@ class _AddNewCarState extends State<AddNewCar> {
   final FocusNode _sixthNumberNode = FocusNode();
   final FocusNode _seventhNumberNode = FocusNode();
   final FocusNode _eighthNumberNode = FocusNode();
-  Map<String, dynamic> carColorListItem = {'رنگ ماشین': null, 'سرمه ای': null};
-  Map<String, dynamic> carModelListItem = {'مدل ماشین': 'مدل ماشین', 'ساینا': 'ساینا'};
-  List<String> pelakListItem = ['الف','ب'];
+  Map<String, dynamic> createYearListItem = {'': null, '1390': null,'1387':null};
+  Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک'};
+  List<String> pelakListItem = ['الف', 'ب'];
   var pelakDropDownValue;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _chassisNumberController = TextEditingController();
@@ -34,6 +37,10 @@ class _AddNewCarState extends State<AddNewCar> {
   final TextEditingController _fifthNumberController = TextEditingController();
   final TextEditingController _sixthNumberController = TextEditingController();
   final TextEditingController _seventhNumberController = TextEditingController();
+
+  final TextEditingController _dropDownTagController = TextEditingController();
+  final TextEditingController _carModelController = TextEditingController();
+  final TextEditingController _createDateController = TextEditingController();
 
   @override
   void initState() {
@@ -64,15 +71,17 @@ class _AddNewCarState extends State<AddNewCar> {
 
     detector!.onTap!();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: primary_grey_color,
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        title: const Text('مشخصات خودرو'),
         // backgroundColor: secondary_dark_purple_color,
       ),
-      body: Container(
+      body: SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
         child: SingleChildScrollView(
@@ -82,6 +91,9 @@ class _AddNewCarState extends State<AddNewCar> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 10,
+                ),
                 Row(
                   children: const [
                     Spacer(),
@@ -92,7 +104,18 @@ class _AddNewCarState extends State<AddNewCar> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
+                ),
+                Container(
+                  height: 120,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(30)),
+                  child: Image.asset(
+                    'assets/images/khodro.png',
+                    width: 35,
+                    height: 50,
+                    // fit: BoxFit.cover,
+                  ),
                 ),
                 Row(
                   children: [
@@ -102,7 +125,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('مدل ماشین'),
+                          const Text('مدل خودرو'),
                           FormDropDown(
                             readOnlyDropDown: false,
                             primaryBackgroundColor: Colors.transparent,
@@ -114,16 +137,15 @@ class _AddNewCarState extends State<AddNewCar> {
                             enabledBorderColor: Colors.black,
                             items: carModelListItem,
                             validations: const [],
-                            onChange: (value) {},
+                            onChange: (value) {
+                              _carModelController.text = value;
+                            },
                           ),
                         ],
                       ),
                     ),
                     const Spacer(),
                   ],
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
                 Row(
                   children: [
@@ -133,7 +155,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('رنگ ماشین'),
+                          const Text('سال ساخت'),
                           FormDropDown(
                             readOnlyDropDown: false,
                             primaryBackgroundColor: Colors.transparent,
@@ -143,18 +165,17 @@ class _AddNewCarState extends State<AddNewCar> {
                             // firstItemSelectMessage: 'انتخاب',
                             alignmentCenterLeft: false,
                             enabledBorderColor: Colors.black,
-                            items: carColorListItem,
+                            items: createYearListItem,
                             validations: [],
-                            onChange: (value) {},
+                            onChange: (value) {
+                              _createDateController.text = value;
+                            },
                           ),
                         ],
                       ),
                     ),
                     const Spacer(),
                   ],
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
                 Row(
                   children: [
@@ -174,16 +195,62 @@ class _AddNewCarState extends State<AddNewCar> {
                               decoration: InputDecoration(
                                 // labelText: 'شماره شاسی',
                                 //   labelStyle:const TextStyle(color: Colors.black) ,
-                                  focusedBorder:OutlineInputBorder(
-                                    borderSide: const BorderSide(color: Colors.black, width: 0.4),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  hintText: 'شماره شاسی', hintStyle: const TextStyle(color: Colors.black,), contentPadding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10)
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.black, width: 0.4),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                // hintText: 'شماره شاسی', hintStyle: const TextStyle(color: Colors.black,), contentPadding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10)
                               ),
-                              showCursor: false,
+                              // showCursor: false,
+                              cursorColor: Colors.deepOrange,
+                              validator: (String? val) {
+                                // if (val != null) {
+                                //   return 'خالی نباشد';
+                                // }
+                                // return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    Expanded(
+                      flex: 7,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('کد ملی مالک'),
+                          SizedBox(
+                            height: 50,
+                            child: TextFormField(
+                              controller: _nationalCodeController,
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                              decoration: InputDecoration(
+                                // labelText: 'کد ملی مالک',
+                                // labelStyle:const TextStyle(color: Colors.black) ,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.black, width: 0.4),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                // hintText: 'کد ملی مالک',
+                                hintStyle: const TextStyle(color: Colors.black),
+                                contentPadding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
+                              ),
+                              // showCursor: false,
+                              cursorColor: Colors.deepOrange,
                               validator: (String? val) {
                                 // if (val != null) {
                                 //   return 'خالی نباشد';
@@ -199,7 +266,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -226,7 +293,10 @@ class _AddNewCarState extends State<AddNewCar> {
                                       const SizedBox(
                                         height: 2,
                                       ),
-                                      const Text('ایران',style: TextStyle(color: Colors.black),),
+                                      const Text(
+                                        'ایران',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
                                       Expanded(
                                         flex: 1,
                                         child: Row(
@@ -261,7 +331,9 @@ class _AddNewCarState extends State<AddNewCar> {
                                                 },
                                               ),
                                             ),
-                                            const SizedBox(width: 2,),
+                                            const SizedBox(
+                                              width: 2,
+                                            ),
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
@@ -411,7 +483,9 @@ class _AddNewCarState extends State<AddNewCar> {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(height: 15,),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -426,36 +500,38 @@ class _AddNewCarState extends State<AddNewCar> {
                                 width: 50,
                                 height: 50,
                                 child: Container(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.black, width: 0.4,style: BorderStyle.solid)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.black, width: 0.4, style: BorderStyle.solid)),
                                   child: DropdownButtonHideUnderline(
                                     child: Padding(
                                       padding: const EdgeInsets.all(4.0),
                                       child: Theme(
                                         data: Theme.of(context).copyWith(
                                           hoverColor: Colors.transparent,
-
                                         ),
                                         child: DropdownButton<String>(
                                           icon: Icon(Icons.arrow_drop_down, color: dark_theme_secondary),
                                           isDense: true,
                                           key: _dropdownButtonKey,
-                                          focusNode:_thirdNumberNode ,
+                                          focusNode: _thirdNumberNode,
                                           isExpanded: true,
                                           focusColor: Colors.transparent,
                                           borderRadius: BorderRadius.zero,
-                                          value:pelakDropDownValue ,
+                                          value: pelakDropDownValue,
                                           // borderRadius: BorderRadius.circular(12),
                                           items: pelakListItem.map((String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
-                                              child: Text(value,style: const TextStyle(fontSize: 15),),
+                                              child: Text(
+                                                value,
+                                                style: const TextStyle(fontSize: 15),
+                                              ),
                                             );
                                           }).toList(),
                                           onChanged: (value) {
+                                            _dropDownTagController.text = value!;
                                             setState(() {
                                               pelakDropDownValue = value;
                                               FocusScope.of(context).requestFocus(_fourthNumberNode);
-
                                             });
                                           },
                                         ),
@@ -505,11 +581,12 @@ class _AddNewCarState extends State<AddNewCar> {
                                                 //   border: InputBorder.none,
                                                 // ),
                                                 showCursor: false,
-                                                validator: (String? val) {
-                                                },
+                                                validator: (String? val) {},
                                               ),
                                             ),
-                                            const SizedBox(width: 2,),
+                                            const SizedBox(
+                                              width: 2,
+                                            ),
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
@@ -542,7 +619,9 @@ class _AddNewCarState extends State<AddNewCar> {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(height: 15,),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -551,10 +630,16 @@ class _AddNewCarState extends State<AddNewCar> {
                             const SizedBox(
                               width: 10,
                             ),
-                            Expanded(flex:1,child: Image.asset('assets/images/iran_flag.png', width: 35,height: 50, fit: BoxFit.cover,)),
+                            Expanded(
+                                flex: 1,
+                                child: Image.asset(
+                                  'assets/images/iran_flag.png',
+                                  width: 35,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                )),
                           ],
-                        )
-                    ),
+                        )),
                     const Spacer(
                       flex: 1,
                     ),
@@ -567,77 +652,55 @@ class _AddNewCarState extends State<AddNewCar> {
                   children: [
                     const Spacer(),
                     Expanded(
-                      flex: 7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('کد ملی مالک'),
-                          SizedBox(
-                            height: 50,
-                            child: TextFormField(
-                              controller: _nationalCodeController,
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                labelText: 'کد ملی مالک',
-                                labelStyle:const TextStyle(color: Colors.black) ,
-                                focusedBorder:OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.black, width: 0.4),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                hintText: 'کد ملی مالک',
-                                hintStyle: const TextStyle(color: Colors.black),
-                                contentPadding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
-                              ),
-                              showCursor: false,
-                              validator: (String? val) {
-                                // if (val != null) {
-                                //   return 'خالی نباشد';
-                                // }
-                                // return null;
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    Expanded(
-                      flex: 7,
+                      flex: 3,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            // primary: secondary_light_grey_color
-                          ),
-                          onPressed: () {
-                            if (_chassisNumberController.text.isEmpty && _nationalCodeController.text.isEmpty
-                                && _firstNumberController.text.isEmpty &&
+                              // primary: secondary_light_grey_color
+                              ),
+                          onPressed: ()async {
+                            if (_chassisNumberController.text.isEmpty &&
+                                _nationalCodeController.text.isEmpty &&
+                                _firstNumberController.text.isEmpty &&
                                 _secondNumberController.text.isEmpty &&
                                 _thirdNumberController.text.isEmpty &&
                                 _fourthNumberController.text.isEmpty &&
                                 _fifthNumberController.text.isEmpty &&
                                 _sixthNumberController.text.isEmpty &&
                                 _seventhNumberController.text.isEmpty) {
-                              print('on tap');
-                            };
+
+                            }else{
+                              Car car = Car();
+                              car.chassisNumber = _chassisNumberController.text;
+                              car.ownerNationalCode =_nationalCodeController.text;
+                              car.brand = _carModelController.text;
+                              car.createDate =_createDateController.text;
+                              car.id =1;
+                              car.firstCarTag =int.parse((_firstNumberController.text+_secondNumberController.text));
+                              car.secondCarTag =_dropDownTagController.text;
+                              car.thirdCarTag =int.parse((_thirdNumberController.text+_fourthNumberController.text+_fifthNumberController.text));
+                              car.fourthCarTag =int.parse((_sixthNumberController.text+_seventhNumberController.text));
+                              print(car.chassisNumber);
+                              print(car.ownerNationalCode);
+                              print(car.brand);
+                              print(car.createDate);
+                              print(car.id);
+                              print(car.firstCarTag);
+                              print(car.secondCarTag);
+                              print(car.thirdCarTag);
+                              print(car.fourthCarTag);
+                              HiveDB _hiveDb = HiveDB();
+                              await _hiveDb.addData(car, 'userBox');
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                            }
+                            ;
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               'ثبت',
                               style: TextStyle(
-                                // color: primary_grey_color
-                              ),
+                                  // color: primary_grey_color
+                                  ),
                             ),
                           )),
                     ),

@@ -1,8 +1,12 @@
 import 'dart:ui';
 
+import 'package:carousel_indicator/carousel_indicator.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:emdad_khodro_saipa/constants.dart';
+import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
+import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
@@ -206,15 +210,42 @@ class _HomeTabState extends State<HomeTab> {
       );
     });
   }
+  bool isLoading = true;
+  CarouselController _controller = CarouselController();
 
 
   @override
   void initState() {
     super.initState();
     _flipCardController = FlipCardController();
+    getCarsData();
 
   }
+  List myCarsList =[];
+  List<Widget> sliderItemList=[];
+  getCarsData()async{
+    HiveDB _hiveDb = HiveDB();
+    myCarsList =  await _hiveDb.getData('', 'userBox');
 
+
+    setState(() {
+      if(myCarsList.isEmpty){
+        sliderItemList =[
+          SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
+        ];
+      }else{
+        myCarsList.forEach((element) {
+          sliderItemList.add(SliderItemWidget(imagePath: 'assets/images/khodro.png',showingTexts: Column(children: [Text(element.brand),Text(element.createDate)],)));
+
+        });
+        sliderItemList.add(SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید')));
+        print(sliderItemList.length);
+      }
+
+      isLoading = false;
+    });
+  }
+  int _currentPage =0;
 
   @override
   Widget build(BuildContext context) {
@@ -229,69 +260,36 @@ class _HomeTabState extends State<HomeTab> {
               width: double.maxFinite,
               // color: Colors.blue,
 
-              child: Stack(
-                children: [
-
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      // alignment: Alignment.bottomRight,
-                      height: 200,
-                      width: MediaQuery.of(context).size.width * 0.80,
-                      margin: EdgeInsets.only(top: defaultPadding*2, bottom: defaultPadding, right: defaultPadding, left: defaultPadding),
-                      child: Neumorphic(
-                        style: NeumorphicStyle(
-                          shape: NeumorphicShape.flat,
-                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
-                          depth: 3,
-                          lightSource: LightSource.topLeft,
-                          color: Theme.of(context).cardColor,
-                          shadowDarkColor: Theme.of(context).shadowColor,
-
-                        ),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset('assets/images/car_plate.png', width: MediaQuery.of(context).size.width*0.28, fit: BoxFit.cover,),
-                          ),
-                        ),
-                      ),
-                    ),
+              child: isLoading ? const Center(child: CircularProgressIndicator()):
+              SizedBox(
+                height: 200,
+                width: MediaQuery.of(context).size.width * 0.80,
+                child: CarouselSlider(
+                  carouselController: _controller ,
+                  options: CarouselOptions(
+                    enableInfiniteScroll: false,
+                    viewportFraction: 1,
+                      reverse: true,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentPage = index;
+                        });
+                      }
                   ),
+                  items: sliderItemList,
+                ),
+              )
 
-
-
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar()));
-
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(defaultPadding),
-                        width: 140,
-                        height: 140,
-                        child: Neumorphic(
-                          style: NeumorphicStyle(
-                            shape: NeumorphicShape.flat,
-                            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
-                            depth: 3,
-                            lightSource: LightSource.topLeft,
-                            color: Theme.of(context).primaryColorLight,
-                            shadowDarkColor: Theme.of(context).shadowColor,
-
-                          ),
-                          child: Center(child: Image.asset('assets/images/ic_car_red.png', fit: BoxFit.contain,),),
-                        ),
-
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              // SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
             ),
+            !isLoading ?
+            CarouselIndicator(cornerRadius: 50,
+              color:const Color(0xFF8E8E8E) ,activeColor: const Color(0xFF2E3D3D),
+              width: 10,
+              height: 10,
+              count: sliderItemList.length,
+              index: _currentPage ,
+            ):const SizedBox(),
 
 
             // SizedBox(height: defaultPadding,),

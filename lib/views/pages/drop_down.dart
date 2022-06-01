@@ -316,39 +316,38 @@ class _FormDropDownState extends State<FormDropDown> {
                     data: Theme.of(context).copyWith(
                       hoverColor: Colors.transparent,
                     ),
-                    child: Expanded(
-                      child: DropdownButton<String>(
-                      icon: Icon(Icons.arrow_drop_down, color: dark_theme_secondary),
+                    child: DropdownButton<String>(
+                    icon: Icon(Icons.arrow_drop_down, color: dark_theme_secondary),
 
-                      style: widget.valueStyle ?? TextStyle(color: widget.textColor ?? Colors.red,fontSize: 15,fontWeight: FontWeight.w400),
-                        // focusNode:widget.focusNode ,
-                        itemHeight: kMinInteractiveDimension,
-                        // iconSize: 18,
-                        // icon: Icon(FeatherIcons.chevronDown, size: 25,color: widget.iconColor??Colors.blue),
-                        dropdownColor: widget.secondaryBackgroundColor??const Color(0xFFF0F0F0),
-                        elevation: 0,
-                        value: _currentSelectedValue,
-                        isDense: true,
-                        focusColor: Colors.transparent,
-                        onChanged:widget.readOnlyDropDown?null: (newValue) {
-                          // widget.focusNode!.unfocus();
-                          // FocusScope.of(context).requestFocus(widget.nextFocus);
-                          setState(() {
-                            _currentSelectedValue = newValue!;
-                            state.didChange(newValue);
-                            state.validate();
-                          });
-                        },
-                        items: widget.items.keys.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style:widget.dropdownMenuItemStyle??TextStyle(color: widget.textColor ?? Colors.grey,fontSize: 12,fontWeight: FontWeight.normal),
-                            ),
-                          );
-                        }).toList(),
-                      ),
+                    style: widget.valueStyle ?? TextStyle(color: widget.textColor ?? Colors.red,fontSize: 15,fontWeight: FontWeight.w400),
+                      // focusNode:widget.focusNode ,
+                      itemHeight: kMinInteractiveDimension,
+                      // iconSize: 18,
+                      // icon: Icon(FeatherIcons.chevronDown, size: 25,color: widget.iconColor??Colors.blue),
+                      dropdownColor: widget.secondaryBackgroundColor??const Color(0xFFF0F0F0),
+                      elevation: 0,
+                      value: _currentSelectedValue,
+                      isDense: true,
+                      focusColor: Colors.transparent,
+                      onChanged:widget.readOnlyDropDown?null: (newValue) {
+                        // widget.focusNode!.unfocus();
+                        // FocusScope.of(context).requestFocus(widget.nextFocus);
+                        setState(() {
+                          _currentSelectedValue = newValue!;
+                          widget.onChange(_currentSelectedValue!);
+                          state.didChange(newValue);
+                          state.validate();
+                        });
+                      },
+                      items: widget.items.keys.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style:widget.dropdownMenuItemStyle??TextStyle(color: widget.textColor ?? Colors.grey,fontSize: 12,fontWeight: FontWeight.normal),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
                 ),
