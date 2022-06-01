@@ -73,7 +73,6 @@ class _AddNewCarState extends State<AddNewCar> {
       _carModelDefaultValue = widget.brand;
       _carCreateDateDefaultValue = widget.createDate;
       _carTagDefaultValue = widget.secondCarTag;
-      print(_carTagDefaultValue);
     }
     super.initState();
   }
@@ -323,9 +322,11 @@ class _AddNewCarState extends State<AddNewCar> {
                                       const SizedBox(
                                         height: 2,
                                       ),
-                                      const Text(
-                                        'ایران',
-                                        style: TextStyle(color: Colors.black),
+                                      const Expanded(
+                                        child: Text(
+                                          'ایران',
+                                          style: TextStyle(color: Colors.black, fontSize: 10),
+                                        ),
                                       ),
                                       Expanded(
                                         flex: 1,
@@ -678,43 +679,44 @@ class _AddNewCarState extends State<AddNewCar> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    Expanded(
-                      flex: 3,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                if (!widget.isCarFromDataBase)
+                  const SizedBox(
+                    height: 20,
+                  ),
+                if (!widget.isCarFromDataBase)
+                  Row(
+                    children: [
+                      const Spacer(),
+                      Expanded(
+                        flex: 3,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                               ),
-                            ),
                               // primary: secondary_light_grey_color
                               ),
                           onPressed: ()async {
-                            if (_chassisNumberController.text.isEmpty &&
-                                _nationalCodeController.text.isEmpty &&
-                                _firstNumberController.text.isEmpty &&
-                                _secondNumberController.text.isEmpty &&
-                                _thirdNumberController.text.isEmpty &&
-                                _fourthNumberController.text.isEmpty &&
-                                _fifthNumberController.text.isEmpty &&
-                                _sixthNumberController.text.isEmpty &&
-                                _seventhNumberController.text.isEmpty) {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return MessageDialogWidget(
-                                      body: 'فیلدها نباید خالی باشد',
-                                      dismissable: true,
-                                      positiveTxt: 'باشه',
-                                      positiveFunc: () async {
-                                      },
-                                    );
+                              if (_chassisNumberController.text.isEmpty ||
+                                  _nationalCodeController.text.isEmpty ||
+                                  _firstNumberController.text.isEmpty ||
+                                  _secondNumberController.text.isEmpty ||
+                                  _thirdNumberController.text.isEmpty ||
+                                  _fourthNumberController.text.isEmpty ||
+                                  _fifthNumberController.text.isEmpty ||
+                                  _sixthNumberController.text.isEmpty ||
+                                  _seventhNumberController.text.isEmpty) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return MessageDialogWidget(
+                                        body: 'فیلدها نباید خالی باشد',
+                                        dismissable: true,
+                                        positiveTxt: 'باشه',
+                                        positiveFunc: () async {},
+                                      );
                                   });
 
                             }else{
@@ -728,15 +730,6 @@ class _AddNewCarState extends State<AddNewCar> {
                               car.secondCarTag =_dropDownTagController.text;
                               car.thirdCarTag =int.parse((_thirdNumberController.text+_fourthNumberController.text+_fifthNumberController.text));
                               car.fourthCarTag =int.parse((_sixthNumberController.text+_seventhNumberController.text));
-                              print(car.chassisNumber);
-                              print(car.ownerNationalCode);
-                              print(car.brand);
-                              print(car.createDate);
-                              print(car.id);
-                              print(car.firstCarTag);
-                              print(car.secondCarTag);
-                              print(car.thirdCarTag);
-                              print(car.fourthCarTag);
                               HiveDB _hiveDb = HiveDB();
                               await _hiveDb.addData(car, 'userBox');
                               showDialog(
@@ -757,19 +750,20 @@ class _AddNewCarState extends State<AddNewCar> {
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'ثبت',
-                              style: TextStyle(
-                                  // color: primary_grey_color
-                                  ),
-                            ),
-                          )),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                                'ثبت',
+                                style: TextStyle(
+                                    // color: primary_grey_color
+                                    ),
+                              ),
+                            )),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                if (!widget.isCarFromDataBase)
+                  const SizedBox(
+                    height: 20,
+                  ),
               ],
             ),
           ),
