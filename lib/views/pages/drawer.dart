@@ -116,14 +116,13 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
 
-          _itemBoxDrawer(
-              context, 'معرفی محصولات', Icons.production_quantity_limits, () {
-            // Navigator.pop(context);
+          _itemBoxDrawer(context, 'پروفایل کاربری', Icons.account_circle, () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => ProductIntroduction()));
+                    builder: (BuildContext context) => UserProfile()));
           }),
+
           const SizedBox(
             height: 3,
           ),
@@ -155,29 +154,13 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(context, 'پروفایل کاربری', Icons.account_circle, () {
+          _itemBoxDrawer(
+              context, 'معرفی محصولات', Icons.production_quantity_limits, () {
+            // Navigator.pop(context);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => UserProfileTab()));
-          }),
-          const SizedBox(
-            height: 3,
-          ),
-
-          // const Divider(
-          //   height: 5, thickness: 0.25,
-          //   // color: secondary_light_grey_color,
-          //   indent: 20, endIndent: 20,
-          // ),
-          const SizedBox(
-            height: 3,
-          ),
-          _itemBoxDrawer(context,'مسولیت های اجتماعی', Icons.account_circle, (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => SocialResponsibility()));
+                    builder: (BuildContext context) => ProductIntroduction()));
           }),
           const SizedBox(
             height: 3,
@@ -197,14 +180,7 @@ Widget DrawerWidget(BuildContext context) {
                 MaterialPageRoute(
                     builder: (BuildContext context) => ContactUs()));
           }),
-          const SizedBox(
-            height: 3,
-          ),
-          // const Divider(
-          //   height: 5, thickness: 0.25,
-          //   // color: secondary_light_grey_color,
-          //   indent: 20, endIndent: 20,
-          // ),
+
           const SizedBox(
             height: 3,
           ),
@@ -214,9 +190,7 @@ Widget DrawerWidget(BuildContext context) {
                 MaterialPageRoute(
                     builder: (BuildContext context) => const AboutUs()));
           }),
-          const SizedBox(
-            height: 3,
-          ),
+
           // const Divider(
           //   height: 5, thickness: 0.25,
           //   // color: secondary_light_grey_color,
@@ -225,12 +199,43 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(context,'قوانین و مقررات', Icons.rule, (){
+
+          _itemBoxDrawer(context,'مسولیت های اجتماعی', Icons.account_circle, (){
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => const TermsPage(),),);
-          },),
+                    builder: (BuildContext context) => SocialResponsibility()));
+          }),
+
+          const SizedBox(
+            height: 3,
+          ),
+          // const Divider(
+          //   height: 5, thickness: 0.25,
+          //   // color: secondary_light_grey_color,
+          //   indent: 20, endIndent: 20,
+          // ),
+          // const SizedBox(
+          //   height: 3,
+          // ),
+
+          const SizedBox(
+            height: 3,
+          ),
+          // const Divider(
+          //   height: 5, thickness: 0.25,
+          //   // color: secondary_light_grey_color,
+          //   indent: 20, endIndent: 20,
+          // ),
+          // const SizedBox(
+          //   height: 3,
+          // ),
+          // _itemBoxDrawer(context,'قوانین و مقررات', Icons.rule, (){
+          //   Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //           builder: (BuildContext context) => const TermsPage(),),);
+          // },),
           const SizedBox(
             height: 3,
           ),

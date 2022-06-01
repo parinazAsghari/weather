@@ -102,9 +102,10 @@ class _HomeTabState extends State<HomeTab> {
                           //name + textfield
                           Row(
                             children: [
-                              Text('نام/برند خودرو:'),
+                              Text('نام خودرو:'),
                               Expanded(
                                 child: TextField(
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                   controller: TextEditingController(),
                                 ),
                               )
@@ -117,6 +118,8 @@ class _HomeTabState extends State<HomeTab> {
                               Text('سال ساخت:'),
                               Expanded(
                                 child: TextField(
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+
                                   controller: TextEditingController(),
                                 ),
                               )
@@ -207,8 +210,8 @@ class _HomeTabState extends State<HomeTab> {
           const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('برای ثبت خودرو کلیک کنید'),
+              padding: EdgeInsets.all(16.0),
+              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),),
             ),
             isCarFromDataBase: false,
           )
@@ -223,7 +226,8 @@ class _HomeTabState extends State<HomeTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Text('نام/برند خودرو: ${element.brand}'), Text(' سال ساخت: ${element.createDate}')],
+                  children: [Text('نام خودرو: ${element.brand}', style: TextStyle(fontWeight: FontWeight.bold),), Text(' سال ساخت: ${element.createDate}', style: TextStyle(fontWeight: FontWeight.bold),
+              )],
                 ),
               ),
               isCarFromDataBase: true, brand: element.brand, chassisNumber: element.chassisNumber, ownerNationalCode: element.ownerNationalCode, createDate: element.createDate, fourthCarTag: element.fourthCarTag, secondCarTag: element.secondCarTag, thirdCarTag:element.thirdCarTag , firstCarTag: element.firstCarTag,
@@ -234,8 +238,9 @@ class _HomeTabState extends State<HomeTab> {
            const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('برای ثبت خودرو کلیک کنید'),
+              padding: EdgeInsets.all(16.0),
+              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             isCarFromDataBase: false,
           ),
@@ -309,7 +314,7 @@ class _HomeTabState extends State<HomeTab> {
                 padding: EdgeInsets.all(defaultPadding),
                 children: [
                   //weather
-                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',))), imagePath: 'assets/images/ic_service.png', title: 'امداد فوری'),
+                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',hasCarProblem: true,))), imagePath: 'assets/images/ic_service.png', title: 'امداد فوری'),
 
                   //roads
                   _serviceWidget(
@@ -320,13 +325,13 @@ class _HomeTabState extends State<HomeTab> {
 
                   //news
                   _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',))),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',hasCarProblem: false,))),
                     imagePath: 'assets/images/ic_car_movement.png',
                     title: 'حمل خودرو',
                   ),
 
                   _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',))),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,))),
                     imagePath: 'assets/images/ic_flat_tire.png',
                     title: 'پنچری',
                   ),
@@ -349,13 +354,13 @@ class _HomeTabState extends State<HomeTab> {
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_insurance.png',
-                    title: 'بیمه',
+                    title: 'گارانتی بدنه',
                   ),
 
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_parking.png',
-                    title: 'پارکینگ',
+                    title: 'اشتراک سفر',
                   ),
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -1867,7 +1872,7 @@ class _HomeTabState extends State<HomeTab> {
               child: Container(
                 // height: 60,
                 // width: 60,
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   // borderRadius: BorderRadius.circular(70),
@@ -1893,7 +1898,7 @@ class _HomeTabState extends State<HomeTab> {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(title, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 12)),
+            child: Text(title, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14)),
           ),
         ],
       ),

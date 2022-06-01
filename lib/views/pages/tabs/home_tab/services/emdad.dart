@@ -14,9 +14,11 @@ import '../../../drop_down.dart';
 
 class EmdadService extends StatefulWidget {
   final String title;
+  final bool hasCarProblem;
 
   EmdadService({
     required this.title,
+    required this.hasCarProblem,
     Key? key,
   }) : super(key: key);
 
@@ -262,7 +264,7 @@ class _EmdadServiceState extends State<EmdadService> {
   Widget _submitButton() {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitEmdadRequest(latLng: _lastMapPosition, title: widget.title, hasCarProblem: true,address: _addressController.text.isEmpty?'':_addressController.text,)));
+        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitEmdadRequest(latLng: _lastMapPosition, title: widget.title, hasCarProblem: widget.hasCarProblem,address: _addressController.text.isEmpty?'':_addressController.text,)));
       },
       child: Container(
         alignment: Alignment.center,

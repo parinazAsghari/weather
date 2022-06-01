@@ -129,15 +129,18 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
             Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 20 / 520,
+                  height: 10,
                 ),
                 Container(
-                    padding: EdgeInsets.only(right: 10),
+                    // padding: EdgeInsets.only(right: 10),
                     alignment: Alignment.center,
                     child: Text(
                       'ثبت درخواست ${widget.title}',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     )),
+                SizedBox(
+                  height: 8,
+                ),
                 _customTextField(
                   title: 'نام و نام خانوادگی *',
                   controller: _nameCtrl,

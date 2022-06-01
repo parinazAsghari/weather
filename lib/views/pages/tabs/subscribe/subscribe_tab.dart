@@ -46,7 +46,7 @@ class _SubscribeTabState extends State<SubscribeTab> with SingleTickerProviderSt
               // labelColor: primary_orange_color,
               tabs: [
                 Tab(
-                  text: "خرید امداد",
+                  text: "خرید",
                   icon: Icon(Icons.payment),
                 ),
 

@@ -90,65 +90,64 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                     !widget.isCarFromDataBase
                         ? Align(
                             alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/car_plate.png',
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                fit: BoxFit.cover,
-                              ),
-                              // 'assets/images/car_plate.png'
-                            ),
+                            // child: Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: Image.asset(
+                            //     'assets/images/car_plate.png',
+                            //     width: MediaQuery.of(context).size.width * 0.28,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            //   // 'assets/images/car_plate.png'
+                            // ),
                           )
                         : Align(
-                            alignment: Alignment.center,
+                            alignment: Alignment.centerRight,
                             child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.only(right: 42,top: 8),
                                 child: Container(
-                                  width: 132,
-                                  height: 32,
+                                  width: 142,
+                                  height: 40,
                                   // color: const Color(0xFFEEF0F6),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), border: Border.all(width: 1, color: Colors.black)),
                                   child: Row(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 2.0),
+                                        padding: const EdgeInsets.only(right: 8.0),
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Expanded(
-                                                child: Text(
+                                            Text(
                                               'ایران',
-                                              style: const TextStyle(fontSize: 9),
-                                            )),
-                                            Text(widget.fourthCarTag.toString(), style: TextStyle(fontSize: 10),),
+                                              style: const TextStyle(fontSize: 9,fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(widget.fourthCarTag.toString(), style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                                           ],
                                         ),
                                       ),
                                       Expanded(
                                           child: VerticalDivider(
-                                        color: Colors.black,
-                                      )),
+                                        color: Colors.black)
+                                      ),
+                                      // const SizedBox(
+                                      //   width: 5,
+                                      // ),
+                                      Text(widget.thirdCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      Text(widget.thirdCarTag.toString()),
+                                      Text(widget.secondCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      Text(widget.secondCarTag.toString()),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(widget.firstCarTag.toString()),
+                                      Text(widget.firstCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
                                       const SizedBox(
                                         width: 5,
                                       ),
                                       Image.asset(
                                         'assets/images/iran_flag.png',
                                         width: 19,
-                                        height: 32,
+                                        height: 38,
                                         fit: BoxFit.cover,
                                       ),
                                     ],

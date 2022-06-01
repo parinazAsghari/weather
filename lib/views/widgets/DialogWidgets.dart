@@ -93,12 +93,13 @@ class MessageDialogWidget extends StatelessWidget {
                     }
                   },
                   child: Container(
-                    height: 30,
+                    height: 40,
                     width: 152,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
-                        color: dark_theme_primary),
+                        color: dark_theme_secondary
+                    ),
                     margin: const EdgeInsets.only(
                         left: 20, top: 0, right: 20, bottom: 10),
                     child: Text(
