@@ -1,6 +1,7 @@
 import 'package:emdad_khodro_saipa/views/pages/menu_side/contact_us.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/product_introduction.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/terms_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/user_profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -115,12 +116,13 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
 
-          _itemBoxDrawer(context,'پروفایل کاربری', Icons.account_circle, () {
+          _itemBoxDrawer(
+              context, 'معرفی محصولات', Icons.production_quantity_limits, () {
             // Navigator.pop(context);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => UserProfile()));
+                    builder: (BuildContext context) => ProductIntroduction()));
           }),
           const SizedBox(
             height: 3,
@@ -153,11 +155,11 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(context,'درباره ما', Icons.info, (){
+          _itemBoxDrawer(context, 'پروفایل کاربری', Icons.account_circle, () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => AboutUs()));
+                    builder: (BuildContext context) => UserProfileTab()));
           }),
           const SizedBox(
             height: 3,
@@ -206,11 +208,11 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(context,'معرفی محصولات', Icons.production_quantity_limits, (){
+          _itemBoxDrawer(context, 'درباره ما', Icons.info, () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => const ProductIntroduction()));
+                    builder: (BuildContext context) => const AboutUs()));
           }),
           const SizedBox(
             height: 3,
