@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/emdad_tab.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/home_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/questionnaire_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/subscribe/subscribe_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/user_profile_tab.dart';
