@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: _body(),
     );
   }
@@ -344,11 +344,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
              SizedBox(
-              height: MediaQuery.of(context).size.height*48/520,
+              height: MediaQuery.of(context).size.height*10/520,
             ),
 
             Container(
-              height: MediaQuery.of(context).size.height*40/520,
+              height: MediaQuery.of(context).size.width * 65 / 640,
               width: MediaQuery.of(context).size.width * 0.55,
               margin: EdgeInsets.all(defaultPadding),
               child: ElevatedButton(
@@ -380,25 +380,25 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
             ),
-
-            SizedBox(height: MediaQuery.of(context).size.height*1.5/10,),
-
-            InkWell(
-              onTap: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => const TermsPage()));
-              },
-              child: const Text(
-                'قوانین و مقررات استفاده از اپلیکیشن',
-                style:
-                    TextStyle(decoration: TextDecoration.underline, fontSize: 15),
-              ),
-            ),
-            SizedBox(
-              height: defaultPadding,
-            ),
+            //rules and condition commented
+            // SizedBox(height: MediaQuery.of(context).size.height*1.5/10,),
+            //
+            // InkWell(
+            //   onTap: (){
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (BuildContext context) => const TermsPage()));
+            //   },
+            //   child: const Text(
+            //     'قوانین و مقررات استفاده از اپلیکیشن',
+            //     style:
+            //         TextStyle(decoration: TextDecoration.underline, fontSize: 15),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: defaultPadding,
+            // ),
           ],
         ),
       ),
