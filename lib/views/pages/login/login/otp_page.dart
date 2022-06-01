@@ -107,133 +107,135 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Widget _body() {
-    return SizedBox(
-      height: double.infinity,
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 64,
-          ),
-          //Logo
-          Image.asset(
-            'assets/images/emdad_khodro_logo.png',
-            width: MediaQuery.of(context).size.width * 0.65,
-            fit: BoxFit.contain,
-          ),
-
-          const SizedBox(
-            height: 24,
-          ),
-
-          const Text('کد تایید',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-
-          const SizedBox(
-            height: 32,
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width * 0.70,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: PinCodeTextField(
-                    appContext: context,
-                    pastedTextStyle: const TextStyle(
-                      // color: Colors.green.shade600,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    length: 5,
-                    animationType: AnimationType.fade,
-                    pinTheme: PinTheme(
-                      borderWidth: 1,
-                      activeColor: Colors.grey,
-                      disabledColor: Colors.white,
-                      inactiveColor: Colors.grey,
-                      inactiveFillColor: Colors.white,
-                      selectedFillColor: Colors.white,
-                      selectedColor: Colors.grey,
-                      shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(5),
-                      fieldHeight: 40,
-                      fieldWidth: 40,
-                      activeFillColor: Colors.white,
-                    ),
-                    cursorColor: Colors.black,
-                    animationDuration: const Duration(milliseconds: 300),
-                    enableActiveFill: true,
-                    controller: _codeController,
-                    keyboardType: TextInputType.number,
-                    boxShadows: const [
-                      BoxShadow(
-                        offset: Offset(0, 1),
-                        color: Colors.black12,
-                        blurRadius: 10,
-                      )
-                    ],
-                    onCompleted: (v) {
-                      onLoginButtonPressed();
-                    },
-                    onChanged: (value) {
-                      setState(
-                        () {
-                          value.length > 4
-                              ? disableButton = false
-                              : disableButton = true;
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const LoginPage(),
-                    ),
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 5),
-                  child: Text(
-                    'تغییر شماره موبایل',
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-            ],
-          ),
-          InkWell(
-            onTap: () {
-              if (enableResend) {
-                resendCode();
-              } else {}
-            },
-            child: Text(
-              'ارسال مجدد کد  ${enableResend ? '' : secondsRemaining}',
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 64,
             ),
-          ),
-          const SizedBox(
-            height: 48,
-          ),
-        ],
+            //Logo
+            Image.asset(
+              'assets/images/emdad_khodro_logo.png',
+              width: MediaQuery.of(context).size.width * 0.65,
+              fit: BoxFit.contain,
+            ),
+
+            const SizedBox(
+              height: 24,
+            ),
+
+            const Text('کد تایید',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+
+            const SizedBox(
+              height: 32,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width * 0.70,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: PinCodeTextField(
+                      appContext: context,
+                      pastedTextStyle: const TextStyle(
+                        // color: Colors.green.shade600,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      length: 5,
+                      animationType: AnimationType.fade,
+                      pinTheme: PinTheme(
+                        borderWidth: 1,
+                        activeColor: Colors.grey,
+                        disabledColor: Colors.white,
+                        inactiveColor: Colors.grey,
+                        inactiveFillColor: Colors.white,
+                        selectedFillColor: Colors.white,
+                        selectedColor: Colors.grey,
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 40,
+                        fieldWidth: 40,
+                        activeFillColor: Colors.white,
+                      ),
+                      cursorColor: Colors.black,
+                      animationDuration: const Duration(milliseconds: 300),
+                      enableActiveFill: true,
+                      controller: _codeController,
+                      keyboardType: TextInputType.number,
+                      boxShadows: const [
+                        BoxShadow(
+                          offset: Offset(0, 1),
+                          color: Colors.black12,
+                          blurRadius: 10,
+                        )
+                      ],
+                      onCompleted: (v) {
+                        onLoginButtonPressed();
+                      },
+                      onChanged: (value) {
+                        setState(
+                          () {
+                            value.length > 4
+                                ? disableButton = false
+                                : disableButton = true;
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginPage(),
+                      ),
+                    );
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 5),
+                    child: Text(
+                      'تغییر شماره موبایل',
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+              ],
+            ),
+            InkWell(
+              onTap: () {
+                if (enableResend) {
+                  resendCode();
+                } else {}
+              },
+              child: Text(
+                'ارسال مجدد کد  ${enableResend ? '' : secondsRemaining}',
+              ),
+            ),
+            const SizedBox(
+              height: 48,
+            ),
+          ],
+        ),
       ),
     );
   }

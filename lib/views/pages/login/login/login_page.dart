@@ -148,259 +148,261 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _body() {
-    return SizedBox(
-      height: double.infinity,
-      width: double.infinity,
-      // color: primary_grey_color,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 64,
-          ),
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        // color: primary_grey_color,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 64,
+            ),
 
-          //Logo
-          Image.asset(
-            'assets/images/emdad_khodro_logo.png',
-            width: MediaQuery.of(context).size.width * 0.65,
-            fit: BoxFit.contain,
-          ),
+            //Logo
+            Image.asset(
+              'assets/images/emdad_khodro_logo.png',
+              width: MediaQuery.of(context).size.width * 0.65,
+              fit: BoxFit.contain,
+            ),
 
-          // Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
-          const SizedBox(
-            height: 24,
-          ),
+            // Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
+            const SizedBox(
+              height: 24,
+            ),
 
-          const Text('ثبت نام در سامانه',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const Text('ثبت نام در سامانه',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
-          const SizedBox(
-            height: 32,
-          ),
-          const SizedBox(
-            height: 12,
-          ),
+            const SizedBox(
+              height: 32,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
 
-          //state 0: showing phone number textfield - state 1: showing otp code entery
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width * 0.70,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: TextField(
-                    keyboardType: TextInputType.phone,
-                    maxLength: 11,
-                    controller: _phoneController,
-                    obscureText: false,
-                    style: const TextStyle(fontWeight: FontWeight.normal),
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      if (mounted) {
-                        setState(() {
-                          value.length == 11
-                              ? disablePhone = false
-                              : disablePhone = true;
-                        });
-                      }
-                    },
-                    decoration: InputDecoration(
-                      // fillColor: secondary_light_grey_color,
-
-                      // isDense: true,filled: true,
-                      hintText: 'شماره موبایل',
-                      counterText: '',
-                      // fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.only(
-                          left: 10, top: 0, right: 10, bottom: 0),
-                      // labelText: 'شماره همراه',labelStyle: TextStyle(),
-                      floatingLabelStyle: TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                        borderSide: BorderSide(color: color_sharp_orange_light),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                        borderSide: BorderSide(
-                            // color: primary_grey_color,
-                            width: 0.8),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                        borderSide: BorderSide(
-                            // color: primary_grey_color,
-                            width: 0.8),
-                      ),
-                      // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width * 0.70,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.circular(8)
-                // ),
-
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: TextField(
-                    keyboardType: TextInputType.phone,
-                    maxLength: 11,
-                    controller: _captchaCodeController,
-                    obscureText: false,
-                    style: const TextStyle(fontWeight: FontWeight.normal),
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      if (mounted) {
-                        setState(() {
-                          value.length == 6
-                              ? disableCode = false
-                              : disableCode = true;
-                        });
-                      }
-                    },
-                    decoration: InputDecoration(
-                      // fillColor: secondary_light_grey_color,
-
-                      // isDense: true,filled: true,
-                      hintText: 'تصویر زیر را وارد کنید',
-                      counterText: '',
-                      // fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.only(
-                          left: 10, top: 0, right: 10, bottom: 0),
-                      // labelText: 'شماره همراه',labelStyle: TextStyle(),
-                      floatingLabelStyle: const TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(8)),
-                          borderSide:
-                              BorderSide(color: color_sharp_orange_light)),
-                      enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              // color: primary_grey_color,
-                              width: 0.8)),
-                      focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              // color: primary_grey_color,
-                              width: 0.8)),
-                      // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 16),
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                width: MediaQuery.of(context).size.width * 100 / 360,
-                height: MediaQuery.of(context).size.width * 65 / 640,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: dark_theme_primary_light, width: 1),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () => {
-                        setState(() {
-                          captchaCode = rng.nextInt(900000) + 100000;
-                        })
+            //state 0: showing phone number textfield - state 1: showing otp code entery
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width * 0.70,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: TextField(
+                      keyboardType: TextInputType.phone,
+                      maxLength: 11,
+                      controller: _phoneController,
+                      obscureText: false,
+                      style: const TextStyle(fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        if (mounted) {
+                          setState(() {
+                            value.length == 11
+                                ? disablePhone = false
+                                : disablePhone = true;
+                          });
+                        }
                       },
-                      icon: Icon(
-                        Icons.refresh,
-                        color: dark_theme_secondary,
-                        size: MediaQuery.of(context).size.width * 30 / 640,
+                      decoration: InputDecoration(
+                        // fillColor: secondary_light_grey_color,
+
+                        // isDense: true,filled: true,
+                        hintText: 'شماره موبایل',
+                        counterText: '',
+                        // fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.only(
+                            left: 10, top: 0, right: 10, bottom: 0),
+                        // labelText: 'شماره همراه',labelStyle: TextStyle(),
+                        floatingLabelStyle: TextStyle(color: Colors.black),
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          borderSide: BorderSide(color: color_sharp_orange_light),
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          borderSide: BorderSide(
+                              // color: primary_grey_color,
+                              width: 0.8),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          borderSide: BorderSide(
+                              // color: primary_grey_color,
+                              width: 0.8),
+                        ),
+                        // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
                       ),
                     ),
-                    Text(
-                      captchaCode.toString(),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(
-            height: 48,
-          ),
-
-          Container(
-            height: 40,
-            width: MediaQuery.of(context).size.width * 0.55,
-            margin: EdgeInsets.all(defaultPadding),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                backgroundColor: !disableCode?!disablePhone?MaterialStateColor.resolveWith(
-                        (states) => dark_theme_primary):MaterialStateColor.resolveWith(
-                        (states) => dark_theme_primary_light):MaterialStateColor.resolveWith(
-                        (states) => dark_theme_primary_light),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'تایید',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                const SizedBox(
+                  height: 4,
                 ),
-              ),
-              onPressed: () {
-                if(!disablePhone){
-                  if(!disableCode){
-                    onLoginButtonPressed(_phoneController.text, code);
+                Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width * 0.70,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(8)
+                  // ),
+
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: TextField(
+                      keyboardType: TextInputType.phone,
+                      maxLength: 11,
+                      controller: _captchaCodeController,
+                      obscureText: false,
+                      style: const TextStyle(fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        if (mounted) {
+                          setState(() {
+                            value.length == 6
+                                ? disableCode = false
+                                : disableCode = true;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        // fillColor: secondary_light_grey_color,
+
+                        // isDense: true,filled: true,
+                        hintText: 'تصویر زیر را وارد کنید',
+                        counterText: '',
+                        // fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.only(
+                            left: 10, top: 0, right: 10, bottom: 0),
+                        // labelText: 'شماره همراه',labelStyle: TextStyle(),
+                        floatingLabelStyle: const TextStyle(color: Colors.black),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
+                            borderSide:
+                                BorderSide(color: color_sharp_orange_light)),
+                        enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(
+                                // color: primary_grey_color,
+                                width: 0.8)),
+                        focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(
+                                // color: primary_grey_color,
+                                width: 0.8)),
+                        // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  width: MediaQuery.of(context).size.width * 100 / 360,
+                  height: MediaQuery.of(context).size.width * 65 / 640,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: dark_theme_primary_light, width: 1),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () => {
+                          setState(() {
+                            captchaCode = rng.nextInt(900000) + 100000;
+                          })
+                        },
+                        icon: Icon(
+                          Icons.refresh,
+                          color: dark_theme_secondary,
+                          size: MediaQuery.of(context).size.width * 30 / 640,
+                        ),
+                      ),
+                      Text(
+                        captchaCode.toString(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(
+              height: 48,
+            ),
+
+            Container(
+              height: 40,
+              width: MediaQuery.of(context).size.width * 0.55,
+              margin: EdgeInsets.all(defaultPadding),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  backgroundColor: !disableCode?!disablePhone?MaterialStateColor.resolveWith(
+                          (states) => dark_theme_primary):MaterialStateColor.resolveWith(
+                          (states) => dark_theme_primary_light):MaterialStateColor.resolveWith(
+                          (states) => dark_theme_primary_light),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'تایید',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                onPressed: () {
+                  if(!disablePhone){
+                    if(!disableCode){
+                      onLoginButtonPressed(_phoneController.text, code);
+                    }
                   }
-                }
+                },
+              ),
+            ),
+
+            Expanded(child: Container()),
+
+            InkWell(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const TermsPage()));
               },
+              child: const Text(
+                'قوانین و مقررات استفاده از اپلیکیشن',
+                style:
+                    TextStyle(decoration: TextDecoration.underline, fontSize: 15),
+              ),
             ),
-          ),
-
-          Expanded(child: Container()),
-
-          InkWell(
-            onTap: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => const TermsPage()));
-            },
-            child: const Text(
-              'قوانین و مقررات استفاده از اپلیکیشن',
-              style:
-                  TextStyle(decoration: TextDecoration.underline, fontSize: 15),
+            SizedBox(
+              height: defaultPadding,
             ),
-          ),
-          SizedBox(
-            height: defaultPadding,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
