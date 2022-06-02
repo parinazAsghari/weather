@@ -36,9 +36,9 @@ class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
           alignment: Alignment.centerRight,
           child: Text('امداد در محل'),
         ),
-        _serviceBox('سرویس‌های اولیه و ادواری','assets/images/ic_insurance.png'),
-        _serviceBox('آپشن و لوازم جانبی','assets/images/ic_insurance.png'),
-        _serviceBox('بازدید فنی پیش از سفر','assets/images/ic_insurance.png'),
+        _serviceBox('سرویس‌های اولیه و ادواری','assets/images/bazdid_fani.png'),
+        _serviceBox('آپشن و لوازم جانبی','assets/images/accessory.png'),
+        _serviceBox('بازدید فنی پیش از سفر','assets/images/firs_service.png'),
 
       ],
     );
@@ -68,6 +68,8 @@ class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(width: 12,),
+
             Container(
               alignment: Alignment.center,
               // height: 60,
@@ -78,6 +80,7 @@ class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
                 // height: 4,
               ),
             ),
+             SizedBox(width: 8,),
              Text(_title,
                 style: TextStyle(
                     fontFamily: 'Vazir',

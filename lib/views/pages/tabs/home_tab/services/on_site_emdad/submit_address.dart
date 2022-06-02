@@ -1,4 +1,5 @@
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/choose_relief_worker_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/emdad_on_site_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -34,7 +35,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
 
   @override
   void initState() {
-    _addressCtrl.text = widget.latLng.toString()??'';
+    _addressCtrl.text = widget.latLng.toString();
     super.initState();
   }
 
@@ -150,11 +151,11 @@ class _SubmitAddressState extends State<SubmitAddress> {
               );
             });
 
-        // Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             EmdadOnSiteService(title: 'title', hasCarProblem: false)));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    ChooseReliefWorkerPage(),),);
 
         //clear textFields
         // _idCtrl.clear();
