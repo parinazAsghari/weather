@@ -84,6 +84,7 @@ Widget DrawerWidget(BuildContext context) {
 
               Text(
                 'کاربر مهمان',
+                style: TextStyle(fontWeight: FontWeight.bold),
                 // textAlign: TextAlign.end,
               ),
             ],
@@ -200,7 +201,8 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
 
-          _itemBoxDrawer(context,'مسولیت های اجتماعی', Icons.account_circle, (){
+          _itemBoxDrawer(context, 'مسئولیت های اجتماعی', Icons.account_circle,
+              () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -287,9 +289,9 @@ Widget DrawerWidget(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(2),
                             child: Image.asset(
-                              'assets/images/ic_linkedin_black.jpg',
-                              height: 30,
-                              width: 30,
+                              'assets/images/ic_linkedin_dark_transparent.png',
+                              height: 25,
+                              width: 25,
                             ),
                           ),
                         )),
@@ -306,9 +308,9 @@ Widget DrawerWidget(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(2),
                             child: Image.asset(
-                              'assets/images/ic_telegram_black.png',
-                              height: 30,
-                              width: 30,
+                              'assets/images/ic_telegram_dark_transparent.png',
+                              height: 25,
+                              width: 25,
                             ),
                           ),
                         )),
@@ -322,12 +324,16 @@ Widget DrawerWidget(BuildContext context) {
                         ),
                         child: GestureDetector(
                           onTap: _launchUrlinstagram,
-                          child: Padding(
+                          child: Container(
                             padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: dark_theme_primary_low,
+                            ),
                             child: Image.asset(
-                              'assets/images/ic_instagram_black.png',
-                              height: 30,
-                              width: 30,
+                              'assets/images/ic_ins_dark_transparent.png',
+                              height: 25,
+                              width: 25,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         )),
@@ -345,9 +351,10 @@ Widget DrawerWidget(BuildContext context) {
                             child: Padding(
                               padding: EdgeInsets.all(2),
                               child: Image.asset(
-                                'assets/images/ic_aparat_black.png',
-                                height: 30,
-                                width: 30,
+                                'assets/images/ic_aparat_dark_transparent.png',
+                                height: 25,
+                                width: 25,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
