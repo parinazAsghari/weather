@@ -7,9 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:mapir_raster/mapir_raster.dart';
 
 import '../../../../../api_provider/provider.dart';
 import '../../../drop_down.dart';
+import 'package:latlong2/latlong.dart' as latlng;
+import 'package:flutter_map/flutter_map.dart' as flutterMap;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 class EmdadService extends StatefulWidget {
@@ -44,6 +48,18 @@ class _EmdadServiceState extends State<EmdadService> {
   String? _myAddress;
 
 
+  // map.ir map
+
+  flutterMap.MapController _mapController = flutterMap.MapController();
+  var pos =  latlng.LatLng(35.748, 51.328);
+  flutterMap.Marker _mapMarker = flutterMap.Marker(
+    point: latlng.LatLng(35.748, 51.328),
+    builder: (ctx) {
+      return Container(
+        child: Icon(Icons.location_on_rounded, size: 50, color: dark_theme_secondary,),
+      );
+    },
+  );
 
   Map<String, dynamic> myAddressesListItem = {
     'آدرس های من': 'آدرس های من',
@@ -177,6 +193,53 @@ class _EmdadServiceState extends State<EmdadService> {
   }
 
 
+  Future<void> _onFlutterMapCreated(flutterMap.MapController mapController) async {
+
+    var location = await currentLocation.getLocation();
+
+    setState(() {
+      pos = latlng.LatLng(location.latitude!, location.longitude!);
+
+      _lastMapPosition = LatLng(location.latitude!, location.longitude!);
+      _center = LatLng(location.latitude!, location.longitude!);
+
+      _mapMarker = flutterMap.Marker(
+        point: pos,
+        builder: (ctx) {
+          return Container(
+            child: Icon(Icons.location_on_rounded, size: 60, color: dark_theme_secondary ,),
+          );
+        },
+      );
+    });
+
+
+    // flutterMap.
+
+  }
+  void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status){
+
+    if(status){
+
+      setState(() {
+        pos = position.center!;
+        _lastMapPosition = LatLng(position.center!.latitude, position.center!.longitude);
+        _center = LatLng(position.center!.latitude, position.center!.longitude);
+
+        _mapMarker = flutterMap.Marker(
+          point: position.center!,
+          builder: (ctx) {
+            return Container(
+              child: Icon(Icons.location_on_rounded, size: 60, color: dark_theme_secondary ,),
+            );
+          },
+        );
+      });
+    }
+
+  }
+
+
   @override
   void dispose() {
     _controller?.dispose();
@@ -197,7 +260,8 @@ class _EmdadServiceState extends State<EmdadService> {
           width: MediaQuery.of(context).size.width * 0.35,
           fit: BoxFit.contain,
         ),
-      ),      body: Container(
+      ),
+      body: Container(
         child: Stack(
           children: [
 
@@ -210,6 +274,58 @@ class _EmdadServiceState extends State<EmdadService> {
             // ),
 
 
+            kIsWeb?
+            Stack(
+
+              children: [
+
+                MapirMap(
+                  apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
+                  options: flutterMap.MapOptions(
+                    onMapCreated: _onFlutterMapCreated,
+                    controller: _mapController,
+                    onPositionChanged: _onFlutterMaoPositionChanged,
+                    center: pos,
+                    zoom: 17.0,
+                  ),
+                  mapController: _mapController,
+
+                  layers: [
+                    flutterMap.MarkerLayerOptions(
+                      markers: [
+                        // _mapMarker
+                        // flutterMap.Marker(
+                        //   width: 80.0,
+                        //   height: 80.0,
+                        //   point: pos,
+                        //   // builder: (ctx) => const FlutterLogo(),
+                        //   builder: (ctx) {
+                        //     return Container(
+                        //         child: Icon(Icons.location_on_rounded, size: 40),
+                        //     );
+                        //   },
+                        // ),
+                      ],
+                    ),
+                  ],
+                ),
+
+
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(Icons.location_on_rounded,size: 60,
+                        color: dark_theme_secondary,
+                      ),
+                      SizedBox(height: defaultPadding*7,)
+                    ],
+                  ),
+                ),
+              ],
+            )
+            :
             GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(

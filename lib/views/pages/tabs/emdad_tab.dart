@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:emdad_khodro_saipa/api_provider/provider.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -61,11 +63,13 @@ class _EmdadTabState extends State<EmdadTab> {
     point: latlng.LatLng(35.748, 51.328),
     builder: (ctx) {
       return Container(
-        child: Icon(Icons.location_on_rounded, size: 40),
+        child: Icon(Icons.location_on_rounded, size: 50, color: dark_theme_secondary,),
       );
     },
   );
 
+  //call api - get address
+  /*
   void callApi(LatLng latLng)async{
 
 
@@ -75,6 +79,8 @@ class _EmdadTabState extends State<EmdadTab> {
 
 
   }
+
+   */
   
   
   
@@ -93,9 +99,12 @@ class _EmdadTabState extends State<EmdadTab> {
 
 
   }
-  
- 
 
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   void markerLoadings()async{
     final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 100);
@@ -107,8 +116,28 @@ class _EmdadTabState extends State<EmdadTab> {
   }
 
 
-  void _onFlutterMapCreated(flutterMap.MapController mapController){
+  Future<void> _onFlutterMapCreated(flutterMap.MapController mapController) async {
 
+    var location = await currentLocation.getLocation();
+
+    setState(() {
+      pos = latlng.LatLng(location.latitude!, location.longitude!);
+
+      _lastMapPosition = LatLng(location.latitude!, location.longitude!);
+      _center = LatLng(location.latitude!, location.longitude!);
+
+      _mapMarker = flutterMap.Marker(
+        point: pos,
+        builder: (ctx) {
+          return Container(
+            child: Icon(Icons.location_on_rounded, size: 60, color: dark_theme_secondary ,),
+          );
+        },
+      );
+    });
+
+
+    // flutterMap.
 
   }
 
@@ -118,18 +147,17 @@ class _EmdadTabState extends State<EmdadTab> {
 
       setState(() {
         pos = position.center!;
+        _lastMapPosition = LatLng(position.center!.latitude, position.center!.longitude);
+        _center = LatLng(position.center!.latitude, position.center!.longitude);
 
         _mapMarker = flutterMap.Marker(
           point: position.center!,
           builder: (ctx) {
             return Container(
-              child: Icon(Icons.location_on_rounded, size: 40),
+              child: Icon(Icons.location_on_rounded, size: 60, color: dark_theme_secondary ,),
             );
           },
         );
-      });
-      setState(() {
-
       });
     }
 
@@ -143,27 +171,26 @@ class _EmdadTabState extends State<EmdadTab> {
 
     setState(() {
       customIcon = BitmapDescriptor.fromBytes(markerIcon);
-    });
+      // _controller.complete(controller);
+      _controller = controller;
 
-    // _controller.complete(controller);
-    _controller = controller;
+      final marker = Marker(
+        markerId: MarkerId('place_name'),
+        position: _lastMapPosition,
+        // icon: BitmapDescriptor.defaultMarker,
+        icon: customIcon!,
+        infoWindow: InfoWindow(
+          title: 'شما اینجایید',
+          // snippet: 'address',
+        ),
+      );
 
-    final marker = Marker(
-      markerId: MarkerId('place_name'),
-      position: _lastMapPosition,
-      // icon: BitmapDescriptor.defaultMarker,
-      icon: customIcon!,
-      infoWindow: InfoWindow(
-        title: 'شما اینجایید',
-        // snippet: 'address',
-      ),
-    );
-
-    setState(() {
       markers[MarkerId('place_name')] = marker;
       _onCurrentLocationButtonPressed();
 
     });
+
+
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -215,6 +242,13 @@ class _EmdadTabState extends State<EmdadTab> {
     print('this is latlong:    ${location.longitude!} + ${location.latitude!} ');
     _center = LatLng(location.latitude!, location.longitude!);
 
+    if(kIsWeb){
+      setState(() {
+
+        _mapController.move(latlng.LatLng(location.latitude!, location.longitude!), 17);
+      });
+    }
+
 
 
     setState(() {
@@ -240,7 +274,7 @@ class _EmdadTabState extends State<EmdadTab> {
       // _panelController.open();
 
 
-      callApi(_center);
+      // callApi(_center);
 
 
     });
@@ -287,11 +321,11 @@ class _EmdadTabState extends State<EmdadTab> {
         zoom: 12.0,
       )));
 
-      print(loc.latitude);
-      print(loc.longitude);
-      setState(() {
-
-      });
+      // print(loc.latitude);
+      // print(loc.longitude);
+      // setState(() {
+      //
+      // });
     });
   }
 
@@ -347,7 +381,12 @@ class _EmdadTabState extends State<EmdadTab> {
           // ),
 
 
+
+
+
           //fab buttons - top right
+
+
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Align(
@@ -381,7 +420,6 @@ class _EmdadTabState extends State<EmdadTab> {
               ),
             ),
           ),
-
         ],
       ),
     );
@@ -404,18 +442,23 @@ class _EmdadTabState extends State<EmdadTab> {
             ),
 
 
-            Center(
-              child: Container(
-                width: 30,
-                height: 8,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.all(Radius.circular(12.0))),
+            InkWell(
+              onTap: (){
+                _panelController.open();
+              },
+              child: Center(
+                child: Container(
+                  width: 50,
+                  height: 10,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                ),
               ),
             ),
 
             SizedBox(
-              height: 18.0,
+              height: 9.0,
             ),
 
             Container(
@@ -434,6 +477,9 @@ class _EmdadTabState extends State<EmdadTab> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 18.0,
+            ),
 
             SizedBox(
               height: 24,
@@ -446,7 +492,8 @@ class _EmdadTabState extends State<EmdadTab> {
                   width: 135,
                   child: NeumorphicButton(
                     onPressed: (){
-                      _onRequestItemTap();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: _lastMapPosition)));
+                      // _onRequestItemTap();
                     },
                     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
                     style: NeumorphicStyle(
@@ -461,8 +508,8 @@ class _EmdadTabState extends State<EmdadTab> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('حمل خودرو', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding,),
+                        Text('امداد فوری', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),),
+                        SizedBox(width: defaultPadding/2,),
                         Icon(Icons.warning_rounded,color: Theme.of(context).primaryColor)
                       ],
                     ),
@@ -473,6 +520,8 @@ class _EmdadTabState extends State<EmdadTab> {
                   width: 135,
                   child: NeumorphicButton(
                     onPressed: (){
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: _lastMapPosition)));
+
                       _onRequestItemTap();
                     },
                     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
@@ -486,11 +535,11 @@ class _EmdadTabState extends State<EmdadTab> {
 
                     ),
                     child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
 
                       children: [
-                        Text('خدمات در محل',textAlign: TextAlign.center, style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding,),
+                        Text('خدمات در محل',textAlign: TextAlign.start, style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                        SizedBox(width: defaultPadding/2),
                         Icon(Icons.home_repair_service_rounded,color: Theme.of(context).primaryColor)
                       ],
                     ),
@@ -512,7 +561,9 @@ class _EmdadTabState extends State<EmdadTab> {
                   width: 135,
                   child: NeumorphicButton(
                     onPressed: (){
-                      _onRequestItemTap();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'پنچری لاستیک', hasCarProblem: false, latLng: _lastMapPosition)));
+
+                      // _onRequestItemTap();
                     },
                     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
                     style: NeumorphicStyle(
@@ -525,10 +576,10 @@ class _EmdadTabState extends State<EmdadTab> {
 
                     ),
                     child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('پنچری لاستیک', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding,),
+                        SizedBox(width: defaultPadding/2,),
                         Icon(Icons.airport_shuttle_rounded,color: Theme.of(context).primaryColor)
                       ],
                     ),
@@ -539,7 +590,9 @@ class _EmdadTabState extends State<EmdadTab> {
                   width: 135,
                   child: NeumorphicButton(
                     onPressed: (){
-                      _onRequestItemTap();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'حمل خودرو', hasCarProblem: false, latLng: _lastMapPosition)));
+
+                      // _onRequestItemTap();
                     },
                     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
                     style: NeumorphicStyle(
@@ -552,11 +605,11 @@ class _EmdadTabState extends State<EmdadTab> {
 
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('اتمام سوخت', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding,),
-                        Icon(Icons.local_gas_station_rounded, color: Theme.of(context).primaryColor)
+                        Text('حمل خودرو', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                        SizedBox(width: defaultPadding/2,),
+                        Icon(Icons.car_repair, color: Theme.of(context).primaryColor)
                       ],
                     ),
                   ),
@@ -683,7 +736,7 @@ class _EmdadTabState extends State<EmdadTab> {
               controller: _mapController,
               onPositionChanged: _onFlutterMaoPositionChanged,
               center: pos,
-              zoom: 16.0,
+              zoom: 17.0,
             ),
             mapController: _mapController,
 
@@ -717,11 +770,11 @@ class _EmdadTabState extends State<EmdadTab> {
                   onTap: (){
                     _panelController.open();
                   },
-                  child: Icon(Icons.location_on_rounded,size: 50,
-                    color: Theme.of(context).primaryColor,
+                  child: Icon(Icons.location_on_rounded,size: 60,
+                    color: dark_theme_secondary,
                   ),
                 ),
-                SizedBox(height: defaultPadding*6,)
+                SizedBox(height: defaultPadding*7,)
               ],
             ),
           ),
@@ -733,7 +786,7 @@ class _EmdadTabState extends State<EmdadTab> {
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _center,
-          zoom: 17.0,
+          zoom: 19.0,
 
         ),
         onCameraMove: _onCameraMove,

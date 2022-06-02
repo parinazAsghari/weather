@@ -32,9 +32,9 @@ class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(right: 24,top: 10,bottom: 6),
-          alignment: Alignment.centerRight,
-          child: Text('امداد در محل'),
+          padding: EdgeInsets.only(top: defaultPadding, bottom: defaultPadding/2),
+          alignment: Alignment.center,
+          child: Text('خدمات در محل',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
         ),
         _serviceBox('سرویس‌های اولیه و ادواری','assets/images/bazdid_fani.png'),
         _serviceBox('آپشن و لوازم جانبی','assets/images/accessory.png'),
@@ -46,7 +46,7 @@ class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
 
   Widget _serviceBox(_title,_imagePath) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 26,vertical: 20),
+      margin: EdgeInsets.only(left: defaultPadding*2,right: defaultPadding*2, top: defaultPadding/2, bottom: defaultPadding/2),
       height: MediaQuery.of(context).size.height*75/640,
       child: NeumorphicButton(
         onPressed: () {

@@ -35,9 +35,25 @@ class _SubmitAddressState extends State<SubmitAddress> {
 
   @override
   void initState() {
-    _addressCtrl.text = widget.latLng.toString();
+    callApi(widget.latLng!);
     super.initState();
   }
+
+  void callApi(LatLng latLng)async{
+
+
+    print('this is latlng ===>>>>>>> $latLng');
+    var result = await ApiProvider.getAddress(latLng);
+
+    _addressCtrl.text = result.addressCompact!;
+
+    setState(() {
+
+    });
+
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,17 +90,20 @@ class _SubmitAddressState extends State<SubmitAddress> {
                     // padding: EdgeInsets.only(right: 10),
                     alignment: Alignment.center,
                     child: Text(
-                      'مشخصات خودرو',
+                      'آدرس دقیق',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     )),
                 SizedBox(
                   height: 8,
                 ),
-                _customTextField(
+                _addressCtrl.text.isNotEmpty? _customTextField(
                   title: 'آدرس *',
                   controller: _addressCtrl,
                   height: 111
+                )
+                :CircularProgressIndicator(
+                  color: dark_theme_secondary,
                 ),
 
                 //Todo if not responsive change size of textbox

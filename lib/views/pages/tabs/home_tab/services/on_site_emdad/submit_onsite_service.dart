@@ -37,6 +37,14 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   String? fullName;
   String? nationalCode;
 
+
+  String? _carModelDefaultValue;
+  final TextEditingController _carModelController = TextEditingController();
+
+
+  Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
+
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -86,15 +94,45 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                 SizedBox(
                   height: 8,
                 ),
-                _customTextField(
-                  title: 'مدل خودرو *',
-                  controller: _carModelCtrl,
+                // _customTextField(
+                //   title: 'مدل خودرو *',
+                //   controller: _carModelCtrl,
+                // ),
+                Padding(
+                  padding:  EdgeInsets.only(top: 8.0, bottom: 4, left: 24, right: 24),
+                  child: Column(
+                    children: [
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: const Text('مدل خودرو *', textAlign: TextAlign.right,)),
+
+                      FormDropDown(
+                        readOnlyDropDown: false,
+                        primaryBackgroundColor: Colors.transparent,
+                        iconColor: Colors.pink,
+                        dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+                        defaultValue: _carModelDefaultValue,
+                        // firstItemSelectMessage: 'انتخاب',
+                        alignmentCenterLeft: false,
+                        enabledBorderColor: Colors.black,
+                        items: carModelListItem,
+                        validations: const [],
+                        onChange: (value) {
+                          _carModelCtrl.text = value;
+                          _carModelController.text = value;
+                        },
+                      ),
+                    ],
+                  ),
                 ),
+
+
+
                 _customTextField(
                     title: 'شماره شاسی *', controller: _chassingNumberCtrl),
                 _customTextField(
                     title: 'کیلومتر فعلی خودرو *',
-                    height: 47,
+                    // height: 30,
                     controller: _currentKmCtrl),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -236,12 +274,12 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   }
 
   Widget _customTextField(
-      {@required String? title, double height = 35, controller}) {
+      {@required String? title, double height = 28, controller}) {
     return Container(
       margin: const EdgeInsets.only(
         right: 24,
         left: 24,
-        top: 11,
+        top: 8,
       ),
       child: TextFormField(
         controller: controller,

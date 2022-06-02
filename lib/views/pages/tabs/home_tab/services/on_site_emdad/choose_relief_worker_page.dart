@@ -43,7 +43,8 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
         Container(
           padding: EdgeInsets.only(top: 16, bottom: 8),
           alignment: Alignment.center,
-          child: Text('امداد در محل'),
+          child: Text('انتخاب خدمات رسان',
+          style:TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
         ),
         Expanded(
           child: ListView.builder(

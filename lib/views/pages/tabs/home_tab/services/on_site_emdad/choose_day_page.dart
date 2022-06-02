@@ -46,7 +46,8 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
         Container(
           padding: EdgeInsets.only(top: 16, bottom: 8),
           alignment: Alignment.center,
-          child: Text('انتخاب روز'),
+          child: Text('انتخاب روز',
+          style:TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
         ),
         Expanded(
           child: ListView.builder(

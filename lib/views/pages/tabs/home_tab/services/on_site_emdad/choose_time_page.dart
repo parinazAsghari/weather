@@ -62,7 +62,8 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
         Container(
           padding: EdgeInsets.only(top: 16, bottom: 8),
           alignment: Alignment.center,
-          child: Text('انتخاب ساعت'),
+          child: Text('انتخاب ساعت',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
         ),
         Expanded(
           child: ListView.builder(
