@@ -229,7 +229,7 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
         const SizedBox(width: 10),
         Text(
           text ?? '',
-          style: const TextStyle(fontSize: 16.0),
+          style: const TextStyle(fontSize: 12.0),
         ),
       ],
     );
