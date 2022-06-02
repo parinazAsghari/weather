@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
       locale: Locale("fa", "IR"),
 
       darkTheme: ThemeData(
+          fontFamily: 'Vazir',
           scaffoldBackgroundColor: dark_theme_background_light,
           primaryColor: dark_theme_primary,
           cardColor: dark_theme_box_background_light,

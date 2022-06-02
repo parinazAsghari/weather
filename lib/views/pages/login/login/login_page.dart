@@ -114,6 +114,11 @@ class _LoginPageState extends State<LoginPage> {
               );
             });
 
+
+        //store user phone number
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('user_phone_number', _phoneController.text);
+
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(

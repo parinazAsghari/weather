@@ -9,10 +9,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../../../../../api_provider/provider.dart';
+import '../../../drop_down.dart';
 
 
 class EmdadService extends StatefulWidget {
-  const EmdadService({Key? key}) : super(key: key);
+  final String title;
+  final bool hasCarProblem;
+
+  EmdadService({
+    required this.title,
+    required this.hasCarProblem,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _EmdadServiceState createState() => _EmdadServiceState();
@@ -33,6 +41,18 @@ class _EmdadServiceState extends State<EmdadService> {
 
   TextEditingController _addressController = TextEditingController();
 
+  String? _myAddress;
+
+
+
+  Map<String, dynamic> myAddressesListItem = {
+    'آدرس های من': 'آدرس های من',
+
+    'بلوار آیت الله کاشانی، استان تهران': 'بلوار آیت الله کاشانی، استان تهران',
+    'بن بست شكوفه، استان تهران': 'بن بست شكوفه، استان تهران',
+    'خیابان تیسفون، استان تهران': 'خیابان تیسفون، استان تهران',
+  };
+
 
   void markerLoadings()async{
     final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 100);
@@ -50,27 +70,24 @@ class _EmdadServiceState extends State<EmdadService> {
 
     setState(() {
       customIcon = BitmapDescriptor.fromBytes(markerIcon);
-    });
+      // _controller.complete(controller);
+      _controller = controller;
 
-    // _controller.complete(controller);
-    _controller = controller;
+      final marker = Marker(
+        markerId: MarkerId('place_name'),
+        position: _lastMapPosition,
+        // icon: BitmapDescriptor.defaultMarker,
+        icon: customIcon!,
+        infoWindow: InfoWindow(
+          title: 'شما اینجایید',
+          // snippet: 'address',
+        ),
+      );
 
-    final marker = Marker(
-      markerId: MarkerId('place_name'),
-      position: _lastMapPosition,
-      // icon: BitmapDescriptor.defaultMarker,
-      icon: customIcon!,
-      infoWindow: InfoWindow(
-        title: 'شما اینجایید',
-        // snippet: 'address',
-      ),
-    );
-
-    setState(() {
       markers[MarkerId('place_name')] = marker;
       _onCurrentLocationButtonPressed();
-
     });
+
   }
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
@@ -105,15 +122,12 @@ class _EmdadServiceState extends State<EmdadService> {
     //
     //   _controller?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
     //     target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
-    //     zoom: 12.0,
+    //     zoom: 17.0,
     //   )));
     //
     //   _center = LatLng(loc.latitude!, loc.longitude!);
-    //   print(loc.latitude);
-    //   print(loc.longitude);
-    //   setState(() {
     //
-    //   });
+    //
     // });
 
     print('this is latlong:    ${location.longitude!} + ${location.latitude!} ');
@@ -144,7 +158,7 @@ class _EmdadServiceState extends State<EmdadService> {
       // _panelController.open();
 
 
-      callApi(_center);
+      // callApi(_center);
 
 
     });
@@ -152,64 +166,73 @@ class _EmdadServiceState extends State<EmdadService> {
   void callApi(LatLng latLng)async{
 
 
+    print('this is latlng ===>>>>>>> $latLng');
     var result = await ApiProvider.getAddress(latLng);
 
     print(result.addressCompact);
+    _addressController.text = result.addressCompact!;
+
 
 
   }
 
 
+  @override
+  void dispose() {
+    _controller?.dispose();
+    _addressController.dispose();
+    super.dispose();
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      appBar: AppBar(
+        elevation: 0,
+        title: Image.asset(
+          'assets/images/emdad_khodro_logo_white_text.png',
+          height: 30,
+          width: MediaQuery.of(context).size.width * 0.35,
+          fit: BoxFit.contain,
+        ),
+      ),      body: Container(
         child: Stack(
           children: [
 
-            Container(
-              child: Center(
-                child: Text(
-                  'Map is Here in the back'
-                ),
-              ),
-            ),
+            // Container(
+            //   child: Center(
+            //     child: Text(
+            //       'Map is Here in the back'
+            //     ),
+            //   ),
+            // ),
 
-            /*
+
             GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: _center,
-                zoom: 17.0,
+                zoom: 20.0,
 
               ),
               onCameraMove: _onCameraMove,
               markers: markers.values.toSet(),
-              myLocationEnabled: false,
-              myLocationButtonEnabled: false,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
 
 
-              zoomControlsEnabled: true,
+              zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
             ),
 
-             */
+
             
             
 
 
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding:  EdgeInsets.all(defaultPadding),
-                child: Container(
-                  color: Colors.white,
-                  height: 50,
-                  width: double.maxFinite,
-                ),
-              ),
-            ),
+
 
 
             Align(
@@ -217,11 +240,18 @@ class _EmdadServiceState extends State<EmdadService> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  // Padding(
+                  //   padding:  EdgeInsets.all(defaultPadding),
+                  //   child: _customDropDown(),
+                  // ),
 
-                  _addressWidget(),
-                  SizedBox(height: defaultPadding,),
-                  _submitButton(),
-                  SizedBox(height: defaultPadding,)
+                  // _addressWidget(),
+                  // SizedBox(height: defaultPadding,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: _submitButton(),
+                  ),
+                  SizedBox(height: defaultPadding*2,)
                 ],
               ),
             )
@@ -234,7 +264,7 @@ class _EmdadServiceState extends State<EmdadService> {
   Widget _submitButton() {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitEmdadRequest(title: 'امداد', hasCarProblem: true,)));
+        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitEmdadRequest(latLng: _lastMapPosition, title: widget.title, hasCarProblem: widget.hasCarProblem,address: _addressController.text.isEmpty?'':_addressController.text,)));
       },
       child: Container(
         alignment: Alignment.center,
@@ -266,7 +296,7 @@ class _EmdadServiceState extends State<EmdadService> {
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
           ),
-          // color: color_sharp_orange
+          color: Colors.white
       ),
 
       width: double.infinity,
@@ -274,9 +304,39 @@ class _EmdadServiceState extends State<EmdadService> {
       margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
       child: TextField(
         controller: _addressController,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(icon: Icon(Icons.search),onPressed: (){},),
+        ),
 
       ),
     );
   }
+
+  Widget _customDropDown() {
+    return Container(
+      margin: const EdgeInsets.only(
+        right: 16,
+        left: 16,
+        top: 11,
+      ),
+      child: FormDropDown(
+        readOnlyDropDown: false,
+        primaryBackgroundColor: Colors.white,
+        iconColor: Colors.pink,
+        dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+        // defaultValue: _defaultValue,
+        // firstItemSelectMessage: 'انتخاب',
+        alignmentCenterLeft: false,
+        enabledBorderColor: Colors.black,
+        items: myAddressesListItem,
+        validations: const [],
+        onChange: (value) {
+          _myAddress = value;
+          _addressController.text = value;
+        },
+      ),
+    );
+  }
+
 
 }

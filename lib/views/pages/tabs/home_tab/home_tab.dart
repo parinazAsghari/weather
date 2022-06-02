@@ -6,6 +6,9 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/tire_flat.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/tow.dart';
 import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -99,9 +102,10 @@ class _HomeTabState extends State<HomeTab> {
                           //name + textfield
                           Row(
                             children: [
-                              Text('نام/برند خودرو:'),
+                              Text('نام خودرو:'),
                               Expanded(
                                 child: TextField(
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                   controller: TextEditingController(),
                                 ),
                               )
@@ -114,6 +118,8 @@ class _HomeTabState extends State<HomeTab> {
                               Text('سال ساخت:'),
                               Expanded(
                                 child: TextField(
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+
                                   controller: TextEditingController(),
                                 ),
                               )
@@ -204,8 +210,8 @@ class _HomeTabState extends State<HomeTab> {
           const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('برای ثبت خودرو کلیک کنید'),
+              padding: EdgeInsets.all(16.0),
+              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),),
             ),
             isCarFromDataBase: false,
           )
@@ -220,7 +226,8 @@ class _HomeTabState extends State<HomeTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Text('نام/برند خودرو: ${element.brand}'), Text(' سال ساخت: ${element.createDate}')],
+                  children: [Text('نام خودرو: ${element.brand}', style: TextStyle(fontWeight: FontWeight.bold),), Text(' سال ساخت: ${element.createDate}', style: TextStyle(fontWeight: FontWeight.bold),
+              )],
                 ),
               ),
               isCarFromDataBase: true, brand: element.brand, chassisNumber: element.chassisNumber, ownerNationalCode: element.ownerNationalCode, createDate: element.createDate, fourthCarTag: element.fourthCarTag, secondCarTag: element.secondCarTag, thirdCarTag:element.thirdCarTag , firstCarTag: element.firstCarTag,
@@ -231,13 +238,13 @@ class _HomeTabState extends State<HomeTab> {
            const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('برای ثبت خودرو کلیک کنید'),
+              padding: EdgeInsets.all(16.0),
+              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             isCarFromDataBase: false,
           ),
         );
-        print(sliderItemList.length);
       }
 
       isLoading = false;
@@ -307,37 +314,37 @@ class _HomeTabState extends State<HomeTab> {
                 padding: EdgeInsets.all(defaultPadding),
                 children: [
                   //weather
-                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())), imagePath: 'assets/images/ic_service.png', title: 'امداد'),
+                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',hasCarProblem: true,))), imagePath: 'assets/images/ic_service.png', title: 'امداد فوری'),
 
                   //roads
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_roadcondition.png',
-                    title: 'امداد در محل',
+                    imagePath: 'assets/images/ic_service_in_place.png',
+                    title: 'خدمات در محل',
                   ),
 
                   //news
                   _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_cartransformation.png',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',hasCarProblem: false,))),
+                    imagePath: 'assets/images/ic_car_movement.png',
                     title: 'حمل خودرو',
                   ),
 
                   _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_puncture.png',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,))),
+                    imagePath: 'assets/images/ic_flat_tire.png',
                     title: 'پنچری',
                   ),
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_taxi.png',
-                    title: 'تاکسی',
-                  ),
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_information.png',
-                    title: 'اطلاعیه',
-                  ),
+                  // _serviceWidget(
+                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/ic_taxi.png',
+                  //   title: 'تاکسی',
+                  // ),
+                  // _serviceWidget(
+                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/ic_information.png',
+                  //   title: 'اطلاعیه',
+                  // ),
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                   //   imagePath: 'assets/images/renew.png',
@@ -347,13 +354,13 @@ class _HomeTabState extends State<HomeTab> {
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_insurance.png',
-                    title: 'بیمه',
+                    title: 'گارانتی بدنه',
                   ),
 
                   _serviceWidget(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                     imagePath: 'assets/images/ic_parking.png',
-                    title: 'پارکینگ',
+                    title: 'اشتراک سفر',
                   ),
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -1844,7 +1851,7 @@ class _HomeTabState extends State<HomeTab> {
       style: NeumorphicStyle(
         shape: NeumorphicShape.flat,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-        // depth: 8,
+        depth: 1.5,
         lightSource: LightSource.topLeft,
         color: Theme.of(context).cardColor,
         shadowDarkColor: Theme.of(context).shadowColor,
@@ -1852,22 +1859,38 @@ class _HomeTabState extends State<HomeTab> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.more_vert,
-                size: 15,
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     Icon(
+          //       Icons.more_vert,
+          //       size: 15,
+          //     ),
+          //   ],
+          // ),
           Expanded(
               child: Container(
+                // height: 60,
+                // width: 60,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  // borderRadius: BorderRadius.circular(70),
+
+                    //TODO one final
+                    color: coor_sharp_orange_gradient3
+                  // color: dak_theme_box_shadow_dark
+
+                ),
             // padding: EdgeInsets.all(1),
             child: Image.asset(
               imagePath,
               fit: BoxFit.cover,
             ),
+
+                //one final
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
           )),
           // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
           // SizedBox(height: defaultPadding/3,),
@@ -1875,7 +1898,7 @@ class _HomeTabState extends State<HomeTab> {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(title, style: TextStyle(fontSize: 12)),
+            child: Text(title, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14)),
           ),
         ],
       ),

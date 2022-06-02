@@ -71,7 +71,7 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.flat,
                   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
-                  depth: 3,
+                  depth: 1.5,
                   lightSource: LightSource.topLeft,
                   color: Theme.of(context).cardColor,
                   shadowDarkColor: Theme.of(context).shadowColor,
@@ -84,21 +84,78 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                       height: 2,
                     ),
                     widget.showingTexts,
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: widget.isCarFromDataBase ? 20 : 30,
                     ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          'assets/images/car_plate.png',
-                          width: MediaQuery.of(context).size.width * 0.28,
-                          fit: BoxFit.cover,
-                        ),
-                        // 'assets/images/car_plate.png'
-                      ),
-                    ),
+                    !widget.isCarFromDataBase
+                        ? Align(
+                            alignment: Alignment.center,
+                            // child: Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: Image.asset(
+                            //     'assets/images/car_plate.png',
+                            //     width: MediaQuery.of(context).size.width * 0.28,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            //   // 'assets/images/car_plate.png'
+                            // ),
+                          )
+                        : Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                                padding: const EdgeInsets.only(right: 42,top: 8),
+                                child: Container(
+                                  width: 142,
+                                  height: 40,
+                                  // color: const Color(0xFFEEF0F6),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), border: Border.all(width: 1, color: Colors.black)),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'ایران',
+                                              style: const TextStyle(fontSize: 9,fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(widget.fourthCarTag.toString(), style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                          child: VerticalDivider(
+                                        color: Colors.black)
+                                      ),
+                                      // const SizedBox(
+                                      //   width: 5,
+                                      // ),
+                                      Text(widget.thirdCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(widget.secondCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(widget.firstCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Image.asset(
+                                        'assets/images/iran_flag.png',
+                                        width: 19,
+                                        height: 38,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                                // 'assets/images/car_plate.png'
+                                ),
+                          ),
                   ],
                 ),
               ),

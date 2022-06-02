@@ -23,10 +23,12 @@ final color_sharp_orange_low2 = Color(0xffFFF0E8);
 final color_sharp_orange_darker = Color(0xffF2600A);
 final color_sharp_orange_darker2 = Color(0xffD5560B);
 final color_sharp_orange_dark_font = Color(0xff8B3300);
+final color_sharporange_dark_font = Color(0xff8b3300);
 
 final color_sharp_orange_gradient1 = Color(0xffFE5E00);
 final color_sharp_orange_gradient2 = Color(0xffFF4D00);
 final color_sharp_orange_gradient3 = Color(0xffFD701D);
+final coor_sharp_orange_gradient3 = Color(0xffffe5df);
 final color_sharp_orange_gradient4 = Color(0xffFFEBDF);
 
 
@@ -40,8 +42,9 @@ final dark_theme_primary_light = Color(0xff8E8E8E);
 final dark_theme_primary_low = Color(0xffE4E4E4);
 final dark_theme_secondary = Color(0xffFF6B00);
 final dark_theme_white = Color(0xffffffff);
-final dark_theme_white_low = Color(0xffFFE6E6);
+final dark_theme_white_low = Color(0xffffe6e6);
 
 final dark_theme_background_light = Color(0xffF5F5FA);
-final dark_theme_box_background_light = Color(0xffEEF0F6);
-final dark_theme_box_shadow_dark = Color(0xffAAAACC);
+final dark_theme_box_background_light = Color(0xffeef0f6);
+final dark_theme_box_shadow_dark = Color(0xffaaaacc);
+final dak_theme_box_shadow_dark = Color(0xffb5b5ba);
