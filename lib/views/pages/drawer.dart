@@ -287,7 +287,7 @@ Widget DrawerWidget(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(2),
                             child: Image.asset(
-                              'assets/images/ic_linkedin.png',
+                              'assets/images/ic_linkedin_black.jpg',
                               height: 30,
                               width: 30,
                             ),
@@ -306,7 +306,7 @@ Widget DrawerWidget(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(2),
                             child: Image.asset(
-                              'assets/images/telegram.png',
+                              'assets/images/ic_telegram_black.png',
                               height: 30,
                               width: 30,
                             ),
@@ -325,7 +325,7 @@ Widget DrawerWidget(BuildContext context) {
                           child: Padding(
                             padding: EdgeInsets.all(2),
                             child: Image.asset(
-                              'assets/images/ic_instagram.png',
+                              'assets/images/ic_instagram_black.png',
                               height: 30,
                               width: 30,
                             ),
@@ -345,7 +345,7 @@ Widget DrawerWidget(BuildContext context) {
                             child: Padding(
                               padding: EdgeInsets.all(2),
                               child: Image.asset(
-                                'assets/images/aparat.png',
+                                'assets/images/ic_aparat_black.png',
                                 height: 30,
                                 width: 30,
                               ),
@@ -383,9 +383,9 @@ Widget _itemBoxDrawer(BuildContext context,String _title, IconData _icon, _onTap
             ),
           )),
       onTap: _onTap,
-      trailing: Text(
+      title: Text(
         _title,
-        textAlign: TextAlign.end,
+        textAlign: TextAlign.start,
       ),
     ),
   );

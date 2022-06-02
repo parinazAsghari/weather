@@ -36,7 +36,7 @@ class MessageDialogWidget extends StatelessWidget {
         content: Directionality(
           textDirection: TextDirection.rtl,
           child: SizedBox(
-            height: 230,
+            height: 240,
             width: 320,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

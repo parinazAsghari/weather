@@ -36,7 +36,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   String limit = 'جسمی';
 
   Map<String, dynamic> carProblemListItem = {
-    'ایراد ماشین': 'ایراد ماشین',
+    'ایراد خودرو': 'ایراد خودرو',
     'ماشینم روشن نمیشه': 'ماشینم روشن نمیشه',
     'باطری خالی کردم': 'باطری خالی کردم',
     'مطمئن نیستم': 'مطمئن نیستم',
