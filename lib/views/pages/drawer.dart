@@ -55,32 +55,28 @@ Widget DrawerWidget(BuildContext context) {
           // )
           // ,
           SizedBox(
-            height: defaultPadding * 2,
+            height: defaultPadding  ,
           ),
           Image.asset('assets/images/emdad_khodro_logo.png', height: 100),
-          const SizedBox(
-            height: 10,
-          ),
-          const Divider(
-            height: 5, thickness: 0.25,
-            // color: secondary_light_grey_color,
-            indent: 20, endIndent: 20,
-          ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // const Divider(
+          //   height: 5, thickness: 0.25,
+          //   // color: secondary_light_grey_color,
+          //   indent: 20, endIndent: 20,
+          // ),
           Row(
             children: [
-              Container(
-                  decoration: BoxDecoration(
-
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                      'assets/images/ic_guestuser.png',
-                      height: MediaQuery.of(context).size.width * 0.2,
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      fit: BoxFit.contain,
-                    ),
-                  )),
+              Padding(
+                padding: const EdgeInsets.all(2),
+                child: Image.asset(
+                  'assets/images/ic_guestuser.png',
+                  height: MediaQuery.of(context).size.width * 0.2,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  fit: BoxFit.contain,
+                ),
+              ),
 
               Text(
                 'کاربر مهمان',
@@ -105,9 +101,9 @@ Widget DrawerWidget(BuildContext context) {
           //   ],
           // ),
 
-          const SizedBox(
-            height: 5,
-          ),
+          // const SizedBox(
+          //   height: 5,
+          // ),
           const Divider(
             height: 5, thickness: 0.25,
             // color: secondary_light_grey_color,
@@ -201,7 +197,7 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
 
-          _itemBoxDrawer(context, 'مسئولیت های اجتماعی', Icons.account_circle,
+          _itemBoxDrawer(context, 'مسئولیت های اجتماعی', Icons.description,
               () {
             Navigator.push(
                 context,
@@ -209,9 +205,9 @@ Widget DrawerWidget(BuildContext context) {
                     builder: (BuildContext context) => SocialResponsibility()));
           }),
 
-          const SizedBox(
-            height: 3,
-          ),
+          // const SizedBox(
+          //   height: 3,
+          // ),
           // const Divider(
           //   height: 5, thickness: 0.25,
           //   // color: secondary_light_grey_color,
@@ -221,9 +217,9 @@ Widget DrawerWidget(BuildContext context) {
           //   height: 3,
           // ),
 
-          const SizedBox(
-            height: 3,
-          ),
+          // const SizedBox(
+          //   height: 3,
+          // ),
           // const Divider(
           //   height: 5, thickness: 0.25,
           //   // color: secondary_light_grey_color,
@@ -238,9 +234,9 @@ Widget DrawerWidget(BuildContext context) {
           //       MaterialPageRoute(
           //           builder: (BuildContext context) => const TermsPage(),),);
           // },),
-          const SizedBox(
-            height: 3,
-          ),
+          // const SizedBox(
+          //   height: 3,
+          // ),
           // const Divider(
           //   height: 5, thickness: 0.25,
           //   // color: secondary_light_grey_color,
@@ -253,6 +249,10 @@ Widget DrawerWidget(BuildContext context) {
             SharedPreferences sharedPrefs =
             await SharedPreferences.getInstance();
             await sharedPrefs.setBool('loggedIn', false);
+            await sharedPrefs.setString('user_phone_number', '');
+            await sharedPrefs.setString('user_full_name', '');
+            await sharedPrefs.setString('user_national_code', '');
+
 
             Navigator.pop(context);
             Navigator.pushReplacement(
@@ -260,9 +260,9 @@ Widget DrawerWidget(BuildContext context) {
                 MaterialPageRoute(
                     builder: (BuildContext context) => LoginPage()));
           }),
-          const SizedBox(
-            height: 20,
-          ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
 
           const SizedBox(
             height: 20,

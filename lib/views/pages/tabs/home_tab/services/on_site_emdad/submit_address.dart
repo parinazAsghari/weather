@@ -1,4 +1,5 @@
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/choose_day_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/choose_relief_worker_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/emdad_on_site_service.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,8 @@ class _SubmitAddressState extends State<SubmitAddress> {
   String? nationalCode;
 
   final _formKey = GlobalKey<FormState>();
+
+  bool _chooseWorker = false;
 
   @override
   void initState() {
@@ -106,10 +109,13 @@ class _SubmitAddressState extends State<SubmitAddress> {
                   color: dark_theme_secondary,
                 ),
 
+                _customCheckBox(),
+
+
                 //Todo if not responsive change size of textbox
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5 / 15,
-                ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 0.5 / 15,
+                // ),
                 _submitButton(),
               ],
             ),
@@ -142,6 +148,28 @@ class _SubmitAddressState extends State<SubmitAddress> {
     );
   }
 
+  Widget _customCheckBox(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+
+          Checkbox(
+              value: _chooseWorker,
+              onChanged: (value){
+                setState(() {
+                  _chooseWorker = !_chooseWorker;
+
+                });
+              }),
+
+          Flexible(child: Text('انتخاب خدمت رسان برای من مهم است'))
+        ],
+      ),
+    );
+  }
+
   Widget _submitButton() {
     return GestureDetector(
       onTap: () async {
@@ -153,7 +181,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
                 return MessageDialogWidget(
                   dismissable: true,
                   title: 'ورود اطلاعات',
-                  body: 'لطفا مدل آدرس خود را وارد نمائید',
+                  body: 'لطفا آدرس خود را وارد نمائید',
                   positiveTxt: 'باشه',
                 );
               });
@@ -174,7 +202,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    ChooseReliefWorkerPage(),),);
+                    _chooseWorker? ChooseReliefWorkerPage() : ChooseDayPage(),),);
 
         //clear textFields
         // _idCtrl.clear();
@@ -226,7 +254,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
         height: MediaQuery.of(context).size.height * 33 / 520,
         margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
         child: const Text(
-          'ثبت درخواست',
+          'ثبت آدرس',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

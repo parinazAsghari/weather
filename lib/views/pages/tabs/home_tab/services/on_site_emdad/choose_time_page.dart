@@ -33,11 +33,13 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     phone = preferences.getString('user_phone_number');
 
+  }
 
 
-
-
-
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
   }
 
   @override
@@ -139,9 +141,9 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
           return;
         }
 
-        await Future.delayed(const Duration(milliseconds: 4000));
+        // await Future.delayed(const Duration(milliseconds: 4000));
 
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
 
         showDialog(
             context: context,

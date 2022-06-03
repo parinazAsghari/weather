@@ -1,16 +1,57 @@
 
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserProfileTab extends StatelessWidget {
+import '../../widgets/DialogWidgets.dart';
+
+class UserProfileTab extends StatefulWidget {
   const UserProfileTab({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController _phonenumbercontroller = new TextEditingController();
-    bool _enabled = false;
+  State<UserProfileTab> createState() => _UserProfileTabState();
+}
 
-    
+class _UserProfileTabState extends State<UserProfileTab> {
+
+  TextEditingController _userFullNameController = TextEditingController();
+  TextEditingController _userNationalCodeController = TextEditingController();
+  TextEditingController _userPhoneController = TextEditingController();
+
+  getUserData()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    _userFullNameController.text = preferences.getString('user_full_name')??'';
+    _userNationalCodeController.text = preferences.getString('user_national_code')??'';
+    _userPhoneController.text = preferences.getString('user_phone_number')??'';
+
+  }
+
+  onSaveButtonTap() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('user_full_name', _userFullNameController.text);
+    preferences.setString('user_national_code', _userNationalCodeController.text);
+
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MessageDialogWidget(
+            body: 'اطلاعات با موفقیت ذخیره شد',
+            dismissable: true,
+            positiveTxt: 'باشه',
+            positiveFunc: () async {},
+          );
+        });
+  }
+
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // backgroundColor: dark_theme_primary,
@@ -52,6 +93,7 @@ class UserProfileTab extends StatelessWidget {
                 child: Directionality(
                   textDirection: TextDirection.ltr,
                   child: TextField(
+                    controller: _userFullNameController,
                     keyboardType: TextInputType.phone,
                     maxLength: 11,
                     obscureText: false,
@@ -119,8 +161,9 @@ class UserProfileTab extends StatelessWidget {
                 child: Directionality(
                   textDirection: TextDirection.ltr,
                   child: TextField(
+                    controller: _userNationalCodeController,
                     keyboardType: TextInputType.phone,
-                    maxLength: 11,
+                    maxLength: 10,
                     obscureText: false,
                     style: TextStyle(fontWeight: FontWeight.normal),
                     textAlign: TextAlign.center,
@@ -177,7 +220,7 @@ class UserProfileTab extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Padding(
                   padding: EdgeInsets.only(right: 20, top: 10),
-                  child: Text('شماره تماس'),
+                  child: Text('شماره موبایل'),
                 ),
               ),
               Padding(
@@ -185,9 +228,10 @@ class UserProfileTab extends StatelessWidget {
                 child: Directionality(
                   textDirection: TextDirection.ltr,
                   child: TextField(
-                    controller: _phonenumbercontroller,
+                    controller: _userPhoneController,
                     keyboardType: TextInputType.phone,
                     maxLength: 11,
+                    enabled: false,
                     obscureText: false,
                     style: TextStyle(fontWeight: FontWeight.normal),
                     textAlign: TextAlign.center,
@@ -198,7 +242,7 @@ class UserProfileTab extends StatelessWidget {
                       // fillColor: secondary_light_grey_color,
 
                       // isDense: true,filled: true,
-                      hintText: 'شماره تماس',
+                      hintText: 'شماره موبایل',
                       counterText: '',
                       // fillColor: Colors.white,
                       contentPadding: EdgeInsets.only(
@@ -272,7 +316,9 @@ class UserProfileTab extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          onSaveButtonTap();
+                        },
                       ),
                     )
                   ],

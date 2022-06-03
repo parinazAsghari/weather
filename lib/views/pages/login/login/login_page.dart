@@ -181,9 +181,9 @@ class _LoginPageState extends State<LoginPage> {
              SizedBox(
               height: MediaQuery.of(context).size.height*32/520,
             ),
-             SizedBox(
-              height: MediaQuery.of(context).size.height*12/520,
-            ),
+            //  SizedBox(
+            //   height: MediaQuery.of(context).size.height*12/520,
+            // ),
 
             //state 0: showing phone number textfield - state 1: showing otp code entery
             Column(
@@ -311,9 +311,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                 SizedBox(
-                  height: MediaQuery.of(context).size.height*18/520,
-                ),
+                //  SizedBox(
+                //   height: MediaQuery.of(context).size.height*18/520,
+                // ),
                 Container(
                   margin: const EdgeInsets.only(left: 16),
                   padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*4/360),
@@ -348,9 +348,9 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
 
-             SizedBox(
-              height: MediaQuery.of(context).size.height*10/520,
-            ),
+            //  SizedBox(
+            //   height: MediaQuery.of(context).size.height*10/520,
+            // ),
 
             Container(
               height: MediaQuery.of(context).size.width * 65 / 640,

@@ -21,6 +21,8 @@ import '../../widgets/DialogWidgets.dart';
 import '../../widgets/LoadingWidgets.dart';
 import 'package:location/location.dart';
 
+import 'home_tab/services/on_site_emdad/on_site_emdad_page.dart';
+
 
 class EmdadTab extends StatefulWidget {
   const EmdadTab({Key? key}) : super(key: key);
@@ -522,7 +524,8 @@ class _EmdadTabState extends State<EmdadTab> {
                     onPressed: (){
                       // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: _lastMapPosition)));
 
-                      _onRequestItemTap();
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OnSiteEmdadPage()));
+                      // _onRequestItemTap();
                     },
                     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
                     style: NeumorphicStyle(
@@ -786,16 +789,16 @@ class _EmdadTabState extends State<EmdadTab> {
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _center,
-          zoom: 19.0,
+          zoom: 20.0,
 
         ),
         onCameraMove: _onCameraMove,
         markers: markers.values.toSet(),
-        myLocationEnabled: false,
-        myLocationButtonEnabled: false,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: true,
 
 
-        zoomControlsEnabled: true,
+        zoomControlsEnabled: false,
         zoomGesturesEnabled: true,
       ),
 

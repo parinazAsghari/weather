@@ -46,6 +46,17 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
           child: Text('انتخاب خدمات رسان',
           style:TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
         ),
+
+        _serviceBox(reliefWorkerList[0].name, 'assets/images/relief_worker.png', reliefWorkerList[0].score, 0),
+        _serviceBox(reliefWorkerList[1].name, 'assets/images/relief_worker.png', reliefWorkerList[1].score, 1),
+        _serviceBox(reliefWorkerList[2].name, 'assets/images/relief_worker.png', reliefWorkerList[2].score, 2),
+
+        // _serviceNotImportant(),
+
+        _submitButton()
+
+
+        /*
         Expanded(
           child: ListView.builder(
             itemCount: reliefWorkerList.length+1,
@@ -58,6 +69,8 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
             },
           ),
         ),
+
+         */
       ],
     );
   }
@@ -142,6 +155,39 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
     );
   }
 
+
+  Widget _serviceNotImportant(){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      height: MediaQuery.of(context).size.height * 75 / 640,
+      child: NeumorphicButton(
+        onPressed: () {
+          setState(() {
+            selectedIndex = 3;
+          });
+        },
+        padding: EdgeInsets.only(right: 0, left: 0),
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+          depth: 1.5,
+          lightSource: LightSource.topLeft,
+          color: selectedIndex==3?dark_theme_white_low:Theme.of(context).cardColor,
+          shadowDarkColor: Theme.of(context).shadowColor,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('انتخاب خدمت رسان برای من مهم نیست')
+
+          ],
+        ),
+      ),
+    );
+
+  }
+
   Widget _submitButton() {
     return GestureDetector(
       onTap: (){
@@ -159,7 +205,7 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
 
           return;
         }
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) =>
