@@ -82,7 +82,8 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
         style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-          depth: 1.5,
+          // depth: 1.5,
+          depth: 8,
           lightSource: LightSource.topLeft,
           color: selectedIndex == index
               ? dark_theme_white_low

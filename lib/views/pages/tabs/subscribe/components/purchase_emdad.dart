@@ -42,7 +42,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   style: NeumorphicStyle(
                     shape: NeumorphicShape.flat,
                     boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                    // depth: 8,
+                    depth: 8,
                     lightSource: LightSource.topLeft,
                     color: Theme.of(context).primaryColorLight,
                     shadowDarkColor: Theme.of(context).shadowColor,
@@ -191,7 +191,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                   style: NeumorphicStyle(
                     shape: NeumorphicShape.flat,
                     boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                    // depth: 8,
+                    depth: 8,
                     lightSource: LightSource.topLeft,
                     color: Theme.of(context).primaryColorLight,
                     shadowDarkColor: Theme.of(context).shadowColor,

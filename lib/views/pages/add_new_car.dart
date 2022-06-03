@@ -33,9 +33,9 @@ class _AddNewCarState extends State<AddNewCar> {
   final FocusNode _sixthNumberNode = FocusNode();
   final FocusNode _seventhNumberNode = FocusNode();
   final FocusNode _eighthNumberNode = FocusNode();
-  Map<String, dynamic> createYearListItem = {'': null, '1390': null,'1387':null};
+  Map<String, dynamic> createYearListItem = {'': null, '1401': null,'1400':null,'1399': null, '1398': null,'1397':null,'1396': null,'1395':null,'1394': null,'1393':null,'1392': null,'1391':null,'1390': null};
   Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
-  List<String> pelakListItem = ['','الف', 'ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ع','غ','ف','ق','ک','ل','م','ن','و','ه','ی'];
+  List<String> pelakListItem = ['','الف', 'ب','پ','ت','ث','ج','د','س','ص','ط','ق','ک','ع','ل','م','ن','و','ه','ی'];
   var pelakDropDownValue;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _chassisNumberController = TextEditingController();

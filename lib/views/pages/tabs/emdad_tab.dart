@@ -501,7 +501,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,
@@ -531,7 +531,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,
@@ -572,7 +572,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,
@@ -601,7 +601,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,

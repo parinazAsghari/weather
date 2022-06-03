@@ -1852,7 +1852,8 @@ class _HomeTabState extends State<HomeTab> {
       style: NeumorphicStyle(
         shape: NeumorphicShape.flat,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-        depth: 1.5,
+        // depth: 1.5,
+        depth: 8,
         lightSource: LightSource.topLeft,
         color: Theme.of(context).cardColor,
         shadowDarkColor: Theme.of(context).shadowColor,
@@ -1873,16 +1874,16 @@ class _HomeTabState extends State<HomeTab> {
               child: Container(
                 // height: 60,
                 // width: 60,
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  // borderRadius: BorderRadius.circular(70),
-
-                    //TODO one final
-                    color: coor_sharp_orange_gradient3
-                  // color: dak_theme_box_shadow_dark
-
-                ),
+                // padding: EdgeInsets.all(12),
+                // decoration: BoxDecoration(
+                //   shape: BoxShape.circle,
+                //   // borderRadius: BorderRadius.circular(70),
+                //
+                //     //TODO one final
+                //     color: coor_sharp_orange_gradient3
+                //   // color: dak_theme_box_shadow_dark
+                //
+                // ),
             // padding: EdgeInsets.all(1),
             child: Image.asset(
               imagePath,
@@ -1899,7 +1900,9 @@ class _HomeTabState extends State<HomeTab> {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(title, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14)),
+            child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
           ),
         ],
       ),

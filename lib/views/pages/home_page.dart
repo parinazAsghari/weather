@@ -384,7 +384,7 @@ class _HomePageState extends State<HomePage> {
   //                 // Navigator.pop(context);
   //                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>SocialResponsibility ()));
   //               },
-  //               trailing: Text('مسولیت های اجتماعی',textAlign: TextAlign.end,style: TextStyle(
+  //               trailing: Text('مسئولیت های اجتماعی',textAlign: TextAlign.end,style: TextStyle(
   //                 // color: secondary_light_grey_color
   //               ),),
   //             ),

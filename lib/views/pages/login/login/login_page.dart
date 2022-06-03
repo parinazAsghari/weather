@@ -28,15 +28,24 @@ class _LoginPageState extends State<LoginPage> {
 
   var rng = new Random();
   late int code;
-  late int captchaCode;
+  // late int captchaCode;
+  late String captchaCode;
   bool disableCode = true;
   bool disablePhone = true;
+
+
+  String generateRandomString(int len) {
+    var r = Random();
+    const _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+  }
 
   @override
   void initState() {
     super.initState();
     code = rng.nextInt(90000) + 10000;
-    captchaCode = rng.nextInt(750000) + 100000;
+    // captchaCode = rng.nextInt(750000) + 100000;
+    captchaCode = generateRandomString(6);
     print('otp code is:   $code');
   }
 
@@ -58,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
     print(
         'capcode: ${captchaCode.toString()} + capcontr + ${_captchaCodeController.text.toString()}');
 
-    if (_captchaCodeController.text != captchaCode.toString()) {
+    if (_captchaCodeController.text.toLowerCase() != captchaCode.toString().toLowerCase()) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -265,7 +274,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Directionality(
                     textDirection: TextDirection.ltr,
                     child: TextField(
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.text,
                       maxLength: 11,
                       controller: _captchaCodeController,
                       obscureText: false,
@@ -280,6 +289,7 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         }
                       },
+
                       decoration: InputDecoration(
                         // fillColor: secondary_light_grey_color,
 
@@ -330,7 +340,8 @@ class _LoginPageState extends State<LoginPage> {
                       IconButton(
                         onPressed: () => {
                           setState(() {
-                            captchaCode = rng.nextInt(900000) + 100000;
+                            // captchaCode = rng.nextInt(900000) + 100000;
+                            captchaCode = generateRandomString(6);
                           })
                         },
                         icon: Icon(

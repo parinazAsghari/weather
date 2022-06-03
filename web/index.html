@@ -14,7 +14,8 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+<!--  <base href="$FLUTTER_BASE_HREF">-->
+  <base href="/emdad-khodro/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -29,13 +30,14 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>emdad_khodro_saipa</title>
+  <title>امداد خودرو سایپا</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script src="main.dart.js?version=3" type="application/javascript"></script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
@@ -45,7 +47,7 @@
       }
       scriptLoaded = true;
       var scriptTag = document.createElement('script');
-      scriptTag.src = 'main.dart.js';
+      scriptTag.src = 'main.dart.js?version=3';
       scriptTag.type = 'application/javascript';
       document.body.append(scriptTag);
     }
