@@ -1,3 +1,6 @@
+import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
+import 'package:emdad_khodro_saipa/models/car.dart';
+import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/emdad_on_site_service.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +45,8 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   final TextEditingController _carModelController = TextEditingController();
 
 
-  Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
+  // Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
+  Map<String, dynamic> carModelListItem = {};
 
 
   final _formKey = GlobalKey<FormState>();
@@ -50,6 +54,36 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   @override
   void initState() {
     super.initState();
+    getCarsData();
+  }
+
+  List myCarsList = [];
+  Map<String, dynamic> userCarsItem = {};
+  getCarsData()async{
+    HiveDB _hiveDB = HiveDB();
+    myCarsList = await _hiveDB.getData('', 'userBox');
+
+    print('this is mycarsList==== > ${myCarsList.length}');
+
+    if(myCarsList.isEmpty){
+      final entry = {'مدل خودرو':'مدل خودرو'};
+      carModelListItem.addEntries(entry.entries);
+      setState(() {
+
+      });
+      return;
+    }
+    myCarsList.forEach((element) {
+
+      final entry = {'${element.brand} - ${element.createDate}' : '${element.brand} - ${element.createDate}'};
+      carModelListItem.addEntries(entry.entries);
+
+    });
+
+    setState(() {
+
+    });
+    return;
   }
 
   @override
@@ -102,9 +136,23 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                   padding:  EdgeInsets.only(top: 8.0, bottom: 4, left: 24, right: 24),
                   child: Column(
                     children: [
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: const Text('مدل خودرو *', textAlign: TextAlign.right,)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('انتخاب خودرو *', textAlign: TextAlign.right,),
+                          TextButton(
+                              onPressed: (){
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar(isCarFromDataBase: false)));
+
+
+
+                              },
+                              child: Text('افزودن خودروی جدید +', style: TextStyle(fontSize: 14,color: Theme.of(context).primaryColor),)),
+
+                        ],
+                      ),
 
                       FormDropDown(
                         readOnlyDropDown: false,
@@ -128,8 +176,8 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
 
 
 
-                _customTextField(
-                    title: 'شماره شاسی *', controller: _chassingNumberCtrl),
+                // _customTextField(
+                //     title: 'شماره شاسی *', controller: _chassingNumberCtrl),
                 _customTextField(
                     title: 'کیلومتر فعلی خودرو *',
                     // height: 30,
@@ -316,20 +364,20 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
 
           return;
         }
-        if (_chassingNumberCtrl.text.isEmpty) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                  dismissable: true,
-                  title: 'ورود اطلاعات',
-                  body: 'لطفا شماره شاسی خودرو خود را وارد نمائید',
-                  positiveTxt: 'باشه',
-                );
-              });
-
-          return;
-        }
+        // if (_chassingNumberCtrl.text.isEmpty) {
+        //   showDialog(
+        //       context: context,
+        //       builder: (BuildContext context) {
+        //         return MessageDialogWidget(
+        //           dismissable: true,
+        //           title: 'ورود اطلاعات',
+        //           body: 'لطفا شماره شاسی خودرو خود را وارد نمائید',
+        //           positiveTxt: 'باشه',
+        //         );
+        //       });
+        //
+        //   return;
+        // }
 
         if (_currentKmCtrl.text.isEmpty) {
           showDialog(

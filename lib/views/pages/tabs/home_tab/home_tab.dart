@@ -201,6 +201,45 @@ class _HomeTabState extends State<HomeTab> {
   List myCarsList = [];
   List<Widget> sliderItemList = [];
 
+  String carImagePath(String carModel){
+    String imagePath = '';
+    switch(carModel){
+      case 'ساینا':
+        imagePath = 'car_saina';
+        break;
+      case 'کوییک':
+        imagePath = 'car_quick';
+        break;
+      case 'پراید':
+        imagePath = 'car_pride';
+        break;
+      case 'تیبا':
+        imagePath = 'car_tiba';
+        break;
+
+      case 'وانت':
+        imagePath = 'car_vanet';
+        break;
+
+      case 'سراتو':
+        imagePath = 'car_serato';
+        break;
+
+      case 'چانگان':
+        imagePath = 'car_changan';
+        break;
+
+      default:
+        imagePath = 'khodro';
+        break;
+
+    }
+
+    return imagePath;
+
+  }
+
+
   getCarsData() async {
     HiveDB _hiveDb = HiveDB();
     myCarsList = await _hiveDb.getData('', 'userBox');
@@ -221,7 +260,7 @@ class _HomeTabState extends State<HomeTab> {
         myCarsList.forEach((element) {
           sliderItemList.add(
             SliderItemWidget(
-              imagePath: 'assets/images/khodro.png',
+              imagePath: 'assets/images/${carImagePath(element.brand)}.png',
               showingTexts: Padding(
                 padding: const EdgeInsets.only(right: 20.0,top: 10),
                 child: Column(

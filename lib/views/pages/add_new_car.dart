@@ -101,6 +101,45 @@ class _AddNewCarState extends State<AddNewCar> {
     detector!.onTap!();
   }
 
+
+  String carImagePath(String carModel){
+    String imagePath = '';
+    switch(carModel){
+      case 'ساینا':
+        imagePath = 'car_saina';
+        break;
+      case 'کوییک':
+        imagePath = 'car_quick';
+        break;
+      case 'پراید':
+        imagePath = 'car_pride';
+        break;
+      case 'تیبا':
+        imagePath = 'car_tiba';
+        break;
+
+      case 'وانت':
+        imagePath = 'car_vanet';
+        break;
+
+      case 'سراتو':
+        imagePath = 'car_serato';
+        break;
+
+      case 'چانگان':
+        imagePath = 'car_changan';
+        break;
+        
+      default:
+        imagePath = 'khodro';
+        break;
+
+    }
+
+    return imagePath;
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,7 +180,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(30)),
                   child: Image.asset(
-                    'assets/images/khodro.png',
+                    'assets/images/${carImagePath(_carModelController.text)}.png',
                     width: 35,
                     height: 50,
                     // fit: BoxFit.cover,
@@ -169,6 +208,9 @@ class _AddNewCarState extends State<AddNewCar> {
                             validations: const [],
                             onChange: (value) {
                               _carModelController.text = value;
+                              setState(() {
+
+                              });
                             },
                           ),
                         ],
