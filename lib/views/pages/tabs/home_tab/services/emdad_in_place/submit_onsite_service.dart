@@ -1,10 +1,19 @@
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_text_field.dart';
+import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
+import 'package:emdad_khodro_saipa/models/car.dart';
+import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
+import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_map.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../../../api_provider/provider.dart';
+import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
 import '../../../../../widgets/LoadingWidgets.dart';
+import '../../../../../widgets/custom_submit_button.dart';
+import '../../../../../widgets/custom_text_field.dart';
 import '../../../../drop_down.dart';
-import 'emdad_in_place_map.dart';
-import 'widget/custom_submit_button.dart';
 
 class SubmitOnSiteService extends StatefulWidget {
   SubmitOnSiteService({
@@ -33,26 +42,50 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   String? fullName;
   String? nationalCode;
 
+
   String? _carModelDefaultValue;
   final TextEditingController _carModelController = TextEditingController();
 
-  Map<String, dynamic> carModelListItem = {
-    '': 'مدل خودرو',
-    'ساینا': 'ساینا',
-    'کوییک': 'کوییک',
-    'پراید': 'پراید',
-    'تیبا': 'تیبا',
-    'وانت': 'وانت',
-    'سراتو': 'سراتو',
-    'چانگان': 'چانگان',
-    'شاهین': 'شاهین'
-  };
+
+  // Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
+  Map<String, dynamic> carModelListItem = {};
+
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+    getCarsData();
+  }
+
+  List myCarsList = [];
+  Map<String, dynamic> userCarsItem = {};
+  getCarsData()async{
+    HiveDB _hiveDB = HiveDB();
+    myCarsList = await _hiveDB.getData('', 'userBox');
+
+    print('this is mycarsList==== > ${myCarsList.length}');
+
+    if(myCarsList.isEmpty){
+      final entry = {'مدل خودرو':'مدل خودرو'};
+      carModelListItem.addEntries(entry.entries);
+      setState(() {
+
+      });
+      return;
+    }
+    myCarsList.forEach((element) {
+
+      final entry = {'${element.brand} - ${element.createDate}' : '${element.brand} - ${element.createDate}'};
+      carModelListItem.addEntries(entry.entries);
+
+    });
+
+    setState(() {
+
+    });
+    return;
   }
 
   @override
@@ -102,22 +135,32 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                 //   controller: _carModelCtrl,
                 // ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(top: 8.0, bottom: 4, left: 24, right: 24),
+                  padding:  EdgeInsets.only(top: 8.0, bottom: 4, left: 24, right: 24),
                   child: Column(
                     children: [
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: const Text(
-                            'مدل خودرو *',
-                            textAlign: TextAlign.right,
-                          )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('انتخاب خودرو *', textAlign: TextAlign.right,),
+                          TextButton(
+                              onPressed: (){
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar(isCarFromDataBase: false)));
+
+
+
+                              },
+                              child: Text('افزودن خودروی جدید +', style: TextStyle(fontSize: 14,color: Theme.of(context).primaryColor),)),
+
+                        ],
+                      ),
+
                       FormDropDown(
                         readOnlyDropDown: false,
                         primaryBackgroundColor: Colors.transparent,
                         iconColor: Colors.pink,
-                        dropdownMenuItemStyle:
-                            const TextStyle(color: Colors.black),
+                        dropdownMenuItemStyle: const TextStyle(color: Colors.black),
                         defaultValue: _carModelDefaultValue,
                         // firstItemSelectMessage: 'انتخاب',
                         alignmentCenterLeft: false,
@@ -133,16 +176,12 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                   ),
                 ),
 
-                CustomTextField(
-                  title: 'شماره شاسی *',
-                  height: 28,
-                  controller: _chassingNumberCtrl,
 
-                ),
-                CustomTextField(
-                    title: 'کیلومتر فعلی خودرو *',
-                    height: 28,
-                    controller: _currentKmCtrl),
+
+                // _customTextField(
+                //     title: 'شماره شاسی *', controller: _chassingNumberCtrl),
+                CustomTextField(title: 'کیلومتر فعلی خودرو *', height: 28, controller: _currentKmCtrl,),
+
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
                 ),
@@ -182,7 +221,7 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.5 / 15,
             ),
-            CustomSubmitButton(onTap: onSubmitTap, text: 'ثبت درخواست',marginBottom: 0,marginTop: 0,)
+            CustomSubmitButton(onTap: _onSubmitTap, text: 'ثبت درخواست'),
           ],
         ),
       ),
@@ -283,101 +322,104 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   }
 
 
-  onSubmitTap(){
-      print('carmodel + ${_carModelCtrl.text}');
-      print('chassing + ${_chassingNumberCtrl.text}');
-      print('current km + ${_currentKmCtrl.text}');
-      if (_carModelCtrl.text.isEmpty) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return MessageDialogWidget(
-                dismissable: true,
-                title: 'ورود اطلاعات',
-                body: 'لطفا مدل خودرو خود را وارد نمائید',
-                positiveTxt: 'باشه',
-              );
-            });
 
-        return;
-      }
-      if (_chassingNumberCtrl.text.isEmpty) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return MessageDialogWidget(
-                dismissable: true,
-                title: 'ورود اطلاعات',
-                body: 'لطفا شماره شاسی خودرو خود را وارد نمائید',
-                positiveTxt: 'باشه',
-              );
-            });
 
-        return;
-      }
-      if (_currentKmCtrl.text.isEmpty) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return MessageDialogWidget(
-                dismissable: true,
-                title: 'ورود اطلاعات',
-                body: 'لطفا کیلومتر فعلی خودرو خود را وارد نمائید',
-                positiveTxt: 'باشه',
-              );
-            });
-
-        return;
-      }
+  _onSubmitTap(){
+    print('carmodel + ${_carModelCtrl.text}');
+    print('chassing + ${_chassingNumberCtrl.text}');
+    print('current km + ${_currentKmCtrl.text}');
+    if (_carModelCtrl.text.isEmpty) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return CircleLoadingWidget(
-              dismissable: false,
-              msgTxt: 'لطفا منتظر بمانید',
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا مدل خودرو خود را وارد نمائید',
+              positiveTxt: 'باشه',
             );
           });
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  EmdadInPlaceMap(title: 'title', hasCarProblem: false)));
-      //clear textFields
-      // _idCtrl.clear();
-      // _nameCtrl.clear();
 
-      // await Future.delayed(const Duration(milliseconds: 4000));
-      //
-      // Navigator.of(context).pop();
+      return;
+    }
+    // if (_chassingNumberCtrl.text.isEmpty) {
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return MessageDialogWidget(
+    //           dismissable: true,
+    //           title: 'ورود اطلاعات',
+    //           body: 'لطفا شماره شاسی خودرو خود را وارد نمائید',
+    //           positiveTxt: 'باشه',
+    //         );
+    //       });
+    //
+    //   return;
+    // }
 
-      // showDialog(
-      //     context: context,
-      //     builder: (BuildContext context) {
-      //       return MessageDialogWidget(
-      //         dismissable: false,
-      //         hasTextBody: false,
-      //         widget: Padding(
-      //           padding: const EdgeInsets.all(8.0),
-      //           child: Column(
-      //             children: [
-      //               Text('مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',textAlign: TextAlign.center),
-      //               Text('همکاران ما بزودی با شما تماس خواهند گرفت.',textAlign: TextAlign.center),
-      //               Text('شماره همراه ثبت شده: $phone',textAlign: TextAlign.center,),
-      //             ],
-      //           ),
-      //         ),
-      //         positiveTxt: 'تایید',
-      //         positiveFunc: () async {
-      //
-      //           //save to user data
-      //           SharedPreferences preferences = await SharedPreferences.getInstance();
-      //           preferences.setString('user_full_name', _carModelCtrl.text);
-      //           preferences.setString('user_national_code', _chassingNumberCtrl.text);
-      //
-      //
-      //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-      //         },
-      //       );
-      //     });
+    if (_currentKmCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا کیلومتر فعلی خودرو خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CircleLoadingWidget(
+            dismissable: false,
+            msgTxt: 'لطفا منتظر بمانید',
+          );
+        });
+
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => EmdadInPlaceMap(title: 'title', hasCarProblem: false)));
+
+    //clear textFields
+    // _idCtrl.clear();
+    // _nameCtrl.clear();
+
+    // await Future.delayed(const Duration(milliseconds: 4000));
+    //
+    // Navigator.of(context).pop();
+
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return MessageDialogWidget(
+    //         dismissable: false,
+    //         hasTextBody: false,
+    //         widget: Padding(
+    //           padding: const EdgeInsets.all(8.0),
+    //           child: Column(
+    //             children: [
+    //               Text('مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',textAlign: TextAlign.center),
+    //               Text('همکاران ما بزودی با شما تماس خواهند گرفت.',textAlign: TextAlign.center),
+    //               Text('شماره همراه ثبت شده: $phone',textAlign: TextAlign.center,),
+    //             ],
+    //           ),
+    //         ),
+    //         positiveTxt: 'تایید',
+    //         positiveFunc: () async {
+    //
+    //           //save to user data
+    //           SharedPreferences preferences = await SharedPreferences.getInstance();
+    //           preferences.setString('user_full_name', _carModelCtrl.text);
+    //           preferences.setString('user_national_code', _chassingNumberCtrl.text);
+    //
+    //
+    //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    //         },
+    //       );
+    //     });
   }
 }

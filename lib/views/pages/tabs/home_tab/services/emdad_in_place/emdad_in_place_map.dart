@@ -380,9 +380,7 @@ class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
 
   Widget _submitButton() {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitAddress(latLng: _lastMapPosition,),),);
-      },
+      onTap: _onSubmitTap(),
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -403,6 +401,11 @@ class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
         ),
       ),
     );
+  }
+
+  _onSubmitTap(){
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitAddress(latLng: _lastMapPosition,),),);
+
   }
 
   Widget _addressWidget(){

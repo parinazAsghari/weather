@@ -1,10 +1,10 @@
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_service_box.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_submit_button.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
+import '../../../../../widgets/custom_submit_button.dart';
 import '../../../../home_page.dart';
 
 class ChooseTimePage extends StatefulWidget {
@@ -73,63 +73,10 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
             itemBuilder: (ctx, i) {
               if (i == dayList.length) {
                 return CustomSubmitButton(
-                    onTap: () async {
-                      if (selectedIndex == null) {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return MessageDialogWidget(
-                                dismissable: true,
-                                title: 'ورود اطلاعات',
-                                body: 'لطفا ساعت مورد نظر خود را وارد نمائید',
-                                positiveTxt: 'باشه',
-                              );
-                            });
-
-                        return;
-                      }
-
-                      // await Future.delayed(const Duration(milliseconds: 4000));
-
-                      // Navigator.of(context).pop();
-
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return MessageDialogWidget(
-                              dismissable: false,
-                              hasTextBody: false,
-                              widget: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                        'مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',
-                                        textAlign: TextAlign.center),
-                                    const Text(
-                                        'همکاران ما بزودی با شما تماس خواهند گرفت.',
-                                        textAlign: TextAlign.center),
-                                    Text(
-                                      'شماره همراه ثبت شده: $phone',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              positiveTxt: 'تایید',
-                              positiveFunc: () async {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            const HomePage()));
-                              },
-                            );
-                          });
-                    },
+                    onTap: _onSubmitTap,
                     text: 'تایید');
               } else {
-                return CustomServiceBox(
+                return CustomNeomorphicBox(
                   title: dayList[i].title,
                   index: i,
                   selectedIndex: selectedIndex,
@@ -150,6 +97,61 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
       ],
     );
   }
+  _onSubmitTap(){
+    if (selectedIndex == null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا ساعت مورد نظر خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+
+    // await Future.delayed(const Duration(milliseconds: 4000));
+
+    // Navigator.of(context).pop();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MessageDialogWidget(
+            dismissable: false,
+            hasTextBody: false,
+            widget: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Column(
+                children: [
+                  const Text(
+                      'مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',
+                      textAlign: TextAlign.center),
+                  const Text(
+                      'همکاران ما بزودی با شما تماس خواهند گرفت.',
+                      textAlign: TextAlign.center),
+                  Text(
+                    'شماره همراه ثبت شده: $phone',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            positiveTxt: 'تایید',
+            positiveFunc: () async {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      const HomePage()));
+            },
+          );
+        });
+  }
+
 }
 
 class DayTime {

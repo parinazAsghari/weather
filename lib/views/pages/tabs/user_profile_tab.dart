@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/DialogWidgets.dart';
-import 'home_tab/services/emdad_in_place/widget/custom_submit_button.dart';
-import 'home_tab/services/emdad_in_place/widget/custom_text_field.dart';
+import '../../widgets/custom_submit_button.dart';
+import '../../widgets/custom_text_field.dart';
 
 class UserProfileTab extends StatefulWidget {
   const UserProfileTab({Key? key}) : super(key: key);

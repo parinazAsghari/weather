@@ -9,18 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class AddNewCar extends StatefulWidget {
-  const AddNewCar(
-      {Key? key,
-      required this.isCarFromDataBase,
-      this.chassisNumber,
-      this.ownerNationalCode,
-      this.brand,
-      this.createDate,
-      this.firstCarTag,
-      this.secondCarTag,
-      this.thirdCarTag,
-      this.fourthCarTag})
-      : super(key: key);
+  const AddNewCar({Key? key, required this.isCarFromDataBase,  this.chassisNumber,  this.ownerNationalCode,  this.brand,  this.createDate,  this.firstCarTag,  this.secondCarTag,  this.thirdCarTag,  this.fourthCarTag}) : super(key: key);
   final bool isCarFromDataBase;
   final String? chassisNumber;
   final String? ownerNationalCode;
@@ -44,56 +33,12 @@ class _AddNewCarState extends State<AddNewCar> {
   final FocusNode _sixthNumberNode = FocusNode();
   final FocusNode _seventhNumberNode = FocusNode();
   final FocusNode _eighthNumberNode = FocusNode();
-  Map<String, dynamic> createYearListItem = {
-    '': null,
-    '1390': null,
-    '1387': null
-  };
-  Map<String, dynamic> carModelListItem = {
-    '': 'مدل خودرو',
-    'ساینا': 'ساینا',
-    'کوییک': 'کوییک',
-    'پراید': 'پراید',
-    'تیبا': 'تیبا',
-    'وانت': 'وانت',
-    'سراتو': 'سراتو',
-    'چانگان': 'چانگان',
-    'شاهین': 'شاهین'
-  };
-  List<String> pelakListItem = [
-    '',
-    'الف',
-    'ب',
-    'پ',
-    'ت',
-    'ث',
-    'ج',
-    'چ',
-    'ح',
-    'خ',
-    'د',
-    'ذ',
-    'ر',
-    'ز',
-    'ژ',
-    'س',
-    'ش',
-    'ع',
-    'غ',
-    'ف',
-    'ق',
-    'ک',
-    'ل',
-    'م',
-    'ن',
-    'و',
-    'ه',
-    'ی'
-  ];
+  Map<String, dynamic> createYearListItem = {'': null, '1401': null,'1400':null,'1399': null, '1398': null,'1397':null,'1396': null,'1395':null,'1394': null,'1393':null,'1392': null,'1391':null,'1390': null};
+  Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
+  List<String> pelakListItem = ['','الف', 'ب','پ','ت','ث','ج','د','س','ص','ط','ق','ک','ع','ل','م','ن','و','ه','ی'];
   var pelakDropDownValue;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _chassisNumberController =
-      TextEditingController();
+  final TextEditingController _chassisNumberController = TextEditingController();
   final TextEditingController _nationalCodeController = TextEditingController();
   final TextEditingController _firstNumberController = TextEditingController();
   final TextEditingController _secondNumberController = TextEditingController();
@@ -101,8 +46,7 @@ class _AddNewCarState extends State<AddNewCar> {
   final TextEditingController _fourthNumberController = TextEditingController();
   final TextEditingController _fifthNumberController = TextEditingController();
   final TextEditingController _sixthNumberController = TextEditingController();
-  final TextEditingController _seventhNumberController =
-      TextEditingController();
+  final TextEditingController _seventhNumberController = TextEditingController();
 
   final TextEditingController _dropDownTagController = TextEditingController();
   final TextEditingController _carModelController = TextEditingController();
@@ -112,26 +56,20 @@ class _AddNewCarState extends State<AddNewCar> {
   String? _carCreateDateDefaultValue;
   String? _carTagDefaultValue;
 
+
   @override
   void initState() {
     pelakDropDownValue = pelakListItem.first;
-    if (widget.isCarFromDataBase) {
+    if(widget.isCarFromDataBase){
       _chassisNumberController.text = widget.chassisNumber!;
       _nationalCodeController.text = widget.ownerNationalCode!;
-      _firstNumberController.text =
-          widget.firstCarTag.toString().characters.first;
-      _secondNumberController.text =
-          widget.firstCarTag.toString().characters.last;
-      _thirdNumberController.text =
-          widget.thirdCarTag.toString().characters.first;
-      _fourthNumberController.text =
-          widget.thirdCarTag.toString().substring(1, 2).characters.first;
-      _fifthNumberController.text =
-          widget.thirdCarTag.toString().characters.last;
-      _sixthNumberController.text =
-          widget.fourthCarTag.toString().characters.first;
-      _seventhNumberController.text =
-          widget.fourthCarTag.toString().characters.last;
+      _firstNumberController.text = widget.firstCarTag.toString().characters.first;
+      _secondNumberController.text = widget.firstCarTag.toString().characters.last;
+      _thirdNumberController.text = widget.thirdCarTag.toString().characters.first;
+      _fourthNumberController.text = widget.thirdCarTag.toString().substring(1,2).characters.first;
+      _fifthNumberController.text =widget.thirdCarTag.toString().characters.last;
+      _sixthNumberController.text = widget.fourthCarTag.toString().characters.first;
+      _seventhNumberController.text = widget.fourthCarTag.toString().characters.last;
       _carModelDefaultValue = widget.brand;
       _carCreateDateDefaultValue = widget.createDate;
       _carTagDefaultValue = widget.secondCarTag;
@@ -163,6 +101,45 @@ class _AddNewCarState extends State<AddNewCar> {
     detector!.onTap!();
   }
 
+
+  String carImagePath(String carModel){
+    String imagePath = '';
+    switch(carModel){
+      case 'ساینا':
+        imagePath = 'car_saina';
+        break;
+      case 'کوییک':
+        imagePath = 'car_quick';
+        break;
+      case 'پراید':
+        imagePath = 'car_pride';
+        break;
+      case 'تیبا':
+        imagePath = 'car_tiba';
+        break;
+
+      case 'وانت':
+        imagePath = 'car_vanet';
+        break;
+
+      case 'سراتو':
+        imagePath = 'car_serato';
+        break;
+
+      case 'چانگان':
+        imagePath = 'car_changan';
+        break;
+        
+      default:
+        imagePath = 'khodro';
+        break;
+
+    }
+
+    return imagePath;
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,12 +166,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     // Spacer(),
-                    Text(
-                      'مشخصات خودرو خود را وارد نمایید',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+                    Text('مشخصات خودرو خود را وارد نمایید',textAlign: TextAlign.center,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                     // Spacer(
                     //   flex: 9,
                     // ),
@@ -206,11 +178,9 @@ class _AddNewCarState extends State<AddNewCar> {
                 Container(
                   height: 120,
                   width: MediaQuery.of(context).size.width * 0.3,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorLight,
-                      borderRadius: BorderRadius.circular(30)),
+                  decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(30)),
                   child: Image.asset(
-                    'assets/images/khodro.png',
+                    'assets/images/${carImagePath(_carModelController.text)}.png',
                     width: 35,
                     height: 50,
                     // fit: BoxFit.cover,
@@ -229,8 +199,7 @@ class _AddNewCarState extends State<AddNewCar> {
                             readOnlyDropDown: false,
                             primaryBackgroundColor: Colors.transparent,
                             iconColor: Colors.pink,
-                            dropdownMenuItemStyle:
-                                const TextStyle(color: Colors.black),
+                            dropdownMenuItemStyle: const TextStyle(color: Colors.black),
                             defaultValue: _carModelDefaultValue,
                             // firstItemSelectMessage: 'انتخاب',
                             alignmentCenterLeft: false,
@@ -239,6 +208,9 @@ class _AddNewCarState extends State<AddNewCar> {
                             validations: const [],
                             onChange: (value) {
                               _carModelController.text = value;
+                              setState(() {
+
+                              });
                             },
                           ),
                         ],
@@ -260,8 +232,7 @@ class _AddNewCarState extends State<AddNewCar> {
                             readOnlyDropDown: false,
                             primaryBackgroundColor: Colors.transparent,
                             iconColor: Colors.pink,
-                            dropdownMenuItemStyle:
-                                const TextStyle(color: Colors.black),
+                            dropdownMenuItemStyle: const TextStyle(color: Colors.black),
                             defaultValue: _carCreateDateDefaultValue,
                             // firstItemSelectMessage: 'انتخاب',
                             alignmentCenterLeft: false,
@@ -297,8 +268,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                 // labelText: 'شماره شاسی',
                                 //   labelStyle:const TextStyle(color: Colors.black) ,
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.black, width: 0.4),
+                                  borderSide: const BorderSide(color: Colors.black, width: 0.4),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 border: OutlineInputBorder(
@@ -392,15 +362,10 @@ class _AddNewCarState extends State<AddNewCar> {
                                 width: 60,
                                 height: 50,
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                          color: Colors.black, width: 0.4)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.black, width: 0.4)),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       // const SizedBox(
                                       //   height: 2,
@@ -408,27 +373,21 @@ class _AddNewCarState extends State<AddNewCar> {
                                       const Expanded(
                                         child: Text(
                                           'ایران',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 10),
+                                          style: TextStyle(color: Colors.black, fontSize: 10),
                                         ),
                                       ),
                                       Expanded(
                                         flex: 1,
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
-                                                controller:
-                                                    _seventhNumberController,
+                                                controller: _seventhNumberController,
                                                 inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
+                                                  LengthLimitingTextInputFormatter(1),
                                                 ],
                                                 focusNode: _eighthNumberNode,
                                                 onChanged: (String val) {
@@ -437,8 +396,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                                   //   // FocusScope.of(context).requestFocus(_sixthNumberNode);
                                                   // }
                                                 },
-                                                keyboardType:
-                                                    TextInputType.number,
+                                                keyboardType: TextInputType.number,
                                                 maxLines: 1,
                                                 style: TextStyle(fontSize: 14),
 
@@ -460,25 +418,19 @@ class _AddNewCarState extends State<AddNewCar> {
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
-                                                controller:
-                                                    _sixthNumberController,
+                                                controller: _sixthNumberController,
                                                 inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
+                                                  LengthLimitingTextInputFormatter(1),
                                                 ],
                                                 focusNode: _seventhNumberNode,
                                                 onChanged: (String val) {
                                                   if (val.isNotEmpty) {
-                                                    _seventhNumberNode
-                                                        .unfocus();
-                                                    FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _eighthNumberNode);
+                                                    _seventhNumberNode.unfocus();
+                                                    FocusScope.of(context).requestFocus(_eighthNumberNode);
                                                   }
                                                 },
                                                 style: TextStyle(fontSize: 14),
-                                                keyboardType:
-                                                    TextInputType.number,
+                                                keyboardType: TextInputType.number,
                                                 maxLines: 1,
                                                 // decoration: const InputDecoration(
                                                 //   border: InputBorder.none,
@@ -512,39 +464,29 @@ class _AddNewCarState extends State<AddNewCar> {
                                 width: 95,
                                 height: 50,
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                          color: Colors.black, width: 0.4)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.black, width: 0.4)),
                                   child: Column(
                                     children: [
                                       Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
-                                                controller:
-                                                    _fifthNumberController,
+                                                controller: _fifthNumberController,
                                                 inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
+                                                  LengthLimitingTextInputFormatter(1),
                                                 ],
                                                 onChanged: (String val) {
                                                   if (val.isNotEmpty) {
                                                     _sixthNumberNode.unfocus();
-                                                    FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _seventhNumberNode);
+                                                    FocusScope.of(context).requestFocus(_seventhNumberNode);
                                                   }
                                                 },
                                                 focusNode: _sixthNumberNode,
-                                                keyboardType:
-                                                    TextInputType.number,
+                                                keyboardType: TextInputType.number,
                                                 maxLines: 1,
                                                 // decoration: const InputDecoration(
                                                 //   border: InputBorder.none,
@@ -564,23 +506,18 @@ class _AddNewCarState extends State<AddNewCar> {
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
-                                                controller:
-                                                    _fourthNumberController,
+                                                controller: _fourthNumberController,
                                                 inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
+                                                  LengthLimitingTextInputFormatter(1),
                                                 ],
                                                 focusNode: _fifthNumberNode,
                                                 onChanged: (String val) {
                                                   if (val.isNotEmpty) {
                                                     _fifthNumberNode.unfocus();
-                                                    FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _sixthNumberNode);
+                                                    FocusScope.of(context).requestFocus(_sixthNumberNode);
                                                   }
                                                 },
-                                                keyboardType:
-                                                    TextInputType.number,
+                                                keyboardType: TextInputType.number,
                                                 maxLines: 1,
                                                 // decoration: const InputDecoration(
                                                 //   border: InputBorder.none,
@@ -600,23 +537,18 @@ class _AddNewCarState extends State<AddNewCar> {
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
-                                                controller:
-                                                    _thirdNumberController,
+                                                controller: _thirdNumberController,
                                                 inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
+                                                  LengthLimitingTextInputFormatter(1),
                                                 ],
                                                 onChanged: (String val) {
                                                   if (val.isNotEmpty) {
                                                     _fourthNumberNode.unfocus();
-                                                    FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _fifthNumberNode);
+                                                    FocusScope.of(context).requestFocus(_fifthNumberNode);
                                                   }
                                                 },
                                                 focusNode: _fourthNumberNode,
-                                                keyboardType:
-                                                    TextInputType.number,
+                                                keyboardType: TextInputType.number,
                                                 maxLines: 1,
                                                 // decoration: const InputDecoration(
                                                 //   border: InputBorder.none,
@@ -650,12 +582,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                 width: 50,
                                 height: 50,
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                          color: Colors.black,
-                                          width: 0.4,
-                                          style: BorderStyle.solid)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.black, width: 0.4, style: BorderStyle.solid)),
                                   child: DropdownButtonHideUnderline(
                                     child: Padding(
                                       padding: const EdgeInsets.all(4.0),
@@ -664,41 +591,32 @@ class _AddNewCarState extends State<AddNewCar> {
                                           hoverColor: Colors.transparent,
                                         ),
                                         child: DropdownButton<String>(
-                                          icon: Icon(Icons.arrow_drop_down,
-                                              color: dark_theme_secondary),
+                                          icon: Icon(Icons.arrow_drop_down, color: dark_theme_secondary),
                                           isDense: true,
                                           key: _dropdownButtonKey,
                                           focusNode: _thirdNumberNode,
                                           isExpanded: true,
                                           focusColor: Colors.transparent,
                                           borderRadius: BorderRadius.zero,
-                                          value: widget.isCarFromDataBase
-                                              ? _carTagDefaultValue
-                                              : pelakDropDownValue,
+                                          value:widget.isCarFromDataBase?  _carTagDefaultValue : pelakDropDownValue,
                                           // borderRadius: BorderRadius.circular(12),
-                                          items:
-                                              pelakListItem.map((String value) {
+                                          items: pelakListItem.map((String value) {
                                             return DropdownMenuItem<String>(
-                                              value: value,
+                                              value:value,
                                               child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 5.0),
+                                                padding: const EdgeInsets.only(right: 5.0),
                                                 child: Text(
                                                   value,
-                                                  style: const TextStyle(
-                                                      fontSize: 15),
+                                                  style: const TextStyle(fontSize: 15),
                                                 ),
                                               ),
                                             );
                                           }).toList(),
                                           onChanged: (value) {
-                                            _dropDownTagController.text =
-                                                value!;
+                                            _dropDownTagController.text = value!;
                                             setState(() {
                                               pelakDropDownValue = value;
-                                              FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _fourthNumberNode);
+                                              FocusScope.of(context).requestFocus(_fourthNumberNode);
                                             });
                                           },
                                         ),
@@ -717,27 +635,20 @@ class _AddNewCarState extends State<AddNewCar> {
                                 width: 80,
                                 height: 50,
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                          color: Colors.black, width: 0.4)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.black, width: 0.4)),
                                   child: Column(
                                     children: [
                                       Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
-                                                controller:
-                                                    _secondNumberController,
+                                                controller: _secondNumberController,
                                                 inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
+                                                  LengthLimitingTextInputFormatter(1),
                                                 ],
                                                 onChanged: (String val) {
                                                   if (val.isNotEmpty) {
@@ -749,8 +660,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                                 },
 
                                                 focusNode: _secondNumberNode,
-                                                keyboardType:
-                                                    TextInputType.number,
+                                                keyboardType: TextInputType.number,
                                                 maxLines: 1,
                                                 // decoration: const InputDecoration(
                                                 //   border: InputBorder.none,
@@ -765,18 +675,14 @@ class _AddNewCarState extends State<AddNewCar> {
                                             SizedBox(
                                               width: 15,
                                               child: TextFormField(
-                                                controller:
-                                                    _firstNumberController,
+                                                controller: _firstNumberController,
                                                 inputFormatters: [
-                                                  LengthLimitingTextInputFormatter(
-                                                      1),
+                                                  LengthLimitingTextInputFormatter(1),
                                                 ],
                                                 onChanged: (String val) {
                                                   if (val.isNotEmpty) {
                                                     _firstNumberNode.unfocus();
-                                                    FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _secondNumberNode);
+                                                    FocusScope.of(context).requestFocus(_secondNumberNode);
                                                   }
                                                 },
                                                 // decoration: const InputDecoration(
@@ -785,8 +691,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                                 showCursor: false,
                                                 autofocus: false,
                                                 focusNode: _firstNumberNode,
-                                                keyboardType:
-                                                    TextInputType.number,
+                                                keyboardType: TextInputType.number,
                                                 maxLines: 1,
                                                 validator: (String? val) {
                                                   // if (val != null) {
@@ -836,53 +741,46 @@ class _AddNewCarState extends State<AddNewCar> {
                       Expanded(
                         flex: 3,
                         child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
-                            ),
-                            // primary: secondary_light_grey_color
-                          ),
-                          onPressed: () async {
-                            if (_chassisNumberController.text.isEmpty ||
-                                // _nationalCodeController.text.isEmpty ||
-                                _firstNumberController.text.isEmpty ||
-                                _secondNumberController.text.isEmpty ||
-                                _thirdNumberController.text.isEmpty ||
-                                _fourthNumberController.text.isEmpty ||
-                                _fifthNumberController.text.isEmpty ||
-                                _sixthNumberController.text.isEmpty ||
-                                _seventhNumberController.text.isEmpty) {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return MessageDialogWidget(
-                                      body: 'فیلدها نباید خالی باشد',
-                                      dismissable: true,
-                                      positiveTxt: 'باشه',
-                                      positiveFunc: () async {},
-                                    );
+                              // primary: secondary_light_grey_color
+                              ),
+                          onPressed: ()async {
+                              if (_chassisNumberController.text.isEmpty ||
+                                  // _nationalCodeController.text.isEmpty ||
+                                  _firstNumberController.text.isEmpty ||
+                                  _secondNumberController.text.isEmpty ||
+                                  _thirdNumberController.text.isEmpty ||
+                                  _fourthNumberController.text.isEmpty ||
+                                  _fifthNumberController.text.isEmpty ||
+                                  _sixthNumberController.text.isEmpty ||
+                                  _seventhNumberController.text.isEmpty) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return MessageDialogWidget(
+                                        body: 'فیلدها نباید خالی باشد',
+                                        dismissable: true,
+                                        positiveTxt: 'باشه',
+                                        positiveFunc: () async {},
+                                      );
                                   });
-                            } else {
+
+                            }else{
                               Car car = Car();
                               car.chassisNumber = _chassisNumberController.text;
-                              car.ownerNationalCode =
-                                  _nationalCodeController.text;
+                              car.ownerNationalCode =_nationalCodeController.text;
                               car.brand = _carModelController.text;
-                              car.createDate = _createDateController.text;
-                              car.id = 1;
-                              car.firstCarTag = int.parse(
-                                  (_firstNumberController.text +
-                                      _secondNumberController.text));
-                              car.secondCarTag = _dropDownTagController.text;
-                              car.thirdCarTag = int.parse(
-                                  (_thirdNumberController.text +
-                                      _fourthNumberController.text +
-                                      _fifthNumberController.text));
-                              car.fourthCarTag = int.parse(
-                                  (_sixthNumberController.text +
-                                      _seventhNumberController.text));
+                              car.createDate =_createDateController.text;
+                              car.id =1;
+                              car.firstCarTag =int.parse((_firstNumberController.text+_secondNumberController.text));
+                              car.secondCarTag =_dropDownTagController.text;
+                              car.thirdCarTag =int.parse((_thirdNumberController.text+_fourthNumberController.text+_fifthNumberController.text));
+                              car.fourthCarTag =int.parse((_sixthNumberController.text+_seventhNumberController.text));
                               HiveDB _hiveDb = HiveDB();
                               await _hiveDb.addData(car, 'userBox');
                               showDialog(
@@ -893,12 +791,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                       dismissable: true,
                                       positiveTxt: 'باشه',
                                       positiveFunc: () async {
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        HomePage()));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
                                       },
                                     );
                                   });
@@ -908,13 +801,12 @@ class _AddNewCarState extends State<AddNewCar> {
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'ثبت',
-                              style: TextStyle(
-                                  // color: primary_grey_color
-                                  ),
-                            ),
-                          ),
-                        ),
+                                'ثبت',
+                                style: TextStyle(
+                                    // color: primary_grey_color
+                                    ),
+                              ),
+                            )),
                       ),
                       const Spacer(),
                     ],

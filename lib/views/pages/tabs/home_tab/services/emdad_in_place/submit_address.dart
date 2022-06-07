@@ -1,11 +1,11 @@
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_submit_button.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../../api_provider/provider.dart';
 import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
 import '../../../../../widgets/LoadingWidgets.dart';
+import '../../../../../widgets/custom_submit_button.dart';
+import '../../../../../widgets/custom_text_field.dart';
 import 'choose_day_page.dart';
 import 'choose_relief_worker_page.dart';
 

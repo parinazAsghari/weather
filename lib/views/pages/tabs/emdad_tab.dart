@@ -23,6 +23,7 @@ import 'package:location/location.dart';
 
 import 'home_tab/services/emdad_in_place/emdad_in_place_page.dart';
 
+//Todo skip refactor
 
 class EmdadTab extends StatefulWidget {
   const EmdadTab({Key? key}) : super(key: key);
@@ -501,7 +502,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,
@@ -531,7 +532,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,
@@ -572,7 +573,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,
@@ -601,7 +602,7 @@ class _EmdadTabState extends State<EmdadTab> {
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      // depth: 8,
+                      depth: 8,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).cardColor,
                       shadowDarkColor: Theme.of(context).shadowColor,

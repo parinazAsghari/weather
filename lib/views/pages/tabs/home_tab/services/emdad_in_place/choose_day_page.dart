@@ -1,9 +1,9 @@
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_service_box.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_submit_button.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
+import '../../../../../widgets/custom_submit_button.dart';
 import 'choose_time_page.dart';
 
 class ChooseDayPage extends StatefulWidget {
@@ -59,29 +59,9 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
             itemCount: dayList.length + 1,
             itemBuilder: (ctx, i) {
               if (i == dayList.length) {
-                return CustomSubmitButton(text: 'تایید', onTap: () {
-                  if (selectedIndex == null) {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return MessageDialogWidget(
-                            dismissable: true,
-                            title: 'ورود اطلاعات',
-                            body: 'لطفا روز مورد نظر خود را وارد نمائید',
-                            positiveTxt: 'باشه',
-                          );
-                        });
-
-                    return;
-                  }
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                      const ChooseTimePage(),),);
-                });
+                return CustomSubmitButton(text: 'تایید', onTap: _onSubmitTap);
               } else {
-                return CustomServiceBox(title: dayList[i].title,
+                return CustomNeomorphicBox(title: dayList[i].title,
                   isFull: dayList[i].isFull,
                   index: i,
                   selectedIndex: selectedIndex,
@@ -100,6 +80,28 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
         ),
       ],
     );
+  }
+
+  _onSubmitTap(){
+    if (selectedIndex == null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا روز مورد نظر خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) =>
+        const ChooseTimePage(),),);
   }
 
 

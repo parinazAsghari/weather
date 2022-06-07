@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import '../../../../../../../constants.dart';
+import '../../constants.dart';
 
-class CustomServiceBox extends StatelessWidget {
+class CustomNeomorphicBox extends StatelessWidget {
   String? title;
   bool isFull;
   bool isChildText;
@@ -24,7 +24,7 @@ class CustomServiceBox extends StatelessWidget {
   double? depth;
   double height;
 
-  CustomServiceBox({
+  CustomNeomorphicBox({
     @required this.title,
     @required this.index,
     @required required this.selectedIndex,

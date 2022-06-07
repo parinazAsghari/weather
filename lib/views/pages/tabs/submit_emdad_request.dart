@@ -7,9 +7,9 @@ import '../../../api_provider/provider.dart';
 import '../../../constants.dart';
 import '../../widgets/DialogWidgets.dart';
 import '../../widgets/LoadingWidgets.dart';
+import '../../widgets/custom_submit_button.dart';
+import '../../widgets/custom_text_field.dart';
 import '../drop_down.dart';
-import 'home_tab/services/emdad_in_place/widget/custom_submit_button.dart';
-import 'home_tab/services/emdad_in_place/widget/custom_text_field.dart';
 
 class SubmitEmdadRequest extends StatefulWidget {
   final String title;
@@ -70,8 +70,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
       _addressCtrl.text = widget.address;
     }
 
-    getAddress();
-    getUserData();
+    // getAddress();
+    // getUserData();
   }
 
   void getUserData() async {
@@ -87,9 +87,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   void getAddress() async {
     var result = await ApiProvider.getAddress(widget.latLng);
 
-    setState(() {
+
       _addressCtrl.text = result.addressCompact!;
-    });
   }
 
   @override

@@ -13,7 +13,7 @@ class SocialResponsibility extends StatelessWidget {
       // backgroundColor: primary_grey_color,
       appBar: AppBar(
         centerTitle: true,
-        title: Text('مسولیت های اجتماعی'),
+        title: Text('مسئولیت های اجتماعی'),
         automaticallyImplyLeading: true,
 
         // backgroundColor: secondary_dark_purple_color,

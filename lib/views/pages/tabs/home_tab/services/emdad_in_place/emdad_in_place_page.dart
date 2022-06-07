@@ -1,5 +1,5 @@
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/submit_onsite_service.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_service_box.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -42,7 +42,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
         ),
-        CustomServiceBox(
+        CustomNeomorphicBox(
           title: '',
           index: 0,
           selectedIndex: 1,
@@ -61,7 +61,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           isChildText: false,
           widget: _subItemBox(title: 'سرویس‌های اولیه و ادواری', imagePath: 'assets/images/bazdid_fani.png'),
         ),
-        CustomServiceBox(
+        CustomNeomorphicBox(
           title: '',
           index: 0,
           selectedIndex: 1,
@@ -79,7 +79,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           isChildText: false,
           widget: _subItemBox(title: 'آپشن و لوازم جانبی', imagePath: 'assets/images/accessory.png'),
         ),
-        CustomServiceBox(
+        CustomNeomorphicBox(
           title: '',
           index: 0,
           selectedIndex: 1,

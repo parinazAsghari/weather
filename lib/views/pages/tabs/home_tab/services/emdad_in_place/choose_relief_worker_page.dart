@@ -1,12 +1,12 @@
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/choose_day_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_service_box.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_submit_button.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
+import '../../../../../widgets/custom_submit_button.dart';
 
 class ChooseReliefWorkerPage extends StatefulWidget {
   const ChooseReliefWorkerPage({Key? key}) : super(key: key);
@@ -68,30 +68,10 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
             itemBuilder: (ctx, i) {
               if (i == reliefWorkerList.length ) {
                 return CustomSubmitButton(
-                    onTap: () {
-                      if (selectedIndex == null) {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return MessageDialogWidget(
-                                dismissable: true,
-                                title: 'ورود اطلاعات',
-                                body: 'لطفا خدمت رسان مورد نظر خود را وارد نمائید',
-                                positiveTxt: 'باشه',
-                              );
-                            });
-                        return;
-                      }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => const ChooseDayPage(),
-                        ),
-                      );
-                    },
+                    onTap: _onSubmitTap,
                     text: 'تایید');
               } else {
-                return CustomServiceBox(title: '', index: i, selectedIndex: selectedIndex, isFull: false,height: 75/640,isChildText: false,widget: _subItemsServis(title: reliefWorkerList[i].name, imagePath: 'assets/images/relief_worker.png', score: reliefWorkerList[i].score), onTap: (){
+                return CustomNeomorphicBox(title: '', index: i, selectedIndex: selectedIndex, isFull: false,height: 75/640,isChildText: false,widget: _subItemsServis(title: reliefWorkerList[i].name, imagePath: 'assets/images/relief_worker.png', score: reliefWorkerList[i].score), onTap: (){
                   setState(() {
                     selectedIndex = i;
                   });
@@ -103,6 +83,28 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
 
 
       ],
+    );
+  }
+
+  _onSubmitTap(){
+    if (selectedIndex == null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا خدمت رسان مورد نظر خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+      return;
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => const ChooseDayPage(),
+      ),
     );
   }
 

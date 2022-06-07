@@ -8,7 +8,8 @@ import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/widget/custom_service_box.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
+
 import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -30,16 +31,16 @@ class _HomeTabState extends State<HomeTab> {
 
   //sliding up panel
   final double _initFabHeight = 100.0;
-  final double _fabHeight = 0;
-  final double _panelHeightOpen = 500;
-  final double _panelHeightClosed = 300;
-  final PanelController _panelController = PanelController();
+  double _fabHeight = 0;
+  double _panelHeightOpen = 500;
+  double _panelHeightClosed = 300;
+  PanelController _panelController = PanelController();
 
   late FlipCardController _flipCardController;
 
   final controller = PageController(viewportFraction: 1.0, keepPage: true);
 
-  final bool _isPanelOpen = false;
+  bool _isPanelOpen = false;
 
   void _onAddNewCarDetailsTap() {
     showDialog(
@@ -49,13 +50,146 @@ class _HomeTabState extends State<HomeTab> {
             onWillPop: () {
               return new Future(() => false);
             },
-            child: _addNewCarDialogWidget(),
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+
+              // backgroundColor: primary_grey_color,
+              title: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.close, size: 16,
+                          // color: secondary_dark_purple_color
+                        ),
+                        SizedBox(
+                          width: defaultPadding / 4,
+                        ),
+                        Text(
+                          'لغو',
+                          style: TextStyle(
+                            fontSize: 10,
+                            // color: secondary_dark_purple_color
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "اطلاعات مورد نیاز را وارد نمائید",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      )),
+                ],
+              ),
+
+              content: Container(
+                  height: 300,
+                  margin: EdgeInsets.all(defaultPadding),
+                  padding: EdgeInsets.all(defaultPadding),
+                  child: Stack(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          //name + textfield
+                          Row(
+                            children: [
+                              Text('نام خودرو:'),
+                              Expanded(
+                                child: TextField(
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          //سال ساخت
+                          Row(
+                            children: [
+                              Text('سال ساخت:'),
+                              Expanded(
+                                child: TextField(
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          //رنگ
+                          Row(
+                            children: [
+                              Text('رنگ:'),
+                              Expanded(
+                                child: TextField(
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          //شماره پلاک
+                          Row(
+                            children: [
+                              Text('پلاک خودرو:'),
+                              Expanded(
+                                child: TextField(
+                                  controller: TextEditingController(),
+                                ),
+                              )
+                            ],
+                          ),
+
+                          Expanded(child: Container()),
+
+                          Container(
+                            // margin: EdgeInsets.all(defaultPadding),
+                            // padding: EdgeInsets.all(defaultPadding),
+                            height: 30,
+                            width: double.maxFinite,
+
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true).pop(null);
+                                // if(positiveFunc!=null){
+                                //   positiveFunc!();
+                                // }
+                              },
+                              // color: secondary_dark_purple_color,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                // side: BorderSide(width: 2,color: color_holoGrey_primaryLow)
+                              ),
+                              child: Text(
+                                'ثبت',
+                                style: TextStyle(
+                                    // color: secondary_light_grey_color
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )),
+            ),
           );
         });
   }
 
   bool isLoading = true;
-  final CarouselController _controller = CarouselController();
+  CarouselController _controller = CarouselController();
 
   @override
   void initState() {
@@ -66,6 +200,45 @@ class _HomeTabState extends State<HomeTab> {
 
   List myCarsList = [];
   List<Widget> sliderItemList = [];
+
+  String carImagePath(String carModel){
+    String imagePath = '';
+    switch(carModel){
+      case 'ساینا':
+        imagePath = 'car_saina';
+        break;
+      case 'کوییک':
+        imagePath = 'car_quick';
+        break;
+      case 'پراید':
+        imagePath = 'car_pride';
+        break;
+      case 'تیبا':
+        imagePath = 'car_tiba';
+        break;
+
+      case 'وانت':
+        imagePath = 'car_vanet';
+        break;
+
+      case 'سراتو':
+        imagePath = 'car_serato';
+        break;
+
+      case 'چانگان':
+        imagePath = 'car_changan';
+        break;
+
+      default:
+        imagePath = 'khodro';
+        break;
+
+    }
+
+    return imagePath;
+
+  }
+
 
   getCarsData() async {
     HiveDB _hiveDb = HiveDB();
@@ -78,10 +251,7 @@ class _HomeTabState extends State<HomeTab> {
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
               padding: EdgeInsets.all(16.0),
-              child: Text(
-                'برای ثبت خودرو کلیک کنید',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),),
             ),
             isCarFromDataBase: false,
           )
@@ -90,44 +260,26 @@ class _HomeTabState extends State<HomeTab> {
         myCarsList.forEach((element) {
           sliderItemList.add(
             SliderItemWidget(
-              imagePath: 'assets/images/khodro.png',
+              imagePath: 'assets/images/${carImagePath(element.brand)}.png',
               showingTexts: Padding(
-                padding: const EdgeInsets.only(right: 20.0, top: 10),
+                padding: const EdgeInsets.only(right: 20.0,top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'نام خودرو: ${element.brand}',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      ' سال ساخت: ${element.createDate}',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
+                  children: [Text('نام خودرو: ${element.brand}', style: TextStyle(fontWeight: FontWeight.bold),), Text(' سال ساخت: ${element.createDate}', style: TextStyle(fontWeight: FontWeight.bold),
+              )],
                 ),
               ),
-              isCarFromDataBase: true,
-              brand: element.brand,
-              chassisNumber: element.chassisNumber,
-              ownerNationalCode: element.ownerNationalCode,
-              createDate: element.createDate,
-              fourthCarTag: element.fourthCarTag,
-              secondCarTag: element.secondCarTag,
-              thirdCarTag: element.thirdCarTag,
-              firstCarTag: element.firstCarTag,
+              isCarFromDataBase: true, brand: element.brand, chassisNumber: element.chassisNumber, ownerNationalCode: element.ownerNationalCode, createDate: element.createDate, fourthCarTag: element.fourthCarTag, secondCarTag: element.secondCarTag, thirdCarTag:element.thirdCarTag , firstCarTag: element.firstCarTag,
             ),
           );
         });
         sliderItemList.add(
-          const SliderItemWidget(
+           const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
               padding: EdgeInsets.all(16.0),
-              child: Text(
-                'برای ثبت خودرو کلیک کنید',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             isCarFromDataBase: false,
@@ -202,108 +354,88 @@ class _HomeTabState extends State<HomeTab> {
                 padding: EdgeInsets.all(defaultPadding),
                 children: [
                   //weather
-                  CustomServiceBox(
+                  CustomNeomorphicBox(
                     title: '',
                     index: 0,
-                    selectedIndex: 1,
-                    height: 50,
-                    paddingTop: 8,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    marginTop: 0,
-                    marginBottom: 0,
-                    marginLeft: 0,
                     marginRight: 0,
-                    isChildText: false,
-                    widget: _subItemServiceWidget('امداد فوری','assets/images/ic_service.png'),
-                    isFull: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => EmdadService(
-                          title: 'امداد فوری',
-                          hasCarProblem: true,
-                        ),
-                      ),
-                    ),
-                  ),
-                  //roads
-                  CustomServiceBox(
-                    title: '',
-                    index: 0,
-                    selectedIndex: 1,
-                    height: 50,
-                    paddingTop: 8,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    marginTop: 0,
                     marginBottom: 0,
+                    marginTop: 0,
                     marginLeft: 0,
-                    marginRight: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
                     isChildText: false,
-                    widget: _subItemServiceWidget('خدمات در محل','assets/images/ic_service_in_place.png'),
                     isFull: false,
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                EmdadInPlacePage(),),),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',hasCarProblem: true,)));
+                    },
+                    widget: _subItemWidget('assets/images/ic_service.png', 'امداد فوری'),
                   ),
 
+                  //roads
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlacePage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_service_in_place.png', 'امداد خدمات در محل'),
+                  ),
 
 
                   //news
-                  CustomServiceBox(
+                  CustomNeomorphicBox(
                     title: '',
                     index: 0,
-                    selectedIndex: 1,
-                    height: 50,
-                    paddingTop: 8,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    marginTop: 0,
-                    marginBottom: 0,
-                    marginLeft: 0,
                     marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
                     isChildText: false,
-                    widget: _subItemServiceWidget('حمل خودرو','assets/images/ic_car_movement.png'),
                     isFull: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            EmdadService(
-                              title: 'حمل خودرو',
-                              hasCarProblem: false,
-                            ),),),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',hasCarProblem: false,)));
+                    },
+                    widget: _subItemWidget('assets/images/ic_car_movement.png', 'حمل خودرو'),
                   ),
 
-                  CustomServiceBox(
+                  CustomNeomorphicBox(
                     title: '',
                     index: 0,
-                    selectedIndex: 1,
-                    height: 50,
-                    paddingTop: 8,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    marginTop: 0,
-                    marginBottom: 0,
-                    marginLeft: 0,
                     marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
                     isChildText: false,
-                    widget: _subItemServiceWidget('پنچری لاستیک','assets/images/ic_flat_tire.png'),
                     isFull: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            EmdadService(
-                              title: 'پنچری لاستیک',
-                              hasCarProblem: false,
-                            ),),),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,)));
+                    },
+                    widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
                   ),
-
-
 
                   // _serviceWidget(
                   //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -321,50 +453,45 @@ class _HomeTabState extends State<HomeTab> {
                   //   title: 'خلافی',
                   //
                   // ),
-                  CustomServiceBox(
+                  CustomNeomorphicBox(
                     title: '',
                     index: 0,
-                    selectedIndex: 1,
-                    height: 50,
-                    paddingTop: 8,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    marginTop: 0,
-                    marginBottom: 0,
-                    marginLeft: 0,
                     marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
                     isChildText: false,
-                    widget: _subItemServiceWidget('گارانتی بدنه','assets/images/ic_insurance.png'),
                     isFull: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            DevelopingPage(),),),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_insurance.png', 'گارانتی بدنه'),
                   ),
 
-                  CustomServiceBox(
+                  CustomNeomorphicBox(
                     title: '',
                     index: 0,
-                    selectedIndex: 1,
-                    height: 50,
-                    paddingTop: 8,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    marginTop: 0,
-                    marginBottom: 0,
-                    marginLeft: 0,
                     marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
                     isChildText: false,
-                    widget: _subItemServiceWidget('اشتراک سفر','assets/images/ic_parking.png'),
                     isFull: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            DevelopingPage(),),),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_parking.png', 'اشتراک سفر'),
                   ),
-
 
 
                   // _serviceWidget(
@@ -1847,8 +1974,73 @@ class _HomeTabState extends State<HomeTab> {
 
    */
 
+  Widget _serviceWidget({required Function onTap, required String imagePath, required String title}) {
+    return NeumorphicButton(
+      onPressed: () {
+        onTap();
+      },
+      padding: EdgeInsets.only(top: defaultPadding / 2, right: defaultPadding / 2, left: defaultPadding / 2),
+      style: NeumorphicStyle(
+        shape: NeumorphicShape.flat,
+        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+        // depth: 1.5,
+        depth: 8,
+        lightSource: LightSource.topLeft,
+        color: Theme.of(context).cardColor,
+        shadowDarkColor: Theme.of(context).shadowColor,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     Icon(
+          //       Icons.more_vert,
+          //       size: 15,
+          //     ),
+          //   ],
+          // ),
+          Expanded(
+              child: Container(
+                // height: 60,
+                // width: 60,
+                // padding: EdgeInsets.all(12),
+                // decoration: BoxDecoration(
+                //   shape: BoxShape.circle,
+                //   // borderRadius: BorderRadius.circular(70),
+                //
+                //     //TODO one final
+                //     color: coor_sharp_orange_gradient3
+                //   // color: dak_theme_box_shadow_dark
+                //
+                // ),
+            // padding: EdgeInsets.all(1),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+            ),
 
-  Widget _subItemServiceWidget(String title,String imagePath,) {
+                //one final
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
+          )),
+          // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
+          // SizedBox(height: defaultPadding/3,),
+          // Expanded(child: Container()),
+
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _subItemWidget(String imagePath,  String title){
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -1863,177 +2055,39 @@ class _HomeTabState extends State<HomeTab> {
         // ),
         Expanded(
             child: Container(
-          // height: 60,
-          // width: 60,
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              // borderRadius: BorderRadius.circular(70),
-
-              //TODO one final
-              color: coor_sharp_orange_gradient3
-              // color: dak_theme_box_shadow_dark
-
+              // height: 60,
+              // width: 60,
+              // padding: EdgeInsets.all(12),
+              // decoration: BoxDecoration(
+              //   shape: BoxShape.circle,
+              //   // borderRadius: BorderRadius.circular(70),
+              //
+              //     //TODO one final
+              //     color: coor_sharp_orange_gradient3
+              //   // color: dak_theme_box_shadow_dark
+              //
+              // ),
+              // padding: EdgeInsets.all(1),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
               ),
-          // padding: EdgeInsets.all(1),
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
-          ),
 
-          //one final
-          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
-          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
-        )),
+              //one final
+              // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+              // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
+            )),
         // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
         // SizedBox(height: defaultPadding/3,),
         // Expanded(child: Container()),
 
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: Text(title,
-              style: TextStyle(
-                  fontFamily: 'Vazir',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
         ),
       ],
-    );
-  }
-
-  Widget _addNewCarDialogWidget() {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-
-      // backgroundColor: primary_grey_color,
-      title: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(
-                  Icons.close, size: 16,
-                  // color: secondary_dark_purple_color
-                ),
-                SizedBox(
-                  width: defaultPadding / 4,
-                ),
-                Text(
-                  'لغو',
-                  style: TextStyle(
-                    fontSize: 10,
-                    // color: secondary_dark_purple_color
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Align(
-              alignment: Alignment.center,
-              child: Text(
-                "اطلاعات مورد نیاز را وارد نمائید",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              )),
-        ],
-      ),
-
-      content: Container(
-          height: 300,
-          margin: EdgeInsets.all(defaultPadding),
-          padding: EdgeInsets.all(defaultPadding),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  //name + textfield
-                  Row(
-                    children: [
-                      Text('نام خودرو:'),
-                      Expanded(
-                        child: TextField(
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          controller: TextEditingController(),
-                        ),
-                      )
-                    ],
-                  ),
-
-                  //سال ساخت
-                  Row(
-                    children: [
-                      Text('سال ساخت:'),
-                      Expanded(
-                        child: TextField(
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          controller: TextEditingController(),
-                        ),
-                      )
-                    ],
-                  ),
-
-                  //رنگ
-                  Row(
-                    children: [
-                      Text('رنگ:'),
-                      Expanded(
-                        child: TextField(
-                          controller: TextEditingController(),
-                        ),
-                      )
-                    ],
-                  ),
-
-                  //شماره پلاک
-                  Row(
-                    children: [
-                      Text('پلاک خودرو:'),
-                      Expanded(
-                        child: TextField(
-                          controller: TextEditingController(),
-                        ),
-                      )
-                    ],
-                  ),
-
-                  Expanded(child: Container()),
-
-                  Container(
-                    // margin: EdgeInsets.all(defaultPadding),
-                    // padding: EdgeInsets.all(defaultPadding),
-                    height: 30,
-                    width: double.maxFinite,
-
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop(null);
-                        // if(positiveFunc!=null){
-                        //   positiveFunc!();
-                        // }
-                      },
-                      // color: secondary_dark_purple_color,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        // side: BorderSide(width: 2,color: color_holoGrey_primaryLow)
-                      ),
-                      child: Text(
-                        'ثبت',
-                        style: TextStyle(
-                            // color: secondary_light_grey_color
-                            ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          )),
     );
   }
 }
