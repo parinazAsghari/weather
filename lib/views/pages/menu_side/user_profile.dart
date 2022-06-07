@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/DialogWidgets.dart';
+import '../tabs/home_tab/services/emdad_in_place/widget/custom_submit_button.dart';
+import '../tabs/home_tab/services/emdad_in_place/widget/custom_text_field.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -89,279 +91,45 @@ class _UserProfileState extends State<UserProfile> {
                     height: 200,
                     width: 200,
                   )),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 20, top: 10),
-                  child: Text('نام و نام خانوادگی',),
-                ),
+              CustomTextField(
+                title: 'نام و نام خانوادگی',
+                height: 35,
+                controller: _userFullNameController,
+                marginRight: 20,
+                marginLeft: 20,
+                hintText: 'کاربر مهمان',
+                iconData: Icons.person,
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 20, left: 20, top: 10),
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: TextField(
-                    controller: _userFullNameController,
-
-                    keyboardType: TextInputType.name,
-                    maxLength: 11,
-                    obscureText: false,
-                    style: TextStyle(fontWeight: FontWeight.normal),
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      suffixIcon: const Icon(
-                        Icons.person,
-                      ),
-                      // fillColor: secondary_light_grey_color,
-
-                      // isDense: true,filled: true,
-                      hintText: 'کاربر مهمان',
-
-                      counterText: '',
-                      // fillColor: Colors.white,
-                      contentPadding: EdgeInsets.only(
-                          left: 10, top: 10, right: 10, bottom: 10),
-                      // labelText: 'شماره همراه',labelStyle: TextStyle(),
-                      floatingLabelStyle: TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              color: color_sharp_orange_light)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                            // color: primary_grey_color,
-                              width: 0.8)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                            // color: primary_grey_color,
-                              width: 0.8)),
-                      // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
-                    ),
-                  ),
-                ),
-                // child: TextField(
-                //   obscureText: true,
-                //   decoration: InputDecoration(
-                //     suffixIcon: const Icon(
-                //       Icons.person,
-                //       color: Colors.green,
-                //     ),
-                //
-                //     floatingLabelBehavior: FloatingLabelBehavior.never,
-                //     border: OutlineInputBorder(),
-                //     labelText: 'شماره تماس',
-                //   ),
-                // ),
+              CustomTextField(
+                title: 'کد ملی',
+                height: 35,
+                controller: _userNationalCodeController,
+                marginRight: 20,
+                marginLeft: 20,
+                marginTop: 15,
+                hintText: '0021111111',
+                iconData: Icons.person,
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 20, top: 10),
-                  child: Text('کد ملی'),
-                ),
+              CustomTextField(
+                title: 'شماره موبایل',
+                height: 35,
+                controller: _userPhoneController,
+                marginRight: 20,
+                marginLeft: 20,
+                marginTop: 15,
+                hintText: '09121111111',
+                iconData: Icons.phone,
+                enabled: false,
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 20, left: 20, top: 10),
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: TextField(
-                    controller: _userNationalCodeController,
-                    keyboardType: TextInputType.number,
-                    maxLength: 10,
-                    obscureText: false,
-                    style: TextStyle(fontWeight: FontWeight.normal),
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      suffixIcon: const Icon(
-                        Icons.person,
-                      ),
-                      // fillColor: secondary_light_grey_color,
-
-                      // isDense: true,filled: true,
-                      hintText: '1234567890',
-                      counterText: '',
-                      // fillColor: Colors.white,
-                      contentPadding: EdgeInsets.only(
-                          left: 10, top: 10, right: 10, bottom: 10),
-                      // labelText: 'شماره همراه',labelStyle: TextStyle(),
-                      floatingLabelStyle: TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              color: color_sharp_orange_light)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                            // color: primary_grey_color,
-                              width: 0.8)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                            // color: primary_grey_color,
-                              width: 0.8)),
-                      // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
-                    ),
-                  ),
-                ),
-                // child: TextField(
-                //   obscureText: true,
-                //   decoration: InputDecoration(
-                //     suffixIcon: const Icon(
-                //       Icons.person,
-                //       color: Colors.green,
-                //     ),
-                //
-                //     floatingLabelBehavior: FloatingLabelBehavior.never,
-                //     border: OutlineInputBorder(),
-                //     labelText: 'شماره تماس',
-                //   ),
-                // ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 20, top: 10),
-                  child: Text('شماره موبایل'),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 20, left: 20, top: 10),
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: TextField(
-                    controller: _userPhoneController,
-                    keyboardType: TextInputType.phone,
-                    maxLength: 11,
-                    enabled: false,
-                    obscureText: false,
-                    style: TextStyle(fontWeight: FontWeight.normal),
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      suffixIcon: const Icon(
-                        Icons.phone,
-                      ),
-                      // fillColor: secondary_light_grey_color,
-
-                      // isDense: true,filled: true,
-                      hintText: 'شماره موبایل',
-                      counterText: '',
-                      // fillColor: Colors.white,
-                      contentPadding: EdgeInsets.only(
-                          left: 10, top: 10, right: 10, bottom: 10),
-                      // labelText: 'شماره همراه',labelStyle: TextStyle(),
-                      floatingLabelStyle: TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                              color: color_sharp_orange_light)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                            // color: primary_grey_color,
-                              width: 0.8)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(
-                            // color: primary_grey_color,
-                              width: 0.8)),
-                      // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
-                    ),
-                  ),
-                ),
-                // child: TextField(
-                //   obscureText: true,
-                //   decoration: InputDecoration(
-                //     suffixIcon: const Icon(
-                //       Icons.person,
-                //       color: Colors.green,
-                //     ),
-                //
-                //     floatingLabelBehavior: FloatingLabelBehavior.never,
-                //     border: OutlineInputBorder(),
-                //     labelText: 'شماره تماس',
-                //   ),
-                // ),
-              ),
-
-
-              //button
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width * 0.55,
-                      margin: EdgeInsets.all(defaultPadding),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          backgroundColor:
-                          MaterialStateProperty.all(dark_theme_secondary),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'ثبت',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        onPressed: () {
-                          onSaveButtonTap();
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              CustomSubmitButton(
+                  onTap: onSaveButtonTap,
+                  text: 'ثبت',
+                  marginRight: 20,
+                  marginLeft: 20,
+                  marginTop: 15),
             ],
           ),
         ),
-
-
-        // child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //
-        //   children: [
-        //     Image.asset('assets/images/mobile_app_dev.png', height: 150, width: 150,fit: BoxFit.cover,),
-        //
-        //     // SizedBox(
-        //     //   height: defaultPadding,
-        //     // ),
-        //
-        //     Text('در حال توسعه ...' ,style: TextStyle(fontSize: 20),),
-        //
-        //     SizedBox(height: defaultPadding,),
-        //
-        //     Text('لطفا نسخه اپلیکیشن را بروز رسانی نمائید')
-        //
-        //
-        //
-        //
-        //
-        //
-        //   ],
-        // ),
       ),
     );
   }

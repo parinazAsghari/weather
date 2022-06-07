@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Emdad Khodro',
 
-      home: SplashPage(),
-      // home: HomePage(),
+      // home: SplashPage(),
+      home: HomePage(),
 
       localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,

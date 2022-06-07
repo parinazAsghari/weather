@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../constants.dart';
+import '../widget/description_box.dart';
 
 class CompareServicePage extends StatefulWidget {
   const CompareServicePage({Key? key}) : super(key: key);
@@ -10,25 +11,35 @@ class CompareServicePage extends StatefulWidget {
 }
 
 class _CompareServicePageState extends State<CompareServicePage> {
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          title: Text('جدول مقایسه ای خدمات'),
-          titleTextStyle: TextStyle(
+          title: const Text('جدول مقایسه ای خدمات'),
+          titleTextStyle: const TextStyle(
               fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(
-                child: Text("گارانتی بدنه",textAlign: TextAlign.center,),
+                child: Text(
+                  "گارانتی بدنه",
+                  textAlign: TextAlign.center,
+                ),
               ),
               Tab(
-                child: Text("امدادی",textAlign: TextAlign.center,),
+                child: Text(
+                  "امدادی",
+                  textAlign: TextAlign.center,
+                ),
               ),
               Tab(
-                child: Text('خودرو در محل',textAlign: TextAlign.center,),
+                child: Text(
+                  'خودرو در محل',
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
@@ -47,55 +58,35 @@ class _CompareServicePageState extends State<CompareServicePage> {
   Widget _body(text) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        _descBox(text,
-            "خدمات الزامی به خدماتی اطلاق می گردد که خودروساز در ازای خرید خودرو نو به صورت رایگان به دارندگان گروه خودرو سازی سایپا اهداء می نماید."),
-        SizedBox(
+        DescriptionBox(
+            title:text,
+            desc: "خدمات الزامی به خدماتی اطلاق می گردد که خودروساز در ازای خرید خودرو نو به صورت رایگان به دارندگان گروه خودرو سازی سایپا اهداء می نماید.",
+        ),
+        const SizedBox(
           height: 10,
         ),
-        _descBox('خودرو تحت پوشش :',
-            "*​کلیه خودروهای سواری و تجاری سبک گروه خودرو سازی سایپا "),
-        SizedBox(
+        DescriptionBox(
+          title: 'خودرو تحت پوشش :',
+          desc: "*​کلیه خودروهای سواری و تجاری سبک گروه خودرو سازی سایپا ",
+        ),
+        const SizedBox(
           height: 10,
         ),
-        _descBox('روش خرید :',
-            ' ​​این خدمت در هنگام خرید خودرو به صورت " رایگان " توسط خودروساز به شما اهدا می گردد .'),
-        SizedBox(
+        DescriptionBox(
+          title: 'روش خرید :',
+          desc: ' ​​این خدمت در هنگام خرید خودرو به صورت " رایگان " توسط خودروساز به شما اهدا می گردد .',
+        ),
+        const SizedBox(
           height: 10,
         ),
-        _descBox('نحوه پرداخت :', 'رایگان برای خودروهای صفر'),
+        DescriptionBox(
+          title: 'نحوه پرداخت :',
+          desc: 'رایگان برای خودروهای صفر',
+        ),
       ],
-    );
-  }
-
-  Widget _descBox(title, desc) {
-    return Container(
-      padding: EdgeInsets.only(top: 10, right: 15, bottom: 10),
-      width: MediaQuery.of(context).size.width * 0.8,
-      // height: MediaQuery.of(context).size.height*0.17,
-      decoration: BoxDecoration(
-        border: Border.all(color: dark_theme_secondary, width: 1.0),
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ),
-          Text(
-            desc,
-            style: TextStyle(fontSize: 12),
-          ),
-        ],
-      ),
     );
   }
 }

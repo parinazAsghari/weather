@@ -109,7 +109,7 @@ class _OtpPageState extends State<OtpPage> {
   Widget _body() {
     return SingleChildScrollView(
       child: SizedBox(
-        width:MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
