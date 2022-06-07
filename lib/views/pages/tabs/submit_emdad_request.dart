@@ -70,8 +70,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
       _addressCtrl.text = widget.address;
     }
 
-    // getAddress();
-    // getUserData();
+    getAddress();
+    getUserData();
   }
 
   void getUserData() async {
@@ -88,7 +88,9 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     var result = await ApiProvider.getAddress(widget.latLng);
 
 
-      _addressCtrl.text = result.addressCompact!;
+     setState((){
+       _addressCtrl.text = result.addressCompact!;
+     });
   }
 
   @override
