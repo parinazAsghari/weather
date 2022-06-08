@@ -392,7 +392,7 @@ class _HomeTabState extends State<HomeTab> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlacePage()));
                     },
-                    widget: _subItemWidget('assets/images/ic_service_in_place.png', 'امداد خدمات در محل'),
+                    widget: _subItemWidget('assets/images/ic_service_in_place.png', 'خدمات در محل'),
                   ),
 
 
@@ -470,7 +470,7 @@ class _HomeTabState extends State<HomeTab> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
                     },
-                    widget: _subItemWidget('assets/images/ic_insurance.png', 'گارانتی بدنه'),
+                    widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
                   ),
 
                   CustomNeomorphicBox(
@@ -490,7 +490,7 @@ class _HomeTabState extends State<HomeTab> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
                     },
-                    widget: _subItemWidget('assets/images/ic_parking.png', 'اشتراک سفر'),
+                    widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
                   ),
 
 
@@ -2070,7 +2070,7 @@ class _HomeTabState extends State<HomeTab> {
               // padding: EdgeInsets.all(1),
               child: Image.asset(
                 imagePath,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
 
               //one final
