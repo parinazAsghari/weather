@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:emdad_khodro_saipa/constants.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/submit_address.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/submit_address.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,23 +16,23 @@ import 'package:latlong2/latlong.dart' as latlng;
 import 'package:flutter_map/flutter_map.dart' as flutterMap;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+//Todo skip refactoring
 
-
-class EmdadOnSiteService extends StatefulWidget {
+class EmdadInPlaceMap extends StatefulWidget {
   final String title;
   final bool hasCarProblem;
 
-  EmdadOnSiteService({
+  EmdadInPlaceMap({
     required this.title,
     required this.hasCarProblem,
     Key? key,
   }) : super(key: key);
 
   @override
-  _EmdadOnSiteServiceState createState() => _EmdadOnSiteServiceState();
+  _EmdadInPlaceMapState createState() => _EmdadInPlaceMapState();
 }
 
-class _EmdadOnSiteServiceState extends State<EmdadOnSiteService> {
+class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
   //map
   GoogleMapController? _controller;
   static  LatLng _center = const LatLng(35.748, 51.328);
@@ -380,9 +380,7 @@ class _EmdadOnSiteServiceState extends State<EmdadOnSiteService> {
 
   Widget _submitButton() {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitAddress(latLng: _lastMapPosition,),),);
-      },
+      onTap: _onSubmitTap(),
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -403,6 +401,11 @@ class _EmdadOnSiteServiceState extends State<EmdadOnSiteService> {
         ),
       ),
     );
+  }
+
+  _onSubmitTap(){
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitAddress(latLng: _lastMapPosition,),),);
+
   }
 
   Widget _addressWidget(){

@@ -7,6 +7,8 @@ import '../../../api_provider/provider.dart';
 import '../../../constants.dart';
 import '../../widgets/DialogWidgets.dart';
 import '../../widgets/LoadingWidgets.dart';
+import '../../widgets/custom_submit_button.dart';
+import '../../widgets/custom_text_field.dart';
 import '../drop_down.dart';
 
 class SubmitEmdadRequest extends StatefulWidget {
@@ -59,7 +61,6 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   String? fullName;
   String? nationalCode;
 
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -73,32 +74,24 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     getUserData();
   }
 
-  void getUserData()async{
+  void getUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     phone = preferences.getString('user_phone_number');
-    fullName = preferences.getString('user_full_name')??'';
-    nationalCode = preferences.getString('user_national_code')??'';
-
+    fullName = preferences.getString('user_full_name') ?? '';
+    nationalCode = preferences.getString('user_national_code') ?? '';
 
     _nameCtrl.text = fullName!;
     _idCtrl.text = nationalCode!;
-
-
-
-
-
   }
 
-  void getAddress() async{
+  void getAddress() async {
     var result = await ApiProvider.getAddress(widget.latLng);
 
-    setState(() {
-      _addressCtrl.text = result.addressCompact!;
-    });
+
+     setState((){
+       _addressCtrl.text = result.addressCompact!;
+     });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -136,16 +129,22 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                     alignment: Alignment.center,
                     child: Text(
                       'ثبت درخواست ${widget.title}',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     )),
                 SizedBox(
                   height: 8,
                 ),
-                _customTextField(
-                  title: 'نام و نام خانوادگی *',
-                  controller: _nameCtrl,
-                ),
-                _customTextField(title: 'کدملی *', controller: _idCtrl),
+                CustomTextField(
+                    title: 'نام و نام خانوادگی *',
+                    height: 35,
+                    marginTop: 11,
+                    controller: _nameCtrl),
+                CustomTextField(
+                    title: 'کدملی *',
+                    height: 35,
+                    marginTop: 11,
+                    controller: _idCtrl),
                 if (widget.hasCarProblem) _customDropDown(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -180,13 +179,21 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                         });
                   },
                 ),
-                _addressCtrl.text.isEmpty?CircularProgressIndicator(
+                _addressCtrl.text.isEmpty
+                    ? CircularProgressIndicator(
+                        color: Theme.of(context).accentColor,
+                      )
+                    : CustomTextField(
+                        title: 'آدرس *',
+                        height: 47,
+                        marginTop: 11,
+                        controller: _addressCtrl),
+                CustomTextField(
+                    title: 'توضیحات',
+                    height: 68,
+                    marginTop: 11,
+                    controller: _descriptionCtrl),
 
-                  color: Theme.of(context).accentColor,
-                ): _customTextField(
-                    title: 'آدرس *', height: 47, controller: _addressCtrl),
-                _customTextField(
-                    title: 'توضیحات', height: 68, controller: _descriptionCtrl),
                 // Expanded(child: Container()),
               ],
             ),
@@ -194,7 +201,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.5 / 15,
             ),
-            _submitButton(),
+            CustomSubmitButton(onTap: _onSubmitTap, text: 'ثبت درخواست',marginTop: 0,marginBottom: 0,),
           ],
         ),
       ),
@@ -319,166 +326,126 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     );
   }
 
-  Widget _customTextField(
-      {@required String? title, double height = 35, controller}) {
-    return Container(
-      margin: const EdgeInsets.only(
-        right: 24,
-        left: 24,
-        top: 11,
-      ),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          label: Text(title ?? ''),
-          isDense: true,
-          contentPadding: EdgeInsets.only(top: height, right: 10),
-          border: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.black),
-              borderRadius: BorderRadius.circular(8),),
-        ),
-      ),
-    );
-  }
-
-  Widget _submitButton() {
-    return GestureDetector(
-      onTap: () async {
-        print('carprob + $_carProblem');
-        print('name + ${_nameCtrl.text}');
-        print('id + ${_idCtrl.text}');
-        print('address + ${_addressCtrl.text}');
-        if (_nameCtrl.text.isEmpty) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                  dismissable: true,
-                  title: 'ورود اطلاعات',
-                  body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
-                  positiveTxt: 'باشه',
-                );
-              });
-
-          return;
-        }
-        if (_idCtrl.text.isEmpty) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                  dismissable: true,
-                  title: 'ورود اطلاعات',
-                  body: 'لطفا کدملی خود را وارد نمائید',
-                  positiveTxt: 'باشه',
-                );
-              });
-
-          return;
-        }
-        if (widget.hasCarProblem) {
-          if (_carProblem == null) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return MessageDialogWidget(
-                    dismissable: true,
-                    title: 'ورود اطلاعات',
-                    body: 'لطفا ایراد ماشین را مشخص نمایید.',
-                    positiveTxt: 'باشه',
-                  );
-                });
-
-            return;
-          }
-        }
-
-        if (_addressCtrl.text.isEmpty) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                  dismissable: true,
-                  title: 'ورود اطلاعات',
-                  body: 'لطفا آدرس خود را وارد نمائید',
-                  positiveTxt: 'باشه',
-                );
-              });
-
-          return;
-        }
 
 
+  _onSubmitTap() async {
+    print('carprob + $_carProblem');
+    print('name + ${_nameCtrl.text}');
+    print('id + ${_idCtrl.text}');
+    print('address + ${_addressCtrl.text}');
+    if (_nameCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
 
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return CircleLoadingWidget(
-                dismissable: false,
-                msgTxt: 'لطفا منتظر بمانید',
-              );
-            });
+      return;
+    }
+    if (_idCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا کدملی خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
 
-        //clear textFields
-        // _idCtrl.clear();
-        // _nameCtrl.clear();
-
-
-
-
-        await Future.delayed(const Duration(milliseconds: 4000));
-
-        Navigator.of(context).pop();
-
+      return;
+    }
+    if (widget.hasCarProblem) {
+      if (_carProblem == null) {
         showDialog(
             context: context,
             builder: (BuildContext context) {
               return MessageDialogWidget(
-                dismissable: false,
-                hasTextBody: false,
-                widget: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text('مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',textAlign: TextAlign.center),
-                      Text('همکاران ما بزودی با شما تماس خواهند گرفت.',textAlign: TextAlign.center),
-                      Text('شماره همراه ثبت شده: $phone',textAlign: TextAlign.center,),
-                    ],
-                  ),
-                ),
-                positiveTxt: 'تایید',
-                positiveFunc: () async {
-
-                  //save to user data
-                  SharedPreferences preferences = await SharedPreferences.getInstance();
-                  preferences.setString('user_full_name', _nameCtrl.text);
-                  preferences.setString('user_national_code', _idCtrl.text);
-
-
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-                },
+                dismissable: true,
+                title: 'ورود اطلاعات',
+                body: 'لطفا ایراد ماشین را مشخص نمایید.',
+                positiveTxt: 'باشه',
               );
             });
-      },
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            border: Border.all(color: color_sharp_orange, width: 1),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
+
+        return;
+      }
+    }
+
+    if (_addressCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا آدرس خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CircleLoadingWidget(
+            dismissable: false,
+            msgTxt: 'لطفا منتظر بمانید',
+          );
+        });
+
+    //clear textFields
+    // _idCtrl.clear();
+    // _nameCtrl.clear();
+
+    await Future.delayed(const Duration(milliseconds: 4000));
+
+    Navigator.of(context).pop();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MessageDialogWidget(
+            dismissable: false,
+            hasTextBody: false,
+            widget: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text(
+                      'مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',
+                      textAlign: TextAlign.center),
+                  Text('همکاران ما بزودی با شما تماس خواهند گرفت.',
+                      textAlign: TextAlign.center),
+                  Text(
+                    'شماره همراه ثبت شده: $phone',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-            color: color_sharp_orange),
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height * 33 / 520,
-        margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
-        child: const Text(
-          'ثبت درخواست',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
+            positiveTxt: 'تایید',
+            positiveFunc: () async {
+              //save to user data
+              SharedPreferences preferences =
+              await SharedPreferences.getInstance();
+              preferences.setString('user_full_name', _nameCtrl.text);
+              preferences.setString('user_national_code', _idCtrl.text);
+
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => HomePage()));
+            },
+          );
+        });
   }
 }
