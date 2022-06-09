@@ -1,6 +1,6 @@
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/car_service_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/compare_service_table_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/guaranty_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/emdad_services.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +75,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
             isChildText: false,
             isFull: false,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => GuarantyPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => GoldenCard()));
             },
             widget: _subItemWidget('assets/images/ic_news.png', 'کارت طلایی'),
           ),
