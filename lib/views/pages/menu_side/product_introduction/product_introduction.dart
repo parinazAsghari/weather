@@ -1,4 +1,4 @@
-import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/car_service_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/service_in_place.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/compare_service_table_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/emdad_services.dart';
@@ -30,98 +30,107 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
 
   Widget _body() {
 
-    return Container(
-      child: GridView.extent(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        physics: ClampingScrollPhysics(),
-        maxCrossAxisExtent: 120,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        padding: EdgeInsets.all(defaultPadding),
-        children: [
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadServices()));
-            },
-            widget: _subItemWidget('assets/images/ic_service.png', 'خدمات امدادی'),
-          ),
+    return Stack(
+      children: [
+        Center(
+          child: Opacity(
+              opacity: 0.4,
+              child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+        ),
+        Container(
+          child: GridView.extent(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            physics: ClampingScrollPhysics(),
+            maxCrossAxisExtent: 120,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            padding: EdgeInsets.all(defaultPadding),
+            children: [
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadServices()));
+                },
+                widget: _subItemWidget('assets/images/ic_service.png', 'خدمات امدادی'),
+              ),
 
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => GoldenCard()));
-            },
-            widget: _subItemWidget('assets/images/ic_news.png', 'کارت طلایی'),
-          ),
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => GoldenCard()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'کارت طلایی'),
+              ),
 
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CarServicePage()));
-            },
-            widget: _subItemWidget('assets/images/ic_news.png', 'خدمات خودرو در محل'),
-          ),
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CarServicePage()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات خودرو در محل'),
+              ),
 
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CompareServicePage()));
-            },
-            widget: _subItemWidget('assets/images/ic_news.png', 'جدول مقایسه ای خدمات'),
-          ),
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CompareServicePage()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'جدول مقایسه ای خدمات'),
+              ),
 
-        ],
-      ),
+            ],
+          ),
+        ),
+      ],
     );
 
     /*

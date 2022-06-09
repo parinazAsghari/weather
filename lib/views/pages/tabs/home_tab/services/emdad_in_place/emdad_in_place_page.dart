@@ -59,7 +59,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           marginLeft: 0,
           marginBottom: 0,
           isChildText: false,
-          widget: _subItemBox(title: 'سرویس‌های اولیه و ادواری', imagePath: 'assets/images/bazdid_fani.png'),
+          widget: _subItemBox(title: 'سرویس‌های اولیه و دوره ای', imagePath: 'assets/images/bazdid_fani.png'),
         ),
         CustomNeomorphicBox(
           title: '',

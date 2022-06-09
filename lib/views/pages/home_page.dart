@@ -184,9 +184,10 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.phone, color: Colors.white, size: 20),
-                    SizedBox(width: defaultPadding/4,),
                     Text('تماس با 096550', style: TextStyle(fontSize: 14,color: Colors.white, fontWeight: FontWeight.bold),),
+                    SizedBox(width: defaultPadding/4,),
+                    Icon(Icons.phone, color: Colors.white, size: 20),
+
                   ],
                 )),
           ),

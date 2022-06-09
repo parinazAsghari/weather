@@ -27,98 +27,107 @@ class _EmdadServicesState extends State<EmdadServices> {
   }
 
   Widget _body() {
-    return Container(
-      child: GridView.extent(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        physics: ClampingScrollPhysics(),
-        maxCrossAxisExtent: 120,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        padding: EdgeInsets.all(defaultPadding),
-        children: [
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CommonEmdad()));
-            },
-            widget: _subItemWidget('assets/images/ic_news.png', 'عمومی'),
-          ),
+    return Stack(
+      children: [
+        Center(
+          child: Opacity(
+              opacity: 0.4,
+              child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+        ),
+        Container(
+          child: GridView.extent(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            physics: ClampingScrollPhysics(),
+            maxCrossAxisExtent: 120,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            padding: EdgeInsets.all(defaultPadding),
+            children: [
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CommonEmdad()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'عمومی'),
+              ),
 
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SupplmentaryEmdad()));
-            },
-            widget: _subItemWidget('assets/images/ic_news.png', 'تکمیلی (247)'),
-          ),
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SupplmentaryEmdad()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'تکمیلی (247)'),
+              ),
 
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => NecessaryEmdad()));
-            },
-            widget: _subItemWidget('assets/images/ic_news.png', 'الزامی'),
-          ),
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => NecessaryEmdad()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'الزامی'),
+              ),
 
-          CustomNeomorphicBox(
-            title: '',
-            index: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            marginTop: 0,
-            marginLeft: 0,
-            paddingTop: 8,
-            paddingRight: 8,
-            paddingLeft: 8,
-            selectedIndex: 1,
-            height: 60/640,
-            isChildText: false,
-            isFull: false,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => TripEmdad()));
-            },
-            widget: _subItemWidget('assets/images/ic_news.png', 'سفر'),
-          ),
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60/640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => TripEmdad()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'سفر'),
+              ),
 
-        ],
-      ),
+            ],
+          ),
+        ),
+      ],
     );
   }
   Widget _subItemWidget(String imagePath,  String title){

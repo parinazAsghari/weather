@@ -1,32 +1,36 @@
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/service_in_place_sub_pages/check_before_trip.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/service_in_place_sub_pages/first_and_periodic.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/service_in_place_sub_pages/option_install.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../constants.dart';
 import '../../../../widgets/custom_neomorphic_box.dart';
 import '../widget/description_box.dart';
 
-class CompareServicePage extends StatefulWidget {
-  const CompareServicePage({Key? key}) : super(key: key);
+class CarServicePage extends StatefulWidget {
+  const CarServicePage({Key? key}) : super(key: key);
 
   @override
-  State<CompareServicePage> createState() => _CompareServicePageState();
+  State<CarServicePage> createState() => _CarServicePageState();
 }
 
-class _CompareServicePageState extends State<CompareServicePage> {
-  @override
+class _CarServicePageState extends State<CarServicePage> {
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('جدول مقایسه ای خدمات'),
-
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: const Text('خدمات خودرو در محل'),
+        ),
+        body: _body()
       ),
-      body: _body()
     );
   }
 
   Widget _body() {
     return Stack(
+
       children: [
         Center(
           child: Opacity(
@@ -57,11 +61,10 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 height: 60/640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async{
-                  if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-garantibadane'))) throw 'Could not launch';
-
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => FirstAndPeriodic()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات گارانتی بدنه'),
+                widget: _subItemWidget('assets/images/ic_news.png', 'سرویس اولیه و دوره ای'),
               ),
 
               CustomNeomorphicBox(
@@ -78,10 +81,10 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 height: 60/640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async{
-                  if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-KhadamatEmdadi'))) throw 'Could not launch';
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OptionInstall()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات امدادی'),
+                widget: _subItemWidget('assets/images/ic_news.png', 'نصب آپشن'),
               ),
 
               CustomNeomorphicBox(
@@ -98,13 +101,11 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 height: 60/640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async{
-                  if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-Khadamatdarmahal'))) throw 'Could not launch';
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CheckBeforeTrip()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات در محل'),
+                widget: _subItemWidget('assets/images/ic_news.png', 'بازدید پیش از سفر'),
               ),
-
-
             ],
           ),
         ),
@@ -133,4 +134,5 @@ class _CompareServicePageState extends State<CompareServicePage> {
       ],
     );
   }
+
 }
