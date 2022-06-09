@@ -15,7 +15,7 @@ class _ContactUsState extends State<ContactUs> {
         automaticallyImplyLeading: true,
         title: Text(
           'تماس با ما',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          // style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         // backgroundColor: secondary_dark_purple_color,
       ),

@@ -59,7 +59,10 @@ Widget DrawerWidget(BuildContext context) {
           SizedBox(
             height: defaultPadding,
           ),
-          Image.asset('assets/images/emdad_khodro_logo.png', height: 100),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('assets/images/emdad_khodro_logo.png', height: 60),
+          ),
           // const SizedBox(
           //   height: 10,
           // ),
@@ -114,7 +117,7 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
 
-          _itemBoxDrawer(context, 'پروفایل کاربری', Icons.account_circle, () {
+          _itemBoxDrawer(context, 'پروفایل مشتری', Icons.account_circle, () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -153,16 +156,16 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
           _itemBoxDrawer(
-              context, 'معرفی محصولات', Icons.production_quantity_limits, () {
+              context, 'معرفی خدمات', Icons.production_quantity_limits, () {
             // Navigator.pop(context);
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (BuildContext context) => ProductIntroduction()));
           }),
-          const SizedBox(
-            height: 3,
-          ),
+          // const SizedBox(
+          //   height: 3,
+          // ),
 
           // const Divider(
           //   height: 5, thickness: 0.25,
@@ -253,6 +256,9 @@ Widget DrawerWidget(BuildContext context) {
             await sharedPrefs.setString('user_full_name', '');
             await sharedPrefs.setString('user_national_code', '');
 
+
+            //TODO remove every storage data - defined cars
+
             Navigator.pop(context);
             Navigator.pushReplacement(
                 context,
@@ -264,7 +270,7 @@ Widget DrawerWidget(BuildContext context) {
           // ),
 
           const SizedBox(
-            height: 20,
+            height: 3,
           ),
 
           Container(
@@ -282,7 +288,11 @@ Widget DrawerWidget(BuildContext context) {
                 _logoBox('ic_aparat_dark_transparent.png', 5, _launchUrlaparat),
               ],
             ),
-          )
+          ),
+
+          const SizedBox(
+            height: 3,
+          ),
         ],
       ));
 }

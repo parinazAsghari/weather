@@ -18,7 +18,7 @@ class _AboutUsState extends State<AboutUs> {
         automaticallyImplyLeading: true,
         title: const Text(
           'درباره ما',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          // style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         // backgroundColor: secondary_dark_purple_color,
       ),

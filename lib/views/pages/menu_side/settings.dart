@@ -20,7 +20,7 @@ class _SettingsState extends State<Settings> {
         automaticallyImplyLeading: true,
         title: const Text(
           'تنظیمات',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          // style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         // backgroundColor: secondary_dark_purple_color,
       ),

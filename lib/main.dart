@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'امداد خودرو سایپا',
 
-      // home: SplashPage(),
-      home: HomePage(),
+      home: SplashPage(),
+      // home: HomePage(),
 
       localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             color: dark_theme_primary,
             centerTitle: true,
-            titleTextStyle: TextStyle(color: dark_theme_white),
+            titleTextStyle: TextStyle(color: dark_theme_white,fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
             iconTheme: IconThemeData(color: dark_theme_secondary),
             actionsIconTheme: IconThemeData(color: dark_theme_secondary),
           ),

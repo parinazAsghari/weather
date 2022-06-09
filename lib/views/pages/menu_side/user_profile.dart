@@ -70,65 +70,60 @@ class _UserProfileState extends State<UserProfile> {
         // automaticallyImplyLeading: true,
         // backgroundColor: secondary_dark_purple_color,
 
-        title: Text('پروفایل کاربری', style: TextStyle(color: Colors.white),),
+        title: Text('پروفایل مشتری', style: TextStyle(color: Colors.white),),
 
       ),
-      body: SizedBox(
-        height: double.maxFinite,
-        width: double.maxFinite,
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(height: defaultPadding,),
 
-        child: SingleChildScrollView(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(height: defaultPadding,),
-
-              Container(
-                  child: Image.asset(
-                    'assets/images/ic_guestuser.png',
-                    color: dark_theme_primary,
-                    fit: BoxFit.cover,
-                    height: 200,
-                    width: 200,
-                  )),
-              CustomTextField(
-                title: 'نام و نام خانوادگی',
-                height: 35,
-                controller: _userFullNameController,
+            Container(
+                child: Image.asset(
+                  'assets/images/ic_guestuser.png',
+                  color: dark_theme_primary,
+                  fit: BoxFit.cover,
+                  height: 200,
+                  width: 200,
+                )),
+            CustomTextField(
+              title: 'نام و نام خانوادگی',
+              height: 35,
+              controller: _userFullNameController,
+              marginRight: 20,
+              marginLeft: 20,
+              hintText: 'کاربر مهمان',
+              iconData: Icons.person,
+            ),
+            CustomTextField(
+              title: 'کد ملی',
+              height: 35,
+              controller: _userNationalCodeController,
+              marginRight: 20,
+              marginLeft: 20,
+              marginTop: 15,
+              hintText: '0021111111',
+              iconData: Icons.person,
+            ),
+            CustomTextField(
+              title: 'شماره موبایل',
+              height: 35,
+              controller: _userPhoneController,
+              marginRight: 20,
+              marginLeft: 20,
+              marginTop: 15,
+              hintText: '09121111111',
+              iconData: Icons.phone,
+              enabled: false,
+            ),
+            CustomSubmitButton(
+                onTap: onSaveButtonTap,
+                text: 'ثبت',
                 marginRight: 20,
                 marginLeft: 20,
-                hintText: 'کاربر مهمان',
-                iconData: Icons.person,
-              ),
-              CustomTextField(
-                title: 'کد ملی',
-                height: 35,
-                controller: _userNationalCodeController,
-                marginRight: 20,
-                marginLeft: 20,
-                marginTop: 15,
-                hintText: '0021111111',
-                iconData: Icons.person,
-              ),
-              CustomTextField(
-                title: 'شماره موبایل',
-                height: 35,
-                controller: _userPhoneController,
-                marginRight: 20,
-                marginLeft: 20,
-                marginTop: 15,
-                hintText: '09121111111',
-                iconData: Icons.phone,
-                enabled: false,
-              ),
-              CustomSubmitButton(
-                  onTap: onSaveButtonTap,
-                  text: 'ثبت',
-                  marginRight: 20,
-                  marginLeft: 20,
-                  marginTop: 15),
-            ],
-          ),
+                marginTop: 15),
+          ],
         ),
       ),
     );

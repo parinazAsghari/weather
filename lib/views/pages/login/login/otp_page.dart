@@ -28,7 +28,7 @@ class _OtpPageState extends State<OtpPage> {
   TextEditingController _codeController = TextEditingController();
   late int _code;
   bool disableButton = true;
-  int secondsRemaining = 10;
+  int secondsRemaining = 120;
   bool enableResend = false;
   Timer? timer;
 
@@ -113,8 +113,8 @@ class _OtpPageState extends State<OtpPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 64,
+            SizedBox(
+              height: MediaQuery.of(context).size.height*64/520,
             ),
             //Logo
             Image.asset(
@@ -123,18 +123,21 @@ class _OtpPageState extends State<OtpPage> {
               fit: BoxFit.contain,
             ),
 
-            const SizedBox(
-              height: 24,
+            SizedBox(
+              height: MediaQuery.of(context).size.height*32/520,
             ),
 
             const Text('کد تایید',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
-            const SizedBox(
-              height: 32,
-            ),
-            const SizedBox(
-              height: 12,
+            // const SizedBox(
+            //   height: 32,
+            // ),
+            // const SizedBox(
+            //   height: 12,
+            // ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*16/520,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

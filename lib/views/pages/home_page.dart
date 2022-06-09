@@ -9,6 +9,7 @@ import 'package:emdad_khodro_saipa/views/pages/tabs/subscribe/subscribe_tab.dart
 import 'package:emdad_khodro_saipa/views/pages/tabs/user_profile_tab.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -121,8 +122,8 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           title: Image.asset(
             'assets/images/emdad_khodro_logo_white_text.png',
-            height: 30,
-            width: MediaQuery.of(context).size.width * 0.35,
+            // height: 30,
+            width: MediaQuery.of(context).size.width * 0.45,
             fit: BoxFit.contain,
           ),
           actions: [
@@ -152,6 +153,7 @@ class _HomePageState extends State<HomePage> {
         //         children: _items) //_items.elementAt(_index),
         //     ),
         bottomNavigationBar: _showBottomNav(),
+        /*
         floatingActionButton: FloatingActionButton(
           heroTag: null,
           onPressed: () {
@@ -159,6 +161,35 @@ class _HomePageState extends State<HomePage> {
           },
           child: Icon(Icons.phone),
           backgroundColor: Theme.of(context).accentColor,
+
+        ),
+
+         */
+
+
+
+        floatingActionButton: InkWell(
+          onTap: (){
+            _onFloatingActionButtonTap();
+          },
+          enableFeedback: true,
+          child: Container(
+            height: 45,
+            width: 130,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: Theme.of(context).accentColor
+            ),
+            child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.phone, color: Colors.white, size: 20),
+                    SizedBox(width: defaultPadding/4,),
+                    Text('تماس با 096550', style: TextStyle(fontSize: 14,color: Colors.white, fontWeight: FontWeight.bold),),
+                  ],
+                )),
+          ),
         ),
       ),
     );
@@ -193,7 +224,8 @@ class _HomePageState extends State<HomePage> {
 
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: 'کاربری',
+          label: 'پروفایل',
+
         ),
       ],
       currentIndex: _selectedIndex,

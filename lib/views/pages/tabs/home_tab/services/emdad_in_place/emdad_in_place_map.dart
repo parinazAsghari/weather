@@ -263,8 +263,8 @@ class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
         elevation: 0,
         title: Image.asset(
           'assets/images/emdad_khodro_logo_white_text.png',
-          height: 30,
-          width: MediaQuery.of(context).size.width * 0.35,
+          // height: 30,
+          width: MediaQuery.of(context).size.width * 0.45,
           fit: BoxFit.contain,
         ),
       ),      body: Container(

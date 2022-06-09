@@ -250,8 +250,8 @@ class _HomeTabState extends State<HomeTab> {
           const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),),
+              padding: const EdgeInsets.only(right: 20.0,top: 16),
+              child: Text('برای ثبت خودرو کلیک کنید',textAlign: TextAlign.right,style: TextStyle(fontWeight: FontWeight.bold),),
             ),
             isCarFromDataBase: false,
           )
@@ -262,11 +262,11 @@ class _HomeTabState extends State<HomeTab> {
             SliderItemWidget(
               imagePath: 'assets/images/${carImagePath(element.brand)}.png',
               showingTexts: Padding(
-                padding: const EdgeInsets.only(right: 20.0,top: 10),
+                padding: const EdgeInsets.only(right: 20.0,top: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Text('نام خودرو: ${element.brand}', style: TextStyle(fontWeight: FontWeight.bold),), Text(' سال ساخت: ${element.createDate}', style: TextStyle(fontWeight: FontWeight.bold),
+                  children: [Text('نام خودرو: ${element.brand}',textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold),), Text('سال ساخت: ${element.createDate}', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold),
               )],
                 ),
               ),
@@ -278,8 +278,8 @@ class _HomeTabState extends State<HomeTab> {
            const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.only(right: 20.0,top: 16),
+              child: Text('برای ثبت خودرو کلیک کنید',textAlign: TextAlign.right,style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             isCarFromDataBase: false,
@@ -396,7 +396,49 @@ class _HomeTabState extends State<HomeTab> {
                   ),
 
 
-                  //news
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
+                  ),
+
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+                  ),
+
+
+
+
                   CustomNeomorphicBox(
                     title: '',
                     index: 0,
@@ -437,22 +479,8 @@ class _HomeTabState extends State<HomeTab> {
                     widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
                   ),
 
-                  // _serviceWidget(
-                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/ic_taxi.png',
-                  //   title: 'تاکسی',
-                  // ),
-                  // _serviceWidget(
-                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/ic_information.png',
-                  //   title: 'اطلاعیه',
-                  // ),
-                  // _serviceWidget(
-                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/renew.png',
-                  //   title: 'خلافی',
-                  //
-                  // ),
+
+                  /*
                   CustomNeomorphicBox(
                     title: '',
                     index: 0,
@@ -468,9 +496,9 @@ class _HomeTabState extends State<HomeTab> {
                     isChildText: false,
                     isFull: false,
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,)));
                     },
-                    widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
+                    widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
                   ),
 
                   CustomNeomorphicBox(
@@ -490,8 +518,30 @@ class _HomeTabState extends State<HomeTab> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
                     },
-                    widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+                    widget: Center(child: Image.asset('assets/images/ic_plus.png'),),
                   ),
+
+                   */
+
+
+
+                  // _serviceWidget(
+                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/ic_taxi.png',
+                  //   title: 'تاکسی',
+                  // ),
+                  // _serviceWidget(
+                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/ic_information.png',
+                  //   title: 'اطلاعیه',
+                  // ),
+                  // _serviceWidget(
+                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
+                  //   imagePath: 'assets/images/renew.png',
+                  //   title: 'خلافی',
+                  //
+                  // ),
+
 
 
                   // _serviceWidget(

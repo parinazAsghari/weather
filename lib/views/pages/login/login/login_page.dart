@@ -24,12 +24,12 @@ class _LoginPageState extends State<LoginPage> {
   int state = 0;
 
   TextEditingController _phoneController = TextEditingController();
-  TextEditingController _captchaCodeController = TextEditingController();
+  // TextEditingController _captchaCodeController = TextEditingController();
 
   var rng = new Random();
   late int code;
   // late int captchaCode;
-  late String captchaCode;
+  // late String captchaCode;
   bool disableCode = true;
   bool disablePhone = true;
 
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     code = rng.nextInt(90000) + 10000;
     // captchaCode = rng.nextInt(750000) + 100000;
-    captchaCode = generateRandomString(6);
+    // captchaCode = generateRandomString(6);
     print('otp code is:   $code');
   }
 
@@ -64,92 +64,75 @@ class _LoginPageState extends State<LoginPage> {
 
       return;
     }
-    print(
-        'capcode: ${captchaCode.toString()} + capcontr + ${_captchaCodeController.text.toString()}');
 
-    if (_captchaCodeController.text.toLowerCase() != captchaCode.toString().toLowerCase()) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CircleLoadingWidget(
+            dismissable: false,
+            msgTxt: 'لطفا منتظر بمانید',
+          );
+        });
+
+    await Future.delayed(const Duration(milliseconds: 4000));
+
+    Map data = {
+      'MobileNumber': '${_phoneController.text}',
+      'Message':
+      "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code.toString()} \n امداد خودرو سایپا\n "
+    };
+
+    var url = 'http://185.94.99.204:5252/api/Sms/Send';
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
+    var result = await http.post(
+        Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
+        headers: {"Content-Type": "application/json"},
+        body: body);
+
+    Navigator.pop(context);
+
+    if (result.statusCode == 200) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return MessageDialogWidget(
               dismissable: true,
-              title: 'ورود اطلاعات',
-              body: 'کد وارد شده صحیح نمیباشد',
+              title: 'پیام ارسال شد',
+              body: 'رمز پیامک شده را وارد نمائید',
               positiveTxt: 'باشه',
             );
           });
 
-      return;
+
+      //store user phone number
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('user_phone_number', _phoneController.text);
+
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => OtpPage(
+                phoneNumber: _phone,
+                code: _code,
+              )));
+      setState(() {});
     } else {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return CircleLoadingWidget(
-              dismissable: false,
-              msgTxt: 'لطفا منتظر بمانید',
+            print(result.body.toString());
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'خطا در ارسال پیام',
+              body: 'خطا در ارتباط با سرور. لطفا دوباره تلاش کنید',
+              positiveTxt: 'باشه',
             );
           });
-
-      await Future.delayed(const Duration(milliseconds: 4000));
-
-      Map data = {
-        'MobileNumber': '${_phoneController.text}',
-        'Message':
-            "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code.toString()} \n امداد خودرو سایپا\n "
-      };
-
-      var url = 'http://185.94.99.204:5252/api/Sms/Send';
-
-      //encode Map to JSON
-      var body = json.encode(data);
-
-      // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
-      var result = await http.post(
-          Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
-          headers: {"Content-Type": "application/json"},
-          body: body);
-
-      Navigator.pop(context);
-
-      if (result.statusCode == 200) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return MessageDialogWidget(
-                dismissable: true,
-                title: 'پیام ارسال شد',
-                body: 'رمز پیامک شده را وارد نمائید',
-                positiveTxt: 'باشه',
-              );
-            });
-
-
-        //store user phone number
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        preferences.setString('user_phone_number', _phoneController.text);
-
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => OtpPage(
-                      phoneNumber: _phone,
-                      code: _code,
-                    )));
-        setState(() {});
-      } else {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              print(result.body.toString());
-              return MessageDialogWidget(
-                dismissable: true,
-                title: 'خطا در ارسال پیام',
-                body: 'خطا در ارتباط با سرور. لطفا دوباره تلاش کنید',
-                positiveTxt: 'باشه',
-              );
-            });
-        return;
-      }
+      return;
     }
   }
 
@@ -181,14 +164,14 @@ class _LoginPageState extends State<LoginPage> {
 
             // Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
              SizedBox(
-              height: MediaQuery.of(context).size.height*24/520,
+              height: MediaQuery.of(context).size.height*32/520,
             ),
 
             const Text('ثبت نام در سامانه',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
              SizedBox(
-              height: MediaQuery.of(context).size.height*32/520,
+              height: MediaQuery.of(context).size.height*16/520,
             ),
             //  SizedBox(
             //   height: MediaQuery.of(context).size.height*12/520,
@@ -263,6 +246,8 @@ class _LoginPageState extends State<LoginPage> {
                  SizedBox(
                   height: MediaQuery.of(context).size.height*4/520,
                 ),
+
+                /*
                 Container(
                   height: 60,
                   width: MediaQuery.of(context).size.width * 0.70,
@@ -321,41 +306,43 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+
+                 */
                 //  SizedBox(
                 //   height: MediaQuery.of(context).size.height*18/520,
                 // ),
-                Container(
-                  margin: const EdgeInsets.only(left: 16),
-                  padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*4/360),
-                  width: MediaQuery.of(context).size.width * 100 / 360,
-                  height: MediaQuery.of(context).size.width * 65 / 640,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: dark_theme_primary_light, width: 1),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () => {
-                          setState(() {
-                            // captchaCode = rng.nextInt(900000) + 100000;
-                            captchaCode = generateRandomString(6);
-                          })
-                        },
-                        icon: Icon(
-                          Icons.refresh,
-                          color: dark_theme_secondary,
-                          size: MediaQuery.of(context).size.width * 30 / 640,
-                        ),
-                      ),
-                      Text(
-                        captchaCode.toString(),
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(left: 16),
+                //   padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*4/360),
+                //   width: MediaQuery.of(context).size.width * 100 / 360,
+                //   height: MediaQuery.of(context).size.width * 65 / 640,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(16),
+                //     border: Border.all(color: dark_theme_primary_light, width: 1),
+                //   ),
+                //   child: Row(
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       IconButton(
+                //         onPressed: () => {
+                //           setState(() {
+                //             // captchaCode = rng.nextInt(900000) + 100000;
+                //             captchaCode = generateRandomString(6);
+                //           })
+                //         },
+                //         icon: Icon(
+                //           Icons.refresh,
+                //           color: dark_theme_secondary,
+                //           size: MediaQuery.of(context).size.width * 30 / 640,
+                //         ),
+                //       ),
+                //       Text(
+                //         captchaCode.toString(),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
 
@@ -374,9 +361,8 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  backgroundColor: !disableCode?!disablePhone?MaterialStateColor.resolveWith(
+                  backgroundColor: !disablePhone?MaterialStateColor.resolveWith(
                           (states) => dark_theme_primary):MaterialStateColor.resolveWith(
-                          (states) => dark_theme_primary_light):MaterialStateColor.resolveWith(
                           (states) => dark_theme_primary_light),
                 ),
                 child: const Padding(
@@ -389,9 +375,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () {
                   if(!disablePhone){
-                    if(!disableCode){
-                      onLoginButtonPressed(_phoneController.text, code);
-                    }
+                    onLoginButtonPressed(_phoneController.text, code);
                   }
                 },
               ),

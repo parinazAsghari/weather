@@ -80,30 +80,31 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 2,
-                    ),
+                    // const SizedBox(
+                    //   height: 2,
+                    // ),
                     widget.showingTexts,
-                    SizedBox(
-                      height: widget.isCarFromDataBase ? 20 : 30,
-                    ),
+                    // SizedBox(
+                    //   height: widget.isCarFromDataBase ? 20 : 30,
+                    // ),
                     !widget.isCarFromDataBase
                         ? Align(
-                            alignment: Alignment.center,
-                            // child: Padding(
-                            //   padding: const EdgeInsets.all(8.0),
-                            //   child: Image.asset(
-                            //     'assets/images/car_plate.png',
-                            //     width: MediaQuery.of(context).size.width * 0.28,
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            //   // 'assets/images/car_plate.png'
-                            // ),
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 42,top: defaultPadding/2),
+                              child: Image.asset(
+                                'assets/images/ic_plus.png',
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                           )
+
+                          //car plate
                         : Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                                padding: const EdgeInsets.only(right: 42,top: 8),
+                                padding:  EdgeInsets.only(right: 42,top: defaultPadding),
                                 child: Container(
                                   width: 142,
                                   height: 40,
@@ -204,6 +205,8 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                         fit: BoxFit.contain,
                       ),
                     ),
+
+                    /*
                     widget.brand==null? Align(
                       alignment: Alignment.topRight,
                       child: Padding(
@@ -224,6 +227,8 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                             )),
                       ),
                     ):Container(),
+
+                     */
                   ],
                 ),
               ),
