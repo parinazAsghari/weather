@@ -28,7 +28,7 @@ class _OtpPageState extends State<OtpPage> {
   TextEditingController _codeController = TextEditingController();
   late int _code;
   bool disableButton = true;
-  int secondsRemaining = 120;
+  int secondsRemaining = 60;
   bool enableResend = false;
   Timer? timer;
 
