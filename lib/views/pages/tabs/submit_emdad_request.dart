@@ -1,14 +1,11 @@
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
-import 'package:emdad_khodro_saipa/models/request_model/SendEmdadRequest.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../api_provider/provider.dart';
-import '../../../constants.dart';
 import '../../widgets/DialogWidgets.dart';
-import '../../widgets/LoadingWidgets.dart';
 import '../../widgets/custom_submit_button.dart';
 import '../../widgets/custom_text_field.dart';
 import '../drop_down.dart';
@@ -135,8 +132,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 SizedBox(
                   height: 8,
                 ),
-                CustomTextField(title: 'نام و نام خانوادگی *', height: 35, marginTop: 11, controller: _nameCtrl),
-                CustomTextField(title: 'کدملی *', height: 35, marginTop: 11, controller: _idCtrl),
+                CustomTextField(title: 'نام و نام خانوادگی', height: 35, marginTop: 11, controller: _nameCtrl),
+                CustomTextField(title: 'کدملی', height: 35, marginTop: 11, controller: _idCtrl),
                 if (widget.hasCarProblem) _customDropDown(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -320,34 +317,34 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     print('name + ${_nameCtrl.text}');
     print('id + ${_idCtrl.text}');
     print('address + ${_addressCtrl.text}');
-    if (_nameCtrl.text.isEmpty) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return MessageDialogWidget(
-              dismissable: true,
-              title: 'ورود اطلاعات',
-              body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
-              positiveTxt: 'باشه',
-            );
-          });
-
-      return;
-    }
-    if (_idCtrl.text.isEmpty) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return MessageDialogWidget(
-              dismissable: true,
-              title: 'ورود اطلاعات',
-              body: 'لطفا کدملی خود را وارد نمائید',
-              positiveTxt: 'باشه',
-            );
-          });
-
-      return;
-    }
+    // if (_nameCtrl.text.isEmpty) {
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return MessageDialogWidget(
+    //           dismissable: true,
+    //           title: 'ورود اطلاعات',
+    //           body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
+    //           positiveTxt: 'باشه',
+    //         );
+    //       });
+    //
+    //   return;
+    // }
+    // if (_idCtrl.text.isEmpty) {
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return MessageDialogWidget(
+    //           dismissable: true,
+    //           title: 'ورود اطلاعات',
+    //           body: 'لطفا کدملی خود را وارد نمائید',
+    //           positiveTxt: 'باشه',
+    //         );
+    //       });
+    //
+    //   return;
+    // }
     if (widget.hasCarProblem) {
       if (_carProblem == null) {
         showDialog(
