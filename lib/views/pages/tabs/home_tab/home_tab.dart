@@ -2145,6 +2145,7 @@ class _HomeTabState extends State<HomeTab> {
           child: Image.asset(
             imagePath,
             fit: BoxFit.contain,
+            color: Theme.of(context).accentColor,
           ),
 
           //one final
