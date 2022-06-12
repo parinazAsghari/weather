@@ -70,21 +70,16 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
     if(myCarsList.isEmpty){
       final entry = {'مدل خودرو':'مدل خودرو'};
       carModelListItem.addEntries(entry.entries);
-      setState(() {
-
-      });
+      setState(() {});
       return;
     }
     myCarsList.forEach((element) {
-
-      final entry = {'${element.brand} - ${element.createDate}' : '${element.brand} - ${element.createDate}'};
+      final entry = {'${element.brand} - ${element.createDate}': '${element.brand} - ${element.createDate}'};
       carModelListItem.addEntries(entry.entries);
-
     });
+    _carModelCtrl.text = '${myCarsList.first.brand} - ${myCarsList.first.createDate}';
 
-    setState(() {
-
-    });
+    setState(() {});
     return;
   }
 
