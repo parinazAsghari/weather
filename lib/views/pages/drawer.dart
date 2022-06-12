@@ -16,8 +16,7 @@ import 'menu_side/user_profile.dart';
 Widget DrawerWidget(BuildContext context) {
   final Uri _urllinkedin = Uri.parse('https://www.linkedin.com/in/emdadsaipa');
   final Uri _urlaparat = Uri.parse('https://www.aparat.com/emdadsaipa');
-  final Uri _urlinstagram = Uri.parse(
-      'https://www.instagram.com/accounts/login/?next=/emdadsaipa.ir/');
+  final Uri _urlinstagram = Uri.parse('https://www.instagram.com/accounts/login/?next=/emdadsaipa.ir/');
   final Uri _urltelegram = Uri.parse('https://t.me/emdadsaipa');
 
   void _launchUrlinkedin() async {
@@ -29,8 +28,7 @@ Widget DrawerWidget(BuildContext context) {
   }
 
   void _launchUrlinstagram() async {
-    if (!await launchUrl(_urlinstagram))
-      throw 'Could not launch $_urlinstagram';
+    if (!await launchUrl(_urlinstagram)) throw 'Could not launch $_urlinstagram';
   }
 
   void _launchUrltelegram() async {
@@ -118,10 +116,7 @@ Widget DrawerWidget(BuildContext context) {
           ),
 
           _itemBoxDrawer(context, 'پروفایل مشتری', Icons.account_circle, () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => UserProfile()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
           }),
 
           const SizedBox(
@@ -137,10 +132,7 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
           _itemBoxDrawer(context, 'تنظیمات', Icons.settings, () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => Settings()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Settings()));
           }),
           const SizedBox(
             height: 3,
@@ -155,13 +147,9 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(
-              context, 'معرفی خدمات', Icons.production_quantity_limits, () {
+          _itemBoxDrawer(context, 'معرفی خدمات', Icons.production_quantity_limits, () {
             // Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => ProductIntroduction()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductIntroduction()));
           }),
           // const SizedBox(
           //   height: 3,
@@ -176,10 +164,7 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
           _itemBoxDrawer(context, 'تماس با ما', Icons.call, () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => ContactUs()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ContactUs()));
           }),
 
           const SizedBox(
@@ -202,10 +187,7 @@ Widget DrawerWidget(BuildContext context) {
           ),
 
           _itemBoxDrawer(context, 'مسئولیت های اجتماعی', Icons.description, () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => SocialResponsibility()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SocialResponsibility()));
           }),
 
           // const SizedBox(
@@ -249,21 +231,16 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
           _itemBoxDrawer(context, 'خروج  از حساب', Icons.exit_to_app, () async {
-            SharedPreferences sharedPrefs =
-                await SharedPreferences.getInstance();
+            SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
             await sharedPrefs.setBool('loggedIn', false);
             await sharedPrefs.setString('user_phone_number', '');
             await sharedPrefs.setString('user_full_name', '');
             await sharedPrefs.setString('user_national_code', '');
 
-
             //TODO remove every storage data - defined cars
 
             Navigator.pop(context);
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => LoginPage()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
           }),
           // const SizedBox(
           //   height: 20,
@@ -279,12 +256,9 @@ Widget DrawerWidget(BuildContext context) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _logoBox(
-                    'ic_linkedin_dark_transparent.png', 10, _launchUrlinkedin),
-                _logoBox(
-                    'ic_telegram_dark_transparent.png', 10, _launchUrltelegram),
-                _logoBox(
-                    'ic_ins_dark_transparent.png', 10, _launchUrlinstagram),
+                _logoBox('ic_linkedin_dark_transparent.png', 10, _launchUrlinkedin),
+                _logoBox('ic_telegram_dark_transparent.png', 10, _launchUrltelegram),
+                _logoBox('ic_ins_dark_transparent.png', 10, _launchUrlinstagram),
                 _logoBox('ic_aparat_dark_transparent.png', 5, _launchUrlaparat),
               ],
             ),
@@ -322,8 +296,7 @@ Widget _logoBox(String _imagePath, double _marginAll, _onTap) {
       ));
 }
 
-Widget _itemBoxDrawer(
-    BuildContext context, String _title, IconData _icon, _onTap) {
+Widget _itemBoxDrawer(BuildContext context, String _title, IconData _icon, _onTap) {
   return Padding(
     padding: const EdgeInsets.only(left: 15, right: 15),
     child: ListTile(

@@ -30,20 +30,19 @@ class _AboutUsState extends State<AboutUs> {
     return Container(
       height: double.maxFinite,
       width: double.maxFinite,
-
       child: Stack(
-
         children: [
           Center(
             child: Opacity(
                 opacity: 0.4,
-                child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+                child: Image.asset(
+                  'assets/images/emdad_khodro_logo_single.png',
+                  width: MediaQuery.of(context).size.width * 0.80,
+                )),
           ),
           SingleChildScrollView(
             child: Column(
-
               crossAxisAlignment: CrossAxisAlignment.center,
-
               children: [
                 Container(
                   padding: EdgeInsets.all(30),
@@ -52,22 +51,16 @@ class _AboutUsState extends State<AboutUs> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('شرکت امداد خودرو سایپا (سهامی خاص) بعنوان حلقه تکمیلی در شبکه خدمات پس از فروش گروه خودرو سازی سایپا، با هدف پاسخ به نیاز امدادرسانی خودروهای گروه سایپا در سطح جامعه در سال 1381 شكل گرفت.'),
-                      Text('این شركت، با انجام مطالعات كارشناسی دقیق به بررسی كامل و همه جانبه موضوعات مرتبط با امداد رسانی پرداخته و الگوهای موفق امداد در سطح جهان همچون ADAC و GREEN FLAG و ... را مطالعه نموده و پس از آن وارد فاز برنامه ریزی، تدارك و اجرا شد تا جایی كه موفق گردید توسط نمایندگی ها و عاملیت های مجاز خود، به خودروهای گروه خودرو سازی سایپا و سایر خودروهای سواری خدمات خودرویی ارائه دهد.'),
+                      Text(
+                          'این شركت، با انجام مطالعات كارشناسی دقیق به بررسی كامل و همه جانبه موضوعات مرتبط با امداد رسانی پرداخته و الگوهای موفق امداد در سطح جهان همچون ADAC و GREEN FLAG و ... را مطالعه نموده و پس از آن وارد فاز برنامه ریزی، تدارك و اجرا شد تا جایی كه موفق گردید توسط نمایندگی ها و عاملیت های مجاز خود، به خودروهای گروه خودرو سازی سایپا و سایر خودروهای سواری خدمات خودرویی ارائه دهد.'),
                       Text('کسب و کارها: '),
                       Text('•	خدمات امدادی'),
                       Text('•	خدمات خودرو در محل'),
                       Text('•	خدمات گارانتی بدنه'),
-
-
-
                       Text('ماموریت: '),
                       Text('طراحی ، فروش و ارائه خدمات به دارندگان خودرو از طریق شبكه های خدماتی'),
-
-
                       Text('چشم انداز: '),
                       Text('پیشتاز در ارائه خدمات نوآورانه و با ارزش به مشتریان'),
-
-
                     ],
                   ),
                 ),
@@ -75,10 +68,6 @@ class _AboutUsState extends State<AboutUs> {
                 // SizedBox(
                 //   height: defaultPadding,
                 // ),
-
-
-
-
               ],
             ),
           ),

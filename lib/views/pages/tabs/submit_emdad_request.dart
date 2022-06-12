@@ -1,3 +1,5 @@
+import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
+import 'package:emdad_khodro_saipa/models/request_model/SendEmdadRequest.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -39,8 +41,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
   Map<String, dynamic> carProblemListItem = {
     'ایراد خودرو': 'ایراد خودرو',
-    'ماشینم روشن نمیشه': 'ماشینم روشن نمیشه',
-    'باطری خالی کردم': 'باطری خالی کردم',
+    'ماشینم روشن نمیشه': 1,
+    'باطری خالی کردم': 2,
     'مطمئن نیستم': 'مطمئن نیستم',
     'سایر': 'سایر',
   };
@@ -50,7 +52,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   final TextEditingController _addressCtrl = TextEditingController();
   final TextEditingController _descriptionCtrl = TextEditingController();
 
-  String? _carProblem;
+  int? _carProblem;
 
   bool disabledName = true;
   bool disabledId = true;
@@ -87,10 +89,9 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   void getAddress() async {
     var result = await ApiProvider.getAddress(widget.latLng);
 
-
-     setState((){
-       _addressCtrl.text = result.addressCompact!;
-     });
+    setState(() {
+      _addressCtrl.text = result.addressCompact!;
+    });
   }
 
   @override
@@ -129,22 +130,13 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                     alignment: Alignment.center,
                     child: Text(
                       'ثبت درخواست ${widget.title}',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     )),
                 SizedBox(
                   height: 8,
                 ),
-                CustomTextField(
-                    title: 'نام و نام خانوادگی *',
-                    height: 35,
-                    marginTop: 11,
-                    controller: _nameCtrl),
-                CustomTextField(
-                    title: 'کدملی *',
-                    height: 35,
-                    marginTop: 11,
-                    controller: _idCtrl),
+                CustomTextField(title: 'نام و نام خانوادگی *', height: 35, marginTop: 11, controller: _nameCtrl),
+                CustomTextField(title: 'کدملی *', height: 35, marginTop: 11, controller: _idCtrl),
                 if (widget.hasCarProblem) _customDropDown(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -165,7 +157,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                             positiveFunc: () {
                               _isPhysicalLimit = true;
                               setState(
-                                () {
+                                    () {
                                   limit = _limitStatus(
                                     isPhysical: _isPhysicalLimit,
                                     isSpeech: _isSpeechLimit,
@@ -183,16 +175,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                     ? CircularProgressIndicator(
                         color: Theme.of(context).accentColor,
                       )
-                    : CustomTextField(
-                        title: 'آدرس *',
-                        height: 47,
-                        marginTop: 11,
-                        controller: _addressCtrl),
-                CustomTextField(
-                    title: 'توضیحات',
-                    height: 68,
-                    marginTop: 11,
-                    controller: _descriptionCtrl),
+                    : CustomTextField(title: 'آدرس *', height: 47, marginTop: 11, controller: _addressCtrl),
+                CustomTextField(title: 'توضیحات', height: 68, marginTop: 11, controller: _descriptionCtrl),
 
                 // Expanded(child: Container()),
               ],
@@ -201,7 +185,12 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.5 / 15,
             ),
-            CustomSubmitButton(onTap: _onSubmitTap, text: 'ثبت درخواست',marginTop: 0,marginBottom: 0,),
+            CustomSubmitButton(
+              onTap: _onSubmitTap,
+              text: 'ثبت درخواست',
+              marginTop: 0,
+              marginBottom: 0,
+            ),
           ],
         ),
       ),
@@ -227,7 +216,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
         items: carProblemListItem,
         validations: const [],
         onChange: (value) {
-          _carProblem = value;
+          _carProblem = carProblemListItem[value];
         },
       ),
     );
@@ -326,8 +315,6 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     );
   }
 
-
-
   _onSubmitTap() async {
     print('carprob + $_carProblem');
     print('name + ${_nameCtrl.text}');
@@ -392,60 +379,66 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
       return;
     }
+    GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CircleLoadingWidget(
-            dismissable: false,
-            msgTxt: 'لطفا منتظر بمانید',
-          );
-        });
-
-    //clear textFields
-    // _idCtrl.clear();
-    // _nameCtrl.clear();
-
-    await Future.delayed(const Duration(milliseconds: 4000));
-
-    Navigator.of(context).pop();
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return MessageDialogWidget(
-            dismissable: false,
-            hasTextBody: false,
-            widget: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                      'مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',
-                      textAlign: TextAlign.center),
-                  Text('همکاران ما بزودی با شما تماس خواهند گرفت.',
-                      textAlign: TextAlign.center),
-                  Text(
-                    'شماره همراه ثبت شده: $phone',
-                    textAlign: TextAlign.center,
+    var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
+    if (res.resultCode == 0) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+                  dismissable: false,
+                  hasTextBody: false,
+                  widget: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text('مشتری گرامی اطلاعات شما با شماره پیگیری ${res.data!.trackingCode} در سامانه ثبت گردید.', textAlign: TextAlign.center),
+                        Text('همکاران ما بزودی با شما تماس خواهند گرفت.', textAlign: TextAlign.center),
+                        Text(
+                          'شماره همراه ثبت شده: $phone',
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-            positiveTxt: 'تایید',
-            positiveFunc: () async {
-              //save to user data
-              SharedPreferences preferences =
-              await SharedPreferences.getInstance();
-              preferences.setString('user_full_name', _nameCtrl.text);
-              preferences.setString('user_national_code', _idCtrl.text);
+                  positiveTxt: 'تایید',
+                  positiveFunc: () async {
+                    //save to user data
+                    SharedPreferences preferences = await SharedPreferences.getInstance();
+                    preferences.setString('user_full_name', _nameCtrl.text);
+                    preferences.setString('user_national_code', _idCtrl.text);
 
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => HomePage()));
-            },
-          );
-        });
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                  },
+                );
+              });
+        } else {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return MessageDialogWidget(
+                  dismissable: false,
+                  hasTextBody: false,
+                  widget: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text('عملیات با خطا مواجه شد .لطفا مجددا تلاش کنید', textAlign: TextAlign.center),
+                      ],
+                    ),
+                  ),
+                  positiveTxt: 'تایید',
+                  positiveFunc: () async {
+                    //save to user data
+                    SharedPreferences preferences = await SharedPreferences.getInstance();
+                    preferences.setString('user_full_name', _nameCtrl.text);
+                    preferences.setString('user_national_code', _idCtrl.text);
+
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                  },
+                );
+              });
+        }
   }
 }

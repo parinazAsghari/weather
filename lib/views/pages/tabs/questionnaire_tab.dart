@@ -42,10 +42,7 @@ class _QuestionnaireTabState extends State<QuestionnaireTab> {
                   // primary: secondary_light_grey_color
                   ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => DevelopingPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

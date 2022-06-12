@@ -34,10 +34,7 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
         title: Image.asset(
           'assets/images/emdad_khodro_logo_white_text.png',
           // height: 30,
-          width: MediaQuery
-              .of(context)
-              .size
-              .width * 0.45,
+          width: MediaQuery.of(context).size.width * 0.45,
           fit: BoxFit.contain,
         ),
       ),
@@ -51,8 +48,10 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
         Container(
           padding: const EdgeInsets.only(top: 16, bottom: 8),
           alignment: Alignment.center,
-          child: const Text('انتخاب روز',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+          child: const Text(
+            'انتخاب روز',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
         ),
         Expanded(
           child: ListView.builder(
@@ -61,19 +60,20 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
               if (i == dayList.length) {
                 return CustomSubmitButton(text: 'تایید', onTap: _onSubmitTap);
               } else {
-                return CustomNeomorphicBox(title: dayList[i].title,
+                return CustomNeomorphicBox(
+                  title: dayList[i].title,
                   isFull: dayList[i].isFull,
                   index: i,
                   selectedIndex: selectedIndex,
-                  height: 40/640,
-                  onTap
-                  :(){
+                  height: 40 / 640,
+                  onTap: () {
                     if (!dayList[i].isFull) {
                       setState(() {
                         selectedIndex = i;
                       });
                     }
-                  },);
+                  },
+                );
               }
             },
           ),
@@ -82,7 +82,7 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
     );
   }
 
-  _onSubmitTap(){
+  _onSubmitTap() {
     if (selectedIndex == null) {
       showDialog(
           context: context,
@@ -100,11 +100,10 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) =>
-        const ChooseTimePage(),),);
+        builder: (BuildContext context) => const ChooseTimePage(),
+      ),
+    );
   }
-
-
 }
 
 class DayTime {

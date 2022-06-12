@@ -85,8 +85,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
                     alignment: Alignment.center,
                     child: const Text(
                       'آدرس دقیق',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     )),
                 const SizedBox(
                   height: 8,
@@ -121,8 +120,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
     );
   }
 
-  Widget _customTextField(
-      {@required String? title, double height = 35, controller}) {
+  Widget _customTextField({@required String? title, double height = 35, controller}) {
     return Container(
       margin: const EdgeInsets.only(
         right: 24,
@@ -194,9 +192,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => _chooseWorker
-            ? const ChooseReliefWorkerPage()
-            : const ChooseDayPage(),
+        builder: (BuildContext context) => _chooseWorker ? const ChooseReliefWorkerPage() : const ChooseDayPage(),
       ),
     );
 

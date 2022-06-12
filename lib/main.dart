@@ -23,14 +23,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static final ValueNotifier<ThemeMode> themeNotifier =
-  ValueNotifier(ThemeMode.dark);
+  static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable: themeNotifier,
-        builder: (_,ThemeMode mode, __){
+        builder: (_, ThemeMode mode, __) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'امداد خودرو سایپا',
@@ -60,28 +59,15 @@ class MyApp extends StatelessWidget {
                 accentColor: light_theme_secondary,
                 backgroundColor: light_theme_primary,
                 primaryColorLight: light_theme_primary_low,
-                elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(light_theme_primary),
-                        textStyle: MaterialStateProperty.all(
-                            TextStyle(
-                                color: light_theme_white
-                            )
-                        )
-
-                    )
-                ),
+                elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(light_theme_primary), textStyle: MaterialStateProperty.all(TextStyle(color: light_theme_white)))),
                 appBarTheme: AppBarTheme(
                   color: light_theme_primary,
                   centerTitle: true,
-                  titleTextStyle: TextStyle(color: light_theme_white,fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
+                  titleTextStyle: TextStyle(color: light_theme_white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
                   iconTheme: IconThemeData(color: light_theme_secondary),
                   actionsIconTheme: IconThemeData(color: light_theme_secondary),
                 ),
-                tabBarTheme: TabBarTheme(
-                    labelColor: light_theme_secondary,
-                    unselectedLabelColor: light_theme_primary_light
-                ),
+                tabBarTheme: TabBarTheme(labelColor: light_theme_secondary, unselectedLabelColor: light_theme_primary_light),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     backgroundColor: light_theme_primary,
                     unselectedItemColor: light_theme_white,
@@ -92,13 +78,9 @@ class MyApp extends StatelessWidget {
                     showSelectedLabels: true),
                 navigationBarTheme: NavigationBarThemeData(
                     backgroundColor: light_theme_primary,
-                    labelTextStyle:
-                    MaterialStateProperty.all(TextStyle(color: light_theme_white)),
+                    labelTextStyle: MaterialStateProperty.all(TextStyle(color: light_theme_white)),
                     indicatorColor: light_theme_secondary,
-                    iconTheme: MaterialStateProperty.all(
-                        IconThemeData(color: light_theme_primary_light)))),
-
-
+                    iconTheme: MaterialStateProperty.all(IconThemeData(color: light_theme_primary_light)))),
 
             darkTheme: ThemeData(
                 fontFamily: 'Vazir',
@@ -109,28 +91,15 @@ class MyApp extends StatelessWidget {
                 accentColor: dark_theme_secondary,
                 backgroundColor: dark_theme_primary,
                 primaryColorLight: dark_theme_primary_low,
-                elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(dark_theme_primary),
-                        textStyle: MaterialStateProperty.all(
-                            TextStyle(
-                                color: dark_theme_white
-                            )
-                        )
-
-                    )
-                ),
+                elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(dark_theme_primary), textStyle: MaterialStateProperty.all(TextStyle(color: dark_theme_white)))),
                 appBarTheme: AppBarTheme(
                   color: dark_theme_primary,
                   centerTitle: true,
-                  titleTextStyle: TextStyle(color: dark_theme_white,fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
+                  titleTextStyle: TextStyle(color: dark_theme_white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
                   iconTheme: IconThemeData(color: dark_theme_secondary),
                   actionsIconTheme: IconThemeData(color: dark_theme_secondary),
                 ),
-                tabBarTheme: TabBarTheme(
-                    labelColor: dark_theme_secondary,
-                    unselectedLabelColor: dark_theme_primary_light
-                ),
+                tabBarTheme: TabBarTheme(labelColor: dark_theme_secondary, unselectedLabelColor: dark_theme_primary_light),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     backgroundColor: dark_theme_primary,
                     unselectedItemColor: dark_theme_white,
@@ -141,15 +110,10 @@ class MyApp extends StatelessWidget {
                     showSelectedLabels: true),
                 navigationBarTheme: NavigationBarThemeData(
                     backgroundColor: dark_theme_primary,
-                    labelTextStyle:
-                    MaterialStateProperty.all(TextStyle(color: dark_theme_white)),
+                    labelTextStyle: MaterialStateProperty.all(TextStyle(color: dark_theme_white)),
                     indicatorColor: dark_theme_secondary,
-                    iconTheme: MaterialStateProperty.all(
-                        IconThemeData(color: dark_theme_primary_light)))),
-
-
+                    iconTheme: MaterialStateProperty.all(IconThemeData(color: dark_theme_primary_light)))),
           );
-
         });
   }
 }

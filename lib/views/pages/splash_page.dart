@@ -108,10 +108,14 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
             SlideTransition(
               position: _animationOffsetLogo,
               child: Container(
-                padding: EdgeInsets.all(defaultPadding*2),
+                padding: EdgeInsets.all(defaultPadding * 2),
                 // height: 150.0,
                 // width: 200.0,
-                child: Image.asset('assets/images/emdad_khodro_logo.png', height: 120,fit: BoxFit.contain,),
+                child: Image.asset(
+                  'assets/images/emdad_khodro_logo.png',
+                  height: 120,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             // SizedBox(height: defaultPadding,),

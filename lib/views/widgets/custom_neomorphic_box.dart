@@ -50,23 +50,26 @@ class CustomNeomorphicBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: marginRight ?? 0, vertical: marginTop ?? 0),
-     /* padding: EdgeInsets.symmetric(
+      margin: EdgeInsets.symmetric(horizontal: marginRight ?? 0, vertical: marginTop ?? 0),
+      /* padding: EdgeInsets.symmetric(
           horizontal: paddingRight ?? 0, vertical: paddingTop ?? 0),*/
       height: MediaQuery.of(context).size.height * height,
       child: NeumorphicButton(
         onPressed: onTap,
-        padding:  EdgeInsets.only(right: paddingRight??0, left:paddingLeft??0,top: paddingTop??0,bottom: paddingBottom??0,),
+        padding: EdgeInsets.only(
+          right: paddingRight ?? 0,
+          left: paddingLeft ?? 0,
+          top: paddingTop ?? 0,
+          bottom: paddingBottom ?? 0,
+        ),
         style: NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(
-              BorderRadius.circular(radiusSize ?? 0),),
+            BorderRadius.circular(radiusSize ?? 0),
+          ),
           depth: depth,
           lightSource: LightSource.topLeft,
-          color: selectedIndex == index
-              ? dark_theme_white_low
-              : Theme.of(context).cardColor,
+          color: selectedIndex == index ? dark_theme_white_low : Theme.of(context).cardColor,
           shadowDarkColor: Theme.of(context).shadowColor,
         ),
         child: isChildText
@@ -74,11 +77,7 @@ class CustomNeomorphicBox extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   title ?? '',
-                  style: TextStyle(
-                      fontFamily: 'Vazir',
-                      fontWeight: FontWeight.bold,
-                      color: isFull ? dak_theme_box_shadow_dark : Colors.black,
-                      fontSize: fontSize),
+                  style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, color: isFull ? dak_theme_box_shadow_dark : Colors.black, fontSize: fontSize),
                 ),
               )
             : widget,

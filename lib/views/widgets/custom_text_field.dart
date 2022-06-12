@@ -17,7 +17,7 @@ class CustomTextField extends StatelessWidget {
 
   CustomTextField({
     required this.title,
-    this.hintText='',
+    this.hintText = '',
     required this.height,
     required this.controller,
     this.enabled = true,
@@ -34,12 +34,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        right: marginRight??0,
-        left: marginLeft??0,
-        top: marginTop??0,
-        bottom: marginBottom??0
-      ),
+      margin: EdgeInsets.only(right: marginRight ?? 0, left: marginLeft ?? 0, top: marginTop ?? 0, bottom: marginBottom ?? 0),
       child: TextFormField(
         controller: controller,
         enabled: enabled,
@@ -48,10 +43,10 @@ class CustomTextField extends StatelessWidget {
           suffixIcon: Icon(iconData),
           label: Text(title),
           isDense: true,
-          contentPadding: EdgeInsets.only(top: height, right: paddingRight??0),
+          contentPadding: EdgeInsets.only(top: height, right: paddingRight ?? 0),
           border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(radius??0),
+            borderRadius: BorderRadius.circular(radius ?? 0),
           ),
         ),
       ),

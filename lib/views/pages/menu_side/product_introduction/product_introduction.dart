@@ -29,13 +29,15 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
   }
 
   Widget _body() {
-
     return Stack(
       children: [
         Center(
           child: Opacity(
               opacity: 0.4,
-              child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+              child: Image.asset(
+                'assets/images/emdad_khodro_logo_single.png',
+                width: MediaQuery.of(context).size.width * 0.80,
+              )),
         ),
         Container(
           child: GridView.extent(
@@ -58,7 +60,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -66,7 +68,6 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 },
                 widget: _subItemWidget('assets/images/ic_service.png', 'خدمات امدادی'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -78,7 +79,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -86,7 +87,6 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'کارت طلایی'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -98,7 +98,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -106,7 +106,6 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'خدمات خودرو در محل'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -118,7 +117,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -126,7 +125,6 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'جدول مقایسه ای خدمات'),
               ),
-
             ],
           ),
         ),
@@ -182,7 +180,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
     );
   }
 
-  Widget _subItemWidget(String imagePath,  String title){
+  Widget _subItemWidget(String imagePath, String title) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -197,40 +195,37 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
         // ),
         Expanded(
             child: Container(
-              // height: 60,
-              // width: 60,
-              // padding: EdgeInsets.all(12),
-              // decoration: BoxDecoration(
-              //   shape: BoxShape.circle,
-              //   // borderRadius: BorderRadius.circular(70),
-              //
-              //     //TODO one final
-              //     color: coor_sharp_orange_gradient3
-              //   // color: dak_theme_box_shadow_dark
-              //
-              // ),
-              // padding: EdgeInsets.all(1),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
+          // height: 60,
+          // width: 60,
+          // padding: EdgeInsets.all(12),
+          // decoration: BoxDecoration(
+          //   shape: BoxShape.circle,
+          //   // borderRadius: BorderRadius.circular(70),
+          //
+          //     //TODO one final
+          //     color: coor_sharp_orange_gradient3
+          //   // color: dak_theme_box_shadow_dark
+          //
+          // ),
+          // padding: EdgeInsets.all(1),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
 
-              //one final
-              // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
-              // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
-            )),
+          //one final
+          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
+        )),
         // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
         // SizedBox(height: defaultPadding/3,),
         // Expanded(child: Container()),
 
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
         ),
       ],
     );
   }
-
 }

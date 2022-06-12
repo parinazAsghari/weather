@@ -49,9 +49,6 @@ final dark_theme_box_background_light = Color(0xffeef0f6);
 final dark_theme_box_shadow_dark = Color(0xffaaaacc);
 final dak_theme_box_shadow_dark = Color(0xffb5b5ba);
 
-
-
-
 // second theme color- saipa docs colors  - set on default light theme
 final light_theme_primary = Color.fromRGBO(0, 86, 125, 1.0);
 final light_theme_primary_light = Color.fromRGBO(177, 169, 159, 1.0);
@@ -63,6 +60,3 @@ final light_theme_white_low = Color(0xffffe6e6);
 final light_theme_background_light = Color(0xffF5F5FA);
 final light_theme_box_background_light = Color(0xffeef0f6);
 final light_theme_box_shadow_dark = Color.fromRGBO(99, 208, 223, 1.0);
-
-
-

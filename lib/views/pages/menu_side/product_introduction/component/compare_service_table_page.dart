@@ -16,13 +16,11 @@ class _CompareServicePageState extends State<CompareServicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('جدول مقایسه ای خدمات'),
-
-      ),
-      body: _body()
-    );
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: const Text('جدول مقایسه ای خدمات'),
+        ),
+        body: _body());
   }
 
   Widget _body() {
@@ -31,7 +29,10 @@ class _CompareServicePageState extends State<CompareServicePage> {
         Center(
           child: Opacity(
               opacity: 0.4,
-              child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+              child: Image.asset(
+                'assets/images/emdad_khodro_logo_single.png',
+                width: MediaQuery.of(context).size.width * 0.80,
+              )),
         ),
         Container(
           child: GridView.extent(
@@ -54,16 +55,14 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async{
+                onTap: () async {
                   if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-garantibadane'))) throw 'Could not launch';
-
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'خدمات گارانتی بدنه'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -75,15 +74,14 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async{
+                onTap: () async {
                   if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-KhadamatEmdadi'))) throw 'Could not launch';
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'خدمات امدادی'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -95,40 +93,35 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async{
+                onTap: () async {
                   if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-Khadamatdarmahal'))) throw 'Could not launch';
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'خدمات در محل'),
               ),
-
-
             ],
           ),
         ),
       ],
     );
   }
-  Widget _subItemWidget(String imagePath,  String title){
+
+  Widget _subItemWidget(String imagePath, String title) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
             child: Container(
-
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
-            )),
-
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
+        )),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
         ),
       ],
     );

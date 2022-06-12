@@ -6,7 +6,7 @@ class DescriptionBox extends StatelessWidget {
   String? title;
   String? desc;
 
-   DescriptionBox({this.title,this.desc,Key? key}) : super(key: key);
+  DescriptionBox({this.title, this.desc, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +25,12 @@ class DescriptionBox extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              title??'',
+              title ?? '',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
           Text(
-            desc??'',
+            desc ?? '',
             style: const TextStyle(fontSize: 12),
           ),
         ],
@@ -38,4 +38,3 @@ class DescriptionBox extends StatelessWidget {
     );
   }
 }
-

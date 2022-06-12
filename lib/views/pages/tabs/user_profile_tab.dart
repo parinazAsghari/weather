@@ -20,19 +20,15 @@ class _UserProfileTabState extends State<UserProfileTab> {
 
   getUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    _userFullNameController.text =
-        preferences.getString('user_full_name') ?? '';
-    _userNationalCodeController.text =
-        preferences.getString('user_national_code') ?? '';
-    _userPhoneController.text =
-        preferences.getString('user_phone_number') ?? '';
+    _userFullNameController.text = preferences.getString('user_full_name') ?? '';
+    _userNationalCodeController.text = preferences.getString('user_national_code') ?? '';
+    _userPhoneController.text = preferences.getString('user_phone_number') ?? '';
   }
 
   onSaveButtonTap() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('user_full_name', _userFullNameController.text);
-    preferences.setString(
-        'user_national_code', _userNationalCodeController.text);
+    preferences.setString('user_national_code', _userNationalCodeController.text);
 
     showDialog(
         context: context,
@@ -96,12 +92,7 @@ class _UserProfileTabState extends State<UserProfileTab> {
                 iconData: Icons.phone,
                 enabled: false,
               ),
-              CustomSubmitButton(
-                  onTap: onSaveButtonTap,
-                  text: 'ثبت',
-                  marginRight: 20,
-                  marginLeft: 20,
-                  marginTop: 15),
+              CustomSubmitButton(onTap: onSaveButtonTap, text: 'ثبت', marginRight: 20, marginLeft: 20, marginTop: 15),
             ],
           ),
         ),

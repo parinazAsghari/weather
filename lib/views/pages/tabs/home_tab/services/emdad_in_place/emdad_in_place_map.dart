@@ -35,13 +35,11 @@ class EmdadInPlaceMap extends StatefulWidget {
 class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
   //map
   GoogleMapController? _controller;
-  static  LatLng _center = const LatLng(35.748, 51.328);
+  static LatLng _center = const LatLng(35.748, 51.328);
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   BitmapDescriptor? customIcon;
   LatLng _lastMapPosition = _center;
   Location currentLocation = Location();
-
-
 
   List<Marker> markersList = [];
 
@@ -390,7 +388,7 @@ class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
             ),
             color: color_sharp_orange),
         width: double.infinity,
-        height: MediaQuery.of(context).size.height*33/520,
+        height: MediaQuery.of(context).size.height * 33 / 520,
         margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
         child: const Text(
           'تائید و ادامه',
@@ -403,12 +401,18 @@ class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
     );
   }
 
-  _onSubmitTap(){
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> SubmitAddress(latLng: _lastMapPosition,),),);
-
+  _onSubmitTap() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => SubmitAddress(
+          latLng: _lastMapPosition,
+        ),
+      ),
+    );
   }
 
-  Widget _addressWidget(){
+  Widget _addressWidget() {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -416,8 +420,7 @@ class _EmdadInPlaceMapState extends State<EmdadInPlaceMap> {
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
           ),
-          color: Colors.white
-      ),
+          color: Colors.white),
 
       width: double.infinity,
       height: MediaQuery.of(context).size.height*33/520,

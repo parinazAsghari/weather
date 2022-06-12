@@ -22,19 +22,19 @@ class _TripEmdadState extends State<TripEmdad> {
     return Container(
       height: double.maxFinite,
       width: double.maxFinite,
-
       child: Stack(
         children: [
           Center(
             child: Opacity(
                 opacity: 0.4,
-                child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+                child: Image.asset(
+                  'assets/images/emdad_khodro_logo_single.png',
+                  width: MediaQuery.of(context).size.width * 0.80,
+                )),
           ),
           SingleChildScrollView(
             child: Column(
-
               crossAxisAlignment: CrossAxisAlignment.center,
-
               children: [
                 Container(
                   padding: EdgeInsets.all(30),
@@ -47,7 +47,6 @@ class _TripEmdadState extends State<TripEmdad> {
                       Text('\u2022 تعمیر و راه اندازی خودروی شما در صورت امکان، با اجرت رایگان و فقط دریافت هزینه قطعه صورت می پذیرد. (مشمول خودروهای گروه خودروسازی سایپا).'),
                       Text('\u2022 تعویض لاستیک پنچر در صورت وجود زاپاس سالم به صورت رایگان ( مشمول کلیه خودروهای سواری).'),
                       Text('\u2022 رفع پنچری در محل در صورت امکان. ( مشمول کلیه خودروهای سواری).'),
-
                     ],
                   ),
                 ),
@@ -58,5 +57,4 @@ class _TripEmdadState extends State<TripEmdad> {
       ),
     );
   }
-
 }

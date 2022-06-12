@@ -19,23 +19,24 @@ class _CarServicePageState extends State<CarServicePage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: const Text('خدمات خودرو در محل'),
-        ),
-        body: _body()
-      ),
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            title: const Text('خدمات خودرو در محل'),
+          ),
+          body: _body()),
     );
   }
 
   Widget _body() {
     return Stack(
-
       children: [
         Center(
           child: Opacity(
               opacity: 0.4,
-              child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+              child: Image.asset(
+                'assets/images/emdad_khodro_logo_single.png',
+                width: MediaQuery.of(context).size.width * 0.80,
+              )),
         ),
         Container(
           child: GridView.extent(
@@ -58,7 +59,7 @@ class _CarServicePageState extends State<CarServicePage> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -66,7 +67,6 @@ class _CarServicePageState extends State<CarServicePage> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'سرویس اولیه و دوره ای'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -78,7 +78,7 @@ class _CarServicePageState extends State<CarServicePage> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -86,7 +86,6 @@ class _CarServicePageState extends State<CarServicePage> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'نصب آپشن'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -98,7 +97,7 @@ class _CarServicePageState extends State<CarServicePage> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -112,27 +111,23 @@ class _CarServicePageState extends State<CarServicePage> {
       ],
     );
   }
-  Widget _subItemWidget(String imagePath,  String title){
+
+  Widget _subItemWidget(String imagePath, String title) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
             child: Container(
-
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
-            )),
-
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
+        )),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
         ),
       ],
     );
   }
-
 }

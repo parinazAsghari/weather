@@ -72,15 +72,13 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
             itemCount: dayList.length + 1,
             itemBuilder: (ctx, i) {
               if (i == dayList.length) {
-                return CustomSubmitButton(
-                    onTap: _onSubmitTap,
-                    text: 'تایید');
+                return CustomSubmitButton(onTap: _onSubmitTap, text: 'تایید');
               } else {
                 return CustomNeomorphicBox(
                   title: dayList[i].title,
                   index: i,
                   selectedIndex: selectedIndex,
-                  height: 40/640,
+                  height: 40 / 640,
                   isFull: dayList[i].isFull,
                   onTap: () {
                     if (!dayList[i].isFull) {
@@ -97,7 +95,8 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
       ],
     );
   }
-  _onSubmitTap(){
+
+  _onSubmitTap() {
     if (selectedIndex == null) {
       showDialog(
           context: context,
@@ -127,12 +126,8 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
               padding: const EdgeInsets.all(5.0),
               child: Column(
                 children: [
-                  const Text(
-                      'مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.',
-                      textAlign: TextAlign.center),
-                  const Text(
-                      'همکاران ما بزودی با شما تماس خواهند گرفت.',
-                      textAlign: TextAlign.center),
+                  const Text('مشتری گرامی اطلاعات شما با شماره پیگیری 98995 در سامانه ثبت گردید.', textAlign: TextAlign.center),
+                  const Text('همکاران ما بزودی با شما تماس خواهند گرفت.', textAlign: TextAlign.center),
                   Text(
                     'شماره همراه ثبت شده: $phone',
                     textAlign: TextAlign.center,
@@ -142,16 +137,11 @@ class _ChooseTimePageState extends State<ChooseTimePage> {
             ),
             positiveTxt: 'تایید',
             positiveFunc: () async {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                      const HomePage()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const HomePage()));
             },
           );
         });
   }
-
 }
 
 class DayTime {

@@ -1,4 +1,3 @@
-
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,8 +14,6 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-
-
   TextEditingController _userFullNameController = TextEditingController();
   TextEditingController _userNationalCodeController = TextEditingController();
   TextEditingController _userPhoneController = TextEditingController();
@@ -70,23 +67,26 @@ class _UserProfileState extends State<UserProfile> {
         // automaticallyImplyLeading: true,
         // backgroundColor: secondary_dark_purple_color,
 
-        title: Text('پروفایل مشتری', style: TextStyle(color: Colors.white),),
-
+        title: Text(
+          'پروفایل مشتری',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: defaultPadding,),
-
+            SizedBox(
+              height: defaultPadding,
+            ),
             Container(
                 child: Image.asset(
-                  'assets/images/ic_guestuser.png',
-                  color: dark_theme_primary,
-                  fit: BoxFit.cover,
-                  height: 200,
-                  width: 200,
-                )),
+              'assets/images/ic_guestuser.png',
+              color: dark_theme_primary,
+              fit: BoxFit.cover,
+              height: 200,
+              width: 200,
+            )),
             CustomTextField(
               title: 'نام و نام خانوادگی',
               height: 35,
@@ -117,12 +117,7 @@ class _UserProfileState extends State<UserProfile> {
               iconData: Icons.phone,
               enabled: false,
             ),
-            CustomSubmitButton(
-                onTap: onSaveButtonTap,
-                text: 'ثبت',
-                marginRight: 20,
-                marginLeft: 20,
-                marginTop: 15),
+            CustomSubmitButton(onTap: onSaveButtonTap, text: 'ثبت', marginRight: 20, marginLeft: 20, marginTop: 15),
           ],
         ),
       ),

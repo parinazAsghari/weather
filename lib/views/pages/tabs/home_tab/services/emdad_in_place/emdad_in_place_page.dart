@@ -33,8 +33,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
     return Column(
       children: [
         Container(
-          padding:
-              EdgeInsets.only(top: defaultPadding, bottom: defaultPadding / 2),
+          padding: EdgeInsets.only(top: defaultPadding, bottom: defaultPadding / 2),
           alignment: Alignment.center,
           child: const Text(
             'خدمات در محل',
@@ -48,10 +47,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           selectedIndex: 1,
           isFull: true,
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => SubmitOnSiteService()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitOnSiteService()));
           },
           height: 75 / 640,
           marginTop: 8,
@@ -67,10 +63,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           selectedIndex: 1,
           isFull: true,
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => SubmitOnSiteService()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitOnSiteService()));
           },
           height: 75 / 640,
           marginTop: 8,
@@ -85,10 +78,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           selectedIndex: 1,
           isFull: true,
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => SubmitOnSiteService()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitOnSiteService()));
           },
           height: 75 / 640,
           marginTop: 8,
@@ -97,11 +87,9 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           isChildText: false,
           widget: _subItemBox(title: 'بازدید فنی پیش از سفر', imagePath: 'assets/images/firs_service.png'),
         ),
-
       ],
     );
   }
-
 
   Widget _subItemBox({required String title, required String imagePath}) {
     return Row(
@@ -123,11 +111,7 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
         const SizedBox(
           width: 8,
         ),
-        Text(title,
-            style: const TextStyle(
-                fontFamily: 'Vazir',
-                fontWeight: FontWeight.bold,
-                fontSize: 14)),
+        Text(title, style: const TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14)),
       ],
     );
   }

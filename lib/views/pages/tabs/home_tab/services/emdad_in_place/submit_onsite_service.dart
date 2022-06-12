@@ -176,11 +176,13 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                   ),
                 ),
 
-
-
                 // _customTextField(
                 //     title: 'شماره شاسی *', controller: _chassingNumberCtrl),
-                CustomTextField(title: 'کیلومتر فعلی خودرو *', height: 28, controller: _currentKmCtrl,),
+                CustomTextField(
+                  title: 'کیلومتر فعلی خودرو *',
+                  height: 28,
+                  controller: _currentKmCtrl,
+                ),
 
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -321,10 +323,7 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
     );
   }
 
-
-
-
-  _onSubmitTap(){
+  _onSubmitTap() {
     print('carmodel + ${_carModelCtrl.text}');
     print('chassing + ${_chassingNumberCtrl.text}');
     print('current km + ${_currentKmCtrl.text}');
@@ -381,8 +380,7 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
           );
         });
 
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => EmdadInPlaceMap(title: 'title', hasCarProblem: false)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlaceMap(title: 'title', hasCarProblem: false)));
 
     //clear textFields
     // _idCtrl.clear();

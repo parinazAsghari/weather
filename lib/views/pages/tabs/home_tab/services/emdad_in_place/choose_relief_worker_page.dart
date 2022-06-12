@@ -61,32 +61,36 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
 
         // _serviceNotImportant(),
 
-
         Expanded(
           child: ListView.builder(
-            itemCount: reliefWorkerList.length+1,
+            itemCount: reliefWorkerList.length + 1,
             itemBuilder: (ctx, i) {
-              if (i == reliefWorkerList.length ) {
-                return CustomSubmitButton(
-                    onTap: _onSubmitTap,
-                    text: 'تایید');
+              if (i == reliefWorkerList.length) {
+                return CustomSubmitButton(onTap: _onSubmitTap, text: 'تایید');
               } else {
-                return CustomNeomorphicBox(title: '', index: i, selectedIndex: selectedIndex, isFull: false,height: 75/640,isChildText: false,widget: _subItemsServis(title: reliefWorkerList[i].name, imagePath: 'assets/images/relief_worker.png', score: reliefWorkerList[i].score), onTap: (){
-                  setState(() {
-                    selectedIndex = i;
-                  });
-                }, );
+                return CustomNeomorphicBox(
+                  title: '',
+                  index: i,
+                  selectedIndex: selectedIndex,
+                  isFull: false,
+                  height: 75 / 640,
+                  isChildText: false,
+                  widget: _subItemsServis(title: reliefWorkerList[i].name, imagePath: 'assets/images/relief_worker.png', score: reliefWorkerList[i].score),
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = i;
+                    });
+                  },
+                );
               }
             },
           ),
         ),
-
-
       ],
     );
   }
 
-  _onSubmitTap(){
+  _onSubmitTap() {
     if (selectedIndex == null) {
       showDialog(
           context: context,
@@ -108,7 +112,7 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
     );
   }
 
-  Widget _subItemsServis({required String title, required String imagePath, required double score}){
+  Widget _subItemsServis({required String title, required String imagePath, required double score}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -135,10 +139,7 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                  fontFamily: 'Vazir',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14),
+              style: const TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,10 +147,7 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
               children: [
                 Text(
                   'امتیاز: $score',
-                  style: const TextStyle(
-                      fontFamily: 'Vazir',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14),
+                  style: const TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 const SizedBox(
                   width: 50,
@@ -188,9 +186,7 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
           depth: 1.5,
           lightSource: LightSource.topLeft,
-          color: selectedIndex == 3
-              ? dark_theme_white_low
-              : Theme.of(context).cardColor,
+          color: selectedIndex == 3 ? dark_theme_white_low : Theme.of(context).cardColor,
           shadowDarkColor: Theme.of(context).shadowColor,
         ),
         child: Row(

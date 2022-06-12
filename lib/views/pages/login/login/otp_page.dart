@@ -114,7 +114,7 @@ class _OtpPageState extends State<OtpPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height*64/520,
+              height: MediaQuery.of(context).size.height * 64 / 520,
             ),
             //Logo
             Image.asset(
@@ -124,11 +124,10 @@ class _OtpPageState extends State<OtpPage> {
             ),
 
             SizedBox(
-              height: MediaQuery.of(context).size.height*32/520,
+              height: MediaQuery.of(context).size.height * 32 / 520,
             ),
 
-            const Text('کد تایید',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const Text('کد تایید', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
             // const SizedBox(
             //   height: 32,
@@ -137,7 +136,7 @@ class _OtpPageState extends State<OtpPage> {
             //   height: 12,
             // ),
             SizedBox(
-              height: MediaQuery.of(context).size.height*16/520,
+              height: MediaQuery.of(context).size.height * 16 / 520,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,8 +145,7 @@ class _OtpPageState extends State<OtpPage> {
                   height: 60,
                   width: MediaQuery.of(context).size.width * 0.70,
                   margin: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
                   child: Directionality(
                     textDirection: TextDirection.ltr,
                     child: PinCodeTextField(

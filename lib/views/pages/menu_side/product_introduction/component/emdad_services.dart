@@ -32,7 +32,10 @@ class _EmdadServicesState extends State<EmdadServices> {
         Center(
           child: Opacity(
               opacity: 0.4,
-              child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+              child: Image.asset(
+                'assets/images/emdad_khodro_logo_single.png',
+                width: MediaQuery.of(context).size.width * 0.80,
+              )),
         ),
         Container(
           child: GridView.extent(
@@ -55,7 +58,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -63,7 +66,6 @@ class _EmdadServicesState extends State<EmdadServices> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'عمومی'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -75,7 +77,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -83,7 +85,6 @@ class _EmdadServicesState extends State<EmdadServices> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'تکمیلی (247)'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -95,7 +96,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -103,7 +104,6 @@ class _EmdadServicesState extends State<EmdadServices> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'الزامی'),
               ),
-
               CustomNeomorphicBox(
                 title: '',
                 index: 0,
@@ -115,7 +115,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 paddingRight: 8,
                 paddingLeft: 8,
                 selectedIndex: 1,
-                height: 60/640,
+                height: 60 / 640,
                 isChildText: false,
                 isFull: false,
                 onTap: () {
@@ -123,34 +123,29 @@ class _EmdadServicesState extends State<EmdadServices> {
                 },
                 widget: _subItemWidget('assets/images/ic_news.png', 'سفر'),
               ),
-
             ],
           ),
         ),
       ],
     );
   }
-  Widget _subItemWidget(String imagePath,  String title){
+
+  Widget _subItemWidget(String imagePath, String title) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
             child: Container(
-
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
-            )),
-
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
+        )),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
         ),
       ],
     );
   }
-
 }

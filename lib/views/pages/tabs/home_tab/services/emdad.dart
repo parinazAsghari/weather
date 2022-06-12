@@ -71,8 +71,7 @@ class _EmdadServiceState extends State<EmdadService> {
   };
 
   void markerLoadings() async {
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/car.png', 100);
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 100);
     // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
 
     setState(() {
@@ -81,8 +80,7 @@ class _EmdadServiceState extends State<EmdadService> {
   }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/ic_marker.png', 200);
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/ic_marker.png', 200);
     // final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 200);
     // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
 
@@ -109,12 +107,9 @@ class _EmdadServiceState extends State<EmdadService> {
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
-        .buffer
-        .asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
   }
 
   void _onCameraMove(CameraPosition position) {
@@ -151,8 +146,7 @@ class _EmdadServiceState extends State<EmdadService> {
     //
     // });
 
-    print(
-        'this is latlong:    ${location.longitude!} + ${location.latitude!} ');
+    print('this is latlong:    ${location.longitude!} + ${location.latitude!} ');
     _center = LatLng(location.latitude!, location.longitude!);
 
     setState(() {
@@ -168,8 +162,7 @@ class _EmdadServiceState extends State<EmdadService> {
       );
 
       markers[MarkerId('place_name')] = marker;
-      _controller!.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: _center, zoom: 17)));
+      _controller!.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _center, zoom: 17)));
 
       // _panelController.open();
 
@@ -185,8 +178,7 @@ class _EmdadServiceState extends State<EmdadService> {
     _addressController.text = result.addressCompact!;
   }
 
-  Future<void> _onFlutterMapCreated(
-      flutterMap.MapController mapController) async {
+  Future<void> _onFlutterMapCreated(flutterMap.MapController mapController) async {
     var location = await currentLocation.getLocation();
 
     setState(() {
@@ -212,13 +204,11 @@ class _EmdadServiceState extends State<EmdadService> {
     // flutterMap.
   }
 
-  void _onFlutterMaoPositionChanged(
-      flutterMap.MapPosition position, bool status) {
+  void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status) {
     if (status) {
       setState(() {
         pos = position.center!;
-        _lastMapPosition =
-            LatLng(position.center!.latitude, position.center!.longitude);
+        _lastMapPosition = LatLng(position.center!.latitude, position.center!.longitude);
         _center = LatLng(position.center!.latitude, position.center!.longitude);
 
         _mapMarker = flutterMap.Marker(
@@ -354,9 +344,7 @@ class _EmdadServiceState extends State<EmdadService> {
                             latLng: _lastMapPosition,
                             title: widget.title,
                             hasCarProblem: widget.hasCarProblem,
-                            address: _addressController.text.isEmpty
-                                ? ''
-                                : _addressController.text,
+                            address: _addressController.text.isEmpty ? '' : _addressController.text,
                           ),
                         ),
                       ),

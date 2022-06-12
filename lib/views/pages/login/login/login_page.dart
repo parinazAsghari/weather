@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
 import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
@@ -28,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
 
   var rng = new Random();
   late int code;
+
   // late int captchaCode;
   // late String captchaCode;
   bool disableCode = true;
@@ -75,23 +77,7 @@ class _LoginPageState extends State<LoginPage> {
         });
 
     await Future.delayed(const Duration(milliseconds: 4000));
-
-    Map data = {
-      'MobileNumber': '${_phoneController.text}',
-      'Message':
-      "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code.toString()} \n امداد خودرو سایپا\n "
-    };
-
-    var url = 'http://185.94.99.204:5252/api/Sms/Send';
-
-    //encode Map to JSON
-    var body = json.encode(data);
-
-    // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
-    var result = await http.post(
-        Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
-        headers: {"Content-Type": "application/json"},
-        body: body);
+    var result = await ApiProvider.sendMobileNumber(_phoneController.text, code.toString());
 
     Navigator.pop(context);
 
@@ -107,7 +93,6 @@ class _LoginPageState extends State<LoginPage> {
             );
           });
 
-
       //store user phone number
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString('user_phone_number', _phoneController.text);
@@ -116,9 +101,9 @@ class _LoginPageState extends State<LoginPage> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => OtpPage(
-                phoneNumber: _phone,
-                code: _code,
-              )));
+                    phoneNumber: _phone,
+                    code: _code,
+                  )));
       setState(() {});
     } else {
       showDialog(
@@ -164,14 +149,14 @@ class _LoginPageState extends State<LoginPage> {
 
             // Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
              SizedBox(
-              height: MediaQuery.of(context).size.height*32/520,
+               height: MediaQuery.of(context).size.height * 32 / 520,
             ),
 
             const Text('ثبت نام در سامانه',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
              SizedBox(
-              height: MediaQuery.of(context).size.height*16/520,
+               height: MediaQuery.of(context).size.height * 16 / 520,
             ),
             //  SizedBox(
             //   height: MediaQuery.of(context).size.height*12/520,
@@ -243,8 +228,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                 SizedBox(
-                  height: MediaQuery.of(context).size.height*4/520,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 4 / 520,
                 ),
 
                 /*
@@ -361,9 +346,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  backgroundColor: !disablePhone?MaterialStateColor.resolveWith(
-                          (states) => dark_theme_primary):MaterialStateColor.resolveWith(
-                          (states) => dark_theme_primary_light),
+                  backgroundColor: !disablePhone ? MaterialStateColor.resolveWith((states) => dark_theme_primary) : MaterialStateColor.resolveWith((states) => dark_theme_primary_light),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),

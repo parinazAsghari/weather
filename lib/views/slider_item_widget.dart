@@ -91,7 +91,7 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                         ? Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding:  EdgeInsets.only(right: 42,top: defaultPadding/2),
+                              padding: EdgeInsets.only(right: 42, top: defaultPadding / 2),
                               child: Image.asset(
                                 'assets/images/ic_plus.png',
                                 width: MediaQuery.of(context).size.width * 0.25,
@@ -100,11 +100,11 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                             ),
                           )
 
-                          //car plate
+                        //car plate
                         : Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                                padding:  EdgeInsets.only(right: 42,top: defaultPadding),
+                                padding: EdgeInsets.only(right: 42, top: defaultPadding),
                                 child: Container(
                                   width: 142,
                                   height: 40,

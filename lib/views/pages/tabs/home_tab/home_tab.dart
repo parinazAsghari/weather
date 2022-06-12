@@ -250,8 +250,12 @@ class _HomeTabState extends State<HomeTab> {
           const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: const EdgeInsets.only(right: 20.0,top: 16),
-              child: Text('برای ثبت خودرو کلیک کنید',textAlign: TextAlign.right,style: TextStyle(fontWeight: FontWeight.bold),),
+              padding: const EdgeInsets.only(right: 20.0, top: 16),
+              child: Text(
+                'برای ثبت خودرو کلیک کنید',
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             isCarFromDataBase: false,
           )
@@ -262,12 +266,22 @@ class _HomeTabState extends State<HomeTab> {
             SliderItemWidget(
               imagePath: 'assets/images/${carImagePath(element.brand)}.png',
               showingTexts: Padding(
-                padding: const EdgeInsets.only(right: 20.0,top: 16),
+                padding: const EdgeInsets.only(right: 20.0, top: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Text('نام خودرو: ${element.brand}',textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold),), Text('سال ساخت: ${element.createDate}', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold),
-              )],
+                  children: [
+                    Text(
+                      'نام خودرو: ${element.brand}',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'سال ساخت: ${element.createDate}',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
                 ),
               ),
               isCarFromDataBase: true, brand: element.brand, chassisNumber: element.chassisNumber, ownerNationalCode: element.ownerNationalCode, createDate: element.createDate, fourthCarTag: element.fourthCarTag, secondCarTag: element.secondCarTag, thirdCarTag:element.thirdCarTag , firstCarTag: element.firstCarTag,
@@ -278,8 +292,11 @@ class _HomeTabState extends State<HomeTab> {
            const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: const EdgeInsets.only(right: 20.0,top: 16),
-              child: Text('برای ثبت خودرو کلیک کنید',textAlign: TextAlign.right,style: TextStyle(fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.only(right: 20.0, top: 16),
+              child: Text(
+                'برای ثبت خودرو کلیک کنید',
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             isCarFromDataBase: false,
@@ -365,11 +382,17 @@ class _HomeTabState extends State<HomeTab> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',hasCarProblem: true,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => EmdadService(
+                                    title: 'امداد فوری',
+                                    hasCarProblem: true,
+                                  )));
                     },
                     widget: _subItemWidget('assets/images/ic_service.png', 'امداد فوری'),
                   ),
@@ -386,7 +409,7 @@ class _HomeTabState extends State<HomeTab> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
@@ -394,7 +417,6 @@ class _HomeTabState extends State<HomeTab> {
                     },
                     widget: _subItemWidget('assets/images/ic_service_in_place.png', 'خدمات در محل'),
                   ),
-
 
                   CustomNeomorphicBox(
                     title: '',
@@ -407,7 +429,7 @@ class _HomeTabState extends State<HomeTab> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
@@ -427,7 +449,7 @@ class _HomeTabState extends State<HomeTab> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
@@ -435,9 +457,6 @@ class _HomeTabState extends State<HomeTab> {
                     },
                     widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
                   ),
-
-
-
 
                   CustomNeomorphicBox(
                     title: '',
@@ -450,11 +469,17 @@ class _HomeTabState extends State<HomeTab> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',hasCarProblem: false,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => EmdadService(
+                                    title: 'حمل خودرو',
+                                    hasCarProblem: false,
+                                  )));
                     },
                     widget: _subItemWidget('assets/images/ic_car_movement.png', 'حمل خودرو'),
                   ),
@@ -470,15 +495,20 @@ class _HomeTabState extends State<HomeTab> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => EmdadService(
+                                    title: 'پنچری لاستیک',
+                                    hasCarProblem: false,
+                                  )));
                     },
                     widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
                   ),
-
 
                   /*
                   CustomNeomorphicBox(
@@ -523,8 +553,6 @@ class _HomeTabState extends State<HomeTab> {
 
                    */
 
-
-
                   // _serviceWidget(
                   //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                   //   imagePath: 'assets/images/ic_taxi.png',
@@ -541,8 +569,6 @@ class _HomeTabState extends State<HomeTab> {
                   //   title: 'خلافی',
                   //
                   // ),
-
-
 
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
@@ -2081,16 +2107,14 @@ class _HomeTabState extends State<HomeTab> {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+            child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
           ),
         ],
       ),
     );
   }
 
-  Widget _subItemWidget(String imagePath,  String title){
+  Widget _subItemWidget(String imagePath, String title) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -2105,37 +2129,35 @@ class _HomeTabState extends State<HomeTab> {
         // ),
         Expanded(
             child: Container(
-              // height: 60,
-              // width: 60,
-              // padding: EdgeInsets.all(12),
-              // decoration: BoxDecoration(
-              //   shape: BoxShape.circle,
-              //   // borderRadius: BorderRadius.circular(70),
-              //
-              //     //TODO one final
-              //     color: coor_sharp_orange_gradient3
-              //   // color: dak_theme_box_shadow_dark
-              //
-              // ),
-              // padding: EdgeInsets.all(1),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
+          // height: 60,
+          // width: 60,
+          // padding: EdgeInsets.all(12),
+          // decoration: BoxDecoration(
+          //   shape: BoxShape.circle,
+          //   // borderRadius: BorderRadius.circular(70),
+          //
+          //     //TODO one final
+          //     color: coor_sharp_orange_gradient3
+          //   // color: dak_theme_box_shadow_dark
+          //
+          // ),
+          // padding: EdgeInsets.all(1),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
 
-              //one final
-              // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
-              // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
-            )),
+          //one final
+          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
+        )),
         // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
         // SizedBox(height: defaultPadding/3,),
         // Expanded(child: Container()),
 
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
         ),
       ],
     );

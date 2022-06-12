@@ -17,13 +17,11 @@ class GoldenCard extends StatefulWidget {
 class _GoldenCardState extends State<GoldenCard> {
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
           automaticallyImplyLeading: true,
           title: const Text('کارت طلایی'),
-      ),
-        body: _body()
-    );
+        ),
+        body: _body());
   }
 
   Widget _body() {
@@ -32,14 +30,18 @@ class _GoldenCardState extends State<GoldenCard> {
         Center(
           child: Opacity(
               opacity: 0.4,
-              child: Image.asset('assets/images/emdad_khodro_logo_single.png', width: MediaQuery.of(context).size.width*0.80, )),
+              child: Image.asset(
+                'assets/images/emdad_khodro_logo_single.png',
+                width: MediaQuery.of(context).size.width * 0.80,
+              )),
         ),
         Container(
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
-                child: Text(' گارانتی بدنه سایپا یکی از سرویس های جذاب کارت طلایی می باشدکه مالکان خودروهای سواری گروه سایپا می توانند با خرید آن اتومبیل خود را در صورت آسیب دیدن بر اثر حوادث و یا سرقت های احتمالی تحت پوشش گارانتی بدنه قرار دهند. به عبارت دیگر، دارندگان خودروهای گروه سایپا می توانند با خرید گارانتی بدنه سایپا (کارت طلایی ) سرمایه ارزشمند خود را در مقابل کلیه سوانح رانندگی و حوادث غیر مترقبه تا مدت 365 روز تضمین کنند.'),
+                child: Text(
+                    ' گارانتی بدنه سایپا یکی از سرویس های جذاب کارت طلایی می باشدکه مالکان خودروهای سواری گروه سایپا می توانند با خرید آن اتومبیل خود را در صورت آسیب دیدن بر اثر حوادث و یا سرقت های احتمالی تحت پوشش گارانتی بدنه قرار دهند. به عبارت دیگر، دارندگان خودروهای گروه سایپا می توانند با خرید گارانتی بدنه سایپا (کارت طلایی ) سرمایه ارزشمند خود را در مقابل کلیه سوانح رانندگی و حوادث غیر مترقبه تا مدت 365 روز تضمین کنند.'),
               ),
               GridView.extent(
                 shrinkWrap: true,
@@ -61,7 +63,7 @@ class _GoldenCardState extends State<GoldenCard> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
@@ -69,7 +71,6 @@ class _GoldenCardState extends State<GoldenCard> {
                     },
                     widget: _subItemWidget('assets/images/ic_news.png', 'گارانتی بدنه پایه'),
                   ),
-
                   CustomNeomorphicBox(
                     title: '',
                     index: 0,
@@ -81,7 +82,7 @@ class _GoldenCardState extends State<GoldenCard> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
@@ -89,7 +90,6 @@ class _GoldenCardState extends State<GoldenCard> {
                     },
                     widget: _subItemWidget('assets/images/ic_news.png', 'گارانتی بدنه اکونومی'),
                   ),
-
                   CustomNeomorphicBox(
                     title: '',
                     index: 0,
@@ -101,7 +101,7 @@ class _GoldenCardState extends State<GoldenCard> {
                     paddingRight: 8,
                     paddingLeft: 8,
                     selectedIndex: 1,
-                    height: 60/640,
+                    height: 60 / 640,
                     isChildText: false,
                     isFull: false,
                     onTap: () {
@@ -109,8 +109,6 @@ class _GoldenCardState extends State<GoldenCard> {
                     },
                     widget: _subItemWidget('assets/images/ic_news.png', 'گارانتی بدنه کامل'),
                   ),
-
-
                 ],
               ),
             ],
@@ -119,28 +117,23 @@ class _GoldenCardState extends State<GoldenCard> {
       ],
     );
   }
-  Widget _subItemWidget(String imagePath,  String title){
+
+  Widget _subItemWidget(String imagePath, String title) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
             child: Container(
-
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain,
-              ),
-            )),
-
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
+        )),
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
         ),
       ],
     );
   }
-
-
 }
