@@ -10,9 +10,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../constants.dart';
+import '../../../widgets/custom_text_field.dart';
 import '../../menu_side/terms_page.dart';
 import 'otp_page.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   int state = 0;
 
   TextEditingController _phoneController = TextEditingController();
+
   // TextEditingController _captchaCodeController = TextEditingController();
 
   var rng = new Random();
@@ -35,11 +36,11 @@ class _LoginPageState extends State<LoginPage> {
   bool disableCode = true;
   bool disablePhone = true;
 
-
   String generateRandomString(int len) {
     var r = Random();
     const _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)])
+        .join();
   }
 
   @override
@@ -77,7 +78,8 @@ class _LoginPageState extends State<LoginPage> {
         });
 
     await Future.delayed(const Duration(milliseconds: 4000));
-    var result = await ApiProvider.sendMobileNumber(_phoneController.text, code.toString());
+    var result = await ApiProvider.sendMobileNumber(
+        _phoneController.text, code.toString());
 
     Navigator.pop(context);
 
@@ -136,8 +138,8 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-             SizedBox(
-              height: MediaQuery.of(context).size.height*64/520,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 64 / 520,
             ),
 
             //Logo
@@ -148,15 +150,15 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             // Text('ورود',style: TextStyle( fontSize: 24,fontWeight: FontWeight.bold),),
-             SizedBox(
-               height: MediaQuery.of(context).size.height * 32 / 520,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 32 / 520,
             ),
 
             const Text('ثبت نام در سامانه',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
-             SizedBox(
-               height: MediaQuery.of(context).size.height * 16 / 520,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 16 / 520,
             ),
             //  SizedBox(
             //   height: MediaQuery.of(context).size.height*12/520,
@@ -166,68 +168,87 @@ class _LoginPageState extends State<LoginPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.70,
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: TextField(
-                      keyboardType: TextInputType.phone,
-                      maxLength: 11,
-                      controller: _phoneController,
-                      obscureText: false,
-                      style: const TextStyle(fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        if (mounted) {
-                          setState(() {
-                            value.length == 11
-                                ? disablePhone = false
-                                : disablePhone = true;
-                          });
-                        }
-                      },
-                      decoration: InputDecoration(
-                        // fillColor: secondary_light_grey_color,
-
-                        // isDense: true,filled: true,
-                        hintText: 'شماره موبایل',
-                        counterText: '',
-                        // fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.only(
-                            left: 10, top: 0, right: 10, bottom: 0),
-                        // labelText: 'شماره همراه',labelStyle: TextStyle(),
-                        floatingLabelStyle: TextStyle(color: Colors.black),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          borderSide: BorderSide(color: color_sharp_orange_light),
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          borderSide: BorderSide(
-                              // color: primary_grey_color,
-                              width: 0.8),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          borderSide: BorderSide(
-                              // color: primary_grey_color,
-                              width: 0.8),
-                        ),
-                        // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
-                      ),
-                    ),
-                  ),
+                CustomTextField(
+                  title: 'شماره موبایل',
+                  height: 35,
+                  controller: _phoneController,
+                  marginRight: 20,
+                  marginLeft: 20,
+                  marginTop: 15,
+                  alignText: TextAlign.center,
+                  hintText: '09xxxxxxxxx',
+                  onChanged: (value) {
+                    if (mounted) {
+                      setState(() {
+                        value.length == 11
+                            ? disablePhone = false
+                            : disablePhone = true;
+                      });
+                    }
+                  },
                 ),
+                // Container(
+                //   height: 60,
+                //   width: MediaQuery.of(context).size.width * 0.70,
+                //   margin: const EdgeInsets.symmetric(horizontal: 16),
+                //   decoration:
+                //       BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                //   child: Directionality(
+                //     textDirection: TextDirection.ltr,
+                //     child: TextField(
+                //       keyboardType: TextInputType.phone,
+                //       maxLength: 11,
+                //       controller: _phoneController,
+                //       obscureText: false,
+                //       style: const TextStyle(fontWeight: FontWeight.normal),
+                //       textAlign: TextAlign.center,
+                //       onChanged: (value) {
+                //         if (mounted) {
+                //           setState(() {
+                //             value.length == 11
+                //                 ? disablePhone = false
+                //                 : disablePhone = true;
+                //           });
+                //         }
+                //       },
+                //       decoration: InputDecoration(
+                //         // fillColor: secondary_light_grey_color,
+                //
+                //         // isDense: true,filled: true,
+                //         hintText: 'شماره موبایل',
+                //         counterText: '',
+                //         // fillColor: Colors.white,
+                //         contentPadding: const EdgeInsets.only(
+                //             left: 10, top: 0, right: 10, bottom: 0),
+                //         // labelText: 'شماره همراه',labelStyle: TextStyle(),
+                //         floatingLabelStyle: TextStyle(color: Colors.black),
+                //         border: OutlineInputBorder(
+                //           borderRadius: const BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //           borderSide: BorderSide(color: color_sharp_orange_light),
+                //         ),
+                //         enabledBorder: const OutlineInputBorder(
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //           borderSide: BorderSide(
+                //               // color: primary_grey_color,
+                //               width: 0.8),
+                //         ),
+                //         focusedBorder: const OutlineInputBorder(
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //           borderSide: BorderSide(
+                //               // color: primary_grey_color,
+                //               width: 0.8),
+                //         ),
+                //         // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 4 / 520,
                 ),
@@ -346,7 +367,11 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  backgroundColor: !disablePhone ? MaterialStateColor.resolveWith((states) => dark_theme_primary) : MaterialStateColor.resolveWith((states) => dark_theme_primary_light),
+                  backgroundColor: !disablePhone
+                      ? MaterialStateColor.resolveWith(
+                          (states) => dark_theme_primary)
+                      : MaterialStateColor.resolveWith(
+                          (states) => dark_theme_primary_light),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -357,7 +382,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 onPressed: () {
-                  if(!disablePhone){
+                  if (!disablePhone) {
                     onLoginButtonPressed(_phoneController.text, code);
                   }
                 },
