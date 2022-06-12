@@ -63,7 +63,11 @@ class MyApp extends StatelessWidget {
                 appBarTheme: AppBarTheme(
                   color: light_theme_primary,
                   centerTitle: true,
-                  titleTextStyle: TextStyle(color: light_theme_white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
+                  titleTextStyle: TextStyle(
+                      color: light_theme_white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Vazir'),
                   iconTheme: IconThemeData(color: light_theme_secondary),
                   actionsIconTheme: IconThemeData(color: light_theme_secondary),
                 ),
@@ -78,9 +82,11 @@ class MyApp extends StatelessWidget {
                     showSelectedLabels: true),
                 navigationBarTheme: NavigationBarThemeData(
                     backgroundColor: light_theme_primary,
-                    labelTextStyle: MaterialStateProperty.all(TextStyle(color: light_theme_white)),
+                    labelTextStyle: MaterialStateProperty.all(
+                        TextStyle(color: light_theme_white)),
                     indicatorColor: light_theme_secondary,
-                    iconTheme: MaterialStateProperty.all(IconThemeData(color: light_theme_primary_light)))),
+                    iconTheme: MaterialStateProperty.all(
+                        IconThemeData(color: light_theme_primary_light)))),
 
             darkTheme: ThemeData(
                 fontFamily: 'Vazir',

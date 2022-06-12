@@ -369,7 +369,10 @@ class _EmdadServiceState extends State<EmdadService> {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          border: Border.all(color: color_sharp_orange, width: 1),
+          border: Border.all(
+              // color: color_sharp_orange
+              color: Theme.of(context).accentColor,
+              width: 1),
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
           ),

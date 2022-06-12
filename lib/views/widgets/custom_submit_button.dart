@@ -35,11 +35,16 @@ class CustomSubmitButton extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            border: Border.all(color: color_sharp_orange, width: borderWidth ?? 0),
-            borderRadius: BorderRadius.all(
-              Radius.circular(radiusSize ?? 0),
-            ),
-            color: color_sharp_orange),
+          border: Border.all(
+              color: Theme.of(context).accentColor,
+              // color: color_sharp_orange,
+              width: borderWidth ?? 0),
+          borderRadius: BorderRadius.all(
+            Radius.circular(radiusSize ?? 0),
+          ),
+          color: Theme.of(context).accentColor,
+          // color: color_sharp_orange
+        ),
         width: width,
         height: MediaQuery.of(context).size.height * (height ?? 1),
         margin: EdgeInsets.only(

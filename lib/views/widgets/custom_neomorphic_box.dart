@@ -77,7 +77,12 @@ class CustomNeomorphicBox extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   title ?? '',
-                  style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, color: isFull ? dak_theme_box_shadow_dark : Colors.black, fontSize: fontSize),
+                  style: TextStyle(
+                      fontFamily: 'Vazir',
+                      fontWeight: FontWeight.bold,
+                      color:
+                          isFull ? Theme.of(context).shadowColor : Colors.black,
+                      fontSize: fontSize),
                 ),
               )
             : widget,

@@ -34,7 +34,7 @@ class _MyAddressesPageState extends State<MyAddressesPage> {
               children: [
                 Icon(
                   Icons.add,
-                  color: color_sharp_orange,
+                  color: Theme.of(context).accentColor,
                 ),
                 SizedBox(width: 4,),
                 Text(
@@ -113,7 +113,8 @@ class _MyAddressesPageState extends State<MyAddressesPage> {
           children: [
             Icon(
               Icons.location_on,
-              color: color_sharp_orange,
+              // color: color_sharp_orange,
+              color: Theme.of(context).accentColor,
             ),
             SizedBox(
               width: 250,
@@ -134,7 +135,8 @@ class _MyAddressesPageState extends State<MyAddressesPage> {
               },
               icon: Icon(
                 Icons.delete,
-                color: color_sharp_orange,
+                // color: color_sharp_orange,
+                color: Theme.of(context).accentColor,
               ),
             ),
           ],
