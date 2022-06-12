@@ -199,10 +199,15 @@ class _SubmitAddressState extends State<SubmitAddress> {
             });
 
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    _chooseWorker? ChooseReliefWorkerPage() : ChooseDayPage(),),);
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => _chooseWorker
+                ? ChooseReliefWorkerPage(
+                    latLng: widget.latLng,
+                  )
+                : ChooseDayPage(latLng: widget.latLng),
+          ),
+        );
 
         //clear textFields
         // _idCtrl.clear();

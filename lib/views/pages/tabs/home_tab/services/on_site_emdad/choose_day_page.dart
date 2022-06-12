@@ -1,11 +1,15 @@
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
+import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/choose_time_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
 
 class ChooseDayPage extends StatefulWidget {
-  const ChooseDayPage({Key? key}) : super(key: key);
+  const ChooseDayPage({Key? key, this.latLng}) : super(key: key);
+  final LatLng? latLng;
 
   @override
   State<ChooseDayPage> createState() => _ChooseDayPageState();
@@ -23,6 +27,24 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
     DayTime(title: 'پنج شنبه: 20 خرداد 1401', isFull: false),
     DayTime(title: 'جمعه: 21 خرداد 1401', isFull: false),
   ];
+
+  // var response;
+  //
+  // getDates()async{
+  //   GeoLocation geoLocation = GeoLocation(lat: widget.latLng!.latitude,long: widget.latLng!.longitude);
+  //   response =await ApiProvider.getReservableDates(["48ff9bd2-289b-47e5-8925-b770e245d2f0"],"c9fd138e-81cf-4bf0-90fa-d13870c9781f",geoLocation );
+  //   response.data.dates.forEach((element) {
+  //     dayList.add(DayTime(title:element.jalaliDate , isFull: false));
+  //   });
+  //   setState(() {
+  //
+  //   });
+  // }
+  @override
+  void initState() {
+    // getDates();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +69,7 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
           padding: EdgeInsets.only(top: 16, bottom: 8),
           alignment: Alignment.center,
           child: Text('انتخاب روز',
-          style:TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            style:TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
         ),
         Expanded(
           child: ListView.builder(

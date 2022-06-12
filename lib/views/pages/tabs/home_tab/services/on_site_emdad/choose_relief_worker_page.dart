@@ -1,13 +1,17 @@
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
+import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/choose_day_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
 
 class ChooseReliefWorkerPage extends StatefulWidget {
-  const ChooseReliefWorkerPage({Key? key}) : super(key: key);
+  const ChooseReliefWorkerPage({Key? key, this.latLng}) : super(key: key);
+  final LatLng? latLng;
 
   @override
   State<ChooseReliefWorkerPage> createState() => _ChooseReliefWorkerPageState();
@@ -17,10 +21,28 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
   int? selectedIndex;
 
   List<ReliefWorker> reliefWorkerList = [
-    ReliefWorker(name: 'امداد تست',score: 4.67),
-    ReliefWorker(name: 'امداد تست 1',score: 3.78),
-    ReliefWorker(name: 'امداد تست 2',score: 2.75),
+    // ReliefWorker(name: 'امداد تست',score: 4.67),
+    // ReliefWorker(name: 'امداد تست 1',score: 3.78),
+    // ReliefWorker(name: 'امداد تست 2',score: 2.75),
   ];
+
+  var response;
+
+  getPackages() async {
+    GeoLocation geoLocation = GeoLocation(lat: widget.latLng!.latitude, long: widget.latLng!.longitude);
+    response = await ApiProvider.getEmdadGarList('48ff9bd2-289b-47e5-8925-b770e245d2f0', geoLocation);
+    response.data.emdadgarList.forEach((element) {
+      reliefWorkerList.add(ReliefWorker(name: element.fullName, score: element.score));
+    });
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getPackages();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,18 +65,25 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
         Container(
           padding: EdgeInsets.only(top: 16, bottom: 8),
           alignment: Alignment.center,
-          child: Text('انتخاب خدمات رسان',
-          style:TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+          child: Text(
+            'انتخاب خدمات رسان',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
         ),
-
-        _serviceBox(reliefWorkerList[0].name, 'assets/images/relief_worker.png', reliefWorkerList[0].score, 0),
-        _serviceBox(reliefWorkerList[1].name, 'assets/images/relief_worker.png', reliefWorkerList[1].score, 1),
-        _serviceBox(reliefWorkerList[2].name, 'assets/images/relief_worker.png', reliefWorkerList[2].score, 2),
+        response == null
+            ? const Center(child: CircularProgressIndicator())
+            : Expanded(
+                child: ListView.builder(
+                  itemCount: reliefWorkerList.length,
+                  itemBuilder: (context, position) {
+                    return _serviceBox(reliefWorkerList[position].name, 'assets/images/relief_worker.png', reliefWorkerList[position].score, position);
+                  },
+                ),
+              ),
 
         // _serviceNotImportant(),
 
         _submitButton()
-
 
         /*
         Expanded(
@@ -81,9 +110,9 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
       height: MediaQuery.of(context).size.height * 75 / 640,
       child: NeumorphicButton(
         onPressed: () {
-             setState(() {
-               selectedIndex = index;
-             });
+          setState(() {
+            selectedIndex = index;
+          });
         },
         padding: EdgeInsets.only(right: 0, left: 0),
         style: NeumorphicStyle(
@@ -187,7 +216,6 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
         ),
       ),
     );
-
   }
 
   Widget _submitButton() {
@@ -240,5 +268,6 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
 class ReliefWorker{
   @required double? score;
   @required String? name;
+
   ReliefWorker({this.score,this.name});
 }

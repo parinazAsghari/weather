@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
+import 'package:emdad_khodro_saipa/models/response_model/UrgentRequestResponse.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/emdad_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/home_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/questionnaire_tab.dart';
@@ -69,16 +71,7 @@ class _HomePageState extends State<HomePage> {
               // });
               // // await Future.delayed(Duration(seconds: 3));
               // // Navigator.of(context).pop();
-
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return MessageDialogWidget(
-                      body:
-                          'درخواست شما با موفقیت ثبت شد، همکاران ما تا دقایقی دیگر با شما تماس خواهند گرفت.',
-                      positiveTxt: 'باشه',
-                    );
-                  });
+              sendUrgentRequest();
             },
           );
         });
@@ -103,13 +96,35 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
+  void sendUrgentRequest() async {
+    UrgentRequestResponse response = await ApiProvider.sendUrgentRequest();
+    if (response.resultCode == 0) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              body: '   درخواست شما با موفقیت ثبت شد،کد پیگیری  شما ${response.data!.trackingCode} میباشد همکاران ما تا دقایقی دیگر با شما تماس خواهند گرفت. ',
+              positiveTxt: 'باشه',
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              body: 'عملیات با خطا مواجه شد.مجددا تلاش کنید',
+              positiveTxt: 'باشه',
+            );
+          });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getSharedPref();
-     // _hiveDb.getData(car, 'userBox');
+    // _hiveDb.getData(car, 'userBox');
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
 import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
@@ -91,23 +92,7 @@ class _LoginPageState extends State<LoginPage> {
           });
 
       await Future.delayed(const Duration(milliseconds: 4000));
-
-      Map data = {
-        'MobileNumber': '${_phoneController.text}',
-        'Message':
-            "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code.toString()} \n امداد خودرو سایپا\n "
-      };
-
-      var url = 'http://185.94.99.204:5252/api/Sms/Send';
-
-      //encode Map to JSON
-      var body = json.encode(data);
-
-      // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
-      var result = await http.post(
-          Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
-          headers: {"Content-Type": "application/json"},
-          body: body);
+      var result = await ApiProvider.sendMobileNumber(_phoneController.text, code.toString());
 
       Navigator.pop(context);
 

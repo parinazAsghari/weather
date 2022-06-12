@@ -1,3 +1,4 @@
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/submit_onsite_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -12,6 +13,20 @@ class OnSiteEmdadPage extends StatefulWidget {
 }
 
 class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
+  @override
+  void initState() {
+    getPackages();
+    super.initState();
+  }
+
+  var title;
+  var response;
+
+  getPackages() async {
+    response = await ApiProvider.getPackages('VAN123456789123', 210000);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +47,32 @@ class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(top: defaultPadding, bottom: defaultPadding/2),
+          padding: EdgeInsets.only(top: defaultPadding, bottom: defaultPadding / 2),
           alignment: Alignment.center,
-          child: Text('خدمات در محل',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+          child: const Text(
+            'خدمات در محل',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
         ),
-        _serviceBox('سرویس‌های اولیه و ادواری','assets/images/bazdid_fani.png'),
-        _serviceBox('آپشن و لوازم جانبی','assets/images/accessory.png'),
-        _serviceBox('بازدید فنی پیش از سفر','assets/images/firs_service.png'),
-
+        response == null
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: Colors.deepOrange,
+              ))
+            : _serviceBox(response.data!.packages![0].title, 'assets/images/bazdid_fani.png'),
+        response == null
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: Colors.deepOrange,
+              ))
+            : _serviceBox(response.data!.packages![1].title, 'assets/images/accessory.png'),
+        response == null
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: Colors.deepOrange,
+              ))
+            : _serviceBox(response.data!.packages![2].title, 'assets/images/firs_service.png'),
       ],
     );
   }
@@ -81,8 +114,8 @@ class _OnSiteEmdadPageState extends State<OnSiteEmdadPage> {
                 // height: 4,
               ),
             ),
-             SizedBox(width: 8,),
-             Text(_title,
+            SizedBox(width: 8,),
+            Text(_title,
                 style: TextStyle(
                     fontFamily: 'Vazir',
                     fontWeight: FontWeight.bold,
