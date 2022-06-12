@@ -1,26 +1,29 @@
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/emdad_services_sub_pages/common_emdad.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/emdad_services_sub_pages/necessary_emdad.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/emdad_services_sub_pages/supplmentary_emdad.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/emdad_services_sub_pages/trip_emdad.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../constants.dart';
 import '../../../../widgets/custom_neomorphic_box.dart';
 import '../widget/description_box.dart';
 
-class CompareServicePage extends StatefulWidget {
-  const CompareServicePage({Key? key}) : super(key: key);
+class EmdadServices extends StatefulWidget {
+  const EmdadServices({Key? key}) : super(key: key);
 
   @override
-  State<CompareServicePage> createState() => _CompareServicePageState();
+  State<EmdadServices> createState() => _EmdadServicesState();
 }
 
-class _CompareServicePageState extends State<CompareServicePage> {
-  @override
+class _EmdadServicesState extends State<EmdadServices> {
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: const Text('جدول مقایسه ای خدمات'),
-        ),
-        body: _body());
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('خدمات امدادی'),
+      ),
+      body: _body(),
+    );
   }
 
   Widget _body() {
@@ -58,10 +61,10 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 height: 60 / 640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async {
-                  if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-garantibadane'))) throw 'Could not launch';
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CommonEmdad()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات گارانتی بدنه'),
+                widget: _subItemWidget('assets/images/ic_news.png', 'عمومی'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -77,10 +80,10 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 height: 60 / 640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async {
-                  if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-KhadamatEmdadi'))) throw 'Could not launch';
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SupplmentaryEmdad()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات امدادی'),
+                widget: _subItemWidget('assets/images/ic_news.png', 'تکمیلی (247)'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -96,10 +99,29 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 height: 60 / 640,
                 isChildText: false,
                 isFull: false,
-                onTap: () async {
-                  if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-Khadamatdarmahal'))) throw 'Could not launch';
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => NecessaryEmdad()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات در محل'),
+                widget: _subItemWidget('assets/images/ic_news.png', 'الزامی'),
+              ),
+              CustomNeomorphicBox(
+                title: '',
+                index: 0,
+                marginRight: 0,
+                marginBottom: 0,
+                marginTop: 0,
+                marginLeft: 0,
+                paddingTop: 8,
+                paddingRight: 8,
+                paddingLeft: 8,
+                selectedIndex: 1,
+                height: 60 / 640,
+                isChildText: false,
+                isFull: false,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => TripEmdad()));
+                },
+                widget: _subItemWidget('assets/images/ic_news.png', 'سفر'),
               ),
             ],
           ),

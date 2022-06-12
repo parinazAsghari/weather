@@ -7,9 +7,9 @@ import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/on_site_emdad_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/tire_flat.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/tow.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_page.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
+
 import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -250,8 +250,12 @@ class _HomeTabState extends State<HomeTab> {
           const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),),
+              padding: const EdgeInsets.only(right: 20.0, top: 16),
+              child: Text(
+                'برای ثبت خودرو کلیک کنید',
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             isCarFromDataBase: false,
           )
@@ -262,12 +266,22 @@ class _HomeTabState extends State<HomeTab> {
             SliderItemWidget(
               imagePath: 'assets/images/${carImagePath(element.brand)}.png',
               showingTexts: Padding(
-                padding: const EdgeInsets.only(right: 20.0,top: 10),
+                padding: const EdgeInsets.only(right: 20.0, top: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [Text('نام خودرو: ${element.brand}', style: TextStyle(fontWeight: FontWeight.bold),), Text(' سال ساخت: ${element.createDate}', style: TextStyle(fontWeight: FontWeight.bold),
-              )],
+                  children: [
+                    Text(
+                      'نام خودرو: ${element.brand}',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'سال ساخت: ${element.createDate}',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
                 ),
               ),
               isCarFromDataBase: true, brand: element.brand, chassisNumber: element.chassisNumber, ownerNationalCode: element.ownerNationalCode, createDate: element.createDate, fourthCarTag: element.fourthCarTag, secondCarTag: element.secondCarTag, thirdCarTag:element.thirdCarTag , firstCarTag: element.firstCarTag,
@@ -278,8 +292,11 @@ class _HomeTabState extends State<HomeTab> {
            const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('برای ثبت خودرو کلیک کنید',style: TextStyle(fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.only(right: 20.0, top: 16),
+              child: Text(
+                'برای ثبت خودرو کلیک کنید',
+                textAlign: TextAlign.right,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             isCarFromDataBase: false,
@@ -354,27 +371,188 @@ class _HomeTabState extends State<HomeTab> {
                 padding: EdgeInsets.all(defaultPadding),
                 children: [
                   //weather
-                  _serviceWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'امداد فوری',hasCarProblem: true,))), imagePath: 'assets/images/ic_service.png', title: 'امداد فوری'),
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60 / 640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => EmdadService(
+                                    title: 'امداد فوری',
+                                    hasCarProblem: true,
+                                  )));
+                    },
+                    widget: _subItemWidget('assets/images/ic_service.png', 'امداد فوری'),
+                  ),
 
                   //roads
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OnSiteEmdadPage())),
-                    imagePath: 'assets/images/ic_service_in_place.png',
-                    title: 'خدمات در محل',
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60 / 640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlacePage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_service_in_place.png', 'خدمات در محل'),
                   ),
 
-                  //news
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'حمل خودرو',hasCarProblem: false,))),
-                    imagePath: 'assets/images/ic_car_movement.png',
-                    title: 'حمل خودرو',
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60 / 640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
                   ),
 
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,))),
-                    imagePath: 'assets/images/ic_flat_tire.png',
-                    title: 'پنچری',
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60 / 640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                    },
+                    widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
                   ),
+
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60 / 640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => EmdadService(
+                                    title: 'حمل خودرو',
+                                    hasCarProblem: false,
+                                  )));
+                    },
+                    widget: _subItemWidget('assets/images/ic_car_movement.png', 'حمل خودرو'),
+                  ),
+
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60 / 640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => EmdadService(
+                                    title: 'پنچری لاستیک',
+                                    hasCarProblem: false,
+                                  )));
+                    },
+                    widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
+                  ),
+
+                  /*
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,)));
+                    },
+                    widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
+                  ),
+
+                  CustomNeomorphicBox(
+                    title: '',
+                    index: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    paddingTop: 8,
+                    paddingRight: 8,
+                    paddingLeft: 8,
+                    selectedIndex: 1,
+                    height: 60/640,
+                    isChildText: false,
+                    isFull: false,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+                    },
+                    widget: Center(child: Image.asset('assets/images/ic_plus.png'),),
+                  ),
+
+                   */
+
                   // _serviceWidget(
                   //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                   //   imagePath: 'assets/images/ic_taxi.png',
@@ -391,17 +569,7 @@ class _HomeTabState extends State<HomeTab> {
                   //   title: 'خلافی',
                   //
                   // ),
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_insurance.png',
-                    title: 'گارانتی بدنه',
-                  ),
 
-                  _serviceWidget(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                    imagePath: 'assets/images/ic_parking.png',
-                    title: 'اشتراک سفر',
-                  ),
                   // _serviceWidget(
                   //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
                   //   imagePath: 'assets/images/plus.png',
@@ -1939,12 +2107,59 @@ class _HomeTabState extends State<HomeTab> {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(title,textAlign: TextAlign.center, style: TextStyle( fontFamily: 'Vazir',fontWeight: FontWeight.bold, fontSize: 14))),
+            child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _subItemWidget(String imagePath, String title) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   children: [
+        //     Icon(
+        //       Icons.more_vert,
+        //       size: 15,
+        //     ),
+        //   ],
+        // ),
+        Expanded(
+            child: Container(
+          // height: 60,
+          // width: 60,
+          // padding: EdgeInsets.all(12),
+          // decoration: BoxDecoration(
+          //   shape: BoxShape.circle,
+          //   // borderRadius: BorderRadius.circular(70),
+          //
+          //     //TODO one final
+          //     color: coor_sharp_orange_gradient3
+          //   // color: dak_theme_box_shadow_dark
+          //
+          // ),
+          // padding: EdgeInsets.all(1),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
+          ),
+
+          //one final
+          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
+        )),
+        // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
+        // SizedBox(height: defaultPadding/3,),
+        // Expanded(child: Container()),
+
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
+        ),
+      ],
     );
   }
 }

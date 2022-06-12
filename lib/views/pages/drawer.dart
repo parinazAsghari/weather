@@ -14,18 +14,19 @@ import 'menu_side/social_responsibility.dart';
 import 'menu_side/user_profile.dart';
 
 Widget DrawerWidget(BuildContext context) {
-
   final Uri _urllinkedin = Uri.parse('https://www.linkedin.com/in/emdadsaipa');
   final Uri _urlaparat = Uri.parse('https://www.aparat.com/emdadsaipa');
   final Uri _urlinstagram = Uri.parse('https://www.instagram.com/accounts/login/?next=/emdadsaipa.ir/');
-   final Uri _urltelegram = Uri.parse('https://t.me/emdadsaipa');
+  final Uri _urltelegram = Uri.parse('https://t.me/emdadsaipa');
 
   void _launchUrlinkedin() async {
     if (!await launchUrl(_urllinkedin)) throw 'Could not launch $_urllinkedin';
   }
+
   void _launchUrlaparat() async {
     if (!await launchUrl(_urlaparat)) throw 'Could not launch $_urlaparat';
   }
+
   void _launchUrlinstagram() async {
     if (!await launchUrl(_urlinstagram)) throw 'Could not launch $_urlinstagram';
   }
@@ -34,10 +35,9 @@ Widget DrawerWidget(BuildContext context) {
     if (!await launchUrl(_urltelegram)) throw 'Could not launch $_urltelegram';
   }
 
-
   return Drawer(
-     backgroundColor:dark_theme_primary_low,
-    // elevation: 0,
+      backgroundColor: dark_theme_primary_low,
+      // elevation: 0,
       child: ListView(
         shrinkWrap: true,
         children: <Widget>[
@@ -55,9 +55,12 @@ Widget DrawerWidget(BuildContext context) {
           // )
           // ,
           SizedBox(
-            height: defaultPadding  ,
+            height: defaultPadding,
           ),
-          Image.asset('assets/images/emdad_khodro_logo.png', height: 100),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('assets/images/emdad_khodro_logo.png', height: 60),
+          ),
           // const SizedBox(
           //   height: 10,
           // ),
@@ -77,7 +80,6 @@ Widget DrawerWidget(BuildContext context) {
                   fit: BoxFit.contain,
                 ),
               ),
-
               Text(
                 'کاربر مهمان',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -113,11 +115,8 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
 
-          _itemBoxDrawer(context, 'پروفایل کاربری', Icons.account_circle, () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => UserProfile()));
+          _itemBoxDrawer(context, 'پروفایل مشتری', Icons.account_circle, () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => UserProfile()));
           }),
 
           const SizedBox(
@@ -132,11 +131,8 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(context,'تنظیمات', Icons.settings, (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => Settings()));
+          _itemBoxDrawer(context, 'تنظیمات', Icons.settings, () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Settings()));
           }),
           const SizedBox(
             height: 3,
@@ -151,17 +147,13 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(
-              context, 'معرفی محصولات', Icons.production_quantity_limits, () {
+          _itemBoxDrawer(context, 'معرفی خدمات', Icons.production_quantity_limits, () {
             // Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => ProductIntroduction()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductIntroduction()));
           }),
-          const SizedBox(
-            height: 3,
-          ),
+          // const SizedBox(
+          //   height: 3,
+          // ),
 
           // const Divider(
           //   height: 5, thickness: 0.25,
@@ -171,11 +163,8 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(context,'تماس با ما', Icons.call, (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => ContactUs()));
+          _itemBoxDrawer(context, 'تماس با ما', Icons.call, () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ContactUs()));
           }),
 
           const SizedBox(
@@ -197,12 +186,8 @@ Widget DrawerWidget(BuildContext context) {
             height: 3,
           ),
 
-          _itemBoxDrawer(context, 'مسئولیت های اجتماعی', Icons.description,
-              () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => SocialResponsibility()));
+          _itemBoxDrawer(context, 'مسئولیت های اجتماعی', Icons.description, () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SocialResponsibility()));
           }),
 
           // const SizedBox(
@@ -245,148 +230,89 @@ Widget DrawerWidget(BuildContext context) {
           const SizedBox(
             height: 3,
           ),
-          _itemBoxDrawer(context,'خروج  از حساب', Icons.exit_to_app, () async {
-            SharedPreferences sharedPrefs =
-            await SharedPreferences.getInstance();
+          _itemBoxDrawer(context, 'خروج  از حساب', Icons.exit_to_app, () async {
+            SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
             await sharedPrefs.setBool('loggedIn', false);
             await sharedPrefs.setString('user_phone_number', '');
             await sharedPrefs.setString('user_full_name', '');
             await sharedPrefs.setString('user_national_code', '');
 
+            //TODO remove every storage data - defined cars
 
             Navigator.pop(context);
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => LoginPage()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
           }),
           // const SizedBox(
           //   height: 20,
           // ),
 
           const SizedBox(
-            height: 20,
+            height: 3,
           ),
 
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          // border: Border.all(width: 1,
-                          //   // color: primary_orange_color
-                          // )
-                        ),
-                        child: GestureDetector(
-                          onTap: _launchUrlinkedin,
-                          child: Padding(
-                            padding: EdgeInsets.all(2),
-                            child: Image.asset(
-                              'assets/images/ic_linkedin_dark_transparent.png',
-                              height: 25,
-                              width: 25,
-                            ),
-                          ),
-                        )),
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          // border: Border.all(width: 1,
-                          //   // color: primary_orange_color
-                          // )
-                        ),
-                        child: GestureDetector(
-                          onTap:_launchUrltelegram ,
-                          child: Padding(
-                            padding: EdgeInsets.all(2),
-                            child: Image.asset(
-                              'assets/images/ic_telegram_dark_transparent.png',
-                              height: 25,
-                              width: 25,
-                            ),
-                          ),
-                        )),
-                    Container(
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          // border: Border.all(width: 1,
-                          //   // color: primary_orange_color
-                          // )
-                        ),
-                        child: GestureDetector(
-                          onTap: _launchUrlinstagram,
-                          child: Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: dark_theme_primary_low,
-                            ),
-                            child: Image.asset(
-                              'assets/images/ic_ins_dark_transparent.png',
-                              height: 25,
-                              width: 25,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        )),
-                    Container(
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          // border: Border.all(width: 1,
-                          //   // color: primary_orange_color
-                          // )
-                        ),
-                        child: GestureDetector(
-                          onTap: _launchUrlaparat,
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.all(2),
-                              child: Image.asset(
-                                'assets/images/ic_aparat_dark_transparent.png',
-                                height: 25,
-                                width: 25,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        )),
-                  ],
-                ),
-              )
-            ],
-          )
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(left: 15, right: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _logoBox('ic_linkedin_dark_transparent.png', 10, _launchUrlinkedin),
+                _logoBox('ic_telegram_dark_transparent.png', 10, _launchUrltelegram),
+                _logoBox('ic_ins_dark_transparent.png', 10, _launchUrlinstagram),
+                _logoBox('ic_aparat_dark_transparent.png', 5, _launchUrlaparat),
+              ],
+            ),
+          ),
+
+          const SizedBox(
+            height: 3,
+          ),
         ],
       ));
 }
 
-Widget _itemBoxDrawer(BuildContext context,String _title, IconData _icon, _onTap) {
+Widget _logoBox(String _imagePath, double _marginAll, _onTap) {
+  return Container(
+      margin: EdgeInsets.all(_marginAll),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        // border: Border.all(width: 1,
+        //   // color: primary_orange_color
+        // )
+      ),
+      child: GestureDetector(
+        onTap: _onTap,
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.all(2),
+            child: Image.asset(
+              'assets/images/$_imagePath',
+              height: 25,
+              width: 25,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ));
+}
+
+Widget _itemBoxDrawer(BuildContext context, String _title, IconData _icon, _onTap) {
   return Padding(
     padding: const EdgeInsets.only(left: 15, right: 15),
     child: ListTile(
       leading: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              // border: Border.all(
-              //   width: 1,
-              //   // color: primary_orange_color
-              // )
+            borderRadius: BorderRadius.circular(6),
+            // border: Border.all(
+            //   width: 1,
+            //   // color: primary_orange_color
+            // )
           ),
           child: Padding(
             padding: const EdgeInsets.all(2),
             child: Icon(
-
-
               _icon,
-               color: Theme.of(context).accentColor,
+              color: Theme.of(context).accentColor,
             ),
           )),
       onTap: _onTap,
@@ -397,4 +323,3 @@ Widget _itemBoxDrawer(BuildContext context,String _title, IconData _icon, _onTap
     ),
   );
 }
-

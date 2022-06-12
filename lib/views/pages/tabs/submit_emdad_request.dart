@@ -9,6 +9,8 @@ import '../../../api_provider/provider.dart';
 import '../../../constants.dart';
 import '../../widgets/DialogWidgets.dart';
 import '../../widgets/LoadingWidgets.dart';
+import '../../widgets/custom_submit_button.dart';
+import '../../widgets/custom_text_field.dart';
 import '../drop_down.dart';
 
 class SubmitEmdadRequest extends StatefulWidget {
@@ -74,25 +76,23 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     getUserData();
   }
 
-  void getUserData()async{
+  void getUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     phone = preferences.getString('user_phone_number');
-    fullName = preferences.getString('user_full_name')??'';
-    nationalCode = preferences.getString('user_national_code')??'';
-
+    fullName = preferences.getString('user_full_name') ?? '';
+    nationalCode = preferences.getString('user_national_code') ?? '';
 
     _nameCtrl.text = fullName!;
     _idCtrl.text = nationalCode!;
   }
 
-  void getAddress() async{
+  void getAddress() async {
     var result = await ApiProvider.getAddress(widget.latLng);
 
     setState(() {
       _addressCtrl.text = result.addressCompact!;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +101,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
         elevation: 0,
         title: Image.asset(
           'assets/images/emdad_khodro_logo_white_text.png',
-          height: 30,
-          width: MediaQuery.of(context).size.width * 0.35,
+          // height: 30,
+          width: MediaQuery.of(context).size.width * 0.45,
           fit: BoxFit.contain,
         ),
       ),
@@ -126,7 +126,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                   height: 10,
                 ),
                 Container(
-                  // padding: EdgeInsets.only(right: 10),
+                    // padding: EdgeInsets.only(right: 10),
                     alignment: Alignment.center,
                     child: Text(
                       'ثبت درخواست ${widget.title}',
@@ -135,11 +135,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 SizedBox(
                   height: 8,
                 ),
-                _customTextField(
-                  title: 'نام و نام خانوادگی *',
-                  controller: _nameCtrl,
-                ),
-                _customTextField(title: 'کدملی *', controller: _idCtrl),
+                CustomTextField(title: 'نام و نام خانوادگی *', height: 35, marginTop: 11, controller: _nameCtrl),
+                CustomTextField(title: 'کدملی *', height: 35, marginTop: 11, controller: _idCtrl),
                 if (widget.hasCarProblem) _customDropDown(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -174,13 +171,13 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                         });
                   },
                 ),
-                _addressCtrl.text.isEmpty?CircularProgressIndicator(
+                _addressCtrl.text.isEmpty
+                    ? CircularProgressIndicator(
+                        color: Theme.of(context).accentColor,
+                      )
+                    : CustomTextField(title: 'آدرس *', height: 47, marginTop: 11, controller: _addressCtrl),
+                CustomTextField(title: 'توضیحات', height: 68, marginTop: 11, controller: _descriptionCtrl),
 
-                  color: Theme.of(context).accentColor,
-                ): _customTextField(
-                    title: 'آدرس *', height: 47, controller: _addressCtrl),
-                _customTextField(
-                    title: 'توضیحات', height: 68, controller: _descriptionCtrl),
                 // Expanded(child: Container()),
               ],
             ),
@@ -188,7 +185,12 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.5 / 15,
             ),
-            _submitButton(),
+            CustomSubmitButton(
+              onTap: _onSubmitTap,
+              text: 'ثبت درخواست',
+              marginTop: 0,
+              marginBottom: 0,
+            ),
           ],
         ),
       ),
@@ -313,101 +315,78 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     );
   }
 
-  Widget _customTextField({@required String? title, double height = 35, controller}) {
-    return Container(
-      margin: const EdgeInsets.only(
-        right: 24,
-        left: 24,
-        top: 11,
-      ),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          label: Text(title ?? ''),
-          isDense: true,
-          contentPadding: EdgeInsets.only(top: height, right: 10),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(8),),
-        ),
-      ),
-    );
-  }
+  _onSubmitTap() async {
+    print('carprob + $_carProblem');
+    print('name + ${_nameCtrl.text}');
+    print('id + ${_idCtrl.text}');
+    print('address + ${_addressCtrl.text}');
+    if (_nameCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
 
-  Widget _submitButton() {
-    return GestureDetector(
-      onTap: () async {
-        print('carprob + $_carProblem');
-        print('name + ${_nameCtrl.text}');
-        print('id + ${_idCtrl.text}');
-        print('address + ${_addressCtrl.text}');
-        if (_nameCtrl.text.isEmpty) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                  dismissable: true,
-                  title: 'ورود اطلاعات',
-                  body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
-                  positiveTxt: 'باشه',
-                );
-              });
+      return;
+    }
+    if (_idCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا کدملی خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
 
-          return;
-        }
-        if (_idCtrl.text.isEmpty) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                  dismissable: true,
-                  title: 'ورود اطلاعات',
-                  body: 'لطفا کدملی خود را وارد نمائید',
-                  positiveTxt: 'باشه',
-                );
-              });
+      return;
+    }
+    if (widget.hasCarProblem) {
+      if (_carProblem == null) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MessageDialogWidget(
+                dismissable: true,
+                title: 'ورود اطلاعات',
+                body: 'لطفا ایراد ماشین را مشخص نمایید.',
+                positiveTxt: 'باشه',
+              );
+            });
 
-          return;
-        }
-        if (widget.hasCarProblem) {
-          if (_carProblem == null) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return MessageDialogWidget(
-                    dismissable: true,
-                    title: 'ورود اطلاعات',
-                    body: 'لطفا ایراد ماشین را مشخص نمایید.',
-                    positiveTxt: 'باشه',
-                  );
-                });
+        return;
+      }
+    }
 
-            return;
-          }
-        }
+    if (_addressCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا آدرس خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
 
-        if (_addressCtrl.text.isEmpty) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                  dismissable: true,
-                  title: 'ورود اطلاعات',
-                  body: 'لطفا آدرس خود را وارد نمائید',
-                  positiveTxt: 'باشه',
-                );
-              });
+      return;
+    }
+    GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
 
-          return;
-        }
-        GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
-
-        var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
-        if (res.resultCode == 0) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
+    var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
+    if (res.resultCode == 0) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
                   dismissable: false,
                   hasTextBody: false,
                   widget: Padding(
@@ -461,26 +440,5 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 );
               });
         }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            border: Border.all(color: color_sharp_orange, width: 1),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
-            ),
-            color: color_sharp_orange),
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height * 33 / 520,
-        margin: const EdgeInsets.only(right: 24, left: 24, bottom: 0),
-        child: const Text(
-          'ثبت درخواست',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
   }
 }

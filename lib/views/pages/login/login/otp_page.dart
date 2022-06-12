@@ -28,7 +28,7 @@ class _OtpPageState extends State<OtpPage> {
   TextEditingController _codeController = TextEditingController();
   late int _code;
   bool disableButton = true;
-  int secondsRemaining = 10;
+  int secondsRemaining = 60;
   bool enableResend = false;
   Timer? timer;
 
@@ -109,12 +109,12 @@ class _OtpPageState extends State<OtpPage> {
   Widget _body() {
     return SingleChildScrollView(
       child: SizedBox(
-        width:MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 64,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 64 / 520,
             ),
             //Logo
             Image.asset(
@@ -123,18 +123,20 @@ class _OtpPageState extends State<OtpPage> {
               fit: BoxFit.contain,
             ),
 
-            const SizedBox(
-              height: 24,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 32 / 520,
             ),
 
-            const Text('کد تایید',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const Text('کد تایید', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
 
-            const SizedBox(
-              height: 32,
-            ),
-            const SizedBox(
-              height: 12,
+            // const SizedBox(
+            //   height: 32,
+            // ),
+            // const SizedBox(
+            //   height: 12,
+            // ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 16 / 520,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,8 +145,7 @@ class _OtpPageState extends State<OtpPage> {
                   height: 60,
                   width: MediaQuery.of(context).size.width * 0.70,
                   margin: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
                   child: Directionality(
                     textDirection: TextDirection.ltr,
                     child: PinCodeTextField(

@@ -36,7 +36,7 @@ final color_sharp_orange_gradient4 = Color(0xffFFEBDF);
 
 
 
-
+//demo version theme colors - primary theme is set on default dark theme
 final dark_theme_primary = Color(0xff2E3D3D);
 final dark_theme_primary_light = Color(0xff8E8E8E);
 final dark_theme_primary_low = Color(0xffE4E4E4);
@@ -48,3 +48,15 @@ final dark_theme_background_light = Color(0xffF5F5FA);
 final dark_theme_box_background_light = Color(0xffeef0f6);
 final dark_theme_box_shadow_dark = Color(0xffaaaacc);
 final dak_theme_box_shadow_dark = Color(0xffb5b5ba);
+
+// second theme color- saipa docs colors  - set on default light theme
+final light_theme_primary = Color.fromRGBO(0, 86, 125, 1.0);
+final light_theme_primary_light = Color.fromRGBO(177, 169, 159, 1.0);
+final light_theme_primary_low = Color(0xffE4E4E4);
+final light_theme_secondary = Color.fromRGBO(255, 107, 0, 1.0);
+final light_theme_white = Color(0xffffffff);
+final light_theme_white_low = Color(0xffffe6e6);
+
+final light_theme_background_light = Color(0xffF5F5FA);
+final light_theme_box_background_light = Color(0xffeef0f6);
+final light_theme_box_shadow_dark = Color.fromRGBO(99, 208, 223, 1.0);

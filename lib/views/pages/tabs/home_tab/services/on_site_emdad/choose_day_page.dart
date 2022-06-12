@@ -1,6 +1,6 @@
 import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/on_site_emdad/choose_time_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/choose_time_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
