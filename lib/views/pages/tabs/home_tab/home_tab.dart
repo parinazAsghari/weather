@@ -1,23 +1,21 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
-import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
-
 import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
-import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -120,7 +118,6 @@ class _HomeTabState extends State<HomeTab> {
                               Expanded(
                                 child: TextField(
                                   style: TextStyle(fontWeight: FontWeight.bold),
-
                                   controller: TextEditingController(),
                                 ),
                               )
@@ -174,8 +171,8 @@ class _HomeTabState extends State<HomeTab> {
                               child: Text(
                                 'ثبت',
                                 style: TextStyle(
-                                    // color: secondary_light_grey_color
-                                    ),
+                                  // color: secondary_light_grey_color
+                                ),
                               ),
                             ),
                           ),
@@ -190,6 +187,7 @@ class _HomeTabState extends State<HomeTab> {
 
   bool isLoading = true;
   CarouselController _controller = CarouselController();
+  CarouselController _servicesController = CarouselController();
 
   @override
   void initState() {
@@ -200,10 +198,382 @@ class _HomeTabState extends State<HomeTab> {
 
   List myCarsList = [];
   List<Widget> sliderItemList = [];
+  List<Widget> homeSliderServicesList = [];
 
-  String carImagePath(String carModel){
+  Widget firstSlideServicesWidget() {
+    return GridView.count(
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
+      // maxCrossAxisExtent: 120,
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
+      padding: EdgeInsets.all(defaultPadding),
+      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+      children: [
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => EmdadService(
+                          title: 'امداد فوری',
+                          hasCarProblem: true,
+                        )));
+          },
+          widget: _subItemWidget('assets/images/ic_service.png', 'امداد فوری'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlacePage()));
+          },
+          widget: _subItemWidget('assets/images/ic_service_in_place.png', 'خدمات در محل'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+          },
+          widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+          },
+          widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+        // CustomNeomorphicBox(
+        //   title: '',
+        //   index: 0,
+        //   marginRight: 0,
+        //   marginBottom: 0,
+        //   marginTop: 0,
+        //   marginLeft: 0,
+        //   paddingTop: 8,
+        //   paddingRight: 8,
+        //   paddingLeft: 8,
+        //   selectedIndex: 1,
+        //   height: 60 / 640,
+        //   isChildText: false,
+        //   isFull: false,
+        //   onTap: () {
+        //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+        //   },
+        //   widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
+        // ),
+      ],
+    );
+  }
+
+  Widget secondSlideServicesWidget() {
+    return GridView.count(
+      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
+      // maxCrossAxisExtent: 120,
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
+      padding: EdgeInsets.all(defaultPadding),
+      children: [
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => EmdadService(
+                          title: 'حمل خودرو',
+                          hasCarProblem: false,
+                        )));
+          },
+          widget: _subItemWidget('assets/images/ic_car_movement.png', 'حمل خودرو'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => EmdadService(
+                          title: 'پنچری لاستیک',
+                          hasCarProblem: false,
+                        )));
+          },
+          widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
+        ),
+      ],
+    );
+  }
+
+  String carImagePath(String carModel) {
     String imagePath = '';
-    switch(carModel){
+    switch (carModel) {
       case 'ساینا':
         imagePath = 'car_saina';
         break;
@@ -232,13 +602,10 @@ class _HomeTabState extends State<HomeTab> {
       default:
         imagePath = 'khodro';
         break;
-
     }
 
     return imagePath;
-
   }
-
 
   getCarsData() async {
     HiveDB _hiveDb = HiveDB();
@@ -284,12 +651,20 @@ class _HomeTabState extends State<HomeTab> {
                   ],
                 ),
               ),
-              isCarFromDataBase: true, brand: element.brand, chassisNumber: element.chassisNumber, ownerNationalCode: element.ownerNationalCode, createDate: element.createDate, fourthCarTag: element.fourthCarTag, secondCarTag: element.secondCarTag, thirdCarTag:element.thirdCarTag , firstCarTag: element.firstCarTag,
+              isCarFromDataBase: true,
+              brand: element.brand,
+              chassisNumber: element.chassisNumber,
+              ownerNationalCode: element.ownerNationalCode,
+              createDate: element.createDate,
+              fourthCarTag: element.fourthCarTag,
+              secondCarTag: element.secondCarTag,
+              thirdCarTag: element.thirdCarTag,
+              firstCarTag: element.firstCarTag,
             ),
           );
         });
         sliderItemList.add(
-           const SliderItemWidget(
+          const SliderItemWidget(
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
               padding: const EdgeInsets.only(right: 20.0, top: 16),
@@ -309,286 +684,114 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   int _currentPage = 0;
+  int _currentServicePage = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            //top section - car info
-            Container(
-                height: MediaQuery.of(context).size.height * 0.28,
-                width: double.maxFinite,
-                // color: Colors.blue,
-
-                child: isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : SizedBox(
-                        height: 200,
-                        width: MediaQuery.of(context).size.width * 0.80,
-                        child: CarouselSlider(
-                          carouselController: _controller,
-                          options: CarouselOptions(
-                              enableInfiniteScroll: false,
-                              viewportFraction: 1,
-                              reverse: true,
-                              onPageChanged: (index, reason) {
-                                setState(() {
-                                  _currentPage = index;
-                                });
-                              }),
-                          items: sliderItemList,
-                        ),
-                      )
-
-                // SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
+    homeSliderServicesList.clear();
+    homeSliderServicesList = [
+      firstSlideServicesWidget(),
+      secondSlideServicesWidget(),
+    ];
+    return Scaffold(
+      body: ListView(shrinkWrap: true, children: [
+        Stack(children: [
+          Container(
+            // color: Colors.blue,
+            height: 220,
+            // height: MediaQuery.of(context).size.height * 0.28,
+            width: double.maxFinite,
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SizedBox(
+                    height: 200,
+                    width: MediaQuery.of(context).size.width * 0.80,
+                    child: CarouselSlider(
+                      carouselController: _controller,
+                      options: CarouselOptions(
+                          enableInfiniteScroll: false,
+                          viewportFraction: 1,
+                          reverse: true,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _currentPage = index;
+                            });
+                          }),
+                      items: sliderItemList,
+                    ),
+                  ),
+          ),
+          !isLoading
+              ? Align(
+                  alignment: Alignment.topCenter,
+                  // bottom: 30,
+                  // right: MediaQuery.of(context).size.width/2 ,
+                  // left: MediaQuery.of(context).size.width/2 ,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 180.0),
+                    child: DotsIndicator(
+                      onTap: (index) {
+                        _controller.animateToPage(index.round(), duration: Duration(seconds: 1), curve: Curves.ease);
+                      },
+                      position: _currentPage.toDouble(),
+                      dotsCount: sliderItemList.length,
+                      decorator: DotsDecorator(
+                        color: const Color(0xFF8E8E8E),
+                        activeColor: const Color(0xFF2E3D3D),
+                      ),
+                      // cornerRadius: 50,
+                      // color: const Color(0xFF8E8E8E),
+                      // activeColor: const Color(0xFF2E3D3D),
+                      // width: 10,
+                      // height: 10,
+                      // count: sliderItemList.length,
+                      // index: _currentPage,
+                    ),
+                  ),
+                )
+              : const SizedBox(
+                  height: 5,
                 ),
-            !isLoading
-                ? CarouselIndicator(
-                    cornerRadius: 50,
-                    color: const Color(0xFF8E8E8E),
-                    activeColor: const Color(0xFF2E3D3D),
-                    width: 10,
-                    height: 10,
-                    count: sliderItemList.length,
-                    index: _currentPage,
-                  )
-                : const SizedBox(),
-
-            // SizedBox(height: defaultPadding,),
-
-            Container(
-              // padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-
-              child: GridView.extent(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                physics: ClampingScrollPhysics(),
-                maxCrossAxisExtent: 120,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                padding: EdgeInsets.all(defaultPadding),
-                children: [
-                  //weather
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60 / 640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => EmdadService(
-                                    title: 'امداد فوری',
-                                    hasCarProblem: true,
-                                  )));
-                    },
-                    widget: _subItemWidget('assets/images/ic_service.png', 'امداد فوری'),
-                  ),
-
-                  //roads
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60 / 640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlacePage()));
-                    },
-                    widget: _subItemWidget('assets/images/ic_service_in_place.png', 'خدمات در محل'),
-                  ),
-
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60 / 640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
-                    },
-                    widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
-                  ),
-
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60 / 640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
-                    },
-                    widget: _subItemWidget('assets/images/ic_parking.png', 'خرید اشتراک'),
-                  ),
-
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60 / 640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => EmdadService(
-                                    title: 'حمل خودرو',
-                                    hasCarProblem: false,
-                                  )));
-                    },
-                    widget: _subItemWidget('assets/images/ic_car_movement.png', 'حمل خودرو'),
-                  ),
-
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60 / 640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => EmdadService(
-                                    title: 'پنچری لاستیک',
-                                    hasCarProblem: false,
-                                  )));
-                    },
-                    widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
-                  ),
-
-                  /*
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60/640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadService(title: 'پنچری لاستیک',hasCarProblem: false,)));
-                    },
-                    widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
-                  ),
-
-                  CustomNeomorphicBox(
-                    title: '',
-                    index: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    paddingTop: 8,
-                    paddingRight: 8,
-                    paddingLeft: 8,
-                    selectedIndex: 1,
-                    height: 60/640,
-                    isChildText: false,
-                    isFull: false,
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
-                    },
-                    widget: Center(child: Image.asset('assets/images/ic_plus.png'),),
-                  ),
-
-                   */
-
-                  // _serviceWidget(
-                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/ic_taxi.png',
-                  //   title: 'تاکسی',
-                  // ),
-                  // _serviceWidget(
-                  //   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/ic_information.png',
-                  //   title: 'اطلاعیه',
-                  // ),
-                  // _serviceWidget(
-                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/renew.png',
-                  //   title: 'خلافی',
-                  //
-                  // ),
-
-                  // _serviceWidget(
-                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/plus.png',
-                  //   title: 'اضافه',
-                  //
-                  // ),
-
-                  // _serviceWidget(
-                  //   onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage())),
-                  //   imagePath: 'assets/images/renew.png',
-                  //   title: 'فروشگاه',
-                  //
-                  // ),
-                ],
-              ),
-            )
-          ],
+        ]),
+        Center(
+          child: DotsIndicator(
+            onTap: (index) {
+              _servicesController.animateToPage(index.round(), duration: Duration(seconds: 1), curve: Curves.ease);
+            },
+            position: _currentServicePage.toDouble(),
+            dotsCount: homeSliderServicesList.length,
+            decorator: DotsDecorator(
+              color: const Color(0xFF8E8E8E),
+              activeColor: const Color(0xFF2E3D3D),
+            ),
+          ),
         ),
-      ),
+        CarouselSlider(
+          carouselController: _servicesController,
+          // carouselController: _controller,
+          options: CarouselOptions(
+              // height:MediaQuery.of(context).size.height >600? (5*(MediaQuery.of(context).size.height/8))+200 : (5*(MediaQuery.of(context).size.height/8))+200,
+              // height:MediaQuery.of(context).size.height >600? (5*(MediaQuery.of(context).size.height/8))+200 : (5*(MediaQuery.of(context).size.height/8))+200,
+              // height:double.maxFinite,
+              aspectRatio: 16 / 16,
+              enableInfiniteScroll: false,
+              viewportFraction: 1.0,
+              reverse: false,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentServicePage = index;
+                });
+              }),
+          items: homeSliderServicesList,
+        ),
+        // Container(color: Colors.orange,width: 30,height: 50,),
+        // Container(color: Colors.red,width: 30,height: 200,),
+        // Container(color: Colors.green,width: 30,height: 300,),
+        // Container(color: Colors.blue,width: 30,height: 100,),
+        // Container(color: Colors.orange,width: 30,height: 100,),
+      ]
+          // SliderItemWidget(imagePath: 'assets/images/ic_car_red.png',showingTexts: Text('برای ثبت خودرو کلیک کنید'))
+          ),
     );
   }
 
@@ -2079,25 +2282,25 @@ class _HomeTabState extends State<HomeTab> {
           // ),
           Expanded(
               child: Container(
-                // height: 60,
-                // width: 60,
-                // padding: EdgeInsets.all(12),
-                // decoration: BoxDecoration(
-                //   shape: BoxShape.circle,
-                //   // borderRadius: BorderRadius.circular(70),
-                //
-                //     //TODO one final
-                //     color: coor_sharp_orange_gradient3
-                //   // color: dak_theme_box_shadow_dark
-                //
-                // ),
+            // height: 60,
+            // width: 60,
+            // padding: EdgeInsets.all(12),
+            // decoration: BoxDecoration(
+            //   shape: BoxShape.circle,
+            //   // borderRadius: BorderRadius.circular(70),
+            //
+            //     //TODO one final
+            //     color: coor_sharp_orange_gradient3
+            //   // color: dak_theme_box_shadow_dark
+            //
+            // ),
             // padding: EdgeInsets.all(1),
             child: Image.asset(
               imagePath,
               fit: BoxFit.cover,
             ),
 
-                //one final
+            //one final
             // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
             // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
           )),
@@ -2128,30 +2331,31 @@ class _HomeTabState extends State<HomeTab> {
         //   ],
         // ),
         Expanded(
-            child: Container(
-          // height: 60,
-          // width: 60,
-          // padding: EdgeInsets.all(12),
-          // decoration: BoxDecoration(
-          //   shape: BoxShape.circle,
-          //   // borderRadius: BorderRadius.circular(70),
-          //
-          //     //TODO one final
-          //     color: coor_sharp_orange_gradient3
-          //   // color: dak_theme_box_shadow_dark
-          //
-          // ),
-          // padding: EdgeInsets.all(1),
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.contain,
-            color: Theme.of(context).accentColor,
-          ),
+          child: Container(
+            // height: 60,
+            // width: 60,
+            // padding: EdgeInsets.all(12),
+            // decoration: BoxDecoration(
+            //   shape: BoxShape.circle,
+            //   // borderRadius: BorderRadius.circular(70),
+            //
+            //     //TODO one final
+            //     color: coor_sharp_orange_gradient3
+            //   // color: dak_theme_box_shadow_dark
+            //
+            // ),
+            // padding: EdgeInsets.all(1),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+              color: Theme.of(context).accentColor,
+            ),
 
-          //one final
-          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
-          // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
-        )),
+            //one final
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharp_orange_darker2 ,)),
+            // child: Center(child: Icon(Icons.airport_shuttle_rounded, size: 45, color:color_sharporange_dark_font ,)),
+          ),
+        ),
         // Expanded(child: Image.asset(imagePath,  fit: BoxFit.cover,)),
         // SizedBox(height: defaultPadding/3,),
         // Expanded(child: Container()),

@@ -42,6 +42,7 @@ dependencies:
   hive_generator: ^1.1.2
   carousel_indicator: ^1.0.6
   flutter_rating_bar: ^4.0.1
+  dots_indicator: ^2.1.0
 
 
 dev_dependencies:

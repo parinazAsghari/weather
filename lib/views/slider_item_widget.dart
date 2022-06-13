@@ -94,8 +94,9 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                               padding: EdgeInsets.only(right: 42, top: defaultPadding / 2),
                               child: Image.asset(
                                 'assets/images/ic_plus.png',
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                fit: BoxFit.contain,
+                                width: MediaQuery.of(context).size.width * 0.20,
+                                height: MediaQuery.of(context).size.height * 0.1,
+                                fit: BoxFit.fitWidth,
                               ),
                             ),
                           )
