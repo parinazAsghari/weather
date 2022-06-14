@@ -46,7 +46,10 @@ class _BasicState extends State<Basic> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('گارانتی بدنه پایه ، اولین سطح محصول گارانتی بدنه در شرکت امداد خودرو سایپا می باشد که با داشتن پوشش های پایه و قیمت مناسب به دارندگان خودرو گروه خودرو سازی سایپا قابل ارائه می باشد.'),
+                      Text(
+                        'گارانتی بدنه پایه ، اولین سطح محصول گارانتی بدنه در شرکت امداد خودرو سایپا می باشد که با داشتن پوشش های پایه و قیمت مناسب به دارندگان خودرو گروه خودرو سازی سایپا قابل ارائه می باشد.',
+                        textAlign: TextAlign.justify,
+                      ),
                       TextButton(
                           style: TextButton.styleFrom(primary: Theme.of(context).primaryColor),
                           onPressed: () {

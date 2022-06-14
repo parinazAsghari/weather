@@ -44,14 +44,17 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         enabled: enabled,
-        onChanged: (value){
-          onChanged(value);
-        },
+        // onChanged: (value){
+        //   onChanged(value);
+        // },
         textAlign: alignText,
         decoration: InputDecoration(
           hintText: hintText,
           suffixIcon: Icon(iconData),
-          label: Text(title,textAlign: alignText,),
+          label: Text(
+            title,
+            textAlign: alignText,
+          ),
           isDense: true,
           contentPadding: EdgeInsets.only(top: height, right: paddingRight ?? 0),
           border: OutlineInputBorder(

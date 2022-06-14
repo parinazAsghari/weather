@@ -42,14 +42,13 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   String? fullName;
   String? nationalCode;
 
-
   String? _carModelDefaultValue;
   final TextEditingController _carModelController = TextEditingController();
 
-
   // Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
   Map<String, dynamic> carModelListItem = {};
-
+  TextEditingController _userFullNameController = TextEditingController();
+  TextEditingController _userNationalCodeController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -169,6 +168,16 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                       ),
                     ],
                   ),
+                ),
+                CustomTextField(
+                  title: 'نام و نام خانوادگی',
+                  height: 28,
+                  controller: _userFullNameController,
+                ),
+                CustomTextField(
+                  title: 'کد ملی',
+                  height: 28,
+                  controller: _userNationalCodeController,
                 ),
 
                 // _customTextField(

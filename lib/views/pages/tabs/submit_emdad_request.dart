@@ -379,17 +379,20 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
 
     var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
+    print(res.data);
+    print(res.resultCode);
+    print(res.failures);
     if (res.resultCode == 0) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return MessageDialogWidget(
-                  dismissable: false,
-                  hasTextBody: false,
-                  widget: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
+              dismissable: false,
+              hasTextBody: false,
+              widget: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
                         Text('مشتری گرامی اطلاعات شما با شماره پیگیری ${res.data!.trackingCode} در سامانه ثبت گردید.', textAlign: TextAlign.center),
                         Text('همکاران ما بزودی با شما تماس خواهند گرفت.', textAlign: TextAlign.center),
                         Text(

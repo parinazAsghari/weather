@@ -25,6 +25,7 @@ class SubmitAddress extends StatefulWidget {
 
 class _SubmitAddressState extends State<SubmitAddress> {
   final TextEditingController _addressCtrl = TextEditingController();
+  final TextEditingController _addressTekmiliCtrl = TextEditingController();
 
   String? phone;
   String? fullName;
@@ -93,12 +94,20 @@ class _SubmitAddressState extends State<SubmitAddress> {
                 _addressCtrl.text.isNotEmpty
                     ? CustomTextField(
                         title: 'آدرس *',
-                        height: 111,
+                        height: 50,
                         controller: _addressCtrl,
                       )
                     : CircularProgressIndicator(
                         color: dark_theme_secondary,
                       ),
+                const SizedBox(
+                  height: 8,
+                ),
+                CustomTextField(
+                  title: 'آدرس تکمیلی ( پلاک _ واحد )',
+                  height: 50,
+                  controller: _addressTekmiliCtrl,
+                ),
 
                 _customCheckBox(),
 
