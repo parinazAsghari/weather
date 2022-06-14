@@ -188,21 +188,24 @@ class _HomePageState extends State<HomePage> {
           enableFeedback: true,
           child: Container(
             height: 45,
-            width: 130,
+            width: 140,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: Theme.of(context).accentColor),
             child: Center(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'تماس با 096550',
-                  style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: defaultPadding / 4,
-                ),
-                Icon(Icons.phone, color: Colors.white, size: 20),
-              ],
+                child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'تماس با 096550',
+                    style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: defaultPadding / 4,
+                  ),
+                  Icon(Icons.phone, color: Colors.white, size: 20),
+                ],
+              ),
             )),
           ),
         ),

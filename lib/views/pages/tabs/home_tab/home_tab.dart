@@ -567,6 +567,31 @@ class _HomeTabState extends State<HomeTab> {
           },
           widget: _subItemWidget('assets/images/ic_flat_tire.png', 'پنچری'),
         ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => EmdadService(
+                          title: 'امداد باتری',
+                          hasCarProblem: false,
+                        )));
+          },
+          widget: _subItemWidget('assets/images/ic_flat_tire.png', 'امداد باتری'),
+        ),
       ],
     );
   }
@@ -615,6 +640,7 @@ class _HomeTabState extends State<HomeTab> {
       if (myCarsList.isEmpty) {
         sliderItemList = [
           const SliderItemWidget(
+            index: 0,
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
               padding: const EdgeInsets.only(right: 20.0, top: 16),
@@ -628,10 +654,11 @@ class _HomeTabState extends State<HomeTab> {
           )
         ];
       } else {
-        myCarsList.forEach((element) {
+        for (int element = 0; element < myCarsList.length; element++) {
           sliderItemList.add(
             SliderItemWidget(
-              imagePath: 'assets/images/${carImagePath(element.brand)}.png',
+              index: element,
+              imagePath: 'assets/images/${carImagePath(myCarsList[element].brand)}.png',
               showingTexts: Padding(
                 padding: const EdgeInsets.only(right: 20.0, top: 16),
                 child: Column(
@@ -639,12 +666,12 @@ class _HomeTabState extends State<HomeTab> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'نام خودرو: ${element.brand}',
+                      'نام خودرو: ${myCarsList[element].brand}',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'سال ساخت: ${element.createDate}',
+                      'سال ساخت: ${myCarsList[element].createDate}',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     )
@@ -652,19 +679,20 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               ),
               isCarFromDataBase: true,
-              brand: element.brand,
-              chassisNumber: element.chassisNumber,
-              ownerNationalCode: element.ownerNationalCode,
-              createDate: element.createDate,
-              fourthCarTag: element.fourthCarTag,
-              secondCarTag: element.secondCarTag,
-              thirdCarTag: element.thirdCarTag,
-              firstCarTag: element.firstCarTag,
+              brand: myCarsList[element].brand,
+              chassisNumber: myCarsList[element].chassisNumber,
+              ownerNationalCode: myCarsList[element].ownerNationalCode,
+              createDate: myCarsList[element].createDate,
+              fourthCarTag: myCarsList[element].fourthCarTag,
+              secondCarTag: myCarsList[element].secondCarTag,
+              thirdCarTag: myCarsList[element].thirdCarTag,
+              firstCarTag: myCarsList[element].firstCarTag,
             ),
           );
-        });
+        }
         sliderItemList.add(
           const SliderItemWidget(
+            index: 0,
             imagePath: 'assets/images/ic_car_red.png',
             showingTexts: Padding(
               padding: const EdgeInsets.only(right: 20.0, top: 16),
@@ -709,9 +737,10 @@ class _HomeTabState extends State<HomeTab> {
                     child: CarouselSlider(
                       carouselController: _controller,
                       options: CarouselOptions(
-                          enableInfiniteScroll: false,
+                          scrollDirection: Axis.horizontal,
+                          // enableInfiniteScroll: false,
                           viewportFraction: 1,
-                          reverse: true,
+                          reverse: false,
                           onPageChanged: (index, reason) {
                             setState(() {
                               _currentPage = index;
@@ -774,7 +803,7 @@ class _HomeTabState extends State<HomeTab> {
               // height:MediaQuery.of(context).size.height >600? (5*(MediaQuery.of(context).size.height/8))+200 : (5*(MediaQuery.of(context).size.height/8))+200,
               // height:double.maxFinite,
               aspectRatio: 16 / 16,
-              enableInfiniteScroll: false,
+              // enableInfiniteScroll: false,
               viewportFraction: 1.0,
               reverse: false,
               onPageChanged: (index, reason) {

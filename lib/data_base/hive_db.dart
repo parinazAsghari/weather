@@ -30,20 +30,28 @@ class HiveDB {
     if (boxExists) {
       box = Hive.box(boxName);
     } else {
-      box = await _createHiveBox(boxName,);
+      box = await _createHiveBox(
+        boxName,
+      );
     }
     box.put(dataKey, value);
   }
-  deleteData(dynamic key, String boxName,) async {
+
+  deleteData(
+    int index,
+    String boxName,
+  ) async {
     var box;
     bool boxExists = await Hive.boxExists(boxName);
     if (boxExists) {
       box = Hive.box(boxName);
     } else {
-      box = await _createHiveBox(boxName,);
+      box = await _createHiveBox(
+        boxName,
+      );
     }
 
-    box.delete(key);
+    box.deleteAt(index);
   }
 
   addData(dynamic value, String boxName,) async {

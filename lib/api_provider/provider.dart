@@ -36,7 +36,7 @@ class ApiProvider {
   static Future<dynamic> sendMobileNumber(String phoneNumber, String code) async {
     Map data = {'MobileNumber': phoneNumber, 'Message': "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${code} \n امداد خودرو سایپا\n "};
 
-    var url = 'http://185.94.99.204:5252/api/Sms/Send';
+    var url = 'http://185.94.99.204:7252/api/Sms/Send';
 
     //encode Map to JSON
     var body = json.encode(data);
