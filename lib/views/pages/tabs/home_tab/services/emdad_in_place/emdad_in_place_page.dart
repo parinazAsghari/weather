@@ -68,6 +68,22 @@ class _EmdadInPlacePageState extends State<EmdadInPlacePage> {
           height: 75 / 640,
           marginTop: 8,
           marginRight: 28,
+          marginLeft: 0,
+          marginBottom: 0,
+          isChildText: false,
+          widget: _subItemBox(title: 'تعمیرات غیرفوریتی', imagePath: 'assets/images/accessory.png'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          selectedIndex: 1,
+          isFull: true,
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitOnSiteService()));
+          },
+          height: 75 / 640,
+          marginTop: 8,
+          marginRight: 28,
           marginBottom: 0,
           isChildText: false,
           widget: _subItemBox(title: 'آپشن و لوازم جانبی', imagePath: 'assets/images/accessory.png'),
