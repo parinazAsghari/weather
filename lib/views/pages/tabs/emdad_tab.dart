@@ -466,16 +466,18 @@ class _EmdadTabState extends State<EmdadTab> {
 
             Container(
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   _panelController.open();
                 },
-                child: Text(
-                  'ثبت درخواست',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    // color: secondary_light_grey_color,
-                    fontWeight: FontWeight.bold
+                child: const Padding(
+                  padding: EdgeInsets.only(right: 18.0),
+                  child: Text(
+                    'ثبت درخواست',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 20,
+                        // color: secondary_light_grey_color,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

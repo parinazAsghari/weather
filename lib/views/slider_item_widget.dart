@@ -9,14 +9,15 @@ class SliderItemWidget extends StatefulWidget {
       required this.showingTexts,
       required this.imagePath,
       required this.isCarFromDataBase,
-       this.chassisNumber,
-       this.ownerNationalCode,
-       this.brand,
-       this.createDate,
-       this.firstCarTag,
-       this.secondCarTag,
-       this.thirdCarTag,
-       this.fourthCarTag})
+      this.chassisNumber,
+      this.ownerNationalCode,
+      this.brand,
+      this.createDate,
+      this.firstCarTag,
+      this.secondCarTag,
+      this.thirdCarTag,
+      this.fourthCarTag,
+      required this.index})
       : super(key: key);
 
   final String imagePath;
@@ -30,6 +31,7 @@ class SliderItemWidget extends StatefulWidget {
   final String? secondCarTag;
   final int? thirdCarTag;
   final int? fourthCarTag;
+  final int index;
 
   @override
   State<SliderItemWidget> createState() => _SliderItemWidgetState();
@@ -62,16 +64,16 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => AddNewCar(
+                        index: widget.index,
                         isCarFromDataBase: widget.isCarFromDataBase,
                         chassisNumber: widget.isCarFromDataBase ? widget.chassisNumber : null,
                         ownerNationalCode: widget.isCarFromDataBase ? widget.ownerNationalCode : null,
-                        firstCarTag: widget.isCarFromDataBase ? widget.firstCarTag :null,
-                        secondCarTag: widget.isCarFromDataBase ? widget.secondCarTag :null,
-                        thirdCarTag: widget.isCarFromDataBase ? widget.thirdCarTag :null,
-                        fourthCarTag: widget.isCarFromDataBase ? widget.fourthCarTag :null,
-                        brand: widget.isCarFromDataBase ? widget.brand :null,
-                        createDate: widget.isCarFromDataBase ? widget.createDate :null,
-
+                        firstCarTag: widget.isCarFromDataBase ? widget.firstCarTag : null,
+                        secondCarTag: widget.isCarFromDataBase ? widget.secondCarTag : null,
+                        thirdCarTag: widget.isCarFromDataBase ? widget.thirdCarTag : null,
+                        fourthCarTag: widget.isCarFromDataBase ? widget.fourthCarTag : null,
+                        brand: widget.isCarFromDataBase ? widget.brand : null,
+                        createDate: widget.isCarFromDataBase ? widget.createDate : null,
                       ),
                     ),
                   );
@@ -185,15 +187,16 @@ class _SliderItemWidgetState extends State<SliderItemWidget> {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => AddNewCar(
+                        index: widget.index,
                         isCarFromDataBase: widget.isCarFromDataBase,
-                        chassisNumber:widget.isCarFromDataBase? widget.chassisNumber:null,
-                        ownerNationalCode:widget.isCarFromDataBase? widget.ownerNationalCode:null,
-                        firstCarTag: widget.isCarFromDataBase ? widget.firstCarTag :null,
-                        secondCarTag: widget.isCarFromDataBase ? widget.secondCarTag :null,
-                        thirdCarTag: widget.isCarFromDataBase ? widget.thirdCarTag :null,
-                        fourthCarTag: widget.isCarFromDataBase ? widget.fourthCarTag :null,
-                        brand: widget.isCarFromDataBase ? widget.brand :null,
-                        createDate: widget.isCarFromDataBase ? widget.createDate :null,
+                        chassisNumber: widget.isCarFromDataBase ? widget.chassisNumber : null,
+                        ownerNationalCode: widget.isCarFromDataBase ? widget.ownerNationalCode : null,
+                        firstCarTag: widget.isCarFromDataBase ? widget.firstCarTag : null,
+                        secondCarTag: widget.isCarFromDataBase ? widget.secondCarTag : null,
+                        thirdCarTag: widget.isCarFromDataBase ? widget.thirdCarTag : null,
+                        fourthCarTag: widget.isCarFromDataBase ? widget.fourthCarTag : null,
+                        brand: widget.isCarFromDataBase ? widget.brand : null,
+                        createDate: widget.isCarFromDataBase ? widget.createDate : null,
                       ),
                     ),
                   );

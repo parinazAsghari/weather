@@ -9,7 +9,19 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class AddNewCar extends StatefulWidget {
-  const AddNewCar({Key? key, required this.isCarFromDataBase,  this.chassisNumber,  this.ownerNationalCode,  this.brand,  this.createDate,  this.firstCarTag,  this.secondCarTag,  this.thirdCarTag,  this.fourthCarTag}) : super(key: key);
+  const AddNewCar({
+    Key? key,
+    required this.isCarFromDataBase,
+    this.chassisNumber,
+    this.ownerNationalCode,
+    this.brand,
+    this.createDate,
+    this.firstCarTag,
+    this.secondCarTag,
+    this.thirdCarTag,
+    this.fourthCarTag,
+    this.index,
+  }) : super(key: key);
   final bool isCarFromDataBase;
   final String? chassisNumber;
   final String? ownerNationalCode;
@@ -19,6 +31,7 @@ class AddNewCar extends StatefulWidget {
   final String? secondCarTag;
   final int? thirdCarTag;
   final int? fourthCarTag;
+  final int? index;
 
   @override
   State<AddNewCar> createState() => _AddNewCarState();
@@ -62,12 +75,13 @@ class _AddNewCarState extends State<AddNewCar> {
     pelakDropDownValue = pelakListItem.first;
     if(widget.isCarFromDataBase){
       _chassisNumberController.text = widget.chassisNumber!;
+      _carModelController.text = widget.brand!;
       _nationalCodeController.text = widget.ownerNationalCode!;
       _firstNumberController.text = widget.firstCarTag.toString().characters.first;
       _secondNumberController.text = widget.firstCarTag.toString().characters.last;
       _thirdNumberController.text = widget.thirdCarTag.toString().characters.first;
-      _fourthNumberController.text = widget.thirdCarTag.toString().substring(1,2).characters.first;
-      _fifthNumberController.text =widget.thirdCarTag.toString().characters.last;
+      _fourthNumberController.text = widget.thirdCarTag.toString().substring(1, 2).characters.first;
+      _fifthNumberController.text = widget.thirdCarTag.toString().characters.last;
       _sixthNumberController.text = widget.fourthCarTag.toString().characters.first;
       _seventhNumberController.text = widget.fourthCarTag.toString().characters.last;
       _carModelDefaultValue = widget.brand;
@@ -730,8 +744,8 @@ class _AddNewCarState extends State<AddNewCar> {
                     ),
                   ],
                 ),
-                if (!widget.isCarFromDataBase)
-                  const SizedBox(
+                // if (!widget.isCarFromDataBase)
+                const SizedBox(
                     height: 20,
                   ),
                 if (!widget.isCarFromDataBase)
@@ -742,13 +756,14 @@ class _AddNewCarState extends State<AddNewCar> {
                         flex: 3,
                         child: ElevatedButton(
                             style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(light_theme_secondary),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
                               // primary: secondary_light_grey_color
-                              ),
+                            ),
                           onPressed: ()async {
                               if (_chassisNumberController.text.isEmpty ||
                                   // _nationalCodeController.text.isEmpty ||
@@ -814,6 +829,73 @@ class _AddNewCarState extends State<AddNewCar> {
                 if (!widget.isCarFromDataBase)
                   const SizedBox(
                     height: 20,
+                  ),
+                if (widget.isCarFromDataBase)
+                  Row(
+                    children: [
+                      const Spacer(),
+                      Expanded(
+                        flex: 3,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(light_theme_secondary),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              // primary: secondary_light_grey_color
+                            ),
+                            onPressed: () async {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return MessageDialogWidget(
+                                      body: 'آیا اطلاعات خودرو حذف شود؟',
+                                      dismissable: true,
+                                      positiveTxt: 'بله',
+                                      positiveFunc: () async {
+                                        Car car = Car();
+                                        car.chassisNumber = _chassisNumberController.text;
+                                        car.ownerNationalCode = _nationalCodeController.text;
+                                        car.brand = _carModelController.text;
+                                        car.createDate = _createDateController.text;
+                                        car.id = 1;
+                                        car.firstCarTag = int.parse((_firstNumberController.text + _secondNumberController.text));
+                                        car.secondCarTag = _dropDownTagController.text;
+                                        car.thirdCarTag = int.parse((_thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text));
+                                        car.fourthCarTag = int.parse((_sixthNumberController.text + _seventhNumberController.text));
+                                        HiveDB _hiveDb = HiveDB();
+                                        await _hiveDb.deleteData(widget.index!, 'userBox');
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                                      },
+                                    );
+                                  });
+                              // showDialog(
+                              //     context: context,
+                              //     builder: (BuildContext context) {
+                              //       return MessageDialogWidget(
+                              //         body: 'اطلاعات شما با موفقیت ثبت شد',
+                              //         dismissable: true,
+                              //         positiveTxt: 'باشه',
+                              //         positiveFunc: () async {
+                              //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                              //         },
+                              //       );
+                              //     });
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                'حذف خودرو',
+                                style: TextStyle(
+                                    // color: primary_grey_color
+                                    ),
+                              ),
+                            )),
+                      ),
+                      const Spacer(),
+                    ],
                   ),
               ],
             ),
