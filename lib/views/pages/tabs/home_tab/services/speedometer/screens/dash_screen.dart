@@ -87,8 +87,6 @@ class _DashScreenState extends State<DashScreen> {
   void _onAccelerate(double speed) {
     locator.getCurrentPosition().then(
       (Position updatedPosition) {
-        print('this is current location ===>>>>>> ${updatedPosition}');
-
         _velocity = (speed + updatedPosition.speed) / 2;
         if (_velocity! > _highestVelocity!) _highestVelocity = _velocity;
         _velocityUpdatedStreamController.add(_velocity);

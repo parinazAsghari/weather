@@ -25,7 +25,7 @@ class _SpeedmeterState extends State<Speedmeter> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: const Text(
-          'قطب نما',
+          'سرعت سنج',
           // style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         // backgroundColor: secondary_dark_purple_color,
@@ -36,7 +36,7 @@ class _SpeedmeterState extends State<Speedmeter> {
   Widget _body() {
     return Builder(builder: (context) {
 
-      return DashScreen();
+      return DashScreen(unit: 'km/h',);
     });
   }
 

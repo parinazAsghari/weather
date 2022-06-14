@@ -8,9 +8,10 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_on_site_packages.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/speed_meter.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
@@ -256,7 +257,7 @@ class _HomeTabState extends State<HomeTab> {
           isChildText: false,
           isFull: false,
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlacePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadOnSitePackages()));
           },
           widget: _subItemWidget('assets/images/ic_service_in_place.png', 'خدمات در محل'),
         ),
@@ -630,9 +631,68 @@ class _HomeTabState extends State<HomeTab> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
+                    builder: (BuildContext context) => CarToll()));
+          },
+          widget: _subItemWidget('assets/images/ic_service.png', 'عوارض خودرو'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => DevelopingPage()));
+          },
+          widget: _subItemWidget('assets/images/ic_service.png', 'خلافی خودرو'),
+        ),
+      ],
+    );
+  }
+
+  Widget forthSlideServicesWidget() {
+    return GridView.count(
+      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
+      // maxCrossAxisExtent: 120,
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
+      padding: EdgeInsets.all(defaultPadding),
+      children: [
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
                     builder: (BuildContext context) => Weather()));
           },
-          widget: _subItemWidget('assets/images/ic_car_movement.png', 'هواشناسی'),
+          widget: _subItemWidget('assets/images/ic_service.png', 'هواشناسی'),
         ),
         CustomNeomorphicBox(
           title: '',
@@ -654,7 +714,7 @@ class _HomeTabState extends State<HomeTab> {
                 MaterialPageRoute(
                     builder: (BuildContext context) => Speedmeter()));
           },
-          widget: _subItemWidget('assets/images/ic_flat_tire.png', 'سرعت سنج'),
+          widget: _subItemWidget('assets/images/ic_service.png', 'سرعت سنج'),
         ),
         CustomNeomorphicBox(
           title: '',
@@ -676,7 +736,7 @@ class _HomeTabState extends State<HomeTab> {
                 MaterialPageRoute(
                     builder: (BuildContext context) => Compass()));
           },
-          widget: _subItemWidget('assets/images/ic_flat_tire.png', 'قطب نما'),
+          widget: _subItemWidget('assets/images/ic_service.png', 'قطب نما'),
         ),
       ],
     );
@@ -806,7 +866,8 @@ class _HomeTabState extends State<HomeTab> {
     homeSliderServicesList = [
       firstSlideServicesWidget(),
       secondSlideServicesWidget(),
-      thirdSlideServicesWidget()
+      thirdSlideServicesWidget(),
+      forthSlideServicesWidget()
     ];
     return Scaffold(
       body: ListView(shrinkWrap: true, children: [
