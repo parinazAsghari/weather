@@ -1,14 +1,16 @@
 import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/models/user.dart';
-import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/screens/dash_screen.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'constants.dart';
-import 'views/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,8 +36,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'امداد خودرو سایپا',
 
-            home: SplashPage(),
-            // home: HomePage(),
+            // home: SplashPage(),
+            home: HomePage(),
+            // home: Weather(),
+            // home: DashScreen(),
 
             localizationsDelegates: [
               GlobalCupertinoLocalizations.delegate,

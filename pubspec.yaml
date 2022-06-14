@@ -22,18 +22,22 @@ dependencies:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
   flip_card: ^0.6.0
+  flutter_compass: ^0.7.0
   flutter_neumorphic: ^3.2.0
   google_maps_flutter: ^2.1.4
+  geolocator: ^8.2.1
   http: ^0.13.4
   intl: ^0.17.0
   mapir_raster: ^0.0.1
   local_auth: ^2.0.1
   location: ^4.4.0
+  numberpicker: ^2.1.1
   provider: ^6.0.2
+  permission_handler: ^8.2.5
   shared_preferences: ^2.0.15
   sliding_up_panel: ^2.0.0+1
+  syncfusion_flutter_gauges: ^20.1.59
   url_launcher: ^6.1.2
-  permission_handler: ^8.2.5
   smooth_page_indicator: ^1.0.0+2
   pin_code_fields: ^7.4.0
   hive: ^2.2.1

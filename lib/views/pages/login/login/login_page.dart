@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
 
-    await Future.delayed(const Duration(milliseconds: 4000));
+    await Future.delayed(const Duration(milliseconds: 2000));
     var result = await ApiProvider.sendMobileNumber(_phoneController.text, code.toString());
 
     Navigator.pop(context);

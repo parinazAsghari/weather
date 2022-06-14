@@ -8,8 +8,12 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/speed_meter.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:emdad_khodro_saipa/views/slider_item_widget.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -597,6 +601,87 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
+  Widget thirdSlideServicesWidget() {
+    return GridView.count(
+      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
+      // maxCrossAxisExtent: 120,
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
+      padding: EdgeInsets.all(defaultPadding),
+      children: [
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => Weather()));
+          },
+          widget: _subItemWidget('assets/images/ic_car_movement.png', 'هواشناسی'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => Speedmeter()));
+          },
+          widget: _subItemWidget('assets/images/ic_flat_tire.png', 'سرعت سنج'),
+        ),
+        CustomNeomorphicBox(
+          title: '',
+          index: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginTop: 0,
+          marginLeft: 0,
+          paddingTop: 8,
+          paddingRight: 8,
+          paddingLeft: 8,
+          selectedIndex: 1,
+          height: 60 / 640,
+          isChildText: false,
+          isFull: false,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => Compass()));
+          },
+          widget: _subItemWidget('assets/images/ic_flat_tire.png', 'قطب نما'),
+        ),
+      ],
+    );
+  }
+
   String carImagePath(String carModel) {
     String imagePath = '';
     switch (carModel) {
@@ -721,6 +806,7 @@ class _HomeTabState extends State<HomeTab> {
     homeSliderServicesList = [
       firstSlideServicesWidget(),
       secondSlideServicesWidget(),
+      thirdSlideServicesWidget()
     ];
     return Scaffold(
       body: ListView(shrinkWrap: true, children: [
