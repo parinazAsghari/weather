@@ -7,6 +7,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
+import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
@@ -270,9 +271,9 @@ class _HomeTabState extends State<HomeTab> {
           isChildText: false,
           isFull: false,
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const GoldenCard()));
           },
-          widget: _subItemWidget('assets/images/ic_body_garanty.png', 'گارانتی بدنه'),
+          widget: _subItemWidget('assets/images/ic_body_garanty.png', 'کارت طلایی'),
         ),
         CustomNeomorphicBox(
           title: '',
