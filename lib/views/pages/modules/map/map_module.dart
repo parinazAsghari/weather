@@ -16,14 +16,9 @@ import '../../../widgets/custom_submit_button.dart';
 import '../../drop_down.dart';
 
 class MapModule extends StatefulWidget {
-  final String? title;
-  final bool? hasCarProblem;
-  final Function? navigateFunc;
+
 
   MapModule({
-     this.title,
-     this.hasCarProblem,
-     this.navigateFunc,
     Key? key,
   }) : super(key: key);
 
@@ -150,7 +145,8 @@ class _MapModuleState extends State<MapModule> {
                     padding: const EdgeInsets.all(8.0),
                     child: CustomSubmitButton(
                       onTap: () {
-                        widget.navigateFunc;
+                        Navigator.pop(context, LatLng(_lastMapPosition.latitude, _lastMapPosition.longitude));
+
                       },
                       text: 'تائید و ادامه',
                       marginBottom: 0,

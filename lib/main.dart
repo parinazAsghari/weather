@@ -40,27 +40,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'امداد خودرو سایپا',
 
-            home: SplashPage(),
-            // home: HomePage(),
-            // home: Weather(),
-            // home: DashScreen(),
-            // home: MapModule(
-            //   title: 'Title',
-            //   hasCarProblem: true,
-            //   navigateFunc: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (BuildContext context) => SubmitEmdadRequest(
-            //           latLng: LatLng(20.22, 66.22),
-            //           title: "widget.title",
-            //           hasCarProblem: true,
-            //
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
+            // home: SplashPage(),
+            home: HomePage(),
+
+
 
             localizationsDelegates: [
               GlobalCupertinoLocalizations.delegate,
