@@ -1,6 +1,7 @@
 import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/models/user.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/screens/dash_screen.dart';
@@ -36,8 +37,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'امداد خودرو سایپا',
 
-            // home: SplashPage(),
-            home: HomePage(),
+            home: SplashPage(),
+            // home: HomePage(),
             // home: Weather(),
             // home: DashScreen(),
 

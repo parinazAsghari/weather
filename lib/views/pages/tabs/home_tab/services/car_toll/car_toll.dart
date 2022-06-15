@@ -68,8 +68,8 @@ class _CarTollState extends State<CarToll> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        // builder: (BuildContext context) => const CarTollResult(),
-        builder: (BuildContext context) => const DevelopingPage(),
+        builder: (BuildContext context) => const CarTollResult(),
+        // builder: (BuildContext context) => const DevelopingPage(),
       ),
     );
   }
@@ -118,7 +118,7 @@ class _CarTollState extends State<CarToll> {
                     TextButton(
                         onPressed: (){
                           Navigator.pop(context);
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                           Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar(isCarFromDataBase: false)));
                         },
                         child: Text('افزودن خودروی جدید +', style: TextStyle(fontSize: 14,color: Theme.of(context).primaryColor),)),

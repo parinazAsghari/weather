@@ -8,6 +8,7 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_charge/car_charge.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
@@ -653,7 +654,7 @@ class _HomeTabState extends State<HomeTab> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => DevelopingPage()));
+                    builder: (BuildContext context) => CarCharge()));
           },
           widget: _subItemWidget('assets/images/ic_service.png', 'خلافی خودرو'),
         ),

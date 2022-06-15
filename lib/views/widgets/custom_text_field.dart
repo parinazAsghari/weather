@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   IconData? iconData;
   bool isLtr;
   TextAlign alignText;
+  TextInputType? textInputType;
   var onChanged;
 
   CustomTextField({
@@ -31,6 +32,7 @@ class CustomTextField extends StatelessWidget {
     this.paddingRight = 10,
     this.radius = 8,
     this.iconData,
+    this.textInputType,
     this.onChanged,
     this.isLtr = false,
     this.alignText = TextAlign.start,
@@ -44,6 +46,7 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         enabled: enabled,
+        keyboardType: textInputType ?? TextInputType.text,
         // onChanged: (value){
         //   onChanged(value);
         // },
