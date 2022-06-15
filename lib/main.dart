@@ -1,14 +1,17 @@
 import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/models/user.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
 import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/screens/dash_screen.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'constants.dart';
@@ -41,6 +44,23 @@ class MyApp extends StatelessWidget {
             // home: HomePage(),
             // home: Weather(),
             // home: DashScreen(),
+            // home: MapModule(
+            //   title: 'Title',
+            //   hasCarProblem: true,
+            //   navigateFunc: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (BuildContext context) => SubmitEmdadRequest(
+            //           latLng: LatLng(20.22, 66.22),
+            //           title: "widget.title",
+            //           hasCarProblem: true,
+            //
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
 
             localizationsDelegates: [
               GlobalCupertinoLocalizations.delegate,
@@ -76,6 +96,9 @@ class MyApp extends StatelessWidget {
                   iconTheme: IconThemeData(color: light_theme_secondary),
                   actionsIconTheme: IconThemeData(color: light_theme_secondary),
                 ),
+                progressIndicatorTheme: ProgressIndicatorThemeData(
+                    color: dark_theme_secondary
+                ),
                 tabBarTheme: TabBarTheme(labelColor: light_theme_secondary, unselectedLabelColor: light_theme_primary_light),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                     backgroundColor: light_theme_primary,
@@ -109,6 +132,9 @@ class MyApp extends StatelessWidget {
                   titleTextStyle: TextStyle(color: dark_theme_white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
                   iconTheme: IconThemeData(color: dark_theme_secondary),
                   actionsIconTheme: IconThemeData(color: dark_theme_secondary),
+                ),
+                progressIndicatorTheme: ProgressIndicatorThemeData(
+                  color: dark_theme_secondary
                 ),
                 tabBarTheme: TabBarTheme(labelColor: dark_theme_secondary, unselectedLabelColor: dark_theme_primary_light),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(

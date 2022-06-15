@@ -174,10 +174,16 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                   height: 28,
                   controller: _userFullNameController,
                 ),
+                SizedBox(
+                  height: 8,
+                ),
                 CustomTextField(
                   title: 'کد ملی',
                   height: 28,
                   controller: _userNationalCodeController,
+                ),
+                SizedBox(
+                  height: 8,
                 ),
 
                 // _customTextField(
@@ -188,9 +194,9 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                   controller: _currentKmCtrl,
                 ),
 
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 11 / 520,
-                ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 11 / 520,
+                // ),
                 _customCheckBox(
                   text: 'دارای محدودیت $limit می‌باشم',
                   value: _isPhysicalLimit,
@@ -224,8 +230,11 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
               ],
             ),
             //Todo if not responsive change size of textbox
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height * 0.5 / 15,
+            // ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5 / 15,
+              height: 8,
             ),
             CustomSubmitButton(onTap: _onSubmitTap, text: 'ثبت درخواست'),
           ],

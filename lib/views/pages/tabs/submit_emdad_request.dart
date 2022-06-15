@@ -353,7 +353,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
               return MessageDialogWidget(
                 dismissable: true,
                 title: 'ورود اطلاعات',
-                body: 'لطفا ایراد ماشین را مشخص نمایید.',
+                body: 'لطفا ایراد خودرو را مشخص نمایید.',
                 positiveTxt: 'باشه',
               );
             });
