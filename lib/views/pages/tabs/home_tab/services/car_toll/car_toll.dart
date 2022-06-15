@@ -72,7 +72,6 @@ class _CarTollState extends State<CarToll> {
         builder: (BuildContext context) => const DevelopingPage(),
       ),
     );
-
   }
 
 
@@ -161,7 +160,6 @@ class _CarTollState extends State<CarToll> {
       ),
     );
   }
-
 }
 
 

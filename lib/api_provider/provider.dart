@@ -12,6 +12,7 @@ import 'package:emdad_khodro_saipa/models/response_model/GetEmdadgarListResponse
 import 'package:emdad_khodro_saipa/models/response_model/GetPackagesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/GetReservableDatesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/UrgentRequestResponse.dart';
+import 'package:emdad_khodro_saipa/models/weather_response_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -99,4 +100,24 @@ class ApiProvider {
     var packagesData = GetReservableDatesResponse.fromJson(data);
     return packagesData;
   }
+
+  static Future<WeatherResponseModel> getWeather(LatLng latLng) async {
+
+    var result = await http.get(
+        Uri.https('api.openweathermap.org', '/data/2.5/onecall',
+            {
+              'lat': '35.74824655517203',
+              'lon': '51.32812784980966',
+              'appid': '4f1d07a9b56581b45eba0dd4e3d31c09',
+              'lang': 'fa',
+              'exclude': 'hourly',
+              'units': 'metric',
+            }
+        ),
+    );
+
+
+    return WeatherResponseModel.fromJson(json.decode(result.body));
+  }
+
 }

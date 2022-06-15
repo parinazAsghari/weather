@@ -1,9 +1,11 @@
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
+import 'package:emdad_khodro_saipa/models/weather_response_model.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../api/weather_api.dart';
-import '../../models/weather_forecast_hourly.dart';
-import '../../utils/constants.dart';
+import '../constants.dart';
+
 
 class MainScreenWidget extends StatefulWidget {
    MainScreenWidget({Key? key}) : super(key: key);
@@ -16,16 +18,17 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
 
 
   String cityName = '';
-  WeatherForecastModel model = WeatherForecastModel();
+
+  WeatherResponseModel weatherModel = WeatherResponseModel();
 
 
 
   Future<void> callWeatherApi() async {
 
-    model = await WeatherApi().fetchWeatherForecast(cityName: 'Tehran');
-    if(model.forecast!=null){
-      print(model);
+    weatherModel = await ApiProvider.getWeather(LatLng(10.0, 10.0));
 
+
+    if(weatherModel.current !=null){
       setState(() {});
     }
 
@@ -41,13 +44,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: model.forecast!=null ? ViewWidget(model: model,) : Center(child: CircularProgressIndicator())
+      body: weatherModel.current !=null ? ViewWidget(model: weatherModel,) : Center(child: CircularProgressIndicator())
     );
   }
 }
 
 class ViewWidget extends StatelessWidget {
-  WeatherForecastModel? model;
+  WeatherResponseModel? model;
   ViewWidget({this.model});
 
   @override
@@ -64,8 +67,8 @@ class ViewWidget extends StatelessWidget {
                   SizedBox(height: 70),
                   CityInfoWidget(model: model,),
                   SizedBox(height: 15),
-                  CarouselWidget(model: model),
-                  SizedBox(height: 15),
+                  // CarouselWidget(model: model),
+                  // SizedBox(height: 15),
                   WindWidget(model: model,),
                   SizedBox(height: 15),
                   BarometerWidget(model: model,),
@@ -80,7 +83,7 @@ class ViewWidget extends StatelessWidget {
 
 class HeaderWidget extends StatelessWidget {
 
-  WeatherForecastModel? model;
+  WeatherResponseModel? model;
   HeaderWidget({this.model});
 
   @override
@@ -94,12 +97,14 @@ class HeaderWidget extends StatelessWidget {
               // onChanged: ((value) => model.cityName = value),
               // onSubmitted: (_) => model.onSubmitSearch(),
               decoration: InputDecoration(
-                filled: true,
-                fillColor: bgGreyColor.withAlpha(235),
-                hintText: 'Search',
-                hintStyle: TextStyle(color: Colors.blue.withAlpha(135)),
+                // filled: true,
+                // fillColor: Theme.of(context).primaryColorLight,
+                hintText: 'جستجو',
+                // hintStyle: TextStyle(color: Colors.blue.withAlpha(135)),
                 prefixIcon: IconButton(
-                  icon: const Icon(Icons.search, color: Colors.blue),
+                  icon: const Icon(Icons.search,
+                      // color: Colors.blue
+                  ),
                   // onPressed: model.onSubmitSearch,
                   onPressed: (){},
                 ),
@@ -117,7 +122,7 @@ class HeaderWidget extends StatelessWidget {
               color: bgGreyColor.withAlpha(235),
             ),
             child: IconButton(
-              padding: const EdgeInsets.all(12),
+              // padding: const EdgeInsets.all(12),
               iconSize: 26,
               // onPressed: model.onSubmitLocate,
               onPressed: (){},
@@ -131,18 +136,22 @@ class HeaderWidget extends StatelessWidget {
 }
 
 class CityInfoWidget extends StatelessWidget {
-  WeatherForecastModel? model;
+  WeatherResponseModel? model;
   CityInfoWidget({this.model});
 
   @override
   Widget build(BuildContext context) {
     final snapshot = model;
-    var city = snapshot!.location?.name;
-    var temp = snapshot.current?.tempC!.round();
-    var feelTemp = snapshot.current?.feelslikeC;
-    var windDegree = snapshot.current?.windDegree;
+    // var city = snapshot!.location?.name;
+    var city = 'تهران';
+    // var temp = snapshot.current?.tempC!.round();
+    var temp = model!.current!.temp!.round();
+    // var feelTemp = snapshot.current?.feelslikeC;
+    var feelTemp = model!.current!.feelsLike!;
+    // var windDegree = snapshot.current?.windDegree;
+    var windDegree = model!.current!.windDeg!;
     var url =
-        'https://${((snapshot.current!.condition!.icon).toString().substring(2)).replaceAll("64", "128")}';
+        'http://openweathermap.org/img/wn/${model!.current!.weather![0].icon}@2x.png';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -159,7 +168,7 @@ class CityInfoWidget extends StatelessWidget {
               color: primaryColor,
             ),
             RotationTransition(
-              turns: AlwaysStoppedAnimation(windDegree! / 360),
+              turns: AlwaysStoppedAnimation(windDegree / 360),
               child: const Icon(Icons.north, color: primaryColor),
             )
           ],
@@ -182,15 +191,18 @@ class CityInfoWidget extends StatelessWidget {
 
 class BarometerWidget extends StatelessWidget {
 
-  WeatherForecastModel? model;
+  WeatherResponseModel? model;
   BarometerWidget({this.model});
 
   @override
   Widget build(BuildContext context) {
     final snapshot = model;
-    var temperature = snapshot!.current?.tempC;
-    var humidity = snapshot.current?.humidity;
-    var pressure = snapshot.current?.pressureMb;
+    // var temperature = snapshot!.current?.tempC;
+    var temperature = model!.current!.temp!;
+    // var humidity = snapshot.current?.humidity;
+    var humidity = model!.current!.humidity!;
+    // var pressure = snapshot.current?.pressureMb;
+    var pressure = model!.current!.pressure!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       child: Column(
@@ -201,7 +213,7 @@ class BarometerWidget extends StatelessWidget {
             child: appText(
               size: 20,
               color: primaryColor.withOpacity(.8),
-              text: 'Barometer',
+              text: 'فشارسنج',
               isBold: FontWeight.bold,
             ),
           ),
@@ -216,20 +228,20 @@ class BarometerWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   customListTile(
-                    first: 'Temperature:',
-                    second: ' $temperature °C',
+                    first: 'دما (درجه سانتیگراد): ',
+                    second: ' $temperature ',
                     icon: Icons.thermostat,
                     iconColor: Colors.orange,
                   ),
                   customListTile(
-                    first: 'Humidity:',
-                    second: ' $humidity %',
+                    first: 'رطوبت: ',
+                    second: ' % $humidity',
                     icon: Icons.water_drop_outlined,
                     iconColor: Colors.blueGrey,
                   ),
                   customListTile(
-                    first: 'Pressure:',
-                    second: ' $pressure hPa',
+                    first: 'فشار هوا (hPa): ',
+                    second: '$pressure',
                     icon: Icons.speed,
                     iconColor: Colors.red[300]!,
                   ),
@@ -244,14 +256,15 @@ class BarometerWidget extends StatelessWidget {
 }
 
 class WindWidget extends StatelessWidget {
-  WeatherForecastModel? model;
+  WeatherResponseModel? model;
   WindWidget({this.model});
 
 
   @override
   Widget build(BuildContext context) {
     final snapshot = model;
-    var speed = snapshot!.current?.windKph;
+    // var speed = snapshot!.current?.windKph;
+    var speed = model!.current!.windSpeed!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
@@ -263,7 +276,7 @@ class WindWidget extends StatelessWidget {
             child: appText(
               size: 20,
               color: primaryColor.withOpacity(.8),
-              text: 'Wind',
+              text: 'باد',
               isBold: FontWeight.bold,
             ),
           ),
@@ -278,9 +291,9 @@ class WindWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   customListTile(
-                    text: snapshot.current!.windDir!,
-                    first: 'Speed:',
-                    second: ' $speed km/h',
+                    text: 'وزش باد',
+                    first: 'سرعت (km/h): ',
+                    second: '$speed ',
                     icon: Icons.air,
                     iconColor: Colors.blue,
                   ),
@@ -295,7 +308,7 @@ class WindWidget extends StatelessWidget {
 }
 
 class CarouselWidget extends StatelessWidget {
-  WeatherForecastModel? model;
+  WeatherResponseModel? model;
   CarouselWidget({this.model});
 
 
@@ -333,14 +346,14 @@ class CarouselWidget extends StatelessWidget {
                               color: primaryColor),
                   const SizedBox(height: 10),
                   Image.network(
-                      'https://${(snapshot!.forecast!.forecastday![0].hour![index].condition!.icon).toString().substring(2)}',
+                      'http://openweathermap.org/img/wn/${model!.current!.weather![0].icon}@2x.png',
                       scale: 2),
                   const SizedBox(height: 5),
-                  appText(
-                    size: 14,
-                    text:
-                        '${snapshot.forecast!.forecastday![0].hour![index].tempC}°',
-                  ),
+                  // appText(
+                  //   size: 14,
+                  //   text:
+                  //       '${snapshot.forecast!.forecastday![0].hour![index].tempC}°',
+                  // ),
                 ],
               ),
             ),
