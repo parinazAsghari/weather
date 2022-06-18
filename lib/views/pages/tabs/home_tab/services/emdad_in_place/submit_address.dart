@@ -104,7 +104,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
                   height: 8,
                 ),
                 CustomTextField(
-                  title: 'آدرس تکمیلی ( پلاک _ واحد )',
+                  title: 'آدرس تکمیلی ( پلاک، واحد و... )',
                   height: 50,
                   controller: _addressTekmiliCtrl,
                 ),

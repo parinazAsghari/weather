@@ -1,3 +1,4 @@
+import 'package:emdad_khodro_saipa/views/widgets/custom_submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'dart:math' as math;
@@ -20,11 +21,16 @@ class _CompassState extends State<Compass> {
     super.initState();
 
     _fetchPermissionStatus();
+    // Permission.locationWhenInUse.request().then((ignored) {
+    //   _fetchPermissionStatus();
+    // });
+    // _fetchPermission();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: const Text(
@@ -111,7 +117,7 @@ class _CompassState extends State<Compass> {
         // show error message
         if (direction == null)
           return Center(
-            child: Text("Device does not have sensors !"),
+            child: Text("دستگاه شما این قابلیت را پشتیبانی نمی کند"),
           );
 
         return Container(
@@ -142,24 +148,38 @@ class _CompassState extends State<Compass> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text('Location Permission Required'),
-          ElevatedButton(
-            child: Text('Request Permissions'),
-            onPressed: () {
-              Permission.locationWhenInUse.request().then((ignored) {
-                _fetchPermissionStatus();
-              });
-            },
-          ),
+          Text('دسترسی به مکان یاب دستگاه مورد نیاز است',style: TextStyle(color: Theme.of(context).primaryColorLight),),
+
           SizedBox(height: 16),
-          ElevatedButton(
-            child: Text('Open App Settings'),
-            onPressed: () {
-              openAppSettings().then((opened) {
-                //
-              });
-            },
-          )
+
+          CustomSubmitButton(
+              onTap: (){
+                Permission.locationWhenInUse.request().then((ignored) {
+                  _fetchPermissionStatus();
+                });
+              },
+              text: 'اجازه دسترسی'
+          ),
+          // ElevatedButton(
+          //   style: ElevatedButton.styleFrom(
+          //     primary: Theme.of(context).accentColor
+          //   ),
+          //   child: Text('Request Permissions'),
+          //   onPressed: () {
+          //     Permission.locationWhenInUse.request().then((ignored) {
+          //       _fetchPermissionStatus();
+          //     });
+          //   },
+          // ),
+          // SizedBox(height: 16),
+          // ElevatedButton(
+          //   child: Text('Open App Settings'),
+          //   onPressed: () {
+          //     openAppSettings().then((opened) {
+          //       //
+          //     });
+          //   },
+          // )
         ],
       ),
     );

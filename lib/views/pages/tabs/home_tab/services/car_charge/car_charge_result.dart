@@ -9,14 +9,14 @@ import '../../../../../widgets/custom_text_field.dart';
 import '../../../../DevelopingPage.dart';
 import '../../../../drop_down.dart';
 
-class CarTollResult extends StatefulWidget {
-  const CarTollResult({Key? key}) : super(key: key);
+class CarChargeResult extends StatefulWidget {
+  const CarChargeResult({Key? key}) : super(key: key);
 
   @override
-  State<CarTollResult> createState() => _CarTollResultState();
+  State<CarChargeResult> createState() => _CarChargeResultState();
 }
 
-class _CarTollResultState extends State<CarTollResult> {
+class _CarChargeResultState extends State<CarChargeResult> {
 
   String? _carModelDefaultValue;
   final TextEditingController _carModelController = TextEditingController();
@@ -103,55 +103,7 @@ class _CarTollResultState extends State<CarTollResult> {
           marginLeft: 0,
           marginBottom: 0,
           isChildText: false,
-          widget: _subItemBox(title: 'عوارض شهرداری تهران', imagePath: 'assets/images/accessory.png', cost: '10000 تومان'),
-        ),
-        CustomNeomorphicBox(
-          title: '',
-          index: 0,
-          selectedIndex: 1,
-          isFull: true,
-          onTap: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitOnSiteService()));
-          },
-          height: 75 / 640,
-          marginTop: 8,
-          marginRight: 28,
-          marginLeft: 0,
-          marginBottom: 0,
-          isChildText: false,
-          widget: _subItemBox(title: 'عوارض طرح ترافیک', imagePath: 'assets/images/accessory.png', cost: '35000 تومان'),
-        ),
-        CustomNeomorphicBox(
-          title: '',
-          index: 0,
-          selectedIndex: 1,
-          isFull: true,
-          onTap: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitOnSiteService()));
-          },
-          height: 75 / 640,
-          marginTop: 8,
-          marginRight: 28,
-          marginLeft: 0,
-          marginBottom: 0,
-          isChildText: false,
-          widget: _subItemBox(title: 'عوارض آزادراهی', imagePath: 'assets/images/accessory.png', cost: '2.153.000 تومان'),
-        ),
-        CustomNeomorphicBox(
-          title: '',
-          index: 0,
-          selectedIndex: 1,
-          isFull: true,
-          onTap: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitOnSiteService()));
-          },
-          height: 75 / 640,
-          marginTop: 8,
-          marginRight: 28,
-          marginLeft: 0,
-          marginBottom: 0,
-          isChildText: false,
-          widget: _subItemBox(title: 'پارک حاشیه ای', imagePath: 'assets/images/accessory.png', cost: '42.300 تومان'),
+          widget: _subItemBox(title: 'خلافی خودرو', imagePath: 'assets/images/accessory.png', cost: '350.000 تومان'),
         ),
 
         SizedBox(
@@ -162,7 +114,7 @@ class _CarTollResultState extends State<CarTollResult> {
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
 
             },
-            text: 'تسویه کامل (2.240.300 تومان)'
+            text: 'پرداخت خلافی'
         ),
       ],
     );

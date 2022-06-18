@@ -30,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
   var rng = new Random();
   late int code;
 
+  bool showHint = false;
+
   // late int captchaCode;
   // late String captchaCode;
   bool disableCode = true;
@@ -181,6 +183,12 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: false,
                       style: const TextStyle(fontWeight: FontWeight.normal),
                       textAlign: TextAlign.center,
+                      onTap: (){
+                        showHint = true;
+                        setState((){
+
+                        });
+                      },
                       onChanged: (value) {
                         if (mounted) {
                           setState(() {
@@ -194,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                         // fillColor: secondary_light_grey_color,
 
                         // isDense: true,filled: true,
-                        hintText: 'شماره موبایل',
+                        hintText: showHint? '09xxxxxxxxx' : 'شماره موبایل',
                         counterText: '',
                         // fillColor: Colors.white,
                         contentPadding: const EdgeInsets.only(

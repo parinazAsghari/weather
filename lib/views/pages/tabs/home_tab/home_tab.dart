@@ -9,6 +9,8 @@ import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/models/service.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
+import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_charge/car_charge.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
@@ -23,6 +25,7 @@ import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeTab extends StatefulWidget {
@@ -54,7 +57,8 @@ class _HomeTabState extends State<HomeTab> {
               return new Future(() => false);
             },
             child: AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
 
               // backgroundColor: primary_grey_color,
               title: Column(
@@ -88,7 +92,8 @@ class _HomeTabState extends State<HomeTab> {
                       child: Text(
                         "اطلاعات مورد نیاز را وارد نمائید",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       )),
                 ],
               ),
@@ -163,7 +168,8 @@ class _HomeTabState extends State<HomeTab> {
 
                             child: RaisedButton(
                               onPressed: () {
-                                Navigator.of(context, rootNavigator: true).pop(null);
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop(null);
                                 // if(positiveFunc!=null){
                                 //   positiveFunc!();
                                 // }
@@ -320,7 +326,8 @@ class _HomeTabState extends State<HomeTab> {
           sliderItemList.add(
             SliderItemWidget(
               index: element,
-              imagePath: 'assets/images/${carImagePath(myCarsList[element].brand)}.png',
+              imagePath:
+                  'assets/images/${carImagePath(myCarsList[element].brand)}.png',
               showingTexts: Padding(
                 padding: const EdgeInsets.only(right: 20.0, top: 16),
                 child: Column(
@@ -757,7 +764,8 @@ class _HomeTabState extends State<HomeTab> {
         Center(
           child: DotsIndicator(
             onTap: (index) {
-              _servicesController.animateToPage(index.round(), duration: Duration(seconds: 1), curve: Curves.ease);
+              _servicesController.animateToPage(index.round(),
+                  duration: Duration(seconds: 1), curve: Curves.ease);
             },
             position: _currentServicePage.toDouble(),
             dotsCount: homeSliderServicesList.length,
@@ -766,7 +774,8 @@ class _HomeTabState extends State<HomeTab> {
               size: Size(15, 15),
               spacing: EdgeInsets.all(2),
               color: Colors.transparent,
-              shape: CircleBorder(side: BorderSide(width: 1.0, color: Color(0xFF2E3D3D))),
+              shape: CircleBorder(
+                  side: BorderSide(width: 1.0, color: Color(0xFF2E3D3D))),
               activeColor: const Color(0xFF8E8E8E),
             ),
           ),
@@ -2258,12 +2267,18 @@ class _HomeTabState extends State<HomeTab> {
 
    */
 
-  Widget _serviceWidget({required Function onTap, required String imagePath, required String title}) {
+  Widget _serviceWidget(
+      {required Function onTap,
+      required String imagePath,
+      required String title}) {
     return NeumorphicButton(
       onPressed: () {
         onTap();
       },
-      padding: EdgeInsets.only(top: defaultPadding / 2, right: defaultPadding / 2, left: defaultPadding / 2),
+      padding: EdgeInsets.only(
+          top: defaultPadding / 2,
+          right: defaultPadding / 2,
+          left: defaultPadding / 2),
       style: NeumorphicStyle(
         shape: NeumorphicShape.flat,
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
@@ -2315,7 +2330,14 @@ class _HomeTabState extends State<HomeTab> {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
+            child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Vazir',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14))),
           ),
         ],
       ),
@@ -2367,7 +2389,14 @@ class _HomeTabState extends State<HomeTab> {
 
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(fit: BoxFit.fitWidth, child: Text(title, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Vazir', fontWeight: FontWeight.bold, fontSize: 14))),
+          child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Vazir',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14))),
         ),
       ],
     );

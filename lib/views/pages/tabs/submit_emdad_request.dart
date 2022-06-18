@@ -313,38 +313,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   }
 
   _onSubmitTap() async {
-    print('carprob + $_carProblem');
-    print('name + ${_nameCtrl.text}');
-    print('id + ${_idCtrl.text}');
-    print('address + ${_addressCtrl.text}');
-    // if (_nameCtrl.text.isEmpty) {
-    //   showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return MessageDialogWidget(
-    //           dismissable: true,
-    //           title: 'ورود اطلاعات',
-    //           body: 'لطفا نام و نام خانوادگی خود را وارد نمائید',
-    //           positiveTxt: 'باشه',
-    //         );
-    //       });
-    //
-    //   return;
-    // }
-    // if (_idCtrl.text.isEmpty) {
-    //   showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return MessageDialogWidget(
-    //           dismissable: true,
-    //           title: 'ورود اطلاعات',
-    //           body: 'لطفا کدملی خود را وارد نمائید',
-    //           positiveTxt: 'باشه',
-    //         );
-    //       });
-    //
-    //   return;
-    // }
+
     if (widget.hasCarProblem) {
       if (_carProblem == null) {
         showDialog(
@@ -353,7 +322,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
               return MessageDialogWidget(
                 dismissable: true,
                 title: 'ورود اطلاعات',
-                body: 'لطفا ایراد ماشین را مشخص نمایید.',
+                body: 'لطفا ایراد خودرو را مشخص نمایید.',
                 positiveTxt: 'باشه',
               );
             });
@@ -379,9 +348,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
 
     var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
-    print(res.data);
-    print(res.resultCode);
-    print(res.failures);
+
     if (res.resultCode == 0) {
       showDialog(
           context: context,

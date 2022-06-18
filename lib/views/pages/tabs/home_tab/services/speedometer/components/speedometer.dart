@@ -96,12 +96,13 @@ class Speedometer extends StatelessWidget {
               widget: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Text(velocityUnit, style: _annotationTextStyle),
+
+                  const SizedBox(width: 10),
                   Text(
                     velocity!.toStringAsFixed(2),
                     style: _annotationTextStyle.copyWith(fontSize: 25),
                   ),
-                  const SizedBox(width: 10),
-                  Text(velocityUnit, style: _annotationTextStyle),
                 ],
               ),
               angle: 90,

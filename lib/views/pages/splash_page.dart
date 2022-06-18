@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 
     bool loggedIn = sharedPreferences.getBool('loggedIn')??false;
 
-    Future.delayed(Duration(milliseconds: 4000),(){
+    Future.delayed(Duration(milliseconds: 3000),(){
       if(loggedIn){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
 
@@ -48,8 +48,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
       }
     });
   }
-
-
 
   @override
   void initState() {
@@ -140,9 +138,5 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
     );
 
   }
-
-
-
-
 
 }
