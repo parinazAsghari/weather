@@ -6,6 +6,8 @@ class MessageDialogWidget extends StatelessWidget {
   var title, body, dismissable, positiveTxt, hasTextBody;
   Function? positiveFunc;
   Widget? widget;
+  final double? height;
+  final double? width;
 
   MessageDialogWidget({
     this.title,
@@ -15,6 +17,8 @@ class MessageDialogWidget extends StatelessWidget {
     this.positiveFunc,
     this.hasTextBody = true,
     this.widget,
+    this.height,
+    this.width,
   });
 
   @override
@@ -36,19 +40,18 @@ class MessageDialogWidget extends StatelessWidget {
         content: Directionality(
           textDirection: TextDirection.rtl,
           child: SizedBox(
-            height: 240,
-            width: 320,
+            height: height ?? 240,
+            width: width ?? 320,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 dismissable
                     ? GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding:
-                    const EdgeInsetsDirectional.only(top: 8, end: 8),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsetsDirectional.only(top: 8, end: 8),
                     alignment: AlignmentDirectional.topEnd,
                     child: CircleAvatar(
                       radius: 11,
@@ -80,10 +83,9 @@ class MessageDialogWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                if(!hasTextBody)
-                  widget!,
+                if (!hasTextBody) Expanded(child: widget!),
 
-                Expanded(child: Container()),
+                // Expanded(child: Container()),
                 GestureDetector(
                   // hoverColor: Colors.transparent,
                   onTap: () {
