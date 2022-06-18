@@ -1,4 +1,5 @@
 import 'package:emdad_khodro_saipa/models/car.dart';
+import 'package:emdad_khodro_saipa/models/service.dart';
 import 'package:emdad_khodro_saipa/models/user.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
@@ -24,6 +25,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(CarAdapter());
+  Hive.registerAdapter<Service>(ServiceAdapter(), override: true);
 
   runApp(MyApp());
 }
