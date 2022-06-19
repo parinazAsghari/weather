@@ -230,7 +230,6 @@ class _HomeTabState extends State<HomeTab> {
               isChecked = !value;
               setS(() {});
               setState(() {
-                print('this is ')
                 element.isFavorite = !element.isFavorite;
               });
             },
