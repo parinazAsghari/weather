@@ -230,6 +230,7 @@ class _HomeTabState extends State<HomeTab> {
               isChecked = !value;
               setS(() {});
               setState(() {
+                print('this is ')
                 element.isFavorite = !element.isFavorite;
               });
             },
@@ -413,9 +414,11 @@ class _HomeTabState extends State<HomeTab> {
                   positiveTxt: 'ثبت',
                   positiveFunc: () {
                     //TODO store data in hive
+                    print('start storing data in hive');
                     for (int i = 0; i < serviceItemList.length; i++) {
                       _hiveDB.putData(i, 'serviceBox', serviceItemList[i]);
                     }
+                    print('finished for loop for storing data');
                   },
                 );
               });
