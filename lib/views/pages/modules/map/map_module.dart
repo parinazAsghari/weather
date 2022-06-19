@@ -100,8 +100,9 @@ class _MapModuleState extends State<MapModule> {
 
   @override
   void dispose() {
-    _controller?.dispose();
     super.dispose();
+
+    _controller?.dispose();
   }
 
   @override
@@ -127,10 +128,11 @@ class _MapModuleState extends State<MapModule> {
               ),
               onCameraMove: _onCameraMove,
               markers: markers.values.toSet(),
-              myLocationEnabled: true,
+              myLocationEnabled: false,
               myLocationButtonEnabled: true,
               zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
+
             ),
 
 

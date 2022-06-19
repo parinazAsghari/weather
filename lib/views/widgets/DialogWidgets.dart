@@ -45,13 +45,12 @@ class MessageDialogWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                dismissable
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          padding: const EdgeInsetsDirectional.only(top: 8, end: 8),
+                if(dismissable)GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: const EdgeInsetsDirectional.only(top: 8, end: 8),
                     alignment: AlignmentDirectional.topEnd,
                     child: CircleAvatar(
                       radius: 11,
@@ -63,12 +62,9 @@ class MessageDialogWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
-                    : const SizedBox(
-                  height: 30,
                 ),
-                if(hasTextBody)
-                  Center(
+
+                if(hasTextBody)Center(
                     child: Container(
                       height: 100,
                       alignment: AlignmentDirectional.center,
@@ -83,7 +79,8 @@ class MessageDialogWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (!hasTextBody) Expanded(child: widget!),
+
+                Expanded(child: hasTextBody? Container() : widget!),
 
                 // Expanded(child: Container()),
                 GestureDetector(

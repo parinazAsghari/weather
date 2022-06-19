@@ -1,4 +1,5 @@
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
+import 'package:emdad_khodro_saipa/models/response_model/EmdadRequestResponse.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -6,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../api_provider/provider.dart';
 import '../../widgets/DialogWidgets.dart';
+import '../../widgets/LoadingWidgets.dart';
 import '../../widgets/custom_submit_button.dart';
 import '../../widgets/custom_text_field.dart';
 import '../drop_down.dart';
@@ -40,8 +42,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     'ایراد خودرو': 'ایراد خودرو',
     'ماشینم روشن نمیشه': 1,
     'باطری خالی کردم': 2,
-    'مطمئن نیستم': 'مطمئن نیستم',
-    'سایر': 'سایر',
+    'مطمئن نیستم': 3,
+    'سایر': 4,
   };
 
   final TextEditingController _nameCtrl = TextEditingController();
@@ -304,9 +306,11 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
               onTap(val);
             }),
         const SizedBox(width: 10),
-        Text(
-          text ?? '',
-          style: const TextStyle(fontSize: 16.0),
+        Flexible(
+          child: Text(
+            text ?? '',
+            style: const TextStyle(fontSize: 16.0),
+          ),
         ),
       ],
     );
@@ -347,8 +351,10 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     }
     GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
 
-    var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
+    //TODO add & fix api call for section
+    // var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
 
+    /*
     if (res.resultCode == 0) {
       showDialog(
           context: context,
@@ -407,5 +413,51 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 );
               });
         }
+
+     */
+
+    showDialog(context: context, builder: (BuildContext context){
+      return CircleLoadingWidget(
+        dismissable: false,
+        msgTxt: 'لطفا منتظر بمانید',
+      );
+    });
+
+    await Future.delayed(Duration(milliseconds: 2500));
+
+    Navigator.pop(context);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MessageDialogWidget(
+            dismissable: false,
+            hasTextBody: false,
+            widget: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('مشتری گرامی اطلاعات شما با شماره پیگیری 889595966 در سامانه ثبت گردید.', textAlign: TextAlign.center),
+                  Text('همکاران ما بزودی با شما تماس خواهند گرفت.', textAlign: TextAlign.center),
+                  Text(
+                    'شماره همراه ثبت شده: $phone',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            positiveTxt: 'تایید',
+            positiveFunc: () async {
+              //save to user data
+              SharedPreferences preferences = await SharedPreferences.getInstance();
+              preferences.setString('user_full_name', _nameCtrl.text);
+              preferences.setString('user_national_code', _idCtrl.text);
+
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+            },
+          );
+        });
+
+
   }
 }
