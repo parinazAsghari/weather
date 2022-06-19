@@ -35,13 +35,11 @@ class _MapModuleState extends State<MapModule> {
   BitmapDescriptor? customIcon;
   LatLng _lastMapPosition = _center;
   Location currentLocation = Location();
-
-
   List<Marker> markersList = [];
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/ic_marker.png', 200);
+    await getBytesFromAsset('assets/images/ic_marker.png', 200);
 
     customIcon = BitmapDescriptor.fromBytes(markerIcon);
     _controller = controller;

@@ -1,0 +1,3 @@
+enum AppBarType{
+  primary, subPages
+}

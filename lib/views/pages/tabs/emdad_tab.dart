@@ -167,59 +167,62 @@ class _EmdadTabState extends State<EmdadTab> {
   }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
+    final Uint8List markerIcon =
+    await getBytesFromAsset('assets/images/ic_marker.png', 200);
 
-    final Uint8List markerIcon = await getBytesFromAsset('assets/images/ic_marker.png', 200);
-    // final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 200);
-    // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
+    customIcon = BitmapDescriptor.fromBytes(markerIcon);
+    _controller = controller;
 
-    setState(() {
-      customIcon = BitmapDescriptor.fromBytes(markerIcon);
-      // _controller.complete(controller);
-      _controller = controller;
 
-      final marker = Marker(
-        markerId: MarkerId('place_name'),
-        position: _lastMapPosition,
-        // icon: BitmapDescriptor.defaultMarker,
-        icon: customIcon!,
-        infoWindow: InfoWindow(
-          title: 'شما اینجایید',
-          // snippet: 'address',
-        ),
-      );
+    var location = await currentLocation.getLocation();
+    _center = _lastMapPosition = LatLng(location.latitude!, location.longitude!);
 
-      markers[MarkerId('place_name')] = marker;
-      _onCurrentLocationButtonPressed();
+
+    final marker = Marker(
+      markerId: MarkerId('place_name'),
+      position: _lastMapPosition,
+      // icon: BitmapDescriptor.defaultMarker,
+      icon: customIcon!,
+      infoWindow: InfoWindow(
+        title: 'شما اینجایید',
+        // snippet: 'address',
+      ),
+    );
+
+    markers[MarkerId('place_name')] = marker;
+
+
+    _controller!.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _center, zoom: 19)));
+
+    setState((){
 
     });
-
 
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
   void _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
-    setState(() {
-      final marker = Marker(
-        markerId: MarkerId('place_name'),
-        position: _lastMapPosition,
-        // icon: BitmapDescriptor.defaultMarker,
-        icon: customIcon!,
-        infoWindow: InfoWindow(
-          title: 'شما اینجایید',
-          // snippet: 'address',
-        ),
-      );
+    final marker = Marker(
+      markerId: MarkerId('place_name'),
+      position: _lastMapPosition,
+      icon: customIcon!,
+      infoWindow: InfoWindow(
+        title: 'شما اینجایید',
+      ),
+    );
 
-      markers[MarkerId('place_name')] = marker;
-
-      // callApi(_lastMapPosition);
+    markers[MarkerId('place_name')] = marker;
+    setState((){
 
     });
   }
@@ -792,15 +795,12 @@ class _EmdadTabState extends State<EmdadTab> {
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _center,
-          zoom: 20.0,
-
+          zoom: 14.0,
         ),
         onCameraMove: _onCameraMove,
         markers: markers.values.toSet(),
         myLocationEnabled: true,
         myLocationButtonEnabled: true,
-
-
         zoomControlsEnabled: false,
         zoomGesturesEnabled: true,
       ),
