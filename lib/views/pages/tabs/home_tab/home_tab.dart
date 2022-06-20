@@ -226,12 +226,12 @@ class _HomeTabState extends State<HomeTab> {
             text: element.serviceName,
             value: element.isFavorite,
             isActive: element.isFixed? false:true,
-            onTap: (value) {
+            onTap: (value) async {
               isChecked = !value;
               setS(() {});
-              setState(() {
-                element.isFavorite = !element.isFavorite;
-              });
+              element.isFavorite = !element.isFavorite;
+              await _hiveDB.saveData(element.id - 1, 'serviceBox', element);
+              setState(() {});
             },
           ),
         );
@@ -300,6 +300,8 @@ class _HomeTabState extends State<HomeTab> {
 
     return imagePath;
   }
+
+  bool? load;
 
   getCarsData() async {
     HiveDB _hiveDb = HiveDB();
@@ -383,6 +385,11 @@ class _HomeTabState extends State<HomeTab> {
 
   getServicesData() async {
     servicesList = await _hiveDB.getData('', 'serviceBox');
+    setState(() {
+      if (servicesList.isNotEmpty) {
+        load = false;
+      }
+    });
   }
 
   Widget firstSlideServicesWidget() {
@@ -699,17 +706,18 @@ class _HomeTabState extends State<HomeTab> {
           () {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
       },
-          () {
+      () {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Weather()));
       },
-          () {
+      () {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Speedmeter()));
       },
-          () {
+      () {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Compass()));
       },
     ];
-    if (servicesList.isEmpty) {
+
+    if (load != null && load!) {
       serviceItemList = [
         Service(
           id: 1,
@@ -761,14 +769,14 @@ class _HomeTabState extends State<HomeTab> {
                 carouselController: _controller,
                 options: CarouselOptions(
                     scrollDirection: Axis.horizontal,
-                    // enableInfiniteScroll: false,
-                    viewportFraction: 1,
-                    reverse: false,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentPage = index;
-                      });
-                    }),
+                          enableInfiniteScroll: sliderItemList.length > 1 ? true : false,
+                          viewportFraction: 1,
+                          reverse: false,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _currentPage = index;
+                            });
+                          }),
                 items: sliderItemList,
               ),
             ),

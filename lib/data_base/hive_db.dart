@@ -54,14 +54,35 @@ class HiveDB {
     box.deleteAt(index);
   }
 
-  addData(dynamic value, String boxName,) async {
+  addData(
+    dynamic value,
+    String boxName,
+  ) async {
     var box;
     bool boxExists = Hive.isBoxOpen(boxName);
     if (boxExists) {
       box = Hive.box(boxName);
     } else {
-      box = await _createHiveBox( boxName,);
+      box = await _createHiveBox(
+        boxName,
+      );
     }
     box.add(value);
+  }
+
+  saveData(dynamic index, String boxName, dynamic value) async {
+    Box box;
+    bool boxExists = Hive.isBoxOpen(boxName);
+    if (boxExists) {
+      print('exist');
+      box = Hive.box(boxName);
+    } else {
+      print(' not exist');
+
+      box = await _createHiveBox(
+        boxName,
+      );
+    }
+    box.putAt(index, value);
   }
 }

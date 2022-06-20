@@ -8,6 +8,7 @@ import 'package:emdad_khodro_saipa/views/widgets/custom_submit_button.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 
 class AddNewCar extends StatefulWidget {
@@ -196,7 +197,11 @@ class _AddNewCarState extends State<AddNewCar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     // Spacer(),
-                    Text('مشخصات خودرو خود را وارد نمایید',textAlign: TextAlign.center,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                    Text(
+                      'مشخصات خودرو خود را وارد نمایید',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                     // Spacer(
                     //   flex: 9,
                     // ),
@@ -205,15 +210,25 @@ class _AddNewCarState extends State<AddNewCar> {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 120,
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(30)),
-                  child: Image.asset(
-                    'assets/images/${carImagePath(_carModelController.text)}.png',
-                    width: 35,
-                    height: 50,
-                    // fit: BoxFit.cover,
+                SizedBox(
+                  height: 140,
+                  width: 140,
+                  // decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(30)),
+                  child: Neumorphic(
+                    style: NeumorphicStyle(
+                      shape: NeumorphicShape.flat,
+                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
+                      depth: 3,
+                      lightSource: LightSource.topLeft,
+                      color: Theme.of(context).primaryColorLight,
+                      shadowDarkColor: Theme.of(context).shadowColor,
+                    ),
+                    child: Image.asset(
+                      'assets/images/${carImagePath(_carModelController.text)}.png',
+                      width: 35,
+                      height: 50,
+                      // fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(
