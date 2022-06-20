@@ -4,6 +4,8 @@ import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/views/pages/drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_submit_button.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -46,9 +48,23 @@ class _AddNewCarState extends State<AddNewCar> {
   final FocusNode _sixthNumberNode = FocusNode();
   final FocusNode _seventhNumberNode = FocusNode();
   final FocusNode _eighthNumberNode = FocusNode();
-  Map<String, dynamic> createYearListItem = {'': null, '1401': null,'1400':null,'1399': null, '1398': null,'1397':null,'1396': null,'1395':null,'1394': null,'1393':null,'1392': null,'1391':null,'1390': null};
-  Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
-  List<String> pelakListItem = ['','الف', 'ب','پ','ت','ث','ج','د','س','ص','ط','ق','ک','ع','ل','م','ن','و','ه','ی'];
+  Map<String, dynamic> createYearListItem = {
+    'سال ساخت': 'سال ساخت',
+    '1401': '1401',
+    '1400': '1400',
+    '1399': '1399',
+    '1398': '1398',
+    '1397': '1397',
+    '1396': '1396',
+    '1395': '1395',
+    '1394': '1394',
+    '1393': '1393',
+    '1392': '1392',
+    '1391': '1391',
+    '1390': '1390'
+  };
+  Map<String, dynamic> carModelListItem = {'مدل خودرو': 'مدل خودرو', 'ساینا': 'ساینا', 'کوییک': 'کوییک', 'پراید': 'پراید', 'تیبا': 'تیبا', 'وانت': 'وانت', 'سراتو': 'سراتو', 'چانگان': 'چانگان', 'شاهین': 'شاهین'};
+  List<String> pelakListItem = ['', 'الف', 'ب', 'پ', 'ت', 'ث', 'ج', 'د', 'س', 'ص', 'ط', 'ق', 'ک', 'ع', 'ل', 'م', 'ن', 'و', 'ه', 'ی'];
   var pelakDropDownValue;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _chassisNumberController = TextEditingController();
@@ -187,7 +203,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   ],
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 Container(
                   height: 120,
@@ -200,164 +216,68 @@ class _AddNewCarState extends State<AddNewCar> {
                     // fit: BoxFit.cover,
                   ),
                 ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    Expanded(
-                      flex: 7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('مدل خودرو'),
-                          FormDropDown(
-                            readOnlyDropDown: false,
-                            primaryBackgroundColor: Colors.transparent,
-                            iconColor: Colors.pink,
-                            dropdownMenuItemStyle: const TextStyle(color: Colors.black),
-                            defaultValue: _carModelDefaultValue,
-                            // firstItemSelectMessage: 'انتخاب',
-                            alignmentCenterLeft: false,
-                            enabledBorderColor: Colors.black,
-                            items: carModelListItem,
-                            validations: const [],
-                            onChange: (value) {
-                              _carModelController.text = value;
-                              setState(() {
-
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    Expanded(
-                      flex: 7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('سال ساخت'),
-                          FormDropDown(
-                            readOnlyDropDown: false,
-                            primaryBackgroundColor: Colors.transparent,
-                            iconColor: Colors.pink,
-                            dropdownMenuItemStyle: const TextStyle(color: Colors.black),
-                            defaultValue: _carCreateDateDefaultValue,
-                            // firstItemSelectMessage: 'انتخاب',
-                            alignmentCenterLeft: false,
-                            enabledBorderColor: Colors.black,
-                            items: createYearListItem,
-                            validations: [],
-                            onChange: (value) {
-                              _createDateController.text = value;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    Expanded(
-                      flex: 7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('شماره شاسی'),
-                          SizedBox(
-                            height: 50,
-                            child: TextFormField(
-                              controller: _chassisNumberController,
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                // labelText: 'شماره شاسی',
-                                //   labelStyle:const TextStyle(color: Colors.black) ,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.black, width: 0.4),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                // hintText: 'شماره شاسی', hintStyle: const TextStyle(color: Colors.black,), contentPadding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10)
-                              ),
-                              // showCursor: false,
-                              cursorColor: Colors.deepOrange,
-                              validator: (String? val) {
-                                // if (val != null) {
-                                //   return 'خالی نباشد';
-                                // }
-                                // return null;
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-
-                //owner national code
-                /*
-                Row(
-                  children: [
-                    const Spacer(),
-                    Expanded(
-                      flex: 7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('کد ملی مالک'),
-                          SizedBox(
-                            height: 50,
-                            child: TextFormField(
-                              controller: _nationalCodeController,
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                // labelText: 'کد ملی مالک',
-                                // labelStyle:const TextStyle(color: Colors.black) ,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.black, width: 0.4),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                // hintText: 'کد ملی مالک',
-                                hintStyle: const TextStyle(color: Colors.black),
-                                contentPadding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
-                              ),
-                              // showCursor: false,
-                              cursorColor: Colors.deepOrange,
-                              validator: (String? val) {
-                                // if (val != null) {
-                                //   return 'خالی نباشد';
-                                // }
-                                // return null;
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-
-                 */
                 const SizedBox(
                   height: 10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    right: 24,
+                    left: 24,
+                    top: 11,
+                  ),
+                  child: FormDropDown(
+                    readOnlyDropDown: false,
+                    primaryBackgroundColor: Colors.transparent,
+                    iconColor: Colors.pink,
+                    dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+                    defaultValue: _carModelController.text,
+                    // firstItemSelectMessage: 'انتخاب',
+                    alignmentCenterLeft: false,
+                    enabledBorderColor: Colors.black,
+                    items: carModelListItem,
+                    validations: const [],
+                    onChange: (value) {
+                      _carModelController.text = value;
+                      setState(() {});
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    right: 24,
+                    left: 24,
+                    top: 11,
+                  ),
+                  child: FormDropDown(
+                    readOnlyDropDown: false,
+                    primaryBackgroundColor: Colors.transparent,
+                    iconColor: Colors.pink,
+                    dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+                    defaultValue: _carCreateDateDefaultValue,
+                    // firstItemSelectMessage: 'انتخاب',
+                    alignmentCenterLeft: false,
+                    enabledBorderColor: Colors.black,
+                    items: createYearListItem,
+                    validations: const [],
+                    onChange: (value) {
+                      _createDateController.text = value;
+                      setState(() {});
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                CustomTextField(
+                  title: 'شماره شاسی',
+                  height: 28,
+                  controller: _chassisNumberController,
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -379,7 +299,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.black, width: 0.4)),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       // const SizedBox(
                                       //   height: 2,
@@ -462,7 +382,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                         ),
                                       ),
                                       const SizedBox(
-                                        height: 8,
+                                        height: 15,
                                       ),
                                     ],
                                   ),
@@ -749,154 +669,238 @@ class _AddNewCarState extends State<AddNewCar> {
                     height: 20,
                   ),
                 if (!widget.isCarFromDataBase)
-                  Row(
-                    children: [
-                      const Spacer(),
-                      Expanded(
-                        flex: 3,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(light_theme_secondary),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              // primary: secondary_light_grey_color
-                            ),
-                          onPressed: ()async {
-                              if (_chassisNumberController.text.isEmpty ||
-                                  // _nationalCodeController.text.isEmpty ||
-                                  _firstNumberController.text.isEmpty ||
-                                  _secondNumberController.text.isEmpty ||
-                                  _thirdNumberController.text.isEmpty ||
-                                  _fourthNumberController.text.isEmpty ||
-                                  _fifthNumberController.text.isEmpty ||
-                                  _sixthNumberController.text.isEmpty ||
-                                  _seventhNumberController.text.isEmpty) {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return MessageDialogWidget(
-                                        body: 'فیلدها نباید خالی باشد',
-                                        dismissable: true,
-                                        positiveTxt: 'باشه',
-                                        positiveFunc: () async {},
-                                      );
-                                  });
-
-                            }else{
-                              Car car = Car();
-                              car.chassisNumber = _chassisNumberController.text;
-                              car.ownerNationalCode =_nationalCodeController.text;
-                              car.brand = _carModelController.text;
-                              car.createDate =_createDateController.text;
-                              car.id =1;
-                              car.firstCarTag =int.parse((_firstNumberController.text+_secondNumberController.text));
-                              car.secondCarTag =_dropDownTagController.text;
-                              car.thirdCarTag =int.parse((_thirdNumberController.text+_fourthNumberController.text+_fifthNumberController.text));
-                              car.fourthCarTag =int.parse((_sixthNumberController.text+_seventhNumberController.text));
-                              HiveDB _hiveDb = HiveDB();
-                              await _hiveDb.addData(car, 'userBox');
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return MessageDialogWidget(
-                                      body: 'اطلاعات شما با موفقیت ثبت شد',
-                                      dismissable: true,
-                                      positiveTxt: 'باشه',
-                                      positiveFunc: () async {
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-                                      },
-                                    );
-                                  });
-                            }
-                            ;
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                                'ثبت',
-                                style: TextStyle(
-                                    // color: primary_grey_color
-                                    ),
-                              ),
-                            )),
-                      ),
-                      const Spacer(),
-                    ],
+                  CustomSubmitButton(
+                    onTap: () async {
+                      if (_chassisNumberController.text.isEmpty ||
+                          // _nationalCodeController.text.isEmpty ||
+                          _firstNumberController.text.isEmpty ||
+                          _secondNumberController.text.isEmpty ||
+                          _thirdNumberController.text.isEmpty ||
+                          _fourthNumberController.text.isEmpty ||
+                          _fifthNumberController.text.isEmpty ||
+                          _sixthNumberController.text.isEmpty ||
+                          _seventhNumberController.text.isEmpty) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return MessageDialogWidget(
+                                body: 'فیلدها نباید خالی باشد',
+                                dismissable: true,
+                                positiveTxt: 'باشه',
+                                positiveFunc: () async {},
+                              );
+                            });
+                      } else {
+                        Car car = Car();
+                        car.chassisNumber = _chassisNumberController.text;
+                        car.ownerNationalCode = _nationalCodeController.text;
+                        car.brand = _carModelController.text;
+                        car.createDate = _createDateController.text;
+                        car.id = 1;
+                        car.firstCarTag = int.parse((_firstNumberController.text + _secondNumberController.text));
+                        car.secondCarTag = _dropDownTagController.text;
+                        car.thirdCarTag = int.parse((_thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text));
+                        car.fourthCarTag = int.parse((_sixthNumberController.text + _seventhNumberController.text));
+                        HiveDB _hiveDb = HiveDB();
+                        await _hiveDb.addData(car, 'userBox');
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return MessageDialogWidget(
+                                body: 'اطلاعات شما با موفقیت ثبت شد',
+                                dismissable: true,
+                                positiveTxt: 'باشه',
+                                positiveFunc: () async {
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                                },
+                              );
+                            });
+                      }
+                      ;
+                    },
+                    text: 'ثبت درخواست',
+                    marginTop: 0,
+                    marginBottom: 0,
                   ),
+                // Row(
+                //   children: [
+                //     const Spacer(),
+                //     Expanded(
+                //       flex: 3,
+                //       child: ElevatedButton(
+                //           style: ButtonStyle(
+                //             backgroundColor: MaterialStateProperty.all(light_theme_secondary),
+                //             shape: MaterialStateProperty.all(
+                //               RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(8),
+                //               ),
+                //             ),
+                //             // primary: secondary_light_grey_color
+                //           ),
+                //         onPressed: ()async {
+                //             if (_chassisNumberController.text.isEmpty ||
+                //                 // _nationalCodeController.text.isEmpty ||
+                //                 _firstNumberController.text.isEmpty ||
+                //                 _secondNumberController.text.isEmpty ||
+                //                 _thirdNumberController.text.isEmpty ||
+                //                 _fourthNumberController.text.isEmpty ||
+                //                 _fifthNumberController.text.isEmpty ||
+                //                 _sixthNumberController.text.isEmpty ||
+                //                 _seventhNumberController.text.isEmpty) {
+                //               showDialog(
+                //                   context: context,
+                //                   builder: (BuildContext context) {
+                //                     return MessageDialogWidget(
+                //                       body: 'فیلدها نباید خالی باشد',
+                //                       dismissable: true,
+                //                       positiveTxt: 'باشه',
+                //                       positiveFunc: () async {},
+                //                     );
+                //                 });
+                //
+                //           }else{
+                //             Car car = Car();
+                //             car.chassisNumber = _chassisNumberController.text;
+                //             car.ownerNationalCode =_nationalCodeController.text;
+                //             car.brand = _carModelController.text;
+                //             car.createDate =_createDateController.text;
+                //             car.id =1;
+                //             car.firstCarTag =int.parse((_firstNumberController.text+_secondNumberController.text));
+                //             car.secondCarTag =_dropDownTagController.text;
+                //             car.thirdCarTag =int.parse((_thirdNumberController.text+_fourthNumberController.text+_fifthNumberController.text));
+                //             car.fourthCarTag =int.parse((_sixthNumberController.text+_seventhNumberController.text));
+                //             HiveDB _hiveDb = HiveDB();
+                //             await _hiveDb.addData(car, 'userBox');
+                //             showDialog(
+                //                 context: context,
+                //                 builder: (BuildContext context) {
+                //                   return MessageDialogWidget(
+                //                     body: 'اطلاعات شما با موفقیت ثبت شد',
+                //                     dismissable: true,
+                //                     positiveTxt: 'باشه',
+                //                     positiveFunc: () async {
+                //                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                //                     },
+                //                   );
+                //                 });
+                //           }
+                //           ;
+                //         },
+                //         child: const Padding(
+                //           padding: EdgeInsets.all(8.0),
+                //           child: Text(
+                //               'ثبت',
+                //               style: TextStyle(
+                //                   // color: primary_grey_color
+                //                   ),
+                //             ),
+                //           )),
+                //     ),
+                //     const Spacer(),
+                //   ],
+                // ),
                 if (!widget.isCarFromDataBase)
                   const SizedBox(
                     height: 20,
                   ),
                 if (widget.isCarFromDataBase)
-                  Row(
-                    children: [
-                      const Spacer(),
-                      Expanded(
-                        flex: 3,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(light_theme_secondary),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              // primary: secondary_light_grey_color
-                            ),
-                            onPressed: () async {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return MessageDialogWidget(
-                                      body: 'آیا اطلاعات خودرو حذف شود؟',
-                                      dismissable: true,
-                                      positiveTxt: 'بله',
-                                      positiveFunc: () async {
-                                        Car car = Car();
-                                        car.chassisNumber = _chassisNumberController.text;
-                                        car.ownerNationalCode = _nationalCodeController.text;
-                                        car.brand = _carModelController.text;
-                                        car.createDate = _createDateController.text;
-                                        car.id = 1;
-                                        car.firstCarTag = int.parse((_firstNumberController.text + _secondNumberController.text));
-                                        car.secondCarTag = _dropDownTagController.text;
-                                        car.thirdCarTag = int.parse((_thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text));
-                                        car.fourthCarTag = int.parse((_sixthNumberController.text + _seventhNumberController.text));
-                                        HiveDB _hiveDb = HiveDB();
-                                        await _hiveDb.deleteData(widget.index!, 'userBox');
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-                                      },
-                                    );
-                                  });
-                              // showDialog(
-                              //     context: context,
-                              //     builder: (BuildContext context) {
-                              //       return MessageDialogWidget(
-                              //         body: 'اطلاعات شما با موفقیت ثبت شد',
-                              //         dismissable: true,
-                              //         positiveTxt: 'باشه',
-                              //         positiveFunc: () async {
-                              //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-                              //         },
-                              //       );
-                              //     });
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                'حذف خودرو',
-                                style: TextStyle(
-                                    // color: primary_grey_color
-                                    ),
-                              ),
-                            )),
-                      ),
-                      const Spacer(),
-                    ],
+                  CustomSubmitButton(
+                    onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return MessageDialogWidget(
+                              body: 'آیا اطلاعات خودرو حذف شود؟',
+                              dismissable: true,
+                              positiveTxt: 'بله',
+                              positiveFunc: () async {
+                                Car car = Car();
+                                car.chassisNumber = _chassisNumberController.text;
+                                car.ownerNationalCode = _nationalCodeController.text;
+                                car.brand = _carModelController.text;
+                                car.createDate = _createDateController.text;
+                                car.id = 1;
+                                car.firstCarTag = int.parse((_firstNumberController.text + _secondNumberController.text));
+                                car.secondCarTag = _dropDownTagController.text;
+                                car.thirdCarTag = int.parse((_thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text));
+                                car.fourthCarTag = int.parse((_sixthNumberController.text + _seventhNumberController.text));
+                                HiveDB _hiveDb = HiveDB();
+                                await _hiveDb.deleteData(widget.index!, 'userBox');
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                              },
+                            );
+                          });
+                    },
+                    text: 'حذف خودرو',
+                    marginTop: 0,
+                    marginBottom: 0,
                   ),
+                // Row(
+                //   children: [
+                //     const Spacer(),
+                //     Expanded(
+                //       flex: 3,
+                //       child: ElevatedButton(
+                //           style: ButtonStyle(
+                //             backgroundColor: MaterialStateProperty.all(light_theme_secondary),
+                //             shape: MaterialStateProperty.all(
+                //               RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(8),
+                //               ),
+                //             ),
+                //             // primary: secondary_light_grey_color
+                //           ),
+                //           onPressed: () async {
+                //             showDialog(
+                //                 context: context,
+                //                 builder: (BuildContext context) {
+                //                   return MessageDialogWidget(
+                //                     body: 'آیا اطلاعات خودرو حذف شود؟',
+                //                     dismissable: true,
+                //                     positiveTxt: 'بله',
+                //                     positiveFunc: () async {
+                //                       Car car = Car();
+                //                       car.chassisNumber = _chassisNumberController.text;
+                //                       car.ownerNationalCode = _nationalCodeController.text;
+                //                       car.brand = _carModelController.text;
+                //                       car.createDate = _createDateController.text;
+                //                       car.id = 1;
+                //                       car.firstCarTag = int.parse((_firstNumberController.text + _secondNumberController.text));
+                //                       car.secondCarTag = _dropDownTagController.text;
+                //                       car.thirdCarTag = int.parse((_thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text));
+                //                       car.fourthCarTag = int.parse((_sixthNumberController.text + _seventhNumberController.text));
+                //                       HiveDB _hiveDb = HiveDB();
+                //                       await _hiveDb.deleteData(widget.index!, 'userBox');
+                //                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                //                     },
+                //                   );
+                //                 });
+                //             // showDialog(
+                //             //     context: context,
+                //             //     builder: (BuildContext context) {
+                //             //       return MessageDialogWidget(
+                //             //         body: 'اطلاعات شما با موفقیت ثبت شد',
+                //             //         dismissable: true,
+                //             //         positiveTxt: 'باشه',
+                //             //         positiveFunc: () async {
+                //             //           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                //             //         },
+                //             //       );
+                //             //     });
+                //           },
+                //           child: const Padding(
+                //             padding: EdgeInsets.all(8.0),
+                //             child: Text(
+                //               'حذف خودرو',
+                //               style: TextStyle(
+                //                   // color: primary_grey_color
+                //                   ),
+                //             ),
+                //           )),
+                //     ),
+                //     const Spacer(),
+                //   ],
+                // ),
               ],
             ),
           ),
