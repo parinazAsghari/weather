@@ -103,7 +103,7 @@ class _CarTollResultState extends State<CarTollResult> {
           marginLeft: 0,
           marginBottom: 0,
           isChildText: false,
-          widget: _subItemBox(title: 'عوارض شهرداری تهران', imagePath: 'assets/images/accessory.png', cost: '10000 تومان'),
+          widget: _subItemBox(title: 'عوارض شهرداری تهران', imagePath: 'assets/images/accessory.png', cost: '10000 ریال'),
         ),
         CustomNeomorphicBox(
           title: '',
@@ -119,7 +119,7 @@ class _CarTollResultState extends State<CarTollResult> {
           marginLeft: 0,
           marginBottom: 0,
           isChildText: false,
-          widget: _subItemBox(title: 'عوارض طرح ترافیک', imagePath: 'assets/images/accessory.png', cost: '35000 تومان'),
+          widget: _subItemBox(title: 'عوارض طرح ترافیک', imagePath: 'assets/images/accessory.png', cost: '35000 ریال'),
         ),
         CustomNeomorphicBox(
           title: '',
@@ -135,7 +135,7 @@ class _CarTollResultState extends State<CarTollResult> {
           marginLeft: 0,
           marginBottom: 0,
           isChildText: false,
-          widget: _subItemBox(title: 'عوارض آزادراهی', imagePath: 'assets/images/accessory.png', cost: '2.153.000 تومان'),
+          widget: _subItemBox(title: 'عوارض آزادراهی', imagePath: 'assets/images/accessory.png', cost: '2.153.000 ریال'),
         ),
         CustomNeomorphicBox(
           title: '',
@@ -151,7 +151,7 @@ class _CarTollResultState extends State<CarTollResult> {
           marginLeft: 0,
           marginBottom: 0,
           isChildText: false,
-          widget: _subItemBox(title: 'پارک حاشیه ای', imagePath: 'assets/images/accessory.png', cost: '42.300 تومان'),
+          widget: _subItemBox(title: 'پارک حاشیه ای', imagePath: 'assets/images/accessory.png', cost: '42.300 ریال'),
         ),
 
         SizedBox(
@@ -162,8 +162,7 @@ class _CarTollResultState extends State<CarTollResult> {
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
 
             },
-            text: 'تسویه کامل (2.240.300 تومان)'
-        ),
+            text: 'تسویه کامل (2.240.300 ریال)'),
       ],
     );
   }

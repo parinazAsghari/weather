@@ -1,3 +1,4 @@
+import 'package:emdad_khodro_saipa/views/car_compact_drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_charge/car_charge_result.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll_result.dart';
@@ -26,12 +27,10 @@ class _CarChargeState extends State<CarCharge> {
   TextEditingController _userPhoneController = TextEditingController();
   TextEditingController _userNationalCodeController = TextEditingController();
 
-
   List myCarsList = [];
   Map<String, dynamic> userCarsItem = {};
-  Map<String, dynamic> carModelListItem = {};
+  Map<dynamic, dynamic> carModelListItem = {};
   final TextEditingController _carModelCtrl = TextEditingController();
-
 
   @override
   void initState() {
@@ -53,7 +52,7 @@ class _CarChargeState extends State<CarCharge> {
       return;
     }
     myCarsList.forEach((element) {
-      final entry = {'${element.brand} - ${element.createDate}': '${element.brand} - ${element.createDate}'};
+      final entry = {element: element};
       carModelListItem.addEntries(entry.entries);
     });
     _carModelCtrl.text = '${myCarsList.first.brand} - ${myCarsList.first.createDate}';
@@ -69,7 +68,6 @@ class _CarChargeState extends State<CarCharge> {
   }
 
   Future<void> _onSubmitTap() async {
-
     //check value - validation
     if(_userNationalCodeController.text.isEmpty || _userPhoneController.text.isEmpty){
       showDialog(
@@ -102,10 +100,6 @@ class _CarChargeState extends State<CarCharge> {
     //
 
 
-
-
-
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -130,6 +124,7 @@ class _CarChargeState extends State<CarCharge> {
       body: _body(),
     );
   }
+
   Widget _body() {
     return Container(
       child: SingleChildScrollView(
@@ -168,7 +163,7 @@ class _CarChargeState extends State<CarCharge> {
                     ],
                   ),
 
-                  FormDropDown(
+                  CarCompactDropDown(
                     readOnlyDropDown: false,
                     primaryBackgroundColor: Colors.transparent,
                     iconColor: Colors.pink,
@@ -183,9 +178,7 @@ class _CarChargeState extends State<CarCharge> {
                       _carModelCtrl.text = value;
                       _carModelController.text = value;
                     },
-                  ),
-
-
+                  )
                 ],
               ),
             ),
