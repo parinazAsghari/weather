@@ -4,6 +4,22 @@
 import 'package:flutter/material.dart';
 
 
+String mainServerUrl = '185.94.99.204:7252';
+
+
+
+
+
+
+//shared pref keys:
+//user_phone_number - login page stores
+//token - login page stores
+//loggedIn - (bool) - otp page stores
+//user_first_name - user_last_name - user_full_name - user_guid -- otp page stores
+
+
+
+
 String versionName = 'نسخه دمو   ۰.۰.۲';
 
 

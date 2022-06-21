@@ -78,12 +78,14 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
 
-    await Future.delayed(const Duration(milliseconds: 2000));
-    var result = await ApiProvider.sendMobileNumber(_phoneController.text, code.toString());
+    // await Future.delayed(const Duration(milliseconds: 2000));
+    // var result = await ApiProvider.sendMobileNumber(_phoneController.text, code.toString());
+
+    var result = await ApiProvider.sendLoginOtp(_phoneController.text);
 
     Navigator.pop(context);
 
-    if (result.statusCode == 200) {
+    if (result.resultCode == 0) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -98,6 +100,9 @@ class _LoginPageState extends State<LoginPage> {
       //store user phone number
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString('user_phone_number', _phoneController.text);
+      preferences.setString('token', result.data!.token!);
+
+
 
       Navigator.pushReplacement(
           context,
@@ -106,12 +111,11 @@ class _LoginPageState extends State<LoginPage> {
                     phoneNumber: _phone,
                     code: _code,
                   )));
-      setState(() {});
-    } else {
+    }
+    else {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            print(result.body.toString());
             return MessageDialogWidget(
               dismissable: true,
               title: 'خطا در ارسال پیام',
@@ -121,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
           });
       return;
     }
+
   }
 
   @override

@@ -293,6 +293,9 @@ class _MapModuleState extends State<MapModule> {
             padding: const EdgeInsets.all(8.0),
             child: CustomSubmitButton(
               onTap: () {
+                if(kIsWeb){
+                  _lastMapPosition = LatLng(pos.latitude, pos.longitude);
+                }
                 Navigator.pop(context, LatLng(_lastMapPosition.latitude, _lastMapPosition.longitude));
 
               },

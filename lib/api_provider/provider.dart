@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
 import 'package:emdad_khodro_saipa/models/address_request.dart';
 import 'package:emdad_khodro_saipa/models/request_model/SendEmdadRequest.dart';
@@ -12,7 +13,9 @@ import 'package:emdad_khodro_saipa/models/response_model/GetEmdadgarListResponse
 import 'package:emdad_khodro_saipa/models/response_model/GetPackagesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/GetReservableDatesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/UrgentRequestResponse.dart';
+import 'package:emdad_khodro_saipa/models/response_model/login.dart';
 import 'package:emdad_khodro_saipa/models/response_model/search_address_response.dart';
+import 'package:emdad_khodro_saipa/models/response_model/send_login_otp.dart';
 import 'package:emdad_khodro_saipa/models/weather_response_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -45,8 +48,8 @@ class ApiProvider {
     };
 
     Map data = {
-      // "\$select": "nearby",
-      "\$filter": "nearby",
+      // "\$filter": "distance",
+      "\$select": "nearby",
       "lat": latLng.latitude,
       "lon": latLng.longitude
     };
@@ -154,5 +157,67 @@ class ApiProvider {
 
     return WeatherResponseModel.fromJson(json.decode(result.body));
   }
+
+
+
+  // new main server methods
+  static Future<SendLoginOtp> sendLoginOtp(String mobileNumber) async {
+    Map data = {
+      'MobileNumber': mobileNumber
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/SendLoginOtp'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    return SendLoginOtp.fromJson(json.decode(result.body));
+  }
+
+  static Future<Login> login(String otp) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token,
+      'OTP': otp
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/Login'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    return Login.fromJson(json.decode(result.body));
+  }
+
+  // static Future<Profile> getProfile(String otp) async {
+  //
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   String? token = sharedPreferences.getString('token');
+  //
+  //   Map data = {
+  //     'Token': token,
+  //     'OTP': otp
+  //   };
+  //   //encode Map to JSON
+  //   var body = json.encode(data);
+  //
+  //   var result = await http.post(
+  //       Uri.http(mainServerUrl, '/api/User/GetProfile'),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: body
+  //   );
+  //
+  //   return Profile.fromJson(json.decode(result.body));
+  // }
+
 
 }

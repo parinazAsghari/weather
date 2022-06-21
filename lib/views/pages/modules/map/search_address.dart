@@ -126,7 +126,7 @@ class _SearchAddressState extends State<SearchAddress> {
 
                   },
 
-                  title: Text(searchAddressResponse.value![index].address!),
+                  title: Text(searchAddressResponse.value![index].title!),
 
                 );
               },

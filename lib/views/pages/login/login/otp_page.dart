@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../api_provider/provider.dart';
 import '../../../../constants.dart';
 import 'login_page.dart';
 
@@ -60,9 +61,56 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Future<void> onLoginButtonPressed() async {
-    print(_codeController.text);
-    print(_code);
 
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CircleLoadingWidget(
+            dismissable: false,
+            msgTxt: 'لطفا منتظر بمانید',
+          );
+        });
+
+
+    var result = await ApiProvider.login(_codeController.text);
+
+    Navigator.pop(context);
+
+    if (result.resultCode == 0) {
+
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      await sharedPreferences.setBool('loggedIn', true);
+      await sharedPreferences.setString('user_first_name', result.data!.firstName!);
+      await sharedPreferences.setString('user_last_name', result.data!.lastName!);
+      await sharedPreferences.setString('user_full_name', result.data!.fullName!);
+      await sharedPreferences.setString('user_guid', result.data!.guid!);
+
+
+      Navigator.pop(context);
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
+              (Route<dynamic> route) => false);
+    }
+    else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'رمز عبور اشتباه است',
+              body: 'رمز عبور اشتباه است. دوباره سعی کنید',
+              positiveTxt: 'باشه',
+            );
+          });
+      return;
+    }
+
+
+
+
+    /*
     if (_codeController.text != _code.toString()) {
       showDialog(
           context: context,
@@ -76,6 +124,7 @@ class _OtpPageState extends State<OtpPage> {
           });
       return;
     }
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -96,7 +145,68 @@ class _OtpPageState extends State<OtpPage> {
         context,
         MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
         (Route<dynamic> route) => false);
+
+     */
   }
+
+
+  //TODO fix resend code func
+  resendCode() async {
+    if (mounted) {
+      setState(() {
+        enableResend = false;
+        secondsRemaining = 60;
+        startTimer();
+      });
+    }
+
+    await Future.delayed(Duration(milliseconds: 3000));
+
+    Map data = {
+      'MobileNumber': '${widget.phoneNumber}',
+      'Message':
+      "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${_code.toString()} \n امداد خودرو سایپا\n "
+    };
+
+    var url = 'http://185.94.99.204:5252/api/Sms/Send';
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
+    var result = await http.post(
+        Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
+        headers: {"Content-Type": "application/json"},
+        body: body);
+
+    if (result.statusCode == 200) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'پیام ارسال شد',
+              body: 'رمز پیامک شده را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            print(result.body.toString());
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'خطا در ارسال پیام',
+              body: 'خطا در ارتباط با سرور. لطفا دوباره تلاش کنید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -240,59 +350,4 @@ class _OtpPageState extends State<OtpPage> {
     );
   }
 
-  resendCode() async {
-    if (mounted) {
-      setState(() {
-        enableResend = false;
-        secondsRemaining = 10;
-        startTimer();
-      });
-    }
-
-    await Future.delayed(Duration(milliseconds: 3000));
-
-    Map data = {
-      'MobileNumber': '${widget.phoneNumber}',
-      'Message':
-          "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${_code.toString()} \n امداد خودرو سایپا\n "
-    };
-
-    var url = 'http://185.94.99.204:5252/api/Sms/Send';
-
-    //encode Map to JSON
-    var body = json.encode(data);
-
-    // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
-    var result = await http.post(
-        Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
-        headers: {"Content-Type": "application/json"},
-        body: body);
-
-    if (result.statusCode == 200) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return MessageDialogWidget(
-              dismissable: true,
-              title: 'پیام ارسال شد',
-              body: 'رمز پیامک شده را وارد نمائید',
-              positiveTxt: 'باشه',
-            );
-          });
-    } else {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            print(result.body.toString());
-            return MessageDialogWidget(
-              dismissable: true,
-              title: 'خطا در ارسال پیام',
-              body: 'خطا در ارتباط با سرور. لطفا دوباره تلاش کنید',
-              positiveTxt: 'باشه',
-            );
-          });
-
-      return;
-    }
-  }
 }

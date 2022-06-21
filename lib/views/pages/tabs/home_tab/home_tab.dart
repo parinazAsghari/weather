@@ -719,9 +719,6 @@ class _HomeTabState extends State<HomeTab> {
       },
     ];
 
-    print('this is load ===== >>> $load');
-
-
     if (load != null && load!) {
       serviceItemList = [
         Service(
