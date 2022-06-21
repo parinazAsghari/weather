@@ -1,3 +1,5 @@
+import 'package:emdad_khodro_saipa/models/car.dart';
+import 'package:emdad_khodro_saipa/views/car_compact_drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll_result.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +24,10 @@ class _CarTollState extends State<CarToll> {
 
   TextEditingController _userPhoneController = TextEditingController();
 
-
   List myCarsList = [];
   Map<String, dynamic> userCarsItem = {};
-  Map<String, dynamic> carModelListItem = {};
+  Map<dynamic, dynamic> carModelListItem = {};
   final TextEditingController _carModelCtrl = TextEditingController();
-
 
   @override
   void initState() {
@@ -49,7 +49,8 @@ class _CarTollState extends State<CarToll> {
       return;
     }
     myCarsList.forEach((element) {
-      final entry = {'${element.brand} - ${element.createDate}': '${element.brand} - ${element.createDate}'};
+      final entry = {element: element};
+      // final entry = {'${element.brand} - ${element.createDate}': '${element.brand} - ${element.createDate}'};
       carModelListItem.addEntries(entry.entries);
     });
     _carModelCtrl.text = '${myCarsList.first.brand} - ${myCarsList.first.createDate}';
@@ -64,7 +65,6 @@ class _CarTollState extends State<CarToll> {
   }
 
   void _onSubmitTap(){
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -89,6 +89,7 @@ class _CarTollState extends State<CarToll> {
       body: _body(),
     );
   }
+
   Widget _body() {
     return Container(
       child: Column(
@@ -116,17 +117,35 @@ class _CarTollState extends State<CarToll> {
                   children: [
                     const Text('انتخاب خودرو *', textAlign: TextAlign.right,),
                     TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pop(context);
                           // Navigator.pop(context);
                           Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar(isCarFromDataBase: false)));
                         },
-                        child: Text('افزودن خودروی جدید +', style: TextStyle(fontSize: 14,color: Theme.of(context).primaryColor),)),
-
+                        child: Text(
+                          'افزودن خودروی جدید +',
+                          style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),
+                        )),
                   ],
                 ),
 
-                FormDropDown(
+                // FormDropDown(
+                //   readOnlyDropDown: false,
+                //   primaryBackgroundColor: Colors.transparent,
+                //   iconColor: Colors.pink,
+                //   dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+                //   defaultValue: _carModelDefaultValue,
+                //   // firstItemSelectMessage: 'انتخاب',
+                //   alignmentCenterLeft: false,
+                //   enabledBorderColor: Colors.black,
+                //   items: carModelListItem,
+                //   validations: const [],
+                //   onChange: (value) {
+                //     _carModelCtrl.text = value;
+                //     _carModelController.text = value;
+                //   },
+                // ),
+                CarCompactDropDown(
                   readOnlyDropDown: false,
                   primaryBackgroundColor: Colors.transparent,
                   iconColor: Colors.pink,
@@ -141,9 +160,7 @@ class _CarTollState extends State<CarToll> {
                     _carModelCtrl.text = value;
                     _carModelController.text = value;
                   },
-                ),
-
-
+                )
               ],
             ),
           ),

@@ -15,6 +15,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
 
 void main() async {
@@ -25,16 +26,25 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(CarAdapter());
+  SharedPreferences preferences = await SharedPreferences.getInstance();
   Hive.registerAdapter<Service>(ServiceAdapter(), override: true);
 
-  runApp(MyApp());
+  runApp(MyApp(preferences));
 }
 
 class MyApp extends StatelessWidget {
+  MyApp(this.preferences);
+
+  SharedPreferences preferences;
   static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
 
   @override
   Widget build(BuildContext context) {
+    var theme = preferences.getString('theme');
+
+    if (theme == 'light') {
+      themeNotifier.value = ThemeMode.light;
+    }
     return ValueListenableBuilder(
         valueListenable: themeNotifier,
         builder: (_, ThemeMode mode, __) {
@@ -44,8 +54,6 @@ class MyApp extends StatelessWidget {
 
             // home: SplashPage(),
             home: HomePage(),
-
-
 
             localizationsDelegates: [
               GlobalCupertinoLocalizations.delegate,
@@ -131,7 +139,7 @@ class MyApp extends StatelessWidget {
                   actionsIconTheme: IconThemeData(color: dark_theme_secondary),
                 ),
                 progressIndicatorTheme: ProgressIndicatorThemeData(
-                  color: dark_theme_secondary
+                    color: dark_theme_secondary
                 ),
                 tabBarTheme: TabBarTheme(labelColor: dark_theme_secondary, unselectedLabelColor: dark_theme_primary_light),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(

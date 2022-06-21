@@ -1,6 +1,7 @@
 import 'package:emdad_khodro_saipa/main.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 
@@ -13,6 +14,29 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   bool isSwitched = false;
+
+  Future<dynamic> getCurrentTheme() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? theme = preferences.getString('theme');
+    if (theme == null) {
+      preferences.setString('theme', 'dark');
+      theme = 'dark';
+    }
+    return theme;
+  }
+
+  changeTheme() async {
+    String? theme;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await getCurrentTheme().then((value) {
+      theme = value;
+    });
+    if (theme == 'light') {
+      preferences.setString('theme', 'dark');
+    } else if (theme == 'dark') {
+      preferences.setString('theme', 'light');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +78,24 @@ class _SettingsState extends State<Settings> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Switch(
+                            // thumbColor: ,
+                            inactiveThumbColor: Theme.of(context).backgroundColor,
+                            activeColor: Theme.of(context).backgroundColor,
+                            activeTrackColor: Theme.of(context).primaryColorLight,
                             value: isSwitched,
-                            onChanged: (value) {
+                            onChanged: (value) async {
+                              var theme;
+                              await getCurrentTheme().then((value) {
+                                theme = value;
+                                print('kjsdhfkjsdfksadfkjsdkfsakj$theme');
+                              });
+                              await changeTheme();
                               setState(() {
                                 print('${isSwitched}');
                                 isSwitched = !isSwitched;
                                 print('${isSwitched}');
 
-                                MyApp.themeNotifier.value = MyApp.themeNotifier.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+                                MyApp.themeNotifier.value = theme == 'light' ? ThemeMode.dark : ThemeMode.light;
                               });
                             },
                           ),
