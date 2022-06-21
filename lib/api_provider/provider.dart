@@ -45,7 +45,8 @@ class ApiProvider {
     };
 
     Map data = {
-      "\$select": "nearby",
+      // "\$select": "nearby",
+      "\$filter": "nearby",
       "lat": latLng.latitude,
       "lon": latLng.longitude
     };
@@ -63,6 +64,7 @@ class ApiProvider {
         headers: headers,
         body: body
     );
+    print(result.body);
 
     return SearchAddressResponse.fromJson(json.decode(result.body));
   }
@@ -98,7 +100,6 @@ class ApiProvider {
   static Future<EmdadRequestResponse> sendEmdadRequest(GeoLocation geoLocation, String nationalCode, String chassicNo, int issueType) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var mobileNumber = preferences.getString('user_phone_number');
-    print('asdasdasdas ${mobileNumber}');
     SendEmdadRequest emdadModel = SendEmdadRequest(mobile: mobileNumber, geoLocation: geoLocation, nationalCode: nationalCode, chassisNo: chassicNo, issueType: issueType);
     var body = json.encode(emdadModel.toJson());
 
