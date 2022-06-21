@@ -9,6 +9,7 @@ import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mapir_raster/mapir_raster.dart';
@@ -87,7 +88,8 @@ class _MapModuleState extends State<MapModule> {
   }
 
   void _onCameraMove(CameraPosition position) {
-    _lastMapPosition = position.target;
+    _lastMapPosition = _center = position.target;
+
     final marker = Marker(
       markerId: MarkerId('place_name'),
       position: _lastMapPosition,
@@ -102,6 +104,35 @@ class _MapModuleState extends State<MapModule> {
 
     });
   }
+
+  Future<void> _onCurrentLocationButtonPressed() async {
+
+    var location = await currentLocation.getLocation();
+    _center = LatLng(location.latitude!, location.longitude!);
+
+    setState(() {
+      final marker = Marker(
+        markerId: MarkerId('place_name'),
+        position: _center,
+        // icon: BitmapDescriptor.defaultMarker,
+        icon: customIcon!,
+        infoWindow: InfoWindow(
+          title: 'شما اینجایید',
+          // snippet: 'address',
+        ),
+      );
+
+      markers[MarkerId('place_name')] = marker;
+      _controller!.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: _center,
+              zoom: 17
+          )));
+
+    });
+  }
+
+
 
   @override
   void dispose() {
@@ -134,7 +165,7 @@ class _MapModuleState extends State<MapModule> {
               onCameraMove: _onCameraMove,
               markers: markers.values.toSet(),
               myLocationEnabled: true,
-              myLocationButtonEnabled: true,
+              myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
 
@@ -145,9 +176,14 @@ class _MapModuleState extends State<MapModule> {
             _customButton(),
 
 
-            _searchAddressButton(),
+            Column(
+              children: [
+                _searchAddressButton(),
 
+                _customFloatingActionButton(),
 
+              ],
+            ),
           ],
         ),
       ),
@@ -184,16 +220,27 @@ class _MapModuleState extends State<MapModule> {
   Widget _searchAddressButton(){
 
     return InkWell(
-      onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchAddress()));
+      onTap: () async {
+        LatLng latLng = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchAddress(userLastLatLng: _center,)));
 
+        print('this is latlng back from search =====> $latLng');
+        if(latLng!=null){
+          _center = _lastMapPosition = latLng;
+          _controller!.animateCamera(CameraUpdate.newLatLng(latLng));
+
+        }
       },
-      child: Container(
-        height: 50,
+
+      child: Neumorphic(
         margin: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+          // depth: 1.5,
+          depth: 8,
+          lightSource: LightSource.topLeft,
           color: Colors.white,
+          shadowDarkColor: Theme.of(context).shadowColor,
         ),
         child: ListTile(
           title: Text('جستجو ....'),
@@ -203,5 +250,22 @@ class _MapModuleState extends State<MapModule> {
   }
 
 
+  Widget _customFloatingActionButton(){
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        alignment: Alignment.centerRight,
+        margin: EdgeInsets.only(right: 16,top: 8),
+        child: FloatingActionButton(
+          onPressed: (){
+
+            _onCurrentLocationButtonPressed();
+          },
+          child: Icon(Icons.location_on_rounded),
+
+        ),
+      ),
+    );
+  }
 
 }

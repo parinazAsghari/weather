@@ -70,6 +70,12 @@ class MyApp extends StatelessWidget {
                 backgroundColor: light_theme_primary,
                 primaryColorLight: light_theme_primary_low,
                 elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(light_theme_primary), textStyle: MaterialStateProperty.all(TextStyle(color: light_theme_white)))),
+                inputDecorationTheme: InputDecorationTheme(
+                    focusColor: light_theme_primary,
+                    labelStyle: TextStyle(
+                        color: light_theme_primary
+                    )
+                ),
                 appBarTheme: AppBarTheme(
                   color: light_theme_primary,
                   centerTitle: true,
@@ -110,6 +116,12 @@ class MyApp extends StatelessWidget {
                 accentColor: dark_theme_secondary,
                 backgroundColor: dark_theme_primary,
                 primaryColorLight: dark_theme_primary_low,
+                inputDecorationTheme: InputDecorationTheme(
+                  focusColor: dark_theme_primary,
+                  labelStyle: TextStyle(
+                    color: dark_theme_primary
+                  )
+                ),
                 elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(dark_theme_primary), textStyle: MaterialStateProperty.all(TextStyle(color: dark_theme_white)))),
                 appBarTheme: AppBarTheme(
                   color: dark_theme_primary,
