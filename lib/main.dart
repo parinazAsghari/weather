@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'امداد خودرو سایپا',
 
-            home: SplashPage(),
-            // home: HomePage(),
+            // home: SplashPage(),
+            home: HomePage(),
 
             localizationsDelegates: [
               GlobalCupertinoLocalizations.delegate,

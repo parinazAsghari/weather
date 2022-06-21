@@ -30,7 +30,7 @@ class _CompassState extends State<Compass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      // backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: const Text(
@@ -127,10 +127,12 @@ class _CompassState extends State<Compass> {
             clipBehavior: Clip.antiAlias,
             elevation: 4.0,
             child: Container(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(25.0),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                color: Theme.of(context).primaryColor
+
               ),
               child: Transform.rotate(
                 angle: (direction * (math.pi / 180) * -1),

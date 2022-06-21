@@ -1,8 +1,12 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:dio/dio.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:emdad_khodro_saipa/constants.dart';
+import 'package:emdad_khodro_saipa/views/pages/modules/map/search_address.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -27,6 +31,7 @@ class MapModule extends StatefulWidget {
 }
 
 class _MapModuleState extends State<MapModule> {
+
 
   //map
   GoogleMapController? _controller;
@@ -128,7 +133,7 @@ class _MapModuleState extends State<MapModule> {
               ),
               onCameraMove: _onCameraMove,
               markers: markers.values.toSet(),
-              myLocationEnabled: false,
+              myLocationEnabled: true,
               myLocationButtonEnabled: true,
               zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
@@ -136,32 +141,67 @@ class _MapModuleState extends State<MapModule> {
             ),
 
 
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomSubmitButton(
-                      onTap: () {
-                        Navigator.pop(context, LatLng(_lastMapPosition.latitude, _lastMapPosition.longitude));
+            //bottom center button - confirm and continue
+            _customButton(),
 
-                      },
-                      text: 'تائید و ادامه',
-                      marginBottom: 0,
-                      marginTop: 0,
-                    ),
-                  ),
-                  SizedBox(
-                    height: defaultPadding * 2,
-                  )
-                ],
-              ),
-            )
+
+            _searchAddressButton(),
+
+
           ],
         ),
       ),
     );
   }
+
+  Widget _customButton(){
+    return  Align(
+      alignment: Alignment.bottomCenter,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomSubmitButton(
+              onTap: () {
+                Navigator.pop(context, LatLng(_lastMapPosition.latitude, _lastMapPosition.longitude));
+
+              },
+              text: 'تائید و ادامه',
+              marginBottom: 0,
+              marginTop: 0,
+            ),
+          ),
+          SizedBox(
+            height: defaultPadding * 2,
+          )
+        ],
+      ),
+    );
+  }
+
+
+  Widget _searchAddressButton(){
+
+    return InkWell(
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchAddress()));
+
+      },
+      child: Container(
+        height: 50,
+        margin: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+        ),
+        child: ListTile(
+          title: Text('جستجو ....'),
+        ),
+      ),
+    );
+  }
+
+
+
 }
