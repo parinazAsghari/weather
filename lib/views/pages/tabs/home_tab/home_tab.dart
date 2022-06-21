@@ -388,6 +388,8 @@ class _HomeTabState extends State<HomeTab> {
     setState(() {
       if (servicesList.isNotEmpty) {
         load = false;
+      }else{
+        load = true;
       }
     });
   }
@@ -716,6 +718,9 @@ class _HomeTabState extends State<HomeTab> {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Compass()));
       },
     ];
+
+    print('this is load ===== >>> $load');
+
 
     if (load != null && load!) {
       serviceItemList = [
