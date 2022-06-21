@@ -103,7 +103,7 @@ class _CarChargeResultState extends State<CarChargeResult> {
           marginLeft: 0,
           marginBottom: 0,
           isChildText: false,
-          widget: _subItemBox(title: 'خلافی خودرو', imagePath: 'assets/images/accessory.png', cost: '350.000 تومان'),
+          widget: _subItemBox(title: 'خلافی خودرو', imagePath: 'assets/images/accessory.png', cost: '350.000 ریال'),
         ),
 
         SizedBox(

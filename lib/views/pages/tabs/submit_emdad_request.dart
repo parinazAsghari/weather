@@ -1,5 +1,7 @@
+import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
 import 'package:emdad_khodro_saipa/models/response_model/EmdadRequestResponse.dart';
+import 'package:emdad_khodro_saipa/views/car_compact_drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -73,6 +75,7 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
     getAddress();
     getUserData();
+    getCarsData();
   }
 
   void getUserData() async {
@@ -91,6 +94,32 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
     setState(() {
       _addressCtrl.text = result.addressCompact!;
     });
+  }
+
+  Map<dynamic, dynamic> carModelListItem = {};
+  List myCarsList = [];
+  final TextEditingController _carModelCtrl = TextEditingController();
+  String? _carModelDefaultValue;
+  final TextEditingController _carModelController = TextEditingController();
+
+  getCarsData() async {
+    HiveDB _hiveDB = HiveDB();
+    myCarsList = await _hiveDB.getData('', 'userBox');
+
+    if (myCarsList.isEmpty) {
+      final entry = {'مدل خودرو': 'مدل خودرو'};
+      carModelListItem.addEntries(entry.entries);
+      setState(() {});
+      return;
+    }
+    myCarsList.forEach((element) {
+      final entry = {element: element};
+      carModelListItem.addEntries(entry.entries);
+    });
+    _carModelCtrl.text = '${myCarsList.first.brand} - ${myCarsList.first.createDate}';
+
+    setState(() {});
+    return;
   }
 
   @override
@@ -134,6 +163,28 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 SizedBox(
                   height: 8,
                 ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0, bottom: 4, left: 24, right: 24),
+                  child: CarCompactDropDown(
+                    readOnlyDropDown: false,
+                    primaryBackgroundColor: Colors.transparent,
+                    iconColor: Colors.pink,
+                    dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+                    defaultValue: _carModelDefaultValue,
+                    // firstItemSelectMessage: 'انتخاب',
+                    alignmentCenterLeft: false,
+                    enabledBorderColor: Colors.black,
+                    items: carModelListItem,
+                    validations: const [],
+                    onChange: (value) {
+                      _carModelCtrl.text = value;
+                      _carModelController.text = value;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
                 CustomTextField(title: 'نام و نام خانوادگی', height: 35, marginTop: 11, controller: _nameCtrl),
                 CustomTextField(title: 'کدملی', height: 35, marginTop: 11, controller: _idCtrl),
                 if (widget.hasCarProblem) _customDropDown(),
@@ -172,8 +223,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 ),
                 _addressCtrl.text.isEmpty
                     ? CircularProgressIndicator(
-                        color: Theme.of(context).accentColor,
-                      )
+                  color: Theme.of(context).accentColor,
+                )
                     : CustomTextField(title: 'آدرس *', height: 47, marginTop: 11, controller: _addressCtrl),
                 CustomTextField(title: 'توضیحات', height: 68, marginTop: 11, controller: _descriptionCtrl),
 
@@ -317,7 +368,6 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   }
 
   _onSubmitTap() async {
-
     if (widget.hasCarProblem) {
       if (_carProblem == null) {
         showDialog(
@@ -457,7 +507,5 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
             },
           );
         });
-
-
   }
 }

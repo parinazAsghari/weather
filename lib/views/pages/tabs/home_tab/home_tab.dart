@@ -388,6 +388,8 @@ class _HomeTabState extends State<HomeTab> {
     setState(() {
       if (servicesList.isNotEmpty) {
         load = false;
+      } else {
+        load = true;
       }
     });
   }
@@ -704,7 +706,7 @@ class _HomeTabState extends State<HomeTab> {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CarToll()));
       },
           () {
-        return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+            return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CarCharge()));
       },
       () {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Weather()));
