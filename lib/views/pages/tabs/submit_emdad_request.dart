@@ -2,6 +2,7 @@ import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
 import 'package:emdad_khodro_saipa/models/response_model/EmdadRequestResponse.dart';
 import 'package:emdad_khodro_saipa/views/car_compact_drop_down.dart';
+import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -165,6 +166,28 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 8.0, bottom: 4, left: 24, right: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'انتخاب خودرو *',
+                        textAlign: TextAlign.right,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            // Navigator.pop(context);
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar(isCarFromDataBase: false)));
+                          },
+                          child: Text(
+                            'افزودن خودروی جدید +',
+                            style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),
+                          )),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0, bottom: 4, left: 24, right: 24),
                   child: CarCompactDropDown(
                     readOnlyDropDown: false,
                     primaryBackgroundColor: Colors.transparent,
@@ -181,9 +204,6 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                       _carModelController.text = value;
                     },
                   ),
-                ),
-                SizedBox(
-                  height: 8,
                 ),
                 CustomTextField(title: 'نام و نام خانوادگی', height: 35, marginTop: 11, controller: _nameCtrl),
                 CustomTextField(title: 'کدملی', height: 35, marginTop: 11, controller: _idCtrl),
