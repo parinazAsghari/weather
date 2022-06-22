@@ -22,6 +22,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/car_info.dart';
+import '../models/response_model/main_server_general_response.dart';
+import '../models/response_model/profile.dart';
+import '../models/user_info.dart';
+
 class ApiProvider {
 
   static Future<AddressRequest> getAddress(LatLng latLng) async {
@@ -198,26 +203,115 @@ class ApiProvider {
     return Login.fromJson(json.decode(result.body));
   }
 
-  // static Future<Profile> getProfile(String otp) async {
+  static Future<Profile> getProfile() async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/GetProfile'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+
+
+
+    return Profile.fromJson(json.decode(result.body));
+  }
+
+  static Future<MainServerGeneralResponse> editProfile(UserInfo userInfo) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token,
+      'FirstName': userInfo.firstName,
+      'LastName': userInfo.lastName,
+      'NationalCode': userInfo.nationalCode
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/EditProfile'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+
+
+
+    return MainServerGeneralResponse.fromJson(json.decode(result.body));
+  }
+
+  static Future<MainServerGeneralResponse> submitCarInfo (CarInfo carInfo) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token,
+      "Name": carInfo.Name,
+      "ProductionYear": carInfo.ProductionYear,
+      "LicensePlateNo": carInfo.LicensePlateNo,
+      "ChassisNo": carInfo.ChassisNo,
+      "Vin": carInfo.Vin
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/SubmitCarInfo'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+
+
+
+    return MainServerGeneralResponse.fromJson(json.decode(result.body));
+  }
+
+  // static Future<MainServerMessageResponse> sendUrgentRequest (CarInfo carInfo) async {
   //
   //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   //   String? token = sharedPreferences.getString('token');
   //
   //   Map data = {
   //     'Token': token,
-  //     'OTP': otp
+  //     "Name": carInfo.Name,
+  //     "ProductionYear": carInfo.ProductionYear,
+  //     "LicensePlateNo": carInfo.LicensePlateNo,
+  //     "ChassisNo": carInfo.ChassisNo,
+  //     "Vin": carInfo.Vin
   //   };
+  //
   //   //encode Map to JSON
   //   var body = json.encode(data);
   //
   //   var result = await http.post(
-  //       Uri.http(mainServerUrl, '/api/User/GetProfile'),
+  //       Uri.http(mainServerUrl, '/api/Emdad/SendUrgentRequest'),
   //       headers: {"Content-Type": "application/json"},
   //       body: body
   //   );
   //
-  //   return Profile.fromJson(json.decode(result.body));
+  //
+  //
+  //
+  //   return MainServerGeneralResponse.fromJson(json.decode(result.body));
   // }
+
+
 
 
 }
