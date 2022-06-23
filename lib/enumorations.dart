@@ -1,3 +1,3 @@
 enum AppBarType{
-  primary, subPages
+  primaryDark, primaryLight, subPages
 }

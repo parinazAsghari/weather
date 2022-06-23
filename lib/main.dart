@@ -5,6 +5,7 @@ import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
 import 'package:emdad_khodro_saipa/views/pages/new_ui/home_page_new_ui.dart';
 import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/home_tab_n.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/screens/dash_screen.dart';
@@ -54,7 +55,10 @@ class MyApp extends StatelessWidget {
             title: 'امداد خودرو سایپا',
 
             // home: SplashPage(),
-            home: HomePageNewUi(),
+            // home: HomePageNewUi(),
+            // home: HomePage(),
+            home: HomeTabN(),
+
 
             localizationsDelegates: [
               GlobalCupertinoLocalizations.delegate,
@@ -86,10 +90,11 @@ class MyApp extends StatelessWidget {
                     )
                 ),
                 appBarTheme: AppBarTheme(
-                  color: light_theme_primary,
+                  color: light_theme_white,
+                  elevation: 10,
                   centerTitle: true,
                   titleTextStyle: TextStyle(
-                      color: light_theme_white,
+                      color: light_theme_primary,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Vazir'),
@@ -133,9 +138,10 @@ class MyApp extends StatelessWidget {
                 ),
                 elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(dark_theme_primary), textStyle: MaterialStateProperty.all(TextStyle(color: dark_theme_white)))),
                 appBarTheme: AppBarTheme(
-                  color: dark_theme_primary,
+                  color: dark_theme_white,
                   centerTitle: true,
-                  titleTextStyle: TextStyle(color: dark_theme_white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
+                  elevation: 10,
+                  titleTextStyle: TextStyle(color: dark_theme_primary, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
                   iconTheme: IconThemeData(color: dark_theme_secondary),
                   actionsIconTheme: IconThemeData(color: dark_theme_secondary),
                 ),
