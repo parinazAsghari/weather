@@ -41,7 +41,7 @@ class _HomeTabNewState extends State<HomeTabNew> {
       //     mainAxisSpacing: 16),
       children: [
         CustomServiceItem(
-          imagePath: 'assets/images/khadamat_emdad.png',
+          imagePath: 'assets/images/ic_service_light.png',
           serviceName: 'خدمات امداد',
         ),
         CustomServiceItem(

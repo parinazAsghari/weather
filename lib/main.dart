@@ -2,19 +2,9 @@ import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/models/service.dart';
 import 'package:emdad_khodro_saipa/models/user.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
-import 'package:emdad_khodro_saipa/views/pages/new_ui/home_page_new_ui.dart';
-import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/home_tab_n.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/screens/dash_screen.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,9 +45,7 @@ class MyApp extends StatelessWidget {
             title: 'امداد خودرو سایپا',
 
             // home: SplashPage(),
-            // home: HomePageNewUi(),
-            // home: HomePage(),
-            home: HomeTabN(),
+            home: HomePage(),
 
 
             localizationsDelegates: [
