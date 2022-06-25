@@ -36,8 +36,8 @@ class _OtpPageState extends State<OtpPage> {
   @override
   void initState() {
     super.initState();
-    _code = widget.code!;
-    print('otp code is:   $_code');
+    // _code = widget.code!;
+    // print('otp code is:   $_code');
     startTimer();
   }
 

@@ -13,6 +13,7 @@ class CustomSubmitButton extends StatelessWidget {
   double? width;
   double? height;
   double? borderWidth;
+  Color? backgroundColor;
 
   CustomSubmitButton({
     @required this.onTap,
@@ -25,6 +26,7 @@ class CustomSubmitButton extends StatelessWidget {
     this.width = double.infinity,
     this.height = 33 / 520,
     this.borderWidth = 1,
+    this.backgroundColor,
     Key? key,
   }) : super(key: key);
 

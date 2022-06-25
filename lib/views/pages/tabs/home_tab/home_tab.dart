@@ -353,7 +353,7 @@ class _HomeTabState extends State<HomeTab> {
                       style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight),
                     ),
                     Text(
-                      'سال ساخت: ${myCarsList[element].createDate}',
+                      'سال ساخت: ${myCarsList[element].createDate ?? ''}',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight),
                     )
