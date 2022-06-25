@@ -1,7 +1,7 @@
 class SendLoginOtp {
   int? resultCode;
   Data? data;
-  Null? failures;
+  List<String>? failures;
 
   SendLoginOtp({this.resultCode, this.data, this.failures});
 

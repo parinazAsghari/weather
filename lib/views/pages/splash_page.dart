@@ -31,8 +31,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 
 
   void navigation() async {
-    var getProfile = await ApiProvider.getProfile();
-    print(getProfile);
+    // var getProfile = await ApiProvider.getProfile();
+    // print(getProfile);
 
 
 

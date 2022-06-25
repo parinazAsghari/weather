@@ -71,7 +71,7 @@ class _GoldenCardState extends State<GoldenCard> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Basic()));
                     },
-                    widget: _subItemWidget('assets/images/ic_news.png', 'گارانتی بدنه پایه'),
+                    widget: _subItemWidget('assets/images/ic_news_light.png', 'گارانتی بدنه پایه'),
                   ),
                   CustomNeomorphicBox(
                     title: '',
@@ -90,7 +90,7 @@ class _GoldenCardState extends State<GoldenCard> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Economy()));
                     },
-                    widget: _subItemWidget('assets/images/ic_news.png', 'گارانتی بدنه اکونومی'),
+                    widget: _subItemWidget('assets/images/ic_news_light.png', 'گارانتی بدنه اکونومی'),
                   ),
                   CustomNeomorphicBox(
                     title: '',
@@ -109,7 +109,7 @@ class _GoldenCardState extends State<GoldenCard> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Full()));
                     },
-                    widget: _subItemWidget('assets/images/ic_news.png', 'گارانتی بدنه کامل'),
+                    widget: _subItemWidget('assets/images/ic_news_light.png', 'گارانتی بدنه کامل'),
                   ),
                 ],
               ),

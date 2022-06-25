@@ -61,7 +61,7 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 onTap: () async {
                   if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-garantibadane'))) throw 'Could not launch';
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات گارانتی بدنه'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'خدمات گارانتی بدنه'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -80,7 +80,7 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 onTap: () async {
                   if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-KhadamatEmdadi'))) throw 'Could not launch';
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات امدادی'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'خدمات امدادی'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -99,7 +99,7 @@ class _CompareServicePageState extends State<CompareServicePage> {
                 onTap: () async {
                   if (!await launchUrl(Uri.parse('http://emdadsaipa.ir/compare-Khadamatdarmahal'))) throw 'Could not launch';
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات در محل'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'خدمات در محل'),
               ),
             ],
           ),

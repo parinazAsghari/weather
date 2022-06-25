@@ -65,7 +65,7 @@ class _CarServicePageState extends State<CarServicePage> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => FirstAndPeriodic()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'سرویس اولیه و دوره ای'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'سرویس اولیه و دوره ای'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -84,7 +84,7 @@ class _CarServicePageState extends State<CarServicePage> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => OptionInstall()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'نصب آپشن'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'نصب آپشن'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -103,7 +103,7 @@ class _CarServicePageState extends State<CarServicePage> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CheckBeforeTrip()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'بازدید پیش از سفر'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'بازدید پیش از سفر'),
               ),
             ],
           ),

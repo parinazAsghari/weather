@@ -87,8 +87,8 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: Image.asset(
-                  // widget.imagePath,
-                  'assets/images/new_car.png',
+                  widget.imagePath,
+                  // 'assets/images/new_car.png',
                   fit: BoxFit.cover,
                   // width: MediaQuery.of(context).size.width * 0.80,
                 ),
@@ -107,16 +107,17 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
               SizedBox(
                 height: 20,
               ),
-              Text(
-                'نام:‌ ${widget.brand!}',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'مدل: ${widget.createDate!}',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+              widget.showingTexts,
+              // Text(
+              //   'نام:‌ ${widget.brand!}',
+              //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              // ),
+              // Text(
+              //   'مدل: ${widget.createDate!}',
+              //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              // ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
 
               carPlate(),
@@ -138,7 +139,8 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
 
   Widget carPlate(){
     return Container(
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.symmetric(horizontal: 1),
+      margin: EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         border: Border.all(),
         borderRadius: BorderRadius.circular(8)
@@ -146,6 +148,7 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
       // height: 40,
       child: Row(
         children: [
+          SizedBox(width: 4,),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -157,8 +160,11 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
               Text(widget.fourthCarTag.toString(), style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
             ],
           ),
-          VerticalDivider(
-              color: Colors.black),
+          Expanded(
+            child: VerticalDivider(
+                width: 4,
+                color: Colors.black),
+          ),
           Text(widget.thirdCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
           const SizedBox(
             width: 5,
@@ -171,12 +177,14 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
           const SizedBox(
             width: 5,
           ),
+          // Expanded(child: Container()),
           Image.asset(
             'assets/images/iran_flag.png',
-            width: 16,
+            width: 22,
             // height: 38,
             fit: BoxFit.contain,
           ),
+
         ],
       ),
     );
@@ -190,6 +198,7 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
           padding: const EdgeInsets.all(8.0),
           child: Text('برای استفاده از خدمات تخصصی مشخصات خودرو خود را وارد کنید', style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold),),
         ),
+        Expanded(child: Container()),
         Row(
           children: [
             Expanded(
@@ -201,8 +210,8 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Image.asset(
-                      // widget.imagePath,
-                      'assets/images/car_shadow.png',
+                      widget.imagePath,
+                      // 'assets/images/car_shadow.png',
                       fit: BoxFit.cover,
                       // width: MediaQuery.of(context).size.width * 0.80,
                     ),
@@ -222,7 +231,7 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
                   NeumorphicButton(
                     margin: EdgeInsets.zero,
                     curve: Neumorphic.DEFAULT_CURVE,
-                    padding: EdgeInsets.zero,
+                    padding: EdgeInsets.all(4),
                     onPressed: (){
                       _onCarBoxTap();
                     },
@@ -231,8 +240,8 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('افزودن خودرو', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),),
-                          Image.asset('assets/images/plus.png', height: 10,)
+                          Text('افزودن خودرو  ', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),),
+                          Image.asset('assets/images/plus.png',color: Theme.of(context).primaryColor, height: 10,)
                         ],
                       ),
                     ),

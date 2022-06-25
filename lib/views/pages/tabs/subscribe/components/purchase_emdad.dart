@@ -34,6 +34,8 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                 },
                 child: NeumorphicButton(
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+
                     // onTap();
                   },
                   padding: EdgeInsets.only(top: defaultPadding / 2, right: defaultPadding / 2, left: defaultPadding / 2),
@@ -63,7 +65,7 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                       const Expanded(
                           flex: 1,
                           child: Text(
-                            '30000 ریال',
+                            '3,200,000 ریال',
                             style: TextStyle(color: Color(0xFF000000)),
                           )),
                       const Padding(
@@ -85,6 +87,8 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
               },
               child: NeumorphicButton(
                 onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+
                   // onTap();
                 },
                 padding: EdgeInsets.only(top: defaultPadding / 2, right: defaultPadding / 2, left: defaultPadding / 2),
@@ -204,6 +208,8 @@ class _PurchaseEmdadState extends State<PurchaseEmdad> {
                 },
                 child: NeumorphicButton(
                   onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+
                     // onTap();
                   },
                   padding: EdgeInsets.only(top: defaultPadding/2, right: defaultPadding/2, left: defaultPadding/2),

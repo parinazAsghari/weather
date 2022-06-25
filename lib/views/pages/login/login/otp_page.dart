@@ -83,7 +83,7 @@ class _OtpPageState extends State<OtpPage> {
       await sharedPreferences.setString('user_first_name', result.data!.firstName!);
       await sharedPreferences.setString('user_last_name', result.data!.lastName!);
       await sharedPreferences.setString('user_full_name', result.data!.fullName!);
-      await sharedPreferences.setString('user_guid', result.data!.guid!);
+      await sharedPreferences.setString('user_guid', result.data!.guid! );
 
 
       Navigator.pop(context);

@@ -160,9 +160,13 @@ class _AddNewCarState extends State<AddNewCar> {
       case 'چانگان':
         imagePath = 'car_changan';
         break;
+
+      case 'شاهین':
+        imagePath = 'car_shahin';
+        break;
         
       default:
-        imagePath = 'khodro';
+        imagePath = 'car_shadow';
         break;
 
     }
@@ -211,10 +215,11 @@ class _AddNewCarState extends State<AddNewCar> {
                   height: 10,
                 ),
                 SizedBox(
-                  height: 140,
-                  width: 140,
+                  height: 160,
+                  width: 160,
                   // decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(30)),
                   child: Neumorphic(
+                    padding: EdgeInsets.all(8),
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
@@ -241,7 +246,7 @@ class _AddNewCarState extends State<AddNewCar> {
                     top: 11,
                   ),
                   child: FormDropDown(
-                    readOnlyDropDown: false,
+                    readOnlyDropDown: widget.isCarFromDataBase? true :false,
                     primaryBackgroundColor: Colors.transparent,
                     iconColor: Colors.pink,
                     dropdownMenuItemStyle: const TextStyle(color: Colors.black),
@@ -267,7 +272,7 @@ class _AddNewCarState extends State<AddNewCar> {
                     top: 11,
                   ),
                   child: FormDropDown(
-                    readOnlyDropDown: false,
+                    readOnlyDropDown: widget.isCarFromDataBase? true :false,
                     primaryBackgroundColor: Colors.transparent,
                     iconColor: Colors.pink,
                     dropdownMenuItemStyle: const TextStyle(color: Colors.black),

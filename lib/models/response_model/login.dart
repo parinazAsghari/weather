@@ -1,7 +1,7 @@
 class Login {
   int? resultCode;
   Data? data;
-  Null? failures;
+  List<dynamic>? failures;
 
   Login({this.resultCode, this.data, this.failures});
 

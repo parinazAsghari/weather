@@ -122,8 +122,12 @@ class _CarCompactDropDownState extends State<CarCompactDropDown> {
         imagePath = 'car_changan';
         break;
 
+      case 'شاهین':
+        imagePath = 'car_shahin';
+        break;
+
       default:
-        imagePath = 'khodro';
+        imagePath = 'car_shadow';
         break;
     }
 

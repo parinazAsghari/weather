@@ -179,6 +179,9 @@ class ApiProvider {
         body: body
     );
 
+    print(result.body);
+
+
     return SendLoginOtp.fromJson(json.decode(result.body));
   }
 
@@ -186,6 +189,8 @@ class ApiProvider {
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
+
+    print('this is token ===> $token');
 
     Map data = {
       'Token': token,
@@ -199,6 +204,8 @@ class ApiProvider {
         headers: {"Content-Type": "application/json"},
         body: body
     );
+
+    print(result.body);
 
     return Login.fromJson(json.decode(result.body));
   }

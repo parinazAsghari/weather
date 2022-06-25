@@ -10,11 +10,13 @@ import 'package:emdad_khodro_saipa/models/service.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
 import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/emdad_tab.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_charge/car_charge.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_on_site_packages.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_map/emdad_map.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/speed_meter.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
@@ -27,11 +29,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../submit_emdad_request.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({Key? key}) : super(key: key);
+
+   final VoidCallback goToWidget2;
+   HomeTab(this.goToWidget2);
 
   @override
   _HomeTabState createState() => _HomeTabState();
@@ -218,7 +223,7 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   Widget _customDialogBody() {
-    return StatefulBuilder(builder: (context, setS) {
+    return StatefulBuilder(builder: (_, setS) {
       List<Widget> children = [];
       servicesList.forEach((element) {
         children.add(
@@ -228,9 +233,9 @@ class _HomeTabState extends State<HomeTab> {
             isActive: element.isFixed? false:true,
             onTap: (value) async {
               isChecked = !value;
-              setS(() {});
               element.isFavorite = !element.isFavorite;
               await _hiveDB.saveData(element.id - 1, 'serviceBox', element);
+              setS(() {});
               setState(() {});
             },
           ),
@@ -293,9 +298,14 @@ class _HomeTabState extends State<HomeTab> {
         imagePath = 'car_changan';
         break;
 
-      default:
-        imagePath = 'khodro';
+      case 'شاهین':
+        imagePath = 'car_shahin';
         break;
+
+      default:
+        imagePath = 'car_shadow';
+        break;
+
     }
 
     return imagePath;
@@ -312,7 +322,7 @@ class _HomeTabState extends State<HomeTab> {
         sliderItemList = [
           const CarBoxSliderItemWidget(
             index: 0,
-            imagePath: 'assets/images/ic_car_red.png',
+            imagePath: 'assets/images/car_shadow.png',
             showingTexts: Padding(
               padding: const EdgeInsets.only(right: 20.0, top: 16),
               child: Text(
@@ -332,7 +342,7 @@ class _HomeTabState extends State<HomeTab> {
               imagePath:
                   'assets/images/${carImagePath(myCarsList[element].brand)}.png',
               showingTexts: Padding(
-                padding: const EdgeInsets.only(right: 20.0, top: 16),
+                padding: const EdgeInsets.only(right: 0, top: 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -340,12 +350,12 @@ class _HomeTabState extends State<HomeTab> {
                     Text(
                       'نام خودرو: ${myCarsList[element].brand}',
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight),
                     ),
                     Text(
                       'سال ساخت: ${myCarsList[element].createDate}',
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight),
                     )
                   ],
                 ),
@@ -365,7 +375,7 @@ class _HomeTabState extends State<HomeTab> {
         sliderItemList.add(
           const CarBoxSliderItemWidget(
             index: 0,
-            imagePath: 'assets/images/ic_car_red.png',
+            imagePath: 'assets/images/car_shadow.png',
             showingTexts: Padding(
               padding: const EdgeInsets.only(right: 20.0, top: 16),
               child: Text(
@@ -401,6 +411,10 @@ class _HomeTabState extends State<HomeTab> {
         firstSlideList.add(element);
       }
     });
+
+    //adding plus service
+
+    /*
     firstSlideList.add(
       Service(
         id: 13,
@@ -433,17 +447,20 @@ class _HomeTabState extends State<HomeTab> {
         },
       ),
     );
+
+     */
     return GridView.builder(
       itemBuilder: (BuildContext ctx, index) {
         return _subItemWidget(
           firstSlideList[index].iconPath,
           firstSlideList[index].serviceName,
+          firstSlideList[index].onTap
         );
       },
       itemCount: firstSlideList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
-          // childAspectRatio: 3 / 2,
+          // childAspectRatio: 1 / 1,
           // crossAxisSpacing: 8,
           // mainAxisSpacing: 8
       ),
@@ -466,6 +483,8 @@ class _HomeTabState extends State<HomeTab> {
         return _subItemWidget(
           secondSlideList[index].iconPath,
           secondSlideList[index].serviceName,
+            secondSlideList[index].onTap
+
         );
       },
       itemCount: secondSlideList.length,
@@ -494,6 +513,7 @@ class _HomeTabState extends State<HomeTab> {
         return _subItemWidget(
           thirdSlideList[index].iconPath,
           thirdSlideList[index].serviceName,
+          thirdSlideList[index].onTap
         );
       },
       itemCount: thirdSlideList.length,
@@ -522,6 +542,7 @@ class _HomeTabState extends State<HomeTab> {
         return _subItemWidget(
           fourthSlideList[index].iconPath,
           fourthSlideList[index].serviceName,
+          fourthSlideList[index].onTap
         );
       },
       itemCount: fourthSlideList.length,
@@ -568,9 +589,11 @@ class _HomeTabState extends State<HomeTab> {
           () {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const GoldenCard()));
       },
-          () {
-        return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
-      },
+    widget.goToWidget2,
+
+    // () {
+    //     // return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+    //   },
           () async {
         LatLng latlng = await Navigator.push(
             context,
@@ -672,7 +695,7 @@ class _HomeTabState extends State<HomeTab> {
         ),
         Service(id: 2, serviceName: 'خدمات در محل', iconPath: 'assets/images/ic_service_in_place_light.png', isFavorite: true, isFixed: true, slideId: 1, onTap: onTapList[1]),
         Service(id: 3, serviceName: 'کارت طلایی', iconPath: 'assets/images/ic_service_golden_card_light.png', isFavorite: true, isFixed: true, slideId: 1, onTap: onTapList[2]),
-        Service(id: 4, serviceName: 'خرید اشتراک', iconPath: 'assets/images/ic_service_in_place_light.png', isFavorite: true, isFixed: true, slideId: 1, onTap: onTapList[3]),
+        Service(id: 4, serviceName: 'خرید اشتراک', iconPath: 'assets/images/ic_service_subscribe_light.png', isFavorite: true, isFixed: true, slideId: 1, onTap: onTapList[3]),
         Service(id: 5, serviceName: 'حمل خودرو', iconPath: 'assets/images/ic_service_transport_light.png', isFavorite: false, isFixed: false, slideId: 2, onTap: onTapList[4]),
         Service(id: 6, serviceName: 'پنچری', iconPath: 'assets/images/ic_service_flat_tire_light.png', isFavorite: false, isFixed: false, slideId: 2, onTap: onTapList[5]),
         Service(id: 7, serviceName: 'امداد باتری', iconPath: 'assets/images/ic_service_battery_light.png', isFavorite: false, isFixed: false, slideId: 2, onTap: onTapList[6]),
@@ -689,6 +712,8 @@ class _HomeTabState extends State<HomeTab> {
       servicesList = serviceItemList;
       // return servicesList;
     }
+    getServicesData();
+
     for (int i = 0; i < servicesList.length; i++) {
       servicesList[i].onTap = onTapList[i];
     }
@@ -716,7 +741,6 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               ),
 
-
           //bottom services view widget - gridview/slider
           ServicesWidget(),
           
@@ -726,44 +750,47 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  Widget _subItemWidget(String imagePath, String title) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          // height: 80,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Color(0xFFEAEDF3),
+  Widget _subItemWidget(String imagePath, String title, Function() onTap ) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            // height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Color(0xFFEAEDF3),
+            ),
+            padding: EdgeInsets.all(12),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+              height: 60,
+              width: 60,
+              // color: Theme.of(context).accentColor,
+            ),
           ),
-          padding: EdgeInsets.all(12),
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.contain,
-            height: 60,
-            width: 60,
-            // color: Theme.of(context).accentColor,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Vazir',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14))),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Vazir',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14))),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget CarBoxWidget(){
     return Stack(children: [
       Container(
-        height: 150,
+        height: 180,
         width: double.maxFinite,
         margin: EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -778,29 +805,34 @@ class _HomeTabState extends State<HomeTab> {
           ),
         ),
 
-        child: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : CarouselSlider(
+
+        child: Container(
+          height: 180,
+
+          child: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : CarouselSlider(
             carouselController: _controller,
             options: CarouselOptions(
-            scrollDirection: Axis.horizontal,
-            enableInfiniteScroll: sliderItemList.length > 1 ? true : false,
-            viewportFraction: 1,
-            reverse: false,
-            onPageChanged: (index, reason) {
-              setState(() {
-                _currentPage = index;
-              });
-            }),
+                scrollDirection: Axis.horizontal,
+                enableInfiniteScroll: sliderItemList.length > 1 ? true : false,
+                viewportFraction: 1,
+                reverse: false,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                }),
             items: sliderItemList,
           ),
+        ),
       ),
 
       //car box dot indicator
       if(!isLoading)Container(
         margin: EdgeInsets.all(16),
         padding: EdgeInsets.only(left: 50, bottom: 4,),
-        height: 150,
+        height: 180,
         width: double.maxFinite,
         child: Align(
           alignment: Alignment.bottomLeft,
@@ -828,25 +860,48 @@ class _HomeTabState extends State<HomeTab> {
   Widget callCenterWidget(){
     return Expanded(
       flex: 2,
-      child: Container(
-        height: 100,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFEAEDF3), Color(0xFFEAEDF3), Colors.white],
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('تماس با 096550', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),),
-            Image.asset(
-              'assets/images/headset.png',
-              // width: MediaQuery.of(context).size.width * 0.80,
+      child: InkWell(
+        onTap: (){
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return MessageDialogWidget(
+                    dismissable: true,
+                    positiveTxt: 'برقراری تماس',
+                    body: 'تماس مستقیم با پشتیبانی امداد خودرو سایپا؟',
+                    positiveFunc: () async {
+                      const url = "tel:096550";
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    });
+              });
+        },
+        child: Container(
+          height: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFEAEDF3), Color(0xFFEAEDF3), Colors.white],
             ),
-          ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('تماس با 096550', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),),
+              ),
+              Image.asset(
+                'assets/images/headset.png',
+                // width: MediaQuery.of(context).size.width * 0.80,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -854,54 +909,141 @@ class _HomeTabState extends State<HomeTab> {
   Widget mapBoxWidget(){
     return Expanded(
       flex: 5,
-      child: Container(
-        height: 100,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          
+      child: GestureDetector(
+        onTap: (){
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                  transitionDuration: Duration(seconds: 5),
+                  pageBuilder: (_,__,___)=> EmdadMap()
+              ));
+        },
+        child: Container(
+          height: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+
+          ),
+          child: Image.asset('assets/images/map.png', fit: BoxFit.cover,),
         ),
-        child: Image.asset('assets/images/map.png', fit: BoxFit.cover,),
       ),
     );
   }
   
   Widget ServicesWidget(){
-    return Column(
-      children: [
-        CarouselSlider(
-          carouselController: _servicesController,
-          options: CarouselOptions(
-              aspectRatio: 16 / 16,
-              viewportFraction: 1.0,
-              reverse: false,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _currentServicePage = index;
-                });
-              }),
-          items: homeSliderServicesList,
-        ),
-        Center(
-          child: DotsIndicator(
-            onTap: (index) {
-              _servicesController.animateToPage(index.round(),
-                  duration: Duration(seconds: 1), curve: Curves.ease);
-            },
-            position: _currentServicePage.toDouble(),
-            dotsCount: homeSliderServicesList.length,
-            decorator: DotsDecorator(
-              activeSize: Size(15, 15),
-              size: Size(15, 15),
-              spacing: EdgeInsets.all(2),
-              color: Colors.transparent,
-              shape: CircleBorder(
-                  side: BorderSide(width: 1.0, color: Color(0xFF2E3D3D))),
-              activeColor: const Color(0xFF8E8E8E),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+
+          //gridview title bar - edit button
+          Container(
+            padding: const EdgeInsets.only(left: 16.0,right: 16, top: 16),
+
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                     _currentServicePage ==0? 'خدمات پرکاربرد'
+                    :
+                     _currentServicePage == 1? 'امداد فوری'
+                    :
+                    _currentServicePage == 2? 'خدمات خودرو'
+                    :
+                    'سرویس های کاربردی'
+                    ,
+
+                    style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+
+                Expanded(
+                  child: Container(
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorLight,
+                      borderRadius: BorderRadius.circular(20)
+
+                    ),
+                  ),
+                ),
+                if(_currentServicePage==0) Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: NeumorphicButton(
+                      curve: Neumorphic.DEFAULT_CURVE,
+                      padding: EdgeInsets.all(8),
+                    style: NeumorphicStyle(
+
+                      lightSource: LightSource.topLeft,
+                      depth: 2
+                    ),
+                      onPressed: ()async{
+                    return showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return MessageDialogWidget(
+                            height: 500,
+                            width: 320,
+                            dismissable: true,
+                            hasTextBody: false,
+                            widget: _customDialogBody(),
+                            positiveTxt: 'ثبت',
+                            positiveFunc: () async {
+                              //TODO store data in hive
+                              print('start storing data in hive');
+                              for (int i = 0; i < serviceItemList.length; i++) {
+                                await _hiveDB.putData(i, 'serviceBox', serviceItemList[i]);
+                              }
+                              print('finished for loop for storing data');
+                            },
+                          );
+                        });
+                  },
+                      child: Text('ویرایش', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),)),
+                )
+              ],
             ),
           ),
-        ),
 
-      ],
+
+          CarouselSlider(
+            carouselController: _servicesController,
+            options: CarouselOptions(
+                padEnds: true,
+                aspectRatio: 16/15,
+                viewportFraction: 1.0,
+                reverse: false,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentServicePage = index;
+                  });
+                }),
+            items: homeSliderServicesList,
+          ),
+          Center(
+            child: DotsIndicator(
+              onTap: (index) {
+                _servicesController.animateToPage(index.round(),
+                    duration: Duration(seconds: 1), curve: Curves.ease);
+              },
+              position: _currentServicePage.toDouble(),
+              dotsCount: homeSliderServicesList.length,
+              decorator: DotsDecorator(
+                activeSize: Size(12, 12),
+                size: Size(8, 8),
+                spacing: EdgeInsets.all(3),
+                color: Colors.transparent,
+                shape: CircleBorder(
+                    side: BorderSide(width: 1.0, color: Color(0xFF2E3D3D))),
+                activeColor: const Color(0xFF8E8E8E),
+              ),
+            ),
+          ),
+
+          SizedBox(height: 16,),
+
+        ],
+      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/models/service.dart';
 import 'package:emdad_khodro_saipa/models/user.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,8 +45,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'امداد خودرو سایپا',
 
-            // home: SplashPage(),
-            home: HomePage(),
+            home: SplashPage(),
+            // home: HomePage(),
 
 
             localizationsDelegates: [
