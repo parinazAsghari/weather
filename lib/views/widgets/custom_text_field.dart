@@ -54,9 +54,13 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           suffixIcon: Icon(iconData),
-          label: Text(
-            title,
-            textAlign: alignText,
+          label: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              textAlign: alignText,
+              style: TextStyle(color: Colors.black),
+            ),
           ),
           isDense: true,
           contentPadding: EdgeInsets.only(top: height, right: paddingRight ?? 0),

@@ -5,6 +5,8 @@ import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
 import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_submit_button.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../constants.dart';
 import '../../menu_side/terms_page.dart';
 import 'otp_page.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -47,13 +48,15 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    code = rng.nextInt(90000) + 10000;
+    // code = rng.nextInt(90000) + 10000;
     // captchaCode = rng.nextInt(750000) + 100000;
     // captchaCode = generateRandomString(6);
-    print('otp code is:   $code');
+    // print('otp code is:   $code');
   }
 
-  Future<void> onLoginButtonPressed(String _phone, int _code) async {
+  Future<void> onLoginButtonPressed(
+    String _phone,
+  ) async {
     if (_phoneController.text.length != 11) {
       showDialog(
           context: context,
@@ -109,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
           MaterialPageRoute(
               builder: (BuildContext context) => OtpPage(
                     phoneNumber: _phone,
-                    code: _code,
+                // code: _code,
                   )));
     }
     else {
@@ -125,8 +128,9 @@ class _LoginPageState extends State<LoginPage> {
           });
       return;
     }
-
   }
+
+  final TextEditingController _mobileController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -173,79 +177,85 @@ class _LoginPageState extends State<LoginPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.70,
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: TextField(
-                      keyboardType: TextInputType.phone,
-                      maxLength: 11,
-                      controller: _phoneController,
-                      obscureText: false,
-                      style: const TextStyle(fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.center,
-                      onTap: (){
-                        showHint = true;
-                        setState((){
-
-                        });
-                      },
-                      onChanged: (value) {
-                        if (mounted) {
-                          setState(() {
-                            value.length == 11
-                                ? disablePhone = false
-                                : disablePhone = true;
-                          });
-                        }
-                      },
-                      decoration: InputDecoration(
-                        // fillColor: secondary_light_grey_color,
-
-                        // isDense: true,filled: true,
-                        hintText: showHint? '09xxxxxxxxx' : 'شماره موبایل',
-                        counterText: '',
-                        // fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.only(
-                            left: 10, top: 0, right: 10, bottom: 0),
-                        // labelText: 'شماره همراه',labelStyle: TextStyle(),
-                        floatingLabelStyle: TextStyle(color: Colors.black),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          borderSide: BorderSide(
-                            // color: color_sharp_orange_light
-                            color: Theme.of(context).accentColor,
-                          ),
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          borderSide: BorderSide(
-                              // color: primary_grey_color,
-                              width: 0.8),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                          borderSide: BorderSide(
-                              // color: primary_grey_color,
-                              width: 0.8),
-                        ),
-                        // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
-                      ),
-                    ),
-                  ),
+                // Container(
+                //   height: 60,
+                //   width: MediaQuery.of(context).size.width * 0.70,
+                //   margin: const EdgeInsets.symmetric(horizontal: 16),
+                //   decoration:
+                //       BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                //   child: Directionality(
+                //     textDirection: TextDirection.ltr,
+                //     child: TextField(
+                //       keyboardType: TextInputType.phone,
+                //       maxLength: 11,
+                //       controller: _phoneController,
+                //       obscureText: false,
+                //       style: const TextStyle(fontWeight: FontWeight.normal),
+                //       textAlign: TextAlign.center,
+                //       onTap: (){
+                //         showHint = true;
+                //         setState((){
+                //
+                //         });
+                //       },
+                //       onChanged: (value) {
+                //         if (mounted) {
+                //           setState(() {
+                //             value.length == 11
+                //                 ? disablePhone = false
+                //                 : disablePhone = true;
+                //           });
+                //         }
+                //       },
+                //       decoration: InputDecoration(
+                //         // fillColor: secondary_light_grey_color,
+                //
+                //         // isDense: true,filled: true,
+                //         hintText: showHint? '09xxxxxxxxx' : 'شماره موبایل',
+                //         counterText: '',
+                //         // fillColor: Colors.white,
+                //         contentPadding: const EdgeInsets.only(
+                //             left: 10, top: 0, right: 10, bottom: 0),
+                //         // labelText: 'شماره همراه',labelStyle: TextStyle(),
+                //         floatingLabelStyle: TextStyle(color: Colors.black),
+                //         border: OutlineInputBorder(
+                //           borderRadius: const BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //           borderSide: BorderSide(
+                //             // color: color_sharp_orange_light
+                //             color: Theme.of(context).accentColor,
+                //           ),
+                //         ),
+                //         enabledBorder: const OutlineInputBorder(
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //           borderSide: BorderSide(
+                //               // color: primary_grey_color,
+                //               width: 0.8),
+                //         ),
+                //         focusedBorder: const OutlineInputBorder(
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //           borderSide: BorderSide(
+                //               // color: primary_grey_color,
+                //               width: 0.8),
+                //         ),
+                //         // disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),borderSide: BorderSide(color: Colors.grey,width: 0.8))
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                CustomTextField(
+                  title: 'شماره موبایل',
+                  height: 28,
+                  controller: _phoneController,
+                  hintText: '09xxxxxxxxx',
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 4 / 520,
+                  height: MediaQuery.of(context).size.height * 4 / 200,
                 ),
 
                 /*
@@ -350,35 +360,19 @@ class _LoginPageState extends State<LoginPage> {
             //  SizedBox(
             //   height: MediaQuery.of(context).size.height*10/520,
             // ),
-
-            Container(
-              height: MediaQuery.of(context).size.width * 65 / 640,
-              width: MediaQuery.of(context).size.width * 0.55,
-              margin: EdgeInsets.all(defaultPadding),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  backgroundColor: !disablePhone ? MaterialStateColor.resolveWith((states) => dark_theme_primary) : MaterialStateColor.resolveWith((states) => dark_theme_primary_light),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'تایید',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                onPressed: () {
-                  if(!disablePhone){
-                    onLoginButtonPressed(_phoneController.text, code);
-                  }
-                },
-              ),
+            CustomSubmitButton(
+              onTap: () async {
+                // if(!disablePhone){
+                onLoginButtonPressed(
+                  _phoneController.text,
+                );
+                // }
+              },
+              text: 'تایید',
+              marginTop: 0,
+              marginBottom: 0,
             ),
+
             //rules and condition commented
             // SizedBox(height: MediaQuery.of(context).size.height*1.5/10,),
             //

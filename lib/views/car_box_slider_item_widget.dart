@@ -155,25 +155,35 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
             children: [
               Text(
                 'ایران',
-                style: const TextStyle(fontSize: 9,fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold),
               ),
-              Text(widget.fourthCarTag.toString(), style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+              Text(
+                widget.fourthCarTag == null ? '' : widget.fourthCarTag.toString(),
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           Expanded(
-            child: VerticalDivider(
-                width: 4,
-                color: Colors.black),
+            child: VerticalDivider(width: 4, color: Colors.black),
           ),
-          Text(widget.thirdCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+          Text(
+            widget.thirdCarTag == null ? '' : widget.thirdCarTag.toString(),
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(
             width: 5,
           ),
-          Text(widget.secondCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+          Text(
+            widget.secondCarTag == null ? '' : widget.secondCarTag.toString(),
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(
             width: 5,
           ),
-          Text(widget.firstCarTag.toString(), style: TextStyle(fontWeight: FontWeight.bold),),
+          Text(
+            widget.firstCarTag == null ? '' : widget.firstCarTag.toString(),
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(
             width: 5,
           ),
@@ -184,7 +194,6 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
             // height: 38,
             fit: BoxFit.contain,
           ),
-
         ],
       ),
     );

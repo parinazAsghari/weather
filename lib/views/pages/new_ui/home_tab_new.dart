@@ -3,6 +3,7 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/views/pages/new_ui/custom_service_item_widget_new.dart';
 import 'package:emdad_khodro_saipa/views/pages/new_ui/custom_top_slider_item.dart';
 import 'package:emdad_khodro_saipa/views/pages/new_ui/map_new_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/new_ui/map_new_page.dart';
 import 'package:flutter/material.dart';
 
 class HomeTabNew extends StatefulWidget {
