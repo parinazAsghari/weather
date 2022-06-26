@@ -620,11 +620,11 @@ class _EmdadMapState extends State<EmdadMap> {
           // search bar - current location floating action button
           Column(
             children: [
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 18,
+              ),
               _searchAddressButton(),
-
               _customFloatingActionButton(),
-
             ],
           ),
         ],

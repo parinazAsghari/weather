@@ -295,6 +295,7 @@ class _FormDropDownState extends State<FormDropDown> {
             },
             options: itemsList,
             decoration: InputDecoration(
+                labelStyle: const TextStyle(color: Colors.black),
                 // contentPadding: EdgeInsets.only(right: 16,),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
