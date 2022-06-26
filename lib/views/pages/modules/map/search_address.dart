@@ -50,8 +50,7 @@ class _SearchAddressState extends State<SearchAddress> {
   @override
   void initState() {
     super.initState();
-    focusNode.requestFocus();
-
+    // focusNode.requestFocus();
   }
 
   @override
@@ -101,17 +100,17 @@ class _SearchAddressState extends State<SearchAddress> {
               ),
               child: TextField(
                 controller: _searchTextController,
-                focusNode: focusNode,
-                onChanged: (value){
-                  if(value.length > 3) searchAddress();
-                },
-                decoration: InputDecoration(
-                  focusedBorder: InputBorder.none,
-                  label: Text('جستجو ...'),
-                  contentPadding: EdgeInsets.only(right: 16),
-
-                ),
-              )
+                  // focusNode: focusNode,
+                  onChanged: (value) {
+                    if (value.length > 3) searchAddress();
+                  },
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    label: Text('جستجو ...'),
+                    contentPadding: EdgeInsets.only(right: 16),
+                  ),
+                )
             ),
 
 

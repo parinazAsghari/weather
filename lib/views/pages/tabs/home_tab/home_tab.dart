@@ -861,23 +861,24 @@ class _HomeTabState extends State<HomeTab> {
     return Expanded(
       flex: 2,
       child: InkWell(
-        onTap: (){
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return MessageDialogWidget(
-                    dismissable: true,
-                    positiveTxt: 'برقراری تماس',
-                    body: 'تماس مستقیم با پشتیبانی امداد خودرو سایپا؟',
-                    positiveFunc: () async {
-                      const url = "tel:096550";
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    });
-              });
+        onTap: () async {
+          const url = "tel:096550";
+          if (await canLaunch(url)) {
+            await launch(url);
+          } else {
+            throw 'Could not launch $url';
+          }
+          // showDialog(
+          //     context: context,
+          //     builder: (BuildContext context) {
+          //       return MessageDialogWidget(
+          //           dismissable: true,
+          //           positiveTxt: 'برقراری تماس',
+          //           body: 'تماس مستقیم با پشتیبانی امداد خودرو سایپا؟',
+          //           positiveFunc: () async {
+          //
+          //           });
+          //     });
         },
         child: Container(
           height: 120,
@@ -892,13 +893,16 @@ class _HomeTabState extends State<HomeTab> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('تماس با 096550', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),),
-              ),
               Image.asset(
                 'assets/images/headset.png',
                 // width: MediaQuery.of(context).size.width * 0.80,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'تماس با 096550',
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                ),
               ),
             ],
           ),
