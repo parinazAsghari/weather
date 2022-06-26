@@ -94,13 +94,13 @@ class _AddNewCarState extends State<AddNewCar> {
       _chassisNumberController.text = widget.chassisNumber!;
       _carModelController.text = widget.brand!;
       _nationalCodeController.text = widget.ownerNationalCode!;
-      _firstNumberController.text = widget.firstCarTag.toString().characters.first;
-      _secondNumberController.text = widget.firstCarTag.toString().characters.last;
-      _thirdNumberController.text = widget.thirdCarTag.toString().characters.first;
-      _fourthNumberController.text = widget.thirdCarTag.toString().substring(1, 2).characters.first;
-      _fifthNumberController.text = widget.thirdCarTag.toString().characters.last;
-      _sixthNumberController.text = widget.fourthCarTag.toString().characters.first;
-      _seventhNumberController.text = widget.fourthCarTag.toString().characters.last;
+      _firstNumberController.text = widget.firstCarTag != null ? widget.firstCarTag.toString().characters.first : '';
+      _secondNumberController.text = widget.firstCarTag != null ? widget.firstCarTag.toString().characters.last : '';
+      _thirdNumberController.text = widget.thirdCarTag != null ? widget.thirdCarTag.toString().characters.first : '';
+      _fourthNumberController.text = widget.thirdCarTag != null ? widget.thirdCarTag.toString().substring(1, 2).characters.first : '';
+      _fifthNumberController.text = widget.thirdCarTag != null ? widget.thirdCarTag.toString().characters.last : '';
+      _sixthNumberController.text = widget.fourthCarTag != null ? widget.fourthCarTag.toString().characters.first : '';
+      _seventhNumberController.text = widget.fourthCarTag != null ? widget.fourthCarTag.toString().characters.last : '';
       _carModelDefaultValue = widget.brand;
       _carCreateDateDefaultValue = widget.createDate;
       _carTagDefaultValue = widget.secondCarTag;
@@ -160,9 +160,13 @@ class _AddNewCarState extends State<AddNewCar> {
       case 'چانگان':
         imagePath = 'car_changan';
         break;
+
+      case 'شاهین':
+        imagePath = 'car_shahin';
+        break;
         
       default:
-        imagePath = 'khodro';
+        imagePath = 'car_shadow';
         break;
 
     }
@@ -211,10 +215,11 @@ class _AddNewCarState extends State<AddNewCar> {
                   height: 10,
                 ),
                 SizedBox(
-                  height: 140,
-                  width: 140,
+                  height: 160,
+                  width: 160,
                   // decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(30)),
                   child: Neumorphic(
+                    padding: EdgeInsets.all(8),
                     style: NeumorphicStyle(
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
@@ -241,7 +246,7 @@ class _AddNewCarState extends State<AddNewCar> {
                     top: 11,
                   ),
                   child: FormDropDown(
-                    readOnlyDropDown: false,
+                    readOnlyDropDown: widget.isCarFromDataBase? true :false,
                     primaryBackgroundColor: Colors.transparent,
                     iconColor: Colors.pink,
                     dropdownMenuItemStyle: const TextStyle(color: Colors.black),
@@ -267,10 +272,12 @@ class _AddNewCarState extends State<AddNewCar> {
                     top: 11,
                   ),
                   child: FormDropDown(
-                    readOnlyDropDown: false,
+                    readOnlyDropDown: widget.isCarFromDataBase ? true : false,
                     primaryBackgroundColor: Colors.transparent,
                     iconColor: Colors.pink,
-                    dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+                    dropdownMenuItemStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
                     defaultValue: _carCreateDateDefaultValue,
                     // firstItemSelectMessage: 'انتخاب',
                     alignmentCenterLeft: false,
@@ -686,20 +693,12 @@ class _AddNewCarState extends State<AddNewCar> {
                 if (!widget.isCarFromDataBase)
                   CustomSubmitButton(
                     onTap: () async {
-                      if (_chassisNumberController.text.isEmpty ||
-                          // _nationalCodeController.text.isEmpty ||
-                          _firstNumberController.text.isEmpty ||
-                          _secondNumberController.text.isEmpty ||
-                          _thirdNumberController.text.isEmpty ||
-                          _fourthNumberController.text.isEmpty ||
-                          _fifthNumberController.text.isEmpty ||
-                          _sixthNumberController.text.isEmpty ||
-                          _seventhNumberController.text.isEmpty) {
+                      if (_carModelController.text.isEmpty) {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return MessageDialogWidget(
-                                body: 'فیلدها نباید خالی باشد',
+                                body: 'لطفا مدل خودرو را انتخاب کنید',
                                 dismissable: true,
                                 positiveTxt: 'باشه',
                                 positiveFunc: () async {},
@@ -712,10 +711,20 @@ class _AddNewCarState extends State<AddNewCar> {
                         car.brand = _carModelController.text;
                         car.createDate = _createDateController.text;
                         car.id = 1;
-                        car.firstCarTag = int.parse((_firstNumberController.text + _secondNumberController.text));
-                        car.secondCarTag = _dropDownTagController.text;
-                        car.thirdCarTag = int.parse((_thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text));
-                        car.fourthCarTag = int.parse((_sixthNumberController.text + _seventhNumberController.text));
+                        if (_firstNumberController.text.isNotEmpty &&
+                            _secondNumberController.text.isNotEmpty &&
+                            _dropDownTagController.text.isNotEmpty &&
+                            _thirdNumberController.text.isNotEmpty &&
+                            _fourthNumberController.text.isNotEmpty &&
+                            _fifthNumberController.text.isNotEmpty &&
+                            _sixthNumberController.text.isNotEmpty &&
+                            _seventhNumberController.text.isNotEmpty) {
+                          car.firstCarTag = int.parse((_firstNumberController.text + _secondNumberController.text));
+                          car.secondCarTag = _dropDownTagController.text;
+                          car.thirdCarTag = int.parse((_thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text));
+                          car.fourthCarTag = int.parse((_sixthNumberController.text + _seventhNumberController.text));
+                        }
+
                         HiveDB _hiveDb = HiveDB();
                         await _hiveDb.addData(car, 'userBox');
                         showDialog(
@@ -733,7 +742,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       }
                       ;
                     },
-                    text: 'ثبت درخواست',
+                    text: 'ثبت خودرو',
                     marginTop: 0,
                     marginBottom: 0,
                   ),
@@ -847,6 +856,17 @@ class _AddNewCarState extends State<AddNewCar> {
                           });
                     },
                     text: 'حذف خودرو',
+                    marginTop: 0,
+                    marginBottom: 0,
+                  ),
+                if (widget.isCarFromDataBase)
+                  SizedBox(
+                    height: 5,
+                  ),
+                if (widget.isCarFromDataBase)
+                  CustomSubmitButton(
+                    onTap: () async {},
+                    text: 'ثبت تغیرات',
                     marginTop: 0,
                     marginBottom: 0,
                   ),

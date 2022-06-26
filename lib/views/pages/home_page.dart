@@ -32,16 +32,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  void goToWidget2() {
+    setState(() {
+      _selectedIndex = 1;
+    });
+  }
 
 
 
-  List<Widget> _items = [
-    HomeTab(),
-    SubscribeTab(),
-    EmdadTab(),
-    QuestionnaireTab(),
-    UserProfileTab()
-  ];
+
+  // List<Widget> _items = [
+  //   HomeTab(goToWidget2: goToWidget2),
+  //   SubscribeTab(),
+  //   // EmdadTab(),
+  //   QuestionnaireTab(),
+  //   UserProfileTab()
+  // ];
   int _selectedIndex = 0;
 
   getSharedPref() async {
@@ -127,6 +133,19 @@ class _HomePageState extends State<HomePage> {
     // _hiveDb.getData(car, 'userBox');
   }
 
+  Widget body() {
+    switch(_selectedIndex) {
+      case 0:
+        return HomeTab(goToWidget2);
+      case 1:
+        return SubscribeTab();
+      case 2:
+        return QuestionnaireTab();
+      case 3:
+        return UserProfileTab();
+    }
+    return Container();
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -136,7 +155,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           elevation: 0,
           title: Image.asset(
-            'assets/images/emdad_khodro_logo_white_text.png',
+            // 'assets/images/emdad_khodro_logo_white_text.png',
+            'assets/images/emdad_khodro_logo.png',
             // height: 30,
             width: MediaQuery.of(context).size.width * 0.45,
             fit: BoxFit.contain,
@@ -161,7 +181,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         drawer: DrawerWidget(context),
-        body: _items[_selectedIndex],
+        // body: _items[_selectedIndex],
+        body: body(),
         // body: Center(
         //     child: IndexedStack(
         //         index: _selectedIndex,
@@ -181,6 +202,9 @@ class _HomePageState extends State<HomePage> {
 
          */
 
+
+        //floating action button
+        /*
         floatingActionButton: InkWell(
           onTap: () {
             _onFloatingActionButtonTap();
@@ -209,6 +233,8 @@ class _HomePageState extends State<HomePage> {
             )),
           ),
         ),
+
+         */
       ),
     );
   }
@@ -230,10 +256,10 @@ class _HomePageState extends State<HomePage> {
           label: 'اشتراک',
         ),
 
-        BottomNavigationBarItem(
-          icon: Icon(Icons.miscellaneous_services),
-          label: 'امداد',
-        ),
+        // BottomNavigationBarItem(
+        //   icon: Icon(Icons.miscellaneous_services),
+        //   label: 'امداد',
+        // ),
 
         BottomNavigationBarItem(
           icon: Icon(Icons.fact_check_rounded),

@@ -66,7 +66,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadServices()));
                 },
-                widget: _subItemWidget('assets/images/ic_service.png', 'خدمات امدادی'),
+                widget: _subItemWidget('assets/images/ic_service_light.png', 'خدمات امدادی'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -85,7 +85,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => GoldenCard()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'کارت طلایی'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'کارت طلایی'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -104,7 +104,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CarServicePage()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'خدمات خودرو در محل'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'خدمات خودرو در محل'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -123,7 +123,7 @@ class _ProductIntroductionState extends State<ProductIntroduction> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CompareServicePage()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'جدول مقایسه ای خدمات'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'جدول مقایسه ای خدمات'),
               ),
             ],
           ),

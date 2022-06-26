@@ -2,17 +2,10 @@ import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/models/service.dart';
 import 'package:emdad_khodro_saipa/models/user.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
 import 'package:emdad_khodro_saipa/views/pages/splash_page.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/screens/dash_screen.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -85,10 +78,11 @@ class MyApp extends StatelessWidget {
                     )
                 ),
                 appBarTheme: AppBarTheme(
-                  color: light_theme_primary,
+                  color: light_theme_white,
+                  elevation: 10,
                   centerTitle: true,
                   titleTextStyle: TextStyle(
-                      color: light_theme_white,
+                      color: light_theme_primary,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Vazir'),
@@ -132,9 +126,10 @@ class MyApp extends StatelessWidget {
                 ),
                 elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(dark_theme_primary), textStyle: MaterialStateProperty.all(TextStyle(color: dark_theme_white)))),
                 appBarTheme: AppBarTheme(
-                  color: dark_theme_primary,
+                  color: dark_theme_white,
                   centerTitle: true,
-                  titleTextStyle: TextStyle(color: dark_theme_white, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
+                  elevation: 10,
+                  titleTextStyle: TextStyle(color: dark_theme_primary, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
                   iconTheme: IconThemeData(color: dark_theme_secondary),
                   actionsIconTheme: IconThemeData(color: dark_theme_secondary),
                 ),

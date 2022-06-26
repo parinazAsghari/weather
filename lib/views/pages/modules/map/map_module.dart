@@ -182,7 +182,7 @@ class _MapModuleState extends State<MapModule> {
       appBar: AppBar(
         elevation: 0,
         title: Image.asset(
-          'assets/images/emdad_khodro_logo_white_text.png',
+          'assets/images/emdad_khodro_logo.png',
           // height: 30,
           width: MediaQuery.of(context).size.width * 0.45,
           fit: BoxFit.contain,
@@ -293,6 +293,9 @@ class _MapModuleState extends State<MapModule> {
             padding: const EdgeInsets.all(8.0),
             child: CustomSubmitButton(
               onTap: () {
+                if(kIsWeb){
+                  _lastMapPosition = LatLng(pos.latitude, pos.longitude);
+                }
                 Navigator.pop(context, LatLng(_lastMapPosition.latitude, _lastMapPosition.longitude));
 
               },

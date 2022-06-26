@@ -64,7 +64,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CommonEmdad()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'عمومی'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'عمومی'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -83,7 +83,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SupplmentaryEmdad()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'تکمیلی (247)'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'تکمیلی (247)'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -102,7 +102,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => NecessaryEmdad()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'الزامی'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'الزامی'),
               ),
               CustomNeomorphicBox(
                 title: '',
@@ -121,7 +121,7 @@ class _EmdadServicesState extends State<EmdadServices> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => TripEmdad()));
                 },
-                widget: _subItemWidget('assets/images/ic_news.png', 'سفر'),
+                widget: _subItemWidget('assets/images/ic_news_light.png', 'سفر'),
               ),
             ],
           ),

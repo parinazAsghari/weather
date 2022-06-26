@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
 import 'package:emdad_khodro_saipa/models/address_request.dart';
 import 'package:emdad_khodro_saipa/models/request_model/SendEmdadRequest.dart';
@@ -12,12 +13,19 @@ import 'package:emdad_khodro_saipa/models/response_model/GetEmdadgarListResponse
 import 'package:emdad_khodro_saipa/models/response_model/GetPackagesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/GetReservableDatesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/UrgentRequestResponse.dart';
+import 'package:emdad_khodro_saipa/models/response_model/login.dart';
 import 'package:emdad_khodro_saipa/models/response_model/search_address_response.dart';
+import 'package:emdad_khodro_saipa/models/response_model/send_login_otp.dart';
 import 'package:emdad_khodro_saipa/models/weather_response_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/car_info.dart';
+import '../models/response_model/main_server_general_response.dart';
+import '../models/response_model/profile.dart';
+import '../models/user_info.dart';
 
 class ApiProvider {
 
@@ -45,8 +53,8 @@ class ApiProvider {
     };
 
     Map data = {
-      // "\$select": "nearby",
-      "\$filter": "nearby",
+      // "\$filter": "distance",
+      "\$select": "nearby",
       "lat": latLng.latitude,
       "lon": latLng.longitude
     };
@@ -154,5 +162,163 @@ class ApiProvider {
 
     return WeatherResponseModel.fromJson(json.decode(result.body));
   }
+
+
+
+  // new main server methods
+  static Future<SendLoginOtp> sendLoginOtp(String mobileNumber) async {
+    Map data = {
+      'MobileNumber': mobileNumber
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/SendLoginOtp'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    print(result.body);
+
+
+    return SendLoginOtp.fromJson(json.decode(result.body));
+  }
+
+  static Future<Login> login(String otp) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    print('this is token ===> $token');
+
+    Map data = {
+      'Token': token,
+      'OTP': otp
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/Login'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    print(result.body);
+
+    return Login.fromJson(json.decode(result.body));
+  }
+
+  static Future<Profile> getProfile() async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/GetProfile'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+
+
+
+    return Profile.fromJson(json.decode(result.body));
+  }
+
+  static Future<MainServerGeneralResponse> editProfile(UserInfo userInfo) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token,
+      'FirstName': userInfo.firstName,
+      'LastName': userInfo.lastName,
+      'NationalCode': userInfo.nationalCode
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/EditProfile'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+
+
+
+    return MainServerGeneralResponse.fromJson(json.decode(result.body));
+  }
+
+  static Future<MainServerGeneralResponse> submitCarInfo (CarInfo carInfo) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token,
+      "Name": carInfo.Name,
+      "ProductionYear": carInfo.ProductionYear,
+      "LicensePlateNo": carInfo.LicensePlateNo,
+      "ChassisNo": carInfo.ChassisNo,
+      "Vin": carInfo.Vin
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/SubmitCarInfo'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+
+
+
+    return MainServerGeneralResponse.fromJson(json.decode(result.body));
+  }
+
+  // static Future<MainServerMessageResponse> sendUrgentRequest (CarInfo carInfo) async {
+  //
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   String? token = sharedPreferences.getString('token');
+  //
+  //   Map data = {
+  //     'Token': token,
+  //     "Name": carInfo.Name,
+  //     "ProductionYear": carInfo.ProductionYear,
+  //     "LicensePlateNo": carInfo.LicensePlateNo,
+  //     "ChassisNo": carInfo.ChassisNo,
+  //     "Vin": carInfo.Vin
+  //   };
+  //
+  //   //encode Map to JSON
+  //   var body = json.encode(data);
+  //
+  //   var result = await http.post(
+  //       Uri.http(mainServerUrl, '/api/Emdad/SendUrgentRequest'),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: body
+  //   );
+  //
+  //
+  //
+  //
+  //   return MainServerGeneralResponse.fromJson(json.decode(result.body));
+  // }
+
+
+
 
 }

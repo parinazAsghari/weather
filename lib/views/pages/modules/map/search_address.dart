@@ -66,7 +66,7 @@ class _SearchAddressState extends State<SearchAddress> {
       appBar: AppBar(
         elevation: 0,
         title: Image.asset(
-          'assets/images/emdad_khodro_logo_white_text.png',
+          'assets/images/emdad_khodro_logo.png',
           // height: 30,
           width: MediaQuery.of(context).size.width * 0.45,
           fit: BoxFit.contain,
@@ -126,7 +126,7 @@ class _SearchAddressState extends State<SearchAddress> {
 
                   },
 
-                  title: Text(searchAddressResponse.value![index].address!),
+                  title: Text(searchAddressResponse.value![index].title!),
 
                 );
               },
