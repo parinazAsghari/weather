@@ -236,26 +236,24 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
-                  NeumorphicButton(
-                    margin: EdgeInsets.zero,
-                    curve: Neumorphic.DEFAULT_CURVE,
-                    padding: EdgeInsets.all(4),
-                    onPressed: (){
-                      _onCarBoxTap();
-                    },
-                    child: SizedBox(
-                      width: 80,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('افزودن خودرو  ', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),),
-                          Image.asset('assets/images/plus.png',color: Theme.of(context).primaryColor, height: 10,)
-                        ],
-                      ),
-                    ),
-                  )
-
+                  // NeumorphicButton(
+                  //   margin: EdgeInsets.zero,
+                  //   curve: Neumorphic.DEFAULT_CURVE,
+                  //   padding: EdgeInsets.all(4),
+                  //   onPressed: (){
+                  //     _onCarBoxTap();
+                  //   },
+                  //   child: SizedBox(
+                  //     width: 80,
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Text('افزودن خودرو  ', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),),
+                  //         Image.asset('assets/images/plus.png',color: Theme.of(context).primaryColor, height: 10,)
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),

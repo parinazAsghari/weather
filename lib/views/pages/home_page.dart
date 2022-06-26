@@ -134,14 +134,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget body() {
-    switch(_selectedIndex) {
+    switch (_selectedIndex) {
       case 0:
         return HomeTab(goToWidget2);
       case 1:
         return SubscribeTab();
       case 2:
-        return QuestionnaireTab();
+        return EmdadTab();
       case 3:
+        return QuestionnaireTab();
+      case 4:
         return UserProfileTab();
     }
     return Container();
@@ -255,17 +257,14 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(Icons.shopping_bag),
           label: 'اشتراک',
         ),
-
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.miscellaneous_services),
-        //   label: 'امداد',
-        // ),
-
+        BottomNavigationBarItem(
+          icon: Icon(Icons.miscellaneous_services),
+          label: 'امداد',
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.fact_check_rounded),
           label: 'نظرسنجی',
         ),
-
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'پروفایل',

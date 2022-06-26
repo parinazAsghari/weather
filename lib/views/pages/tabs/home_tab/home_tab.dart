@@ -963,12 +963,8 @@ class _HomeTabState extends State<HomeTab> {
 
                 Expanded(
                   child: Container(
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorLight,
-                      borderRadius: BorderRadius.circular(20)
-
-                    ),
+                    height: 2,
+                    decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(20)),
                   ),
                 ),
                 if(_currentServicePage==0) Padding(

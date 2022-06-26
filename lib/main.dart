@@ -111,22 +111,18 @@ class MyApp extends StatelessWidget {
 
             darkTheme: ThemeData(
                 fontFamily: 'Vazir',
-                scaffoldBackgroundColor: dark_theme_background_light,
+                scaffoldBackgroundColor: Colors.white,
                 primaryColor: dark_theme_primary,
                 cardColor: dark_theme_box_background_light,
                 shadowColor: dark_theme_box_shadow_dark,
                 accentColor: dark_theme_secondary,
                 backgroundColor: dark_theme_primary,
                 primaryColorLight: dark_theme_primary_low,
-                inputDecorationTheme: InputDecorationTheme(
-                  focusColor: dark_theme_primary,
-                  labelStyle: TextStyle(
-                    color: dark_theme_primary
-                  )
+                inputDecorationTheme: InputDecorationTheme(focusColor: dark_theme_primary, labelStyle: TextStyle(color: dark_theme_primary)
                 ),
                 elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(dark_theme_primary), textStyle: MaterialStateProperty.all(TextStyle(color: dark_theme_white)))),
                 appBarTheme: AppBarTheme(
-                  color: dark_theme_white,
+                  color: Color(0xffF5F5FA),
                   centerTitle: true,
                   elevation: 10,
                   titleTextStyle: TextStyle(color: dark_theme_primary, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Vazir'),
