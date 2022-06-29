@@ -404,6 +404,9 @@ class _HomeTabState extends State<HomeTab> {
     });
   }
 
+
+
+  late int firstSlideLength;
   Widget firstSlideServicesWidget() {
     List firstSlideList = [];
     servicesList.forEach((element) {
@@ -411,6 +414,7 @@ class _HomeTabState extends State<HomeTab> {
         firstSlideList.add(element);
       }
     });
+    firstSlideLength = firstSlideList.length;
 
     //adding plus service
 
@@ -1010,7 +1014,8 @@ class _HomeTabState extends State<HomeTab> {
             carouselController: _servicesController,
             options: CarouselOptions(
                 padEnds: true,
-                aspectRatio: 16/15,
+                // aspectRatio: 15/25,
+                height: dynamicSliderHeight(_currentServicePage, firstSlideLength),
                 viewportFraction: 1.0,
                 reverse: false,
                 onPageChanged: (index, reason) {
@@ -1045,6 +1050,27 @@ class _HomeTabState extends State<HomeTab> {
         ],
       ),
     );
+  }
+
+  double dynamicSliderHeight(int _currentPage, int firstSlideLength){
+    late double finalHeight = 190;
+
+    if(_currentPage==0){
+      if(firstSlideLength>=4 && firstSlideLength<7){
+        finalHeight = 280;
+      }
+      else if(firstSlideLength>=7 && firstSlideLength<10){
+        finalHeight = 380;
+      }
+      else if(firstSlideLength>=10){
+        finalHeight = 560;
+      }
+
+    }
+    else{
+      finalHeight = 190;
+    }
+    return finalHeight;
   }
 }
 
