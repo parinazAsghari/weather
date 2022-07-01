@@ -21,6 +21,7 @@ import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedomete
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/speed_meter.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_item_button.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:emdad_khodro_saipa/views/car_box_slider_item_widget.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -455,11 +456,16 @@ class _HomeTabState extends State<HomeTab> {
      */
     return GridView.builder(
       itemBuilder: (BuildContext ctx, index) {
-        return _subItemWidget(
-          firstSlideList[index].iconPath,
-          firstSlideList[index].serviceName,
-          firstSlideList[index].onTap
+        return CustomItemButton(
+            title: firstSlideList[index].serviceName,
+            imagePath: firstSlideList[index].iconPath,
+            onTap: firstSlideList[index].onTap
         );
+        // return serviceWidget(
+        //   firstSlideList[index].iconPath,
+        //   firstSlideList[index].serviceName,
+        //   firstSlideList[index].onTap
+        // );
       },
       itemCount: firstSlideList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -484,12 +490,17 @@ class _HomeTabState extends State<HomeTab> {
     });
     return GridView.builder(
       itemBuilder: (BuildContext ctx, index) {
-        return _subItemWidget(
-          secondSlideList[index].iconPath,
-          secondSlideList[index].serviceName,
-            secondSlideList[index].onTap
-
+        return CustomItemButton(
+            title: secondSlideList[index].serviceName,
+            imagePath: secondSlideList[index].iconPath,
+            onTap: secondSlideList[index].onTap
         );
+        // return serviceWidget(
+        //   secondSlideList[index].iconPath,
+        //   secondSlideList[index].serviceName,
+        //     secondSlideList[index].onTap
+        //
+        // );
       },
       itemCount: secondSlideList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -514,11 +525,16 @@ class _HomeTabState extends State<HomeTab> {
     });
     return GridView.builder(
       itemBuilder: (BuildContext ctx, index) {
-        return _subItemWidget(
-          thirdSlideList[index].iconPath,
-          thirdSlideList[index].serviceName,
-          thirdSlideList[index].onTap
+        return CustomItemButton(
+            title: thirdSlideList[index].serviceName,
+            imagePath: thirdSlideList[index].iconPath,
+            onTap: thirdSlideList[index].onTap
         );
+        // return serviceWidget(
+        //   thirdSlideList[index].iconPath,
+        //   thirdSlideList[index].serviceName,
+        //   thirdSlideList[index].onTap
+        // );
       },
       itemCount: thirdSlideList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -543,11 +559,16 @@ class _HomeTabState extends State<HomeTab> {
     });
     return GridView.builder(
       itemBuilder: (BuildContext ctx, index) {
-        return _subItemWidget(
-          fourthSlideList[index].iconPath,
-          fourthSlideList[index].serviceName,
-          fourthSlideList[index].onTap
+        return CustomItemButton(
+            title: fourthSlideList[index].serviceName,
+            imagePath: fourthSlideList[index].iconPath,
+            onTap: fourthSlideList[index].onTap,
         );
+        // return serviceWidget(
+        //   fourthSlideList[index].iconPath,
+        //   fourthSlideList[index].serviceName,
+        //   fourthSlideList[index].onTap
+        // );
       },
       itemCount: fourthSlideList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -754,7 +775,7 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  Widget _subItemWidget(String imagePath, String title, Function() onTap ) {
+  Widget serviceWidget(String imagePath, String title, Function() onTap ) {
     return InkWell(
       onTap: onTap,
       child: Column(
@@ -794,7 +815,7 @@ class _HomeTabState extends State<HomeTab> {
   Widget CarBoxWidget(){
     return Stack(children: [
       Container(
-        height: 180,
+        height: 220,
         width: double.maxFinite,
         margin: EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -811,8 +832,7 @@ class _HomeTabState extends State<HomeTab> {
 
 
         child: Container(
-          height: 180,
-
+          height: 200,
           child: isLoading
               ? const Center(child: CircularProgressIndicator())
               : CarouselSlider(
@@ -836,7 +856,7 @@ class _HomeTabState extends State<HomeTab> {
       if(!isLoading)Container(
         margin: EdgeInsets.all(16),
         padding: EdgeInsets.only(left: 50, bottom: 4,),
-        height: 180,
+        height: 210,
         width: double.maxFinite,
         child: Align(
           alignment: Alignment.bottomLeft,
@@ -928,11 +948,10 @@ class _HomeTabState extends State<HomeTab> {
         },
         child: Container(
           height: 120,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset('assets/images/map.png', fit: BoxFit.cover,)
           ),
-          child: Image.asset('assets/images/map.png', fit: BoxFit.cover,),
         ),
       ),
     );
@@ -971,17 +990,9 @@ class _HomeTabState extends State<HomeTab> {
                     decoration: BoxDecoration(color: Theme.of(context).primaryColorLight, borderRadius: BorderRadius.circular(20)),
                   ),
                 ),
-                if(_currentServicePage==0) Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: NeumorphicButton(
-                      curve: Neumorphic.DEFAULT_CURVE,
-                      padding: EdgeInsets.all(8),
-                    style: NeumorphicStyle(
-
-                      lightSource: LightSource.topLeft,
-                      depth: 2
-                    ),
-                      onPressed: ()async{
+                if(_currentServicePage==0) IconButton(
+                  icon: Image.asset('assets/images/ic_more.png',fit: BoxFit.contain,),
+                  onPressed: ()async{
                     return showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -1003,7 +1014,7 @@ class _HomeTabState extends State<HomeTab> {
                           );
                         });
                   },
-                      child: Text('ویرایش', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),)),
+
                 )
               ],
             ),
@@ -1025,6 +1036,9 @@ class _HomeTabState extends State<HomeTab> {
                 }),
             items: homeSliderServicesList,
           ),
+
+
+          //dots indicator
           Center(
             child: DotsIndicator(
               onTap: (index) {

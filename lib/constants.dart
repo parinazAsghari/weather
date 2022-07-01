@@ -18,12 +18,15 @@ String mainServerUrl = '185.94.99.204:7252';
 //user_first_name - user_last_name - user_full_name - user_guid -- otp page stores
 
 
+class constants{
 
+}
 
 String versionName = 'نسخه دمو   ۰.۰.۲';
 
 
 double defaultPadding = 16.0;
+double defaultBorderRadius = 30;
 
 //colors
 final color_holoGrey_primary = Color(0xff464545);
