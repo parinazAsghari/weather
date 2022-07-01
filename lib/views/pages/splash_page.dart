@@ -6,6 +6,7 @@ import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:emdad_khodro_saipa/globals.dart' as globals;
 
 import 'login/login/login_page.dart';
 
@@ -29,8 +30,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
 
 
   void navigation() async {
-    var getProfile = await ApiProvider.getProfile();
-    print(getProfile);
+    await ApiProvider.getProfile();
 
 
 

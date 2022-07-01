@@ -75,6 +75,8 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
     );
   }
 
+
+
   Widget carBoxContent(){
     return Row(
       children: [
@@ -136,6 +138,72 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
       ],
     );
   }
+
+  //hive storage car - old
+  /*
+  Widget carBoxContent(){
+    return Row(
+      children: [
+        Expanded(
+          flex: 5,
+          child: Container(
+            // color: Colors.red,
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Image.asset(
+                  widget.imagePath,
+                  // 'assets/images/new_car.png',
+                  fit: BoxFit.cover,
+                  // width: MediaQuery.of(context).size.width * 0.80,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          flex: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              widget.showingTexts,
+              // Text(
+              //   'نام:‌ ${widget.brand!}',
+              //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              // ),
+              // Text(
+              //   'مدل: ${widget.createDate!}',
+              //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              // ),
+              SizedBox(
+                height: 30,
+              ),
+
+              carPlate(),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 8.0),
+              //   child: Image.asset(
+              //     'assets/images/pelak.jpg',
+              //     fit: BoxFit.fill,
+              //     // width:10,
+              //   ),
+              // ),
+
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+   */
 
   Widget carPlate(){
     return Container(

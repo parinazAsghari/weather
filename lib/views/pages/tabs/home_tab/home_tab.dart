@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
+import 'package:emdad_khodro_saipa/models/response_model/profile.dart';
 import 'package:emdad_khodro_saipa/models/service.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:emdad_khodro_saipa/views/pages/menu_side/product_introduction/component/golden_card.dart';
@@ -31,7 +32,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:emdad_khodro_saipa/globals.dart' as globals;
 import '../submit_emdad_request.dart';
 
 class HomeTab extends StatefulWidget {
@@ -219,7 +220,11 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
     _flipCardController = FlipCardController();
-    getCarsData();
+
+    // getCarsData();
+    Future.delayed(Duration.zero, () {
+      getCarsData();
+    });
     getServicesData();
   }
 
@@ -315,11 +320,19 @@ class _HomeTabState extends State<HomeTab> {
   bool? load;
 
   getCarsData() async {
-    HiveDB _hiveDb = HiveDB();
-    myCarsList = await _hiveDb.getData('', 'userBox');
+    // HiveDB _hiveDb = HiveDB();
+    // myCarsList = await _hiveDb.getData('', 'userBox');
+
+    myCarsList = globals.getProfile.data!.carInfos!;
+
+    List<CarInfos> list = globals.getProfile.data!.carInfos!;
+
+
+
+
 
     setState(() {
-      if (myCarsList.isEmpty) {
+      if (list.isEmpty) {
         sliderItemList = [
           const CarBoxSliderItemWidget(
             index: 0,
@@ -336,12 +349,24 @@ class _HomeTabState extends State<HomeTab> {
           )
         ];
       } else {
-        for (int element = 0; element < myCarsList.length; element++) {
+        for (int element = 0; element < list.length; element++) {
+          //split car plate no
+          var sp;
+          if(list[element].licensePlateNo!.contains('-')){
+            sp =  list[element].licensePlateNo!.split('-');
+          }else{
+            sp = list[element].licensePlateNo!.split(' ');
+            // sp.forEach((element) {print(element);});
+
+          }
+
+
+
           sliderItemList.add(
             CarBoxSliderItemWidget(
               index: element,
               imagePath:
-                  'assets/images/${carImagePath(myCarsList[element].brand)}.png',
+              'assets/images/${carImagePath(list[element].name!)}.png',
               showingTexts: Padding(
                 padding: const EdgeInsets.only(right: 0, top: 0),
                 child: Column(
@@ -349,12 +374,12 @@ class _HomeTabState extends State<HomeTab> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'نام خودرو: ${myCarsList[element].brand}',
+                      'نام خودرو: ${list[element].name!}',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight),
                     ),
                     Text(
-                      'سال ساخت: ${myCarsList[element].createDate ?? ''}',
+                      'سال ساخت: ${list[element].productionYear ?? ''}',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight),
                     )
@@ -362,14 +387,14 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               ),
               isCarFromDataBase: true,
-              brand: myCarsList[element].brand,
-              chassisNumber: myCarsList[element].chassisNumber,
-              ownerNationalCode: myCarsList[element].ownerNationalCode,
-              createDate: myCarsList[element].createDate,
-              fourthCarTag: myCarsList[element].fourthCarTag,
-              secondCarTag: myCarsList[element].secondCarTag,
-              thirdCarTag: myCarsList[element].thirdCarTag,
-              firstCarTag: myCarsList[element].firstCarTag,
+              brand: list[element].name,
+              chassisNumber: list[element].chassisNo,
+              ownerNationalCode: list[element].licensePlateNo,
+              createDate: list[element].chassisNo,
+              fourthCarTag: int.parse(sp[3]),
+              secondCarTag: sp[1],
+              thirdCarTag: int.parse(sp[2]),
+              firstCarTag: int.parse(sp[0]),
             ),
           );
         }

@@ -26,6 +26,7 @@ import '../models/car_info.dart';
 import '../models/response_model/main_server_general_response.dart';
 import '../models/response_model/profile.dart';
 import '../models/user_info.dart';
+import 'package:emdad_khodro_saipa/globals.dart' as globals;
 
 class ApiProvider {
 
@@ -205,7 +206,10 @@ class ApiProvider {
         body: body
     );
 
-    print(result.body);
+
+    //get user profile data
+    await getProfile();
+
 
     return Login.fromJson(json.decode(result.body));
   }
@@ -227,6 +231,11 @@ class ApiProvider {
         body: body
     );
 
+    if(result.statusCode ==200){
+      globals.getProfile = GetProfile.fromJson(json.decode(result.body));
+    }
+
+    print(result.body);
 
 
 

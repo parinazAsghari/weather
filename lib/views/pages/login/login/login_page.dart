@@ -247,6 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                 //   ),
                 // ),
                 CustomTextField(
+                  alignText: TextAlign.center,
                   title: 'شماره موبایل',
                   height: 28,
                   controller: _phoneController,
