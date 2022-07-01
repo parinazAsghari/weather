@@ -4,26 +4,21 @@ import 'dart:ui' as ui;
 import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_item_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:mapir_raster/mapir_raster.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 import 'package:flutter_map/flutter_map.dart' as flutterMap;
 import 'package:flutter/foundation.dart' show kIsWeb;
-
-
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../../../constants.dart';
-import '../../widgets/DialogWidgets.dart';
-import '../../widgets/LoadingWidgets.dart';
-import 'package:location/location.dart';
+import '../../../../../../constants.dart';
+import 'package:emdad_khodro_saipa/views/pages/modules/map/search_address.dart';
 
-import 'home_tab/services/emdad_in_place/emdad_on_site_packages.dart';
-
-//Todo skip refactor
 
 class EmdadTab extends StatefulWidget {
   const EmdadTab({Key? key}) : super(key: key);
@@ -35,136 +30,15 @@ class EmdadTab extends StatefulWidget {
 class _EmdadTabState extends State<EmdadTab> {
 
 
-  //map
+
+  //map - google map - android platform
   GoogleMapController? _controller;
-  static  LatLng _center = const LatLng(35.748, 51.328);
+  static LatLng _center = const LatLng(35.748, 51.328);
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   BitmapDescriptor? customIcon;
   LatLng _lastMapPosition = _center;
-
-  List<Marker> markersList = [];
-
-
-
-  //sliding up panel
-  final double _initFabHeight = 120.0;
-  double _fabHeight = 0;
-  double _panelHeightOpen = 300;
-  double _panelHeightClosed = 80.0;
-  PanelController _panelController = PanelController();
-
   Location currentLocation = Location();
-
-  int requestState = 0;
-
-
- // map.ir map
-
-  flutterMap.MapController _mapController = flutterMap.MapController();
-  var pos =  latlng.LatLng(35.748, 51.328);
-  flutterMap.Marker _mapMarker = flutterMap.Marker(
-    point: latlng.LatLng(35.748, 51.328),
-    builder: (ctx) {
-      return Container(
-        child: Icon(Icons.location_on_rounded, size: 50, color: dark_theme_secondary,),
-      );
-    },
-  );
-
-  //call api - get address
-  /*
-  void callApi(LatLng latLng)async{
-
-
-    var result = await ApiProvider.getAddress(latLng);
-
-    print(result.addressCompact);
-
-
-  }
-
-   */
-  
-  
-  
-  
-  @override
-  void initState() {
-    super.initState();
-    // make sure to initialize before map loading
-
-    // markerLoadings();
-
-    _fabHeight = _initFabHeight;
-    
-    
-    // callApi(_center);
-
-
-  }
-
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void markerLoadings()async{
-    final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 100);
-    // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
-
-    setState(() {
-      customIcon = BitmapDescriptor.fromBytes(markerIcon);
-    });
-  }
-
-
-  Future<void> _onFlutterMapCreated(flutterMap.MapController mapController) async {
-
-    var location = await currentLocation.getLocation();
-
-    setState(() {
-      pos = latlng.LatLng(location.latitude!, location.longitude!);
-
-      _lastMapPosition = LatLng(location.latitude!, location.longitude!);
-      _center = LatLng(location.latitude!, location.longitude!);
-
-      _mapMarker = flutterMap.Marker(
-        point: pos,
-        builder: (ctx) {
-          return Container(
-            child: Icon(Icons.location_on_rounded, size: 60, color: dark_theme_secondary ,),
-          );
-        },
-      );
-    });
-
-
-    // flutterMap.
-
-  }
-
-  void _onFlutterMaoPositionChanged(flutterMap.MapPosition position, bool status){
-
-    if(status){
-
-      setState(() {
-        pos = position.center!;
-        _lastMapPosition = LatLng(position.center!.latitude, position.center!.longitude);
-        _center = LatLng(position.center!.latitude, position.center!.longitude);
-
-        _mapMarker = flutterMap.Marker(
-          point: position.center!,
-          builder: (ctx) {
-            return Container(
-              child: Icon(Icons.location_on_rounded, size: 60, color: dark_theme_secondary ,),
-            );
-          },
-        );
-      });
-    }
-
-  }
+  List<Marker> markersList = [];
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     final Uint8List markerIcon =
@@ -194,9 +68,12 @@ class _EmdadTabState extends State<EmdadTab> {
 
     _controller!.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _center, zoom: 19)));
 
-    setState((){
+    if(mounted){
+      setState((){
 
-    });
+      });
+    }
+
 
   }
 
@@ -211,7 +88,8 @@ class _EmdadTabState extends State<EmdadTab> {
   }
 
   void _onCameraMove(CameraPosition position) {
-    _lastMapPosition = position.target;
+    _lastMapPosition = _center = position.target;
+
     final marker = Marker(
       markerId: MarkerId('place_name'),
       position: _lastMapPosition,
@@ -222,101 +100,130 @@ class _EmdadTabState extends State<EmdadTab> {
     );
 
     markers[MarkerId('place_name')] = marker;
-    setState((){
+    if(mounted){
+      setState((){
 
-    });
+      });
+    }
+
   }
 
   Future<void> _onCurrentLocationButtonPressed() async {
 
     var location = await currentLocation.getLocation();
-    // currentLocation.onLocationChanged.listen((LocationData loc){
-    //
-    //   _controller?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
-    //     target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
-    //     zoom: 12.0,
-    //   )));
-    //
-    //   _center = LatLng(loc.latitude!, loc.longitude!);
-    //   print(loc.latitude);
-    //   print(loc.longitude);
-    //   setState(() {
-    //
-    //   });
-    // });
-
-    print('this is latlong:    ${location.longitude!} + ${location.latitude!} ');
     _center = LatLng(location.latitude!, location.longitude!);
 
-    if(kIsWeb){
-      setState(() {
+    print('this is location m=======>>>  $_center');
 
-        _mapController.move(latlng.LatLng(location.latitude!, location.longitude!), 17);
+
+    if(kIsWeb){
+      if(mounted){
+        setState(() {
+
+          _mapController.move(latlng.LatLng(location.latitude!, location.longitude!), 17);
+        });
+      }
+
+    }
+    else{
+      if(mounted){
+        setState(() {
+          final marker = Marker(
+            markerId: MarkerId('place_name'),
+            position: _center,
+            // icon: BitmapDescriptor.defaultMarker,
+            icon: customIcon!,
+            infoWindow: InfoWindow(
+              title: 'شما اینجایید',
+              // snippet: 'address',
+            ),
+          );
+
+          markers[MarkerId('place_name')] = marker;
+          _controller!.animateCamera(CameraUpdate.newCameraPosition(
+              CameraPosition(
+                  target: _center,
+                  zoom: 17
+              )));
+
+        });
+      }
+
+    }
+  }
+
+
+
+  // map.ir map - PWA web platform
+
+  flutterMap.MapController _mapController = flutterMap.MapController();
+  var pos =  latlng.LatLng(35.748, 51.328);
+
+  Future<void> _onFlutterMapCreated(flutterMap.MapController mapController) async {
+
+    var location = await currentLocation.getLocation();
+
+    if(mounted){
+      setState(() {
+        pos = latlng.LatLng(location.latitude!, location.longitude!);
+        // pos = latlng.LatLng(35.758688, 51.305858);
+
+        _lastMapPosition = LatLng(location.latitude!, location.longitude!);
+        // _lastMapPosition = LatLng(35.758688, 51.305858);
+        _center = LatLng(location.latitude!, location.longitude!);
+        // _center = LatLng(35.758688, 51.305858);
+
+        _mapController.move(pos, 17);
+
       });
     }
 
 
-
-    setState(() {
-      final marker = Marker(
-        markerId: MarkerId('place_name'),
-        position: _center,
-        // icon: BitmapDescriptor.defaultMarker,
-        icon: customIcon!,
-        infoWindow: InfoWindow(
-          title: 'شما اینجایید',
-          // snippet: 'address',
-        ),
-      );
-
-
-      markers[MarkerId('place_name')] = marker;
-      _controller!.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(
-              target: _center,
-              zoom: 17
-          )));
-
-      // _panelController.open();
-
-
-      // callApi(_center);
-
-
-    });
   }
 
-  //sliding up panel methods
-  _onRequestItemTap() async {
-
-    showDialog(context: context, builder: (BuildContext context){
-      return CircleLoadingWidget(
-        dismissable: false,
-        msgTxt: 'لطفا منتظر بمانید',
-      );
-    });
-
-    await Future.delayed(Duration(milliseconds: 4000));
-
-    Navigator.pop(context);
-
-    showDialog(context: context, builder: (BuildContext context){
-
-      return MessageDialogWidget(
-        dismissable: true,
-        title: 'درخواست ثبت شد',
-        body:  'درخواست شما با موفقیت ثبت شد. همکاران ما بزودی با شما تماس خواهند گرفت',
-        positiveTxt: 'باشه',
-      );
-    });
 
 
-    _panelController.close();
-    setState(() {
 
-    });
+  //sliding up panel
+  final double _initFabHeight = 120.0;
+  double _fabHeight = 0;
+  double _panelHeightOpen = 350;
+  double _panelHeightClosed = 80.0;
+  PanelController _panelController = PanelController();
+
+
+  int requestState = 0;
+
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    _fabHeight = _initFabHeight;
 
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _controller?.dispose();
+  }
+
+  void markerLoadings()async{
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/car.png', 100);
+    // final Marker marker = Marker(icon: BitmapDescriptor.fromBytes(markerIcon));
+
+    if(mounted){
+      setState(() {
+        customIcon = BitmapDescriptor.fromBytes(markerIcon);
+      });
+    }
+
+  }
+
+
 
   void getLocation() async{
     var location = await currentLocation.getLocation();
@@ -337,9 +244,32 @@ class _EmdadTabState extends State<EmdadTab> {
 
 
 
+  LatLng lastPosition(LatLng latLng){
+    LatLng lastPos;
+    if(kIsWeb){
+      lastPos = LatLng(_mapController.center.latitude, _mapController.center.longitude);
+      return lastPos;
+    }
+    lastPos = _lastMapPosition;
+    return lastPos;
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   title: Image.asset(
+      //     'assets/images/emdad_khodro_logo.png',
+      //     // height: 30,
+      //     width: MediaQuery.of(context).size.width * 0.45,
+      //     fit: BoxFit.contain,
+      //   ),
+      // ),
+
       body: Stack(
 
         children: [
@@ -349,10 +279,7 @@ class _EmdadTabState extends State<EmdadTab> {
             maxHeight: _panelHeightOpen,
             minHeight: _panelHeightClosed,
             parallaxEnabled: true,
-            defaultPanelState: PanelState.CLOSED,
-
-            // parallaxOffset: .5,
-            // color: primary_grey_color,
+            defaultPanelState: PanelState.OPEN,
             body: _body(),
             panelBuilder: (sc) => _panel(sc),
             borderRadius: BorderRadius.only(
@@ -362,69 +289,6 @@ class _EmdadTabState extends State<EmdadTab> {
               _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
                   _initFabHeight;
             }),
-          ),
-
-
-
-
-
-          // map
-
-          // GoogleMap(
-          //   onMapCreated: _onMapCreated,
-          //   initialCameraPosition: CameraPosition(
-          //     target: _center,
-          //     zoom: 17.0,
-          //
-          //   ),
-          //   onCameraMove: _onCameraMove,
-          //   markers: markers.values.toSet(),
-          //   myLocationEnabled: true,
-          //   myLocationButtonEnabled: true,
-          //
-          //   zoomControlsEnabled: true,
-          //   zoomGesturesEnabled: true,
-          // ),
-
-
-
-
-
-          //fab buttons - top right
-
-
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Column(
-                children: [
-                  FloatingActionButton(
-                    onPressed: () {
-                      _onCurrentLocationButtonPressed();
-                    },
-                    materialTapTargetSize: MaterialTapTargetSize.padded,
-                    // backgroundColor: secondary_dark_purple_color,
-                    child:  Icon(Icons.location_on_rounded,
-                        // color: secondary_light_purple_color,
-                        size: 20.0),
-                  ),
-
-                  SizedBox(height: defaultPadding,),
-
-                  FloatingActionButton(
-                    onPressed: () {
-                      _panelController.isPanelClosed? _panelController.open() : _panelController.close();
-                    },
-                    materialTapTargetSize: MaterialTapTargetSize.padded,
-                    // backgroundColor: secondary_dark_purple_color,
-                    child:  Icon(Icons.add_box_rounded,
-                        // color: secondary_light_purple_color,
-                        size: 20.0),
-                  ),
-                ],
-              ),
-            ),
           ),
         ],
       ),
@@ -454,7 +318,7 @@ class _EmdadTabState extends State<EmdadTab> {
               },
               child: Center(
                 child: Container(
-                  width: 50,
+                  width: 60,
                   height: 10,
                   decoration: BoxDecoration(
                       color: Theme.of(context).accentColor,
@@ -472,16 +336,13 @@ class _EmdadTabState extends State<EmdadTab> {
                 onTap: () {
                   _panelController.open();
                 },
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 18.0),
-                  child: Text(
-                    'ثبت درخواست',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 20,
-                        // color: secondary_light_grey_color,
-                        fontWeight: FontWeight.bold),
-                  ),
+                child: Text(
+                  'ثبت درخواست',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 20,
+                      // color: secondary_light_grey_color,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -489,71 +350,95 @@ class _EmdadTabState extends State<EmdadTab> {
               height: 18.0,
             ),
 
-            SizedBox(
-              height: 24,
-            ),
+            // SizedBox(
+            //   height: 24,
+            // ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: 135,
-                  child: NeumorphicButton(
-                    onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: _lastMapPosition)));
-                      // _onRequestItemTap();
-                    },
-                    padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      depth: 8,
-                      lightSource: LightSource.topLeft,
-                      color: Theme.of(context).cardColor,
-                      shadowDarkColor: Theme.of(context).shadowColor,
 
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('امداد فوری', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding/2,),
-                        Icon(Icons.warning_rounded,color: Theme.of(context).primaryColor)
-                      ],
-                    ),
-                  ),
-                ),
+                // CustomItemButton(
+                //     title: 'امداد فوری',
+                //     onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: lastPosition(_lastMapPosition)))),
+                //     imagePath: 'assets/images/ic_service_light.png',
+                // ),
 
-                SizedBox(
-                  width: 135,
-                  child: NeumorphicButton(
-                    onPressed: (){
-                      // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: _lastMapPosition)));
+                //secong design
+                _subItemWidget('assets/images/ic_service_light.png', 'امداد فوری', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: lastPosition(_lastMapPosition))))),
 
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadOnSitePackages()));
-                      // _onRequestItemTap();
-                    },
-                    padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      depth: 8,
-                      lightSource: LightSource.topLeft,
-                      color: Theme.of(context).cardColor,
-                      shadowDarkColor: Theme.of(context).shadowColor,
+                //first design
+                // SizedBox(
+                //   width: 135,
+                //   child: NeumorphicButton(
+                //     onPressed: (){
+                //       Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: _lastMapPosition)));
+                //       // _onRequestItemTap();
+                //     },
+                //     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
+                //     style: NeumorphicStyle(
+                //       shape: NeumorphicShape.flat,
+                //       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                //       depth: 8,
+                //       lightSource: LightSource.topLeft,
+                //       color: Theme.of(context).cardColor,
+                //       shadowDarkColor: Theme.of(context).shadowColor,
+                //
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Text('امداد فوری', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),),
+                //         SizedBox(width: defaultPadding/2,),
+                //         Icon(Icons.warning_rounded,color: Theme.of(context).primaryColor)
+                //       ],
+                //     ),
+                //   ),
+                // ),
 
-                    ),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
 
-                      children: [
-                        Text('خدمات در محل',textAlign: TextAlign.start, style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding/2),
-                        Icon(Icons.home_repair_service_rounded,color: Theme.of(context).primaryColor)
-                      ],
-                    ),
-                  ),
-                ),
+                // CustomItemButton(
+                //     title: 'امداد باتری',
+                //     onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد باتری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition)))),
+                //     imagePath: 'assets/images/ic_service_battery_light.png',
+                // )
+
+                //second design
+                _subItemWidget('assets/images/ic_service_battery_light.png', 'امداد باتری', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد باتری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition))))),
+
+
+                //first design
+                // SizedBox(
+                //   width: 135,
+                //   child: NeumorphicButton(
+                //     onPressed: (){
+                //       // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: _lastMapPosition)));
+                //
+                //       Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد باتری', hasCarProblem: false, latLng: _lastMapPosition)));
+                //       // _onRequestItemTap();
+                //     },
+                //     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
+                //     style: NeumorphicStyle(
+                //       shape: NeumorphicShape.flat,
+                //       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                //       depth: 8,
+                //       lightSource: LightSource.topLeft,
+                //       color: Theme.of(context).cardColor,
+                //       shadowDarkColor: Theme.of(context).shadowColor,
+                //
+                //     ),
+                //     child:  Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //
+                //       children: [
+                //         Text('امداد باتری',textAlign: TextAlign.start, style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                //         SizedBox(width: defaultPadding/2),
+                //         Icon(Icons.home_repair_service_rounded,color: Theme.of(context).primaryColor)
+                //       ],
+                //     ),
+                //   ),
+                // ),
+
 
 
 
@@ -566,63 +451,83 @@ class _EmdadTabState extends State<EmdadTab> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: 135,
-                  child: NeumorphicButton(
-                    onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'پنچری لاستیک', hasCarProblem: false, latLng: _lastMapPosition)));
 
-                      // _onRequestItemTap();
-                    },
-                    padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      depth: 8,
-                      lightSource: LightSource.topLeft,
-                      color: Theme.of(context).cardColor,
-                      shadowDarkColor: Theme.of(context).shadowColor,
 
-                    ),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('پنچری لاستیک', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding/2,),
-                        Icon(Icons.airport_shuttle_rounded,color: Theme.of(context).primaryColor)
-                      ],
-                    ),
-                  ),
-                ),
+                // CustomItemButton(
+                //   title: 'امداد پنچری',
+                //   onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد پنچری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition)))),
+                //   imagePath: 'assets/images/ic_service_flat_tire_light.png',
+                // ),
 
-                SizedBox(
-                  width: 135,
-                  child: NeumorphicButton(
-                    onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'حمل خودرو', hasCarProblem: false, latLng: _lastMapPosition)));
+                _subItemWidget('assets/images/ic_service_flat_tire_light.png', 'امداد پنچری', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد پنچری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition))))),
 
-                      // _onRequestItemTap();
-                    },
-                    padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                      depth: 8,
-                      lightSource: LightSource.topLeft,
-                      color: Theme.of(context).cardColor,
-                      shadowDarkColor: Theme.of(context).shadowColor,
+                // SizedBox(
+                //   width: 135,
+                //   child: NeumorphicButton(
+                //     onPressed: (){
+                //       Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'پنچری لاستیک', hasCarProblem: false, latLng: _lastMapPosition)));
+                //
+                //       // _onRequestItemTap();
+                //     },
+                //     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
+                //     style: NeumorphicStyle(
+                //       shape: NeumorphicShape.flat,
+                //       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                //       depth: 8,
+                //       lightSource: LightSource.topLeft,
+                //       color: Theme.of(context).cardColor,
+                //       shadowDarkColor: Theme.of(context).shadowColor,
+                //
+                //     ),
+                //     child:  Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Text('پنچری لاستیک', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                //         SizedBox(width: defaultPadding/2,),
+                //         Icon(Icons.airport_shuttle_rounded,color: Theme.of(context).primaryColor)
+                //       ],
+                //     ),
+                //   ),
+                // ),
 
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('حمل خودرو', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
-                        SizedBox(width: defaultPadding/2,),
-                        Icon(Icons.car_repair, color: Theme.of(context).primaryColor)
-                      ],
-                    ),
-                  ),
-                ),
+
+                // CustomItemButton(
+                //     title: 'امداد حمل',
+                //     onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد حمل', hasCarProblem: false, latLng: lastPosition(_lastMapPosition)))),
+                //     imagePath: 'assets/images/ic_service_transport_light.png',
+                // )
+                _subItemWidget('assets/images/ic_service_transport_light.png', 'امداد حمل', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد حمل', hasCarProblem: false, latLng: lastPosition(_lastMapPosition))))),
+
+
+                // SizedBox(
+                //   width: 135,
+                //   child: NeumorphicButton(
+                //     onPressed: (){
+                //       Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'حمل خودرو', hasCarProblem: false, latLng: _lastMapPosition)));
+                //
+                //       // _onRequestItemTap();
+                //     },
+                //     padding: EdgeInsets.symmetric(vertical: defaultPadding,horizontal: 8),
+                //     style: NeumorphicStyle(
+                //       shape: NeumorphicShape.flat,
+                //       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                //       depth: 8,
+                //       lightSource: LightSource.topLeft,
+                //       color: Theme.of(context).cardColor,
+                //       shadowDarkColor: Theme.of(context).shadowColor,
+                //
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Text('حمل خودرو', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).primaryColor),),
+                //         SizedBox(width: defaultPadding/2,),
+                //         Icon(Icons.car_repair, color: Theme.of(context).primaryColor)
+                //       ],
+                //     ),
+                //   ),
+                // ),
+
 
 
 
@@ -666,151 +571,190 @@ class _EmdadTabState extends State<EmdadTab> {
 
   Widget _body(){
     return Container(
-      // color: primary_grey_color,
-
-
-      //map.ir - map
-      /*
       child: Stack(
-
         children: [
 
-          MapirMap(
-            apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
-            options: flutterMap.MapOptions(
-              onMapCreated: _onFlutterMapCreated,
-              controller: _mapController,
-              onPositionChanged: _onFlutterMaoPositionChanged,
-              center: pos,
-              zoom: 16.0,
-            ),
-            mapController: _mapController,
+          kIsWeb?
+          Stack(
 
-            layers: [
-              flutterMap.MarkerLayerOptions(
-                markers: [
-                  // _mapMarker
-                  // flutterMap.Marker(
-                  //   width: 80.0,
-                  //   height: 80.0,
-                  //   point: pos,
-                  //   // builder: (ctx) => const FlutterLogo(),
-                  //   builder: (ctx) {
-                  //     return Container(
-                  //         child: Icon(Icons.location_on_rounded, size: 40),
-                  //     );
-                  //   },
-                  // ),
+            children: [
+
+              MapirMap(
+                apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
+                options: flutterMap.MapOptions(
+                  onMapCreated: _onFlutterMapCreated,
+                  controller: _mapController,
+                  // onPositionChanged: _onFlutterMaoPositionChanged,
+                  center: pos,
+                  zoom: 17.0,
+                ),
+                mapController: _mapController,
+
+                layers: [
+                  flutterMap.MarkerLayerOptions(
+                    markers: [
+                      // _mapMarker
+                      // flutterMap.Marker(
+                      //   width: 80.0,
+                      //   height: 80.0,
+                      //   point: pos,
+                      //   // builder: (ctx) => const FlutterLogo(),
+                      //   builder: (ctx) {
+                      //     return Container(
+                      //         child: Icon(Icons.location_on_rounded, size: 40),
+                      //     );
+                      //   },
+                      // ),
+                    ],
+                  ),
                 ],
               ),
+
+
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                      },
+                      child: Icon(Icons.location_on_rounded,size: 60,
+                        color: dark_theme_secondary,
+                      ),
+                    ),
+                    SizedBox(height: defaultPadding*7,)
+                  ],
+                ),
+              ),
             ],
+          )
+              :
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 14.0,
+            ),
+            onCameraMove: _onCameraMove,
+            markers: markers.values.toSet(),
+            myLocationEnabled: true,
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            zoomGesturesEnabled: true,
+
           ),
 
 
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: (){
-                    _panelController.open();
-                  },
-                  child: Icon(Icons.location_on_rounded,size: 50,
-                  color: Theme.of(context).primaryColor,
-                  ),
-                ),
-                SizedBox(height: defaultPadding*6,)
-              ],
-            ),
+          // search bar - current location floating action button
+          Column(
+            children: [
+              SizedBox(
+                height: 18,
+              ),
+              _searchAddressButton(),
+              _customFloatingActionButton(),
+            ],
           ),
         ],
       ),
-
-
-       */
-
-
-
-      child: kIsWeb?
-      //PWA - map.ir map
-      Stack(
-
-        children: [
-
-          MapirMap(
-            apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIn0.eyJhdWQiOiIxODA2MSIsImp0aSI6IjQxZmNiZjFjMzZkMWQ2ODY2Y2VmZDg5ZDcyYjkzOWNlOWU3N2FlZGFmOTZkYzVhMGU3Mjk4YTdmMTUwOTY3ZjNlOTQxYmMxYTE1ZWFiNmQwIiwiaWF0IjoxNjUzMzg3MDkxLCJuYmYiOjE2NTMzODcwOTEsImV4cCI6MTY1NTk3OTA5MSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.jDw7w-nTooFaIOmB5ufzDhGu5ESYzD_jUDkvfHh6HunR8Jk3dORUXoHwFw54vCZW4OS9Vrnyv5M1Qd-VJZ9KgMboM_vx5R3bzOCnsCr9IKZ7k3J_EXZzQgYdf1m9G0TNijr5Y9mIWKZPVyt-FODyeg0BzjS-YaxYKLioy0LzUUzDG4OgA9bn-MvlbmZA2zTwwqCpjF89DwUuCkghtehrPtW_VSn_sJ4y6dhcngDiW6hJmD8HGFmOGH1WDp31aZxukkp3QYEl0fihhh23vgU7ll7Oiz4pTztLoErOd_6QL7xxmGjaTcsh8L8os3lz-h34GqOlREozkyTVp6V4pgcMlA',
-            options: flutterMap.MapOptions(
-              onMapCreated: _onFlutterMapCreated,
-              controller: _mapController,
-              onPositionChanged: _onFlutterMaoPositionChanged,
-              center: pos,
-              zoom: 17.0,
-            ),
-            mapController: _mapController,
-
-            layers: [
-              flutterMap.MarkerLayerOptions(
-                markers: [
-                  // _mapMarker
-                  // flutterMap.Marker(
-                  //   width: 80.0,
-                  //   height: 80.0,
-                  //   point: pos,
-                  //   // builder: (ctx) => const FlutterLogo(),
-                  //   builder: (ctx) {
-                  //     return Container(
-                  //         child: Icon(Icons.location_on_rounded, size: 40),
-                  //     );
-                  //   },
-                  // ),
-                ],
-              ),
-            ],
-          ),
-
-
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: (){
-                    _panelController.open();
-                  },
-                  child: Icon(Icons.location_on_rounded,size: 60,
-                    color: dark_theme_secondary,
-                  ),
-                ),
-                SizedBox(height: defaultPadding*7,)
-              ],
-            ),
-          ),
-        ],
-      )
-      :
-      //mobile app - android yet    
-      GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 14.0,
-        ),
-        onCameraMove: _onCameraMove,
-        markers: markers.values.toSet(),
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
-        zoomControlsEnabled: false,
-        zoomGesturesEnabled: true,
-      ),
-
-
-
-
-
     );
   }
+
+  Widget _searchAddressButton(){
+
+    return InkWell(
+      onTap: () async {
+        LatLng latLng = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchAddress(userLastLatLng: _center,)));
+
+
+        if(kIsWeb){
+          //web config - map.ir config
+          pos = latlng.LatLng(latLng.latitude, latLng.longitude);
+          _mapController.move(pos, 17);
+        }else{
+          //android config - google map config
+          _center = _lastMapPosition = latLng;
+          _controller!.animateCamera(CameraUpdate.newLatLng(latLng));
+
+        }
+      },
+
+      child: Neumorphic(
+        margin: EdgeInsets.all(16),
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+          // depth: 1.5,
+          depth: 8,
+          lightSource: LightSource.topLeft,
+          color: Colors.white,
+          shadowDarkColor: Theme.of(context).shadowColor,
+        ),
+        child: ListTile(
+          title: Text('جستجو ....'),
+        ),
+      ),
+    );
+  }
+
+
+  Widget _customFloatingActionButton(){
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        alignment: Alignment.centerRight,
+        margin: EdgeInsets.only(right: 16,top: 8),
+        child: FloatingActionButton(
+          onPressed: (){
+
+            _onCurrentLocationButtonPressed();
+          },
+          child: Icon(Icons.location_on_rounded),
+
+        ),
+      ),
+    );
+  }
+
+
+  Widget _subItemWidget(String imagePath, String title, Function() onTap ) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            // height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Color(0xFFEAEDF3),
+            ),
+            padding: EdgeInsets.all(12),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+              height: 60,
+              width: 60,
+              // color: Theme.of(context).accentColor,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Vazir',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14))),
+          ),
+        ],
+      ),
+    );
+  }
+
 
 
 }

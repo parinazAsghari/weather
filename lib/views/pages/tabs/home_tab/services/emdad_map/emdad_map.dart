@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/submit_emdad_request.dart';
+import 'package:emdad_khodro_saipa/views/widgets/custom_item_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -358,8 +359,16 @@ class _EmdadMapState extends State<EmdadMap> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
 
+                // CustomItemButton(
+                //     title: 'امداد فوری',
+                //     onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: lastPosition(_lastMapPosition)))),
+                //     imagePath: 'assets/images/ic_service_light.png',
+                // ),
+
+                //secong design
                 _subItemWidget('assets/images/ic_service_light.png', 'امداد فوری', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد فوری', hasCarProblem: true, latLng: lastPosition(_lastMapPosition))))),
 
+                //first design
                 // SizedBox(
                 //   width: 135,
                 //   child: NeumorphicButton(
@@ -389,9 +398,17 @@ class _EmdadMapState extends State<EmdadMap> {
                 // ),
 
 
+                // CustomItemButton(
+                //     title: 'امداد باتری',
+                //     onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد باتری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition)))),
+                //     imagePath: 'assets/images/ic_service_battery_light.png',
+                // )
+
+                //second design
                 _subItemWidget('assets/images/ic_service_battery_light.png', 'امداد باتری', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد باتری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition))))),
 
 
+                //first design
                 // SizedBox(
                 //   width: 135,
                 //   child: NeumorphicButton(
@@ -436,6 +453,13 @@ class _EmdadMapState extends State<EmdadMap> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
 
+
+                // CustomItemButton(
+                //   title: 'امداد پنچری',
+                //   onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد پنچری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition)))),
+                //   imagePath: 'assets/images/ic_service_flat_tire_light.png',
+                // ),
+
                 _subItemWidget('assets/images/ic_service_flat_tire_light.png', 'امداد پنچری', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد پنچری', hasCarProblem: false, latLng: lastPosition(_lastMapPosition))))),
 
                 // SizedBox(
@@ -467,6 +491,12 @@ class _EmdadMapState extends State<EmdadMap> {
                 //   ),
                 // ),
 
+
+                // CustomItemButton(
+                //     title: 'امداد حمل',
+                //     onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد حمل', hasCarProblem: false, latLng: lastPosition(_lastMapPosition)))),
+                //     imagePath: 'assets/images/ic_service_transport_light.png',
+                // )
                 _subItemWidget('assets/images/ic_service_transport_light.png', 'امداد حمل', () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SubmitEmdadRequest(title: 'امداد حمل', hasCarProblem: false, latLng: lastPosition(_lastMapPosition))))),
 
 
