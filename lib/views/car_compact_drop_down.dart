@@ -207,7 +207,7 @@ class _CarCompactDropDownState extends State<CarCompactDropDown> {
                             // FocusScope.of(context).requestFocus(widget.nextFocus);
                             setState(() {
                               _currentSelectedValue = newValue!;
-                              widget.onChange(_currentSelectedValue.brand!);
+                              widget.onChange(_currentSelectedValue.name!);
                               // state.didChange(newValue);
                               // state.validate();
                             });
@@ -232,18 +232,18 @@ class _CarCompactDropDownState extends State<CarCompactDropDown> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${value.brand} - ${value.createDate}',
+                                    '${value.name} - ${value.productionYear}',
                                     style: widget.dropdownMenuItemStyle ?? TextStyle(color: widget.textColor ?? Colors.grey, fontSize: 12, fontWeight: FontWeight.normal),
                                   ),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width * 0.4,
                                   ),
-                                  Image.asset(
-                                    'assets/images/${carImagePath(value.brand)}.png',
-                                    width: 60,
-                                    height: 30,
-                                    // fit: BoxFit.cover,
-                                  ),
+                                  // Image.asset(
+                                  //   'assets/images/${carImagePath(value.name)}.png',
+                                  //   width: 60,
+                                  //   height: 30,
+                                  //   // fit: BoxFit.cover,
+                                  // ),
                                 ],
                               ),
                             );

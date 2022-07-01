@@ -265,7 +265,7 @@ class _FormDropDownState extends State<FormDropDown> {
         }
       }
     }
-    var itemsList = widget.items.keys.toList().getRange(1, widget.items.keys.length - 1).toList();
+    var itemsList = widget.items.keys.toList().getRange(1, widget.items.keys.length ).toList();
 
     return Column(
       children: [

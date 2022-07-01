@@ -8,6 +8,7 @@ import 'package:emdad_khodro_saipa/models/request_model/SendGetEmdadgarList.dart
 import 'package:emdad_khodro_saipa/models/request_model/SendGetPackagesRequest.dart';
 import 'package:emdad_khodro_saipa/models/request_model/SendGetReservableDatesRequest.dart';
 import 'package:emdad_khodro_saipa/models/request_model/SendUrgentRequest.dart';
+import 'package:emdad_khodro_saipa/models/request_model/submit_emdad_request.dart';
 import 'package:emdad_khodro_saipa/models/response_model/EmdadRequestResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/GetEmdadgarListResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/GetPackagesResponse.dart';
@@ -16,6 +17,7 @@ import 'package:emdad_khodro_saipa/models/response_model/UrgentRequestResponse.d
 import 'package:emdad_khodro_saipa/models/response_model/login.dart';
 import 'package:emdad_khodro_saipa/models/response_model/search_address_response.dart';
 import 'package:emdad_khodro_saipa/models/response_model/send_login_otp.dart';
+import 'package:emdad_khodro_saipa/models/response_model/submit_emdad_response.dart';
 import 'package:emdad_khodro_saipa/models/weather_response_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -298,34 +300,30 @@ class ApiProvider {
     return MainServerGeneralResponse.fromJson(json.decode(result.body));
   }
 
-  // static Future<MainServerMessageResponse> sendUrgentRequest (CarInfo carInfo) async {
-  //
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   String? token = sharedPreferences.getString('token');
-  //
-  //   Map data = {
-  //     'Token': token,
-  //     "Name": carInfo.Name,
-  //     "ProductionYear": carInfo.ProductionYear,
-  //     "LicensePlateNo": carInfo.LicensePlateNo,
-  //     "ChassisNo": carInfo.ChassisNo,
-  //     "Vin": carInfo.Vin
-  //   };
-  //
-  //   //encode Map to JSON
-  //   var body = json.encode(data);
-  //
-  //   var result = await http.post(
-  //       Uri.http(mainServerUrl, '/api/Emdad/SendUrgentRequest'),
-  //       headers: {"Content-Type": "application/json"},
-  //       body: body
-  //   );
-  //
-  //
-  //
-  //
-  //   return MainServerGeneralResponse.fromJson(json.decode(result.body));
-  // }
+  static Future<SubmitEmdadResponse> submitEmdadRequest (SubmitEmdadRequest submitEmdadRequest) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+
+    //encode Map to JSON
+    var body = json.encode(submitEmdadRequest);
+    print(body);
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/Emdad/SendRequest'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    print(result.body);
+
+
+
+
+    return SubmitEmdadResponse.fromJson(json.decode(result.body));
+  }
+
 
 
 

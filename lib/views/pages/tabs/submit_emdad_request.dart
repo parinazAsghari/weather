@@ -1,6 +1,9 @@
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/models/GeoLocation.dart';
+import 'package:emdad_khodro_saipa/models/car_info.dart';
+import 'package:emdad_khodro_saipa/models/request_model/submit_emdad_request.dart';
 import 'package:emdad_khodro_saipa/models/response_model/EmdadRequestResponse.dart';
+import 'package:emdad_khodro_saipa/models/response_model/profile.dart';
 import 'package:emdad_khodro_saipa/views/car_compact_drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
@@ -14,6 +17,7 @@ import '../../widgets/LoadingWidgets.dart';
 import '../../widgets/custom_submit_button.dart';
 import '../../widgets/custom_text_field.dart';
 import '../drop_down.dart';
+import 'package:emdad_khodro_saipa/globals.dart' as globals;
 
 class SubmitEmdadRequest extends StatefulWidget {
   final String title;
@@ -43,14 +47,20 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
   Map<String, dynamic> carProblemListItem = {
     'ایراد خودرو': 'ایراد خودرو',
-    'ماشینم روشن نمیشه': 1,
-    'باطری خالی کردم': 2,
-    'مطمئن نیستم': 3,
-    'سایر': 4,
+    'خودرو روشن نمی شود': 1,
+    'تصادف کردم و نیاز به حمل دارم': 2,
+    'تصادف کردم و نیاز به حمل ندارم خودرو روشن نمی شود': 3,
+    'خودرو نیاز به قطعه دارد و در محل رفع عیب می شود': 4,
   };
+  // Map<String, dynamic> carProblemListItem = {for (var item in globals.getProfile.data!.defects!) '${item.title}' : '${item.code}'};
 
-  final TextEditingController _nameCtrl = TextEditingController();
+  // Map<String, dynamic> carProblemListItem = globals.getProfile.data!.defects!.asMap();
+
+
+  final TextEditingController _nameCtrl = TextEditingController(text: globals.getProfile.data!.firstName!);
+  final TextEditingController _lastNameCtrl = TextEditingController(text: globals.getProfile.data!.lastName!);
   final TextEditingController _idCtrl = TextEditingController();
+  final TextEditingController _chassisNoCtrl = TextEditingController();
   final TextEditingController _addressCtrl = TextEditingController();
   final TextEditingController _descriptionCtrl = TextEditingController();
 
@@ -74,9 +84,24 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
       _addressCtrl.text = widget.address;
     }
 
+    handleCarProblem();
     getAddress();
-    getUserData();
+    // getUserData();
     getCarsData();
+  }
+
+  void handleCarProblem(){
+    if(!widget.hasCarProblem){
+      if(widget.title == 'امداد باتری'){
+        _carProblem = 1;
+      }
+      if(widget.title == 'پنچری لاستیک'){
+        _carProblem = 4;
+      }
+      if(widget.title == 'حمل خودرو'){
+        _carProblem = 2;
+      }
+    }
   }
 
   void getUserData() async {
@@ -98,14 +123,16 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   }
 
   Map<dynamic, dynamic> carModelListItem = {};
-  List myCarsList = [];
+  List<CarInfos> myCarsList = [];
   final TextEditingController _carModelCtrl = TextEditingController();
   String? _carModelDefaultValue;
-  final TextEditingController _carModelController = TextEditingController();
 
   getCarsData() async {
-    HiveDB _hiveDB = HiveDB();
-    myCarsList = await _hiveDB.getData('', 'userBox');
+    // HiveDB _hiveDB = HiveDB();
+    // myCarsList = await _hiveDB.getData('', 'userBox');
+
+    myCarsList = globals.getProfile.data!.carInfos!;
+
 
     if (myCarsList.isEmpty) {
       final entry = {'مدل خودرو': 'مدل خودرو'};
@@ -117,7 +144,8 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
       final entry = {element: element};
       carModelListItem.addEntries(entry.entries);
     });
-    _carModelCtrl.text = '${myCarsList.first.brand} - ${myCarsList.first.createDate}';
+    _carModelCtrl.text = '${myCarsList.first.name} - ${myCarsList.first.productionYear}';
+    _chassisNoCtrl.text = '${myCarsList.first.chassisNo}';
 
     setState(() {});
     return;
@@ -201,12 +229,14 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                     validations: const [],
                     onChange: (value) {
                       _carModelCtrl.text = value;
-                      _carModelController.text = value;
+                      _chassisNoCtrl.text = myCarsList.firstWhere((element) => element.name == value).chassisNo!;
                     },
                   ),
                 ),
-                CustomTextField(title: 'نام و نام خانوادگی', height: 35, marginTop: 11, controller: _nameCtrl),
-                CustomTextField(title: 'کدملی', height: 35, marginTop: 11, controller: _idCtrl),
+                CustomTextField(title: 'نام *', height: 35, marginTop: 11, controller: _nameCtrl),
+                CustomTextField(title: 'نام خانوادگی *', height: 35, marginTop: 11, controller: _lastNameCtrl),
+                // CustomTextField(title: 'کدملی', height: 35, marginTop: 11, controller: _idCtrl),
+                CustomTextField(title: 'شماره شاسی خودرو *', height: 35, marginTop: 11, controller: _chassisNoCtrl),
                 if (widget.hasCarProblem) _customDropDown(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 11 / 520,
@@ -215,7 +245,6 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
                   text: 'دارای محدودیت $limit می‌باشم',
                   value: _isPhysicalLimit,
                   onTap: (value) {
-                    print('limit $value');
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -388,6 +417,23 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
   }
 
   _onSubmitTap() async {
+    //check user info
+    if(_nameCtrl.text.isEmpty || _lastNameCtrl.text.isEmpty){
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا مشخصات خود را وارد نمائید.',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+
+    //check car defect
     if (widget.hasCarProblem) {
       if (_carProblem == null) {
         showDialog(
@@ -419,9 +465,120 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
       return;
     }
-    GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
+    // GeoLocation geoLocation = GeoLocation(lat: widget.latLng.latitude, long: widget.latLng.longitude);
 
+
+    //loading dialog
+    showDialog(context: context, builder: (BuildContext context){
+      return CircleLoadingWidget(
+        dismissable: false,
+        msgTxt: 'لطفا منتظر بمانید',
+      );
+    });
+
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString('token')!;
     //TODO add & fix api call for section
+    globals.submitEmdadRequest.firstName = _nameCtrl.text;
+    globals.submitEmdadRequest.lastName = _lastNameCtrl.text;
+    globals.submitEmdadRequest.mobile = globals.getProfile.data!.mobileNumber!;
+    globals.submitEmdadRequest.token = token;
+    globals.submitEmdadRequest.chassisNo = _chassisNoCtrl.text;
+    globals.submitEmdadRequest.latitude = widget.latLng.latitude;
+    globals.submitEmdadRequest.longitude = widget.latLng.longitude;
+    globals.submitEmdadRequest.address = _addressCtrl.text;
+    globals.submitEmdadRequest.defectCode = _carProblem;
+    globals.submitEmdadRequest.description = _descriptionCtrl.text;
+
+
+
+    var result = await ApiProvider.submitEmdadRequest(globals.submitEmdadRequest);
+
+    if(result.resultCode == 0){
+      Navigator.pop(context);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: false,
+              hasTextBody: false,
+              widget: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('مشتری گرامی درخواست شما با موفقیت در سامانه ثبت گردید.', textAlign: TextAlign.center),
+                    Text('همکاران ما بزودی با شما تماس خواهند گرفت.', textAlign: TextAlign.center),
+                    Text(
+                      'شماره همراه ثبت شده: $phone',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              positiveTxt: 'تایید',
+              positiveFunc: () async {
+                //save to user data
+                SharedPreferences preferences = await SharedPreferences.getInstance();
+                preferences.setString('user_full_name', _nameCtrl.text);
+                preferences.setString('user_national_code', _idCtrl.text);
+
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+              },
+            );
+          });
+
+      //clear global variables
+      globals.submitEmdadRequest.firstName = '';
+      globals.submitEmdadRequest.lastName = '';
+      globals.submitEmdadRequest.mobile = '';
+      globals.submitEmdadRequest.token = '';
+      globals.submitEmdadRequest.chassisNo = '';
+      globals.submitEmdadRequest.latitude = 0.0;
+      globals.submitEmdadRequest.longitude = 0.0;
+      globals.submitEmdadRequest.address = '';
+      globals.submitEmdadRequest.defectCode = -1;
+      globals.submitEmdadRequest.description = '';
+
+    }
+    else{
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: false,
+              hasTextBody: false,
+              widget: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text('عملیات با خطا مواجه شد .لطفا مجددا تلاش کنید', textAlign: TextAlign.center),
+                  ],
+                ),
+              ),
+              positiveTxt: 'تایید',
+              positiveFunc: () async {
+                //save to user data
+                // SharedPreferences preferences = await SharedPreferences.getInstance();
+                // preferences.setString('user_full_name', _nameCtrl.text);
+                // preferences.setString('user_national_code', _idCtrl.text);
+                //
+                // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+              },
+            );
+          });
+      return;
+    }
+
+
+
+
+
+
+
+
+
     // var res = await ApiProvider.sendEmdadRequest(geoLocation, _idCtrl.text, 'VAN123456789123', _carProblem!);
 
     /*
@@ -486,46 +643,6 @@ class _SubmitEmdadRequestState extends State<SubmitEmdadRequest> {
 
      */
 
-    showDialog(context: context, builder: (BuildContext context){
-      return CircleLoadingWidget(
-        dismissable: false,
-        msgTxt: 'لطفا منتظر بمانید',
-      );
-    });
 
-    await Future.delayed(Duration(milliseconds: 2500));
-
-    Navigator.pop(context);
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return MessageDialogWidget(
-            dismissable: false,
-            hasTextBody: false,
-            widget: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('مشتری گرامی اطلاعات شما با شماره پیگیری 889595966 در سامانه ثبت گردید.', textAlign: TextAlign.center),
-                  Text('همکاران ما بزودی با شما تماس خواهند گرفت.', textAlign: TextAlign.center),
-                  Text(
-                    'شماره همراه ثبت شده: $phone',
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            positiveTxt: 'تایید',
-            positiveFunc: () async {
-              //save to user data
-              SharedPreferences preferences = await SharedPreferences.getInstance();
-              preferences.setString('user_full_name', _nameCtrl.text);
-              preferences.setString('user_national_code', _idCtrl.text);
-
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-            },
-          );
-        });
   }
 }
