@@ -964,7 +964,7 @@ class _HomeTabState extends State<HomeTab> {
 
           //gridview title bar - edit button
           Container(
-            padding: const EdgeInsets.only(left: 16.0,right: 16, top: 16),
+            padding: const EdgeInsets.only(left: 16.0,right: 16, top: 8),
 
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,

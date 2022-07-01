@@ -160,26 +160,23 @@ class _OtpPageState extends State<OtpPage> {
       });
     }
 
-    await Future.delayed(Duration(milliseconds: 3000));
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CircleLoadingWidget(
+            dismissable: false,
+            msgTxt: 'لطفا منتظر بمانید',
+          );
+        });
 
-    Map data = {
-      'MobileNumber': '${widget.phoneNumber}',
-      'Message':
-      "ضمن تشکر از نصب برنامه، رمز ورود شما:  ${_code.toString()} \n امداد خودرو سایپا\n "
-    };
+    // await Future.delayed(const Duration(milliseconds: 2000));
+    // var result = await ApiProvider.sendMobileNumber(_phoneController.text, code.toString());
 
-    var url = 'http://185.94.99.204:5252/api/Sms/Send';
+    var result = await ApiProvider.sendLoginOtp(widget.phoneNumber!);
 
-    //encode Map to JSON
-    var body = json.encode(data);
+    Navigator.pop(context);
 
-    // var result = await http.post(Uri.http('185.94.99.204:5252', '/api/Sms/Send'),
-    var result = await http.post(
-        Uri.http('185.94.99.204:7252', '/api/Sms/Send'),
-        headers: {"Content-Type": "application/json"},
-        body: body);
-
-    if (result.statusCode == 200) {
+    if (result.resultCode == 0) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -190,11 +187,18 @@ class _OtpPageState extends State<OtpPage> {
               positiveTxt: 'باشه',
             );
           });
-    } else {
+
+      //store user phone number
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('user_phone_number', widget.phoneNumber!);
+      preferences.setString('token', result.data!.token!);
+
+      return;
+    }
+    else {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            print(result.body.toString());
             return MessageDialogWidget(
               dismissable: true,
               title: 'خطا در ارسال پیام',
@@ -202,9 +206,9 @@ class _OtpPageState extends State<OtpPage> {
               positiveTxt: 'باشه',
             );
           });
-
       return;
     }
+
   }
 
 

@@ -1,14 +1,14 @@
-class Profile {
+class GetProfile {
   int? resultCode;
   Data? data;
-  List<String>? failures;
+  List<dynamic>? failures;
 
-  Profile({this.resultCode, this.data, this.failures});
+  GetProfile({this.resultCode, this.data, this.failures});
 
-  Profile.fromJson(Map<String, dynamic> json) {
+  GetProfile.fromJson(Map<String, dynamic> json) {
     resultCode = json['resultCode'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    failures = json['failures'];
+    failures = json['failures'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +31,8 @@ class Data {
   String? nationalCode;
   List<CarInfos>? carInfos;
   List<Defects>? defects;
+  List<Packages>? coverCars;
+  List<Packages>? packages;
 
   Data(
       {this.guid,
@@ -40,7 +42,9 @@ class Data {
         this.mobileNumber,
         this.nationalCode,
         this.carInfos,
-        this.defects});
+        this.defects,
+        this.coverCars,
+        this.packages});
 
   Data.fromJson(Map<String, dynamic> json) {
     guid = json['guid'];
@@ -61,6 +65,18 @@ class Data {
         defects!.add(new Defects.fromJson(v));
       });
     }
+    if (json['coverCars'] != null) {
+      coverCars = <Packages>[];
+      json['coverCars'].forEach((v) {
+        coverCars!.add(new Packages.fromJson(v));
+      });
+    }
+    if (json['packages'] != null) {
+      packages = <Packages>[];
+      json['packages'].forEach((v) {
+        packages!.add(new Packages.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +92,12 @@ class Data {
     }
     if (this.defects != null) {
       data['defects'] = this.defects!.map((v) => v.toJson()).toList();
+    }
+    if (this.coverCars != null) {
+      data['coverCars'] = this.coverCars!.map((v) => v.toJson()).toList();
+    }
+    if (this.packages != null) {
+      data['packages'] = this.packages!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -133,6 +155,44 @@ class Defects {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['code'] = this.code;
     data['title'] = this.title;
+    return data;
+  }
+}
+
+class CoverCars {
+  int? id;
+  String? name;
+
+  CoverCars({this.id, this.name});
+
+  CoverCars.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
+  }
+}
+
+class Packages {
+  int? id;
+  String? name;
+
+  Packages({this.id, this.name});
+
+  Packages.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
     return data;
   }
 }

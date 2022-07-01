@@ -54,9 +54,7 @@ class _LoginPageState extends State<LoginPage> {
     // print('otp code is:   $code');
   }
 
-  Future<void> onLoginButtonPressed(
-    String _phone,
-  ) async {
+  Future<void> onLoginButtonPressed(String _phone,) async {
     if (_phoneController.text.length != 11) {
       showDialog(
           context: context,

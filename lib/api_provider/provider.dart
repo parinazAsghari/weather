@@ -210,7 +210,7 @@ class ApiProvider {
     return Login.fromJson(json.decode(result.body));
   }
 
-  static Future<Profile> getProfile() async {
+  static Future<GetProfile> getProfile() async {
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
@@ -230,7 +230,7 @@ class ApiProvider {
 
 
 
-    return Profile.fromJson(json.decode(result.body));
+    return GetProfile.fromJson(json.decode(result.body));
   }
 
   static Future<MainServerGeneralResponse> editProfile(UserInfo userInfo) async {

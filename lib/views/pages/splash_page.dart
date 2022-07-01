@@ -25,20 +25,17 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin  
   late Animation<Offset> _animationOffsetLogo;
 
 
-  //shared prefs
-   bool? _loggedIn;
 
 
 
   void navigation() async {
-    // var getProfile = await ApiProvider.getProfile();
-    // print(getProfile);
+    var getProfile = await ApiProvider.getProfile();
+    print(getProfile);
 
 
 
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    _loggedIn = sharedPreferences.getBool('loggedIn') ?? false;
 
     bool loggedIn = sharedPreferences.getBool('loggedIn')??false;
 
