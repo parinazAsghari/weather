@@ -200,6 +200,8 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
                                                     setState(() {
                                                       // selectedIndex = index;
                                                       selectedTime = element.time;
+                                                      globals.submitHomeServiceRequest.dateJalali = element.jalajiDate;
+                                                      globals.submitHomeServiceRequest.time = element.time;
                                                     });
                                                   }
                                                 },
@@ -301,14 +303,14 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
   }
 
   _onSubmitTap() async {
-    if (selectedIndex == null) {
+    if (globals.submitHomeServiceRequest.time == null || globals.submitHomeServiceRequest.dateJalali ==null) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return MessageDialogWidget(
               dismissable: true,
               title: 'ورود اطلاعات',
-              body: 'لطفا روز مورد نظر خود را انتخاب نمائید',
+              body: 'لطفا روز و ساعت مورد نظر خود را انتخاب نمائید',
               positiveTxt: 'باشه',
             );
           });

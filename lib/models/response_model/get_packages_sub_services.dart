@@ -36,6 +36,7 @@ class Data {
   int? totalPrice;
   int? discount;
   int? packageId;
+  String? imageBase64;
   bool? isVipPackage;
 
   Data(
@@ -47,6 +48,7 @@ class Data {
         this.totalPrice,
         this.discount,
         this.packageId,
+        this.imageBase64,
         this.isVipPackage});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -58,6 +60,7 @@ class Data {
     totalPrice = json['totalPrice'];
     discount = json['discount'];
     packageId = json['packageId'];
+    imageBase64 = json['imageBase64'];
     isVipPackage = json['isVipPackage'];
   }
 
@@ -71,6 +74,7 @@ class Data {
     data['totalPrice'] = this.totalPrice;
     data['discount'] = this.discount;
     data['packageId'] = this.packageId;
+    data['imageBase64'] = this.imageBase64;
     data['isVipPackage'] = this.isVipPackage;
     return data;
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/models/response_model/get_packages_sub_services.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/choose_day_page.dart';
@@ -32,14 +34,16 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
 
   GetPackagesSubServices result = GetPackagesSubServices();
 
+
+  //add comma in prices
+  RegExp reg = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+  String Function(Match) mathFunc = (Match match) => '${match[1]},';
+
+
   getPackagesAndSubServices()async{
      result  = await ApiProvider.getPackagesSubServices();
 
     if(result.resultCode ==0){
-
-
-
-
       if(mounted){
         setState(() {
 
@@ -65,6 +69,8 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
 
   }
 
+  List<String> showDescList = [];
+
   @override
   Widget build(BuildContext context) {
 
@@ -72,45 +78,29 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
       return Center(child: CircularProgressIndicator(),);
     }
 
+
     return StatefulBuilder(builder: (_, setS) {
       List<ListTile> packageFiveList = [];
       List<ListTile> packageSevenList = [];
       List<ListTile> packageEightList = [];
       List<ListTile> packageNineList = [];
 
+
+
+
       List<String> finalSubService = [];
 
       result.data!.forEach((element) {
+
+        String finalImage = element.imageBase64!.substring(element.imageBase64!.indexOf(',')+1, element.imageBase64!.length);
+        String finalPrice = element.totalPrice!.toString().replaceAllMapped(reg, mathFunc);
+
+
+
         if(element.packageId == 5){
           packageFiveList.add(
               ListTile(
-                contentPadding: EdgeInsets.all(16),
-                title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
-                leading: Checkbox(
-                  onChanged: (value) {
-                    setState(() {
-                      finalSubService.add(element.id!);
-
-                      globals.finalSubServices.contains(element.id)?
-                          globals.finalSubServices.remove(element.id)
-                      :
-                          globals.finalSubServices.add(element.id!);
-
-                      globals.finalSubServices.forEach((element) {print(element);});
-                    });
-                    setS((){});
-                  },
-                  value:  globals.finalSubServices.contains(element.id!)? true:false,
-                ),
-                subtitle: Text(element.fullDescription!),
-                trailing: Text(element.totalPrice!.toString() + ' ریال'),
-              )
-          );
-        }
-        if(element.packageId == 7){
-          packageSevenList.add(
-              ListTile(
-                contentPadding: EdgeInsets.all(16),
+                contentPadding: EdgeInsets.symmetric(horizontal: 30),
                 title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Checkbox(
                   onChanged: (value) {
@@ -128,15 +118,120 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                   },
                   value:  globals.finalSubServices.contains(element.id!)? true:false,
                 ),
-                subtitle: Text(element.fullDescription!),
-                trailing: Text(element.totalPrice!.toString() + ' ریال'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(finalPrice + ' ریال'),
+                    ),
+                    if(showDescList.contains(element.id))Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(element.fullDescription!),
+                    ),
+                    if(!showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.add(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id added to list');
+
+
+                        },
+                        child: Text('مشاهده جزئیات')),
+                    if(showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.remove(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id removed from list');
+
+
+
+                        },
+                        child: Text('جزئیات کمتر'))
+                  ],
+                ),
+                trailing: Image.memory(base64Decode(finalImage)),
+              ),
+          );
+        }
+        if(element.packageId == 7){
+          packageSevenList.add(
+              ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
+                leading: Checkbox(
+                  onChanged: (value) {
+                    setState(() {
+                      finalSubService.add(element.id!);
+
+                      globals.finalSubServices.contains(element.id)?
+                      globals.finalSubServices.remove(element.id)
+                          :
+                      globals.finalSubServices.add(element.id!);
+
+                      globals.finalSubServices.forEach((element) {print(element);});
+                    });
+                    setS((){});
+                  },
+                  value:  globals.finalSubServices.contains(element.id!)? true:false,
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(finalPrice.toString() + ' ریال'),
+                    ),
+                    if(showDescList.contains(element.id))Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(element.fullDescription!),
+                    ),
+                    if(!showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.add(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id added to list');
+
+
+                        },
+                        child: Text('مشاهده جزئیات')),
+                    if(showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.remove(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id removed from list');
+
+
+
+                        },
+                        child: Text('جزئیات کمتر'))
+
+
+                  ],
+                ),
+
+
+
+                trailing: Image.memory(base64Decode(finalImage)),
               )
           );
         }
         if(element.packageId == 8){
           packageEightList.add(
               ListTile(
-                contentPadding: EdgeInsets.all(16),
+                contentPadding: EdgeInsets.symmetric(horizontal: 30),
                 title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Checkbox(
                   onChanged: (value) {
@@ -154,15 +249,56 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                   },
                   value:  globals.finalSubServices.contains(element.id!)? true:false,
                 ),
-                subtitle: Text(element.fullDescription!),
-                trailing: Text(element.totalPrice!.toString() + ' ریال'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(finalPrice.toString() + ' ریال'),
+                    ),
+                    if(showDescList.contains(element.id))Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(element.fullDescription!),
+                    ),
+                    if(!showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.add(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id added to list');
+
+
+                        },
+                        child: Text('مشاهده جزئیات')),
+                    if(showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.remove(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id removed from list');
+
+
+
+                        },
+                        child: Text('جزئیات کمتر'))
+
+                  ],
+                ),
+
+
+
+                trailing: Image.memory(base64Decode(finalImage)),
               )
           );
         }
         if(element.packageId == 9){
           packageNineList.add(
               ListTile(
-                contentPadding: EdgeInsets.all(16),
+                contentPadding: EdgeInsets.symmetric(horizontal: 30),
 
                 title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Checkbox(
@@ -181,8 +317,50 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                   },
                   value:  globals.finalSubServices.contains(element.id!)? true:false,
                 ),
-                subtitle: Text(element.fullDescription!),
-                trailing: Text(element.totalPrice!.toString() + ' ریال'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(finalPrice.toString() + ' ریال'),
+                    ),
+                    if(showDescList.contains(element.id))Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(element.fullDescription!),
+                    ),
+                    if(!showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.add(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id added to list');
+
+
+                        },
+                        child: Text('مشاهده جزئیات')),
+                    if(showDescList.contains(element.id)) TextButton(
+                        onPressed: (){
+                          showDescList.remove(element.id!);
+                          setS((){});
+
+                          setState((){});
+
+                          print('id removed from list');
+
+
+
+                        },
+                        child: Text('جزئیات کمتر'))
+
+
+                  ],
+                ),
+
+
+
+                trailing: Image.memory(base64Decode(finalImage)),
               )
           );
         }
@@ -966,6 +1144,5 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
     //       );
     //     });
   }
-
 
 }
