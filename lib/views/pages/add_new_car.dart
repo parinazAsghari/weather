@@ -1,9 +1,12 @@
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/data_base/hive_db.dart';
 import 'package:emdad_khodro_saipa/models/car.dart';
+import 'package:emdad_khodro_saipa/models/response_model/submit_car_info.dart';
 import 'package:emdad_khodro_saipa/views/pages/drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/DialogWidgets.dart';
+import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_submit_button.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +67,7 @@ class _AddNewCarState extends State<AddNewCar> {
     '1391': '1391',
     '1390': '1390'
   };
-  Map<String, dynamic> carModelListItem = {'مدل خودرو': 'مدل خودرو', 'ساینا': 'ساینا', 'کوییک': 'کوییک', 'پراید': 'پراید', 'تیبا': 'تیبا', 'وانت': 'وانت', 'سراتو': 'سراتو', 'چانگان': 'چانگان', 'شاهین': 'شاهین'};
+  Map<String, dynamic> carModelListItem = {'مدل خودرو *': 'مدل خودرو *', 'ساینا': 'ساینا', 'کوییک': 'کوییک', 'پراید': 'پراید', 'تیبا': 'تیبا', 'وانت': 'وانت', 'سراتو': 'سراتو', 'چانگان': 'چانگان', 'شاهین': 'شاهین'};
   List<String> pelakListItem = ['', 'الف', 'ب', 'پ', 'ت', 'ث', 'ج', 'د', 'س', 'ص', 'ط', 'ق', 'ک', 'ع', 'ل', 'م', 'ن', 'و', 'ه', 'ی'];
   var pelakDropDownValue;
   final _formKey = GlobalKey<FormState>();
@@ -249,6 +252,7 @@ class _AddNewCarState extends State<AddNewCar> {
                     readOnlyDropDown: widget.isCarFromDataBase? true :false,
                     primaryBackgroundColor: Colors.transparent,
                     iconColor: Colors.pink,
+                    readOnly: widget.isCarFromDataBase? true: false,
                     dropdownMenuItemStyle: const TextStyle(color: Colors.black),
                     defaultValue: _carModelController.text,
                     // firstItemSelectMessage: 'انتخاب',
@@ -278,6 +282,7 @@ class _AddNewCarState extends State<AddNewCar> {
                     dropdownMenuItemStyle: const TextStyle(
                       color: Colors.black,
                     ),
+                    readOnly: widget.isCarFromDataBase? true: false,
                     defaultValue: _carCreateDateDefaultValue,
                     // firstItemSelectMessage: 'انتخاب',
                     alignmentCenterLeft: false,
@@ -294,7 +299,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   height: 10,
                 ),
                 CustomTextField(
-                  title: 'شماره شاسی',
+                  title: 'شماره شاسی خودرو *',
                   height: 28,
                   controller: _chassisNumberController,
                 ),
@@ -704,7 +709,70 @@ class _AddNewCarState extends State<AddNewCar> {
                                 positiveFunc: () async {},
                               );
                             });
-                      } else {
+                        return;
+                      }
+                      if(_chassisNumberController.text.isEmpty){
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return MessageDialogWidget(
+                                body: 'لطفا شماره شاسی خودرو را وارد کنید',
+                                dismissable: true,
+                                positiveTxt: 'باشه',
+                                positiveFunc: () async {},
+                              );
+                            });
+                        return;
+                      }
+
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CircleLoadingWidget(
+                              dismissable: false,
+                              msgTxt: 'لطفا منتظر بمانید',
+                            );
+                          });
+
+                      String plate = _firstNumberController.text + _secondNumberController.text +'-'+ _dropDownTagController.text +'-'+ _thirdNumberController.text + _fourthNumberController.text + _fifthNumberController.text +"-"+ _sixthNumberController.text + _seventhNumberController.text;
+                      SubmitCarInfo res = await ApiProvider.submitCarInfo(_carModelController.text, plate, _chassisNumberController.text,_createDateController.text);
+
+                      Navigator.of(context).pop();
+
+
+                      if(res.resultCode == 0){
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return MessageDialogWidget(
+                                body: 'اطلاعات خودرو با موفقیت ثبت شد',
+                                dismissable: true,
+                                positiveTxt: 'باشه',
+                                positiveFunc: () async {
+                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                      HomePage()), (Route<dynamic> route) => false);
+                                },
+                              );
+                            });
+                        return;
+                      }
+                      else{
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return MessageDialogWidget(
+                                body: 'عملیات با خطا مواجه شد، لطفا دوباره سعی کنید',
+                                dismissable: true,
+                                positiveTxt: 'باشه',
+                                positiveFunc: () async {},
+                              );
+                            });
+                        return;
+                      }
+
+
+                      /*
+                      else {
                         Car car = Car();
                         car.chassisNumber = _chassisNumberController.text;
                         car.ownerNationalCode = _nationalCodeController.text;
@@ -740,7 +808,9 @@ class _AddNewCarState extends State<AddNewCar> {
                               );
                             });
                       }
-                      ;
+
+                       */
+
                     },
                     text: 'ثبت خودرو',
                     marginTop: 0,
@@ -827,6 +897,8 @@ class _AddNewCarState extends State<AddNewCar> {
                   const SizedBox(
                     height: 20,
                   ),
+
+                /*
                 if (widget.isCarFromDataBase)
                   CustomSubmitButton(
                     onTap: () async {
@@ -870,6 +942,8 @@ class _AddNewCarState extends State<AddNewCar> {
                     marginTop: 0,
                     marginBottom: 0,
                   ),
+
+                 */
                 // Row(
                 //   children: [
                 //     const Spacer(),

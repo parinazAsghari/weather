@@ -20,6 +20,7 @@ import 'package:emdad_khodro_saipa/models/response_model/get_time_table.dart';
 import 'package:emdad_khodro_saipa/models/response_model/login.dart';
 import 'package:emdad_khodro_saipa/models/response_model/search_address_response.dart';
 import 'package:emdad_khodro_saipa/models/response_model/send_login_otp.dart';
+import 'package:emdad_khodro_saipa/models/response_model/submit_car_info.dart';
 import 'package:emdad_khodro_saipa/models/response_model/submit_emdad_response.dart';
 import 'package:emdad_khodro_saipa/models/weather_response_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -274,6 +275,7 @@ class ApiProvider {
     return MainServerGeneralResponse.fromJson(json.decode(result.body));
   }
 
+  /*
   static Future<MainServerGeneralResponse> submitCarInfo (CarInfo carInfo) async {
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -302,6 +304,8 @@ class ApiProvider {
 
     return MainServerGeneralResponse.fromJson(json.decode(result.body));
   }
+
+   */
 
   static Future<SubmitEmdadResponse> submitEmdadRequest (SubmitEmdadRequest submitEmdadRequest) async {
 
@@ -422,6 +426,46 @@ class ApiProvider {
 
 
     return GetTimeTable.fromJson(json.decode(result.body));
+  }
+
+
+  static Future<SubmitCarInfo> submitCarInfo (String name, String plate, String chassis, String year) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+
+    if(year.isEmpty){
+      year = '';
+    }
+
+
+
+    Map data = {
+      'Token': token,
+      "Name": name,
+      "LicensePlateNo": plate,
+      "ChassisNo": chassis,
+      "ProductionYear": year
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/User/SubmitCarInfo'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    print(result.body);
+
+    getProfile();
+
+
+
+    return SubmitCarInfo.fromJson(json.decode(result.body));
   }
 
 

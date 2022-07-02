@@ -255,7 +255,7 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
           const SizedBox(
             width: 5,
           ),
-          // Expanded(child: Container()),
+          Expanded(child: Container()),
           Image.asset(
             'assets/images/iran_flag.png',
             width: 22,
@@ -304,6 +304,8 @@ class _CarBoxSliderItemWidgetState extends State<CarBoxSliderItemWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
+                  Image.asset('assets/images/ic_plus_round.png', height: 70,)
                   // NeumorphicButton(
                   //   margin: EdgeInsets.zero,
                   //   curve: Neumorphic.DEFAULT_CURVE,

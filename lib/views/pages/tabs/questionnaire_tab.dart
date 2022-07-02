@@ -1,6 +1,7 @@
 import 'package:emdad_khodro_saipa/constants.dart';
 import 'package:emdad_khodro_saipa/views/pages/DevelopingPage.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QuestionnaireTab extends StatefulWidget {
   const QuestionnaireTab({Key? key}) : super(key: key);
@@ -41,8 +42,14 @@ class _QuestionnaireTabState extends State<QuestionnaireTab> {
               style: ElevatedButton.styleFrom(
                   // primary: secondary_light_grey_color
                   ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
+              onPressed: () async{
+
+                //TODO
+                if (!await launchUrl(Uri.parse('http://emdad.porseshan.ir/AnswerSurvey/XBI-WVN-1IC'))) throw 'Could not launch';
+
+
+
+                // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DevelopingPage()));
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
