@@ -1,3 +1,4 @@
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/packages_and_sub_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../../api_provider/provider.dart';
@@ -8,6 +9,8 @@ import '../../../../../widgets/custom_submit_button.dart';
 import '../../../../../widgets/custom_text_field.dart';
 import 'choose_day_page.dart';
 import 'choose_relief_worker_page.dart';
+import 'package:emdad_khodro_saipa/globals.dart' as globals;
+
 
 class SubmitAddress extends StatefulWidget {
   String? address;
@@ -56,7 +59,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
       appBar: AppBar(
         elevation: 0,
         title: Image.asset(
-          'assets/images/emdad_khodro_logo_white_text.png',
+          'assets/images/emdad_khodro_logo.png',
           // height: 30,
           width: MediaQuery.of(context).size.width * 0.45,
           fit: BoxFit.contain,
@@ -162,6 +165,7 @@ class _SubmitAddressState extends State<SubmitAddress> {
               onChanged: (value) {
                 setState(() {
                   _chooseWorker = !_chooseWorker;
+                  globals.chooseRelifSelected = _chooseWorker;
                 });
               }),
           const Flexible(
@@ -173,7 +177,6 @@ class _SubmitAddressState extends State<SubmitAddress> {
   }
 
   onSubmitTap() {
-    print('carmodel + ${_addressCtrl.text}');
     if (_addressCtrl.text.isEmpty) {
       showDialog(
           context: context,
@@ -189,21 +192,26 @@ class _SubmitAddressState extends State<SubmitAddress> {
       return;
     }
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CircleLoadingWidget(
-            dismissable: false,
-            msgTxt: 'لطفا منتظر بمانید',
-          );
-        });
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return CircleLoadingWidget(
+    //         dismissable: false,
+    //         msgTxt: 'لطفا منتظر بمانید',
+    //       );
+    //     });
+    //
 
-    Navigator.pushReplacement(
+    globals.submitHomeServiceRequest.address = _addressCtrl.text + _addressTekmiliCtrl.text;
+
+    Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => _chooseWorker ? const ChooseReliefWorkerPage() : const ChooseDayPage(),
+        builder: (BuildContext context) => PackagesAndSubServices(),
       ),
     );
+
+
 
     //clear textFields
     // _idCtrl.clear();

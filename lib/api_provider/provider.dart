@@ -14,6 +14,9 @@ import 'package:emdad_khodro_saipa/models/response_model/GetEmdadgarListResponse
 import 'package:emdad_khodro_saipa/models/response_model/GetPackagesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/GetReservableDatesResponse.dart';
 import 'package:emdad_khodro_saipa/models/response_model/UrgentRequestResponse.dart';
+import 'package:emdad_khodro_saipa/models/response_model/get_emdadgar_list.dart';
+import 'package:emdad_khodro_saipa/models/response_model/get_packages_sub_services.dart';
+import 'package:emdad_khodro_saipa/models/response_model/get_time_table.dart';
 import 'package:emdad_khodro_saipa/models/response_model/login.dart';
 import 'package:emdad_khodro_saipa/models/response_model/search_address_response.dart';
 import 'package:emdad_khodro_saipa/models/response_model/send_login_otp.dart';
@@ -129,14 +132,14 @@ class ApiProvider {
     return packagesData;
   }
 
-  static Future<GetEmdadgarListResponse> getEmdadGarList(String packageGuid, GeoLocation geoLocation) async {
-    SendGetEmdadgarList getEmdadGarList = SendGetEmdadgarList(packageGuid: packageGuid, geoLocation: geoLocation);
-    var body = json.encode(getEmdadGarList.toJson());
-    var result = await http.post(Uri.http('185.94.99.204:7252', '/api/Emdad/GetEmdadgarList'), headers: {"Content-Type": "application/json"}, body: body);
-    var data = json.decode(result.body);
-    var packagesData = GetEmdadgarListResponse.fromJson(data);
-    return packagesData;
-  }
+  // static Future<GetEmdadgarListResponse> getEmdadGarList(String packageGuid, GeoLocation geoLocation) async {
+  //   SendGetEmdadgarList getEmdadGarList = SendGetEmdadgarList(packageGuid: packageGuid, geoLocation: geoLocation);
+  //   var body = json.encode(getEmdadGarList.toJson());
+  //   var result = await http.post(Uri.http('185.94.99.204:7252', '/api/Emdad/GetEmdadgarList'), headers: {"Content-Type": "application/json"}, body: body);
+  //   var data = json.decode(result.body);
+  //   var packagesData = GetEmdadgarListResponse.fromJson(data);
+  //   return packagesData;
+  // }
 
   static Future<GetReservableDatesResponse> getReservableDates(List<String> packageItemsGuids, String emdadGarGuid, GeoLocation geoLocation) async {
     SendGetReservableRequest getReservableDates = SendGetReservableRequest(packageItemsGuids: packageItemsGuids, geoLocation: geoLocation, emdadgarGuid: emdadGarGuid);
@@ -323,6 +326,139 @@ class ApiProvider {
 
     return SubmitEmdadResponse.fromJson(json.decode(result.body));
   }
+
+
+  static Future<GetEmdadGarList> getEmdadgarList (LatLng latLng) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token,
+      "latitude": latLng.latitude,
+      "longitude": latLng.longitude
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/HomeService/GetEmdadgarList'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    print(result.body);
+
+
+
+
+    return GetEmdadGarList.fromJson(json.decode(result.body));
+  }
+
+  static Future<GetPackagesSubServices> getPackagesSubServices () async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+    Map data = {
+      'Token': token,
+      "chassisNo": globals.submitHomeServiceRequest.chassisNo,
+      "distanceTraveledKm": globals.submitHomeServiceRequest.distanceTraveledKm,
+      "coverCarId": globals.submitHomeServiceRequest.coverCarId,
+      "latitude": globals.submitHomeServiceRequest.latitude,
+      "longitude": globals.submitHomeServiceRequest.longitude
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/HomeService/GetPackageSubServices'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    print(result.body);
+
+
+
+
+    return GetPackagesSubServices.fromJson(json.decode(result.body));
+  }
+
+
+  static Future<GetTimeTable> getTimeTable () async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? token = sharedPreferences.getString('token');
+
+
+
+
+    Map data = {
+      'Token': token,
+      "latitude": globals.submitHomeServiceRequest.latitude,
+      "longitude": globals.submitHomeServiceRequest.longitude,
+      "emdadgarId": globals.submitHomeServiceRequest.emdadgarId,
+      "PackageSubServiceIds": globals.finalSubServices
+    };
+
+    //encode Map to JSON
+    var body = json.encode(data);
+
+
+    var result = await http.post(
+        Uri.http(mainServerUrl, '/api/HomeService/GetTimeTable'),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+
+    print(result.body);
+
+
+
+
+    return GetTimeTable.fromJson(json.decode(result.body));
+  }
+
+
+
+  // static Future<GetTimeTable> getTimeTable () async {
+  //
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   String? token = sharedPreferences.getString('token');
+  //
+  //
+  //
+  //
+  //   Map data = {
+  //     'Token': token,
+  //     "latitude": globals.submitHomeServiceRequest.latitude,
+  //     "longitude": globals.submitHomeServiceRequest.longitude,
+  //     "emdadgarId": globals.submitHomeServiceRequest.emdadgarId,
+  //     "PackageSubServiceIds": globals.finalSubServices
+  //   };
+  //
+  //   //encode Map to JSON
+  //   var body = json.encode(data);
+  //
+  //
+  //   var result = await http.post(
+  //       Uri.http(mainServerUrl, '/api/HomeService/GetTimeTable'),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: body
+  //   );
+  //
+  //   print(result.body);
+  //
+  //
+  //
+  //
+  //   return GetTimeTable.fromJson(json.decode(result.body));
+  // }
 
 
 

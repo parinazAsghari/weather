@@ -18,7 +18,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../../../../constants.dart';
 import '../../../../modules/map/search_address.dart';
-import '../emdad_in_place/emdad_on_site_packages.dart';
+import '../emdad_in_place/packages_and_sub_services.dart';
 
 
 class EmdadMap extends StatefulWidget {

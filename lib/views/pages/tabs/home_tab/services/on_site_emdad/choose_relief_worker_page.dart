@@ -29,12 +29,12 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
   var response;
 
   getPackages() async {
-    GeoLocation geoLocation = GeoLocation(lat: widget.latLng!.latitude, long: widget.latLng!.longitude);
-    response = await ApiProvider.getEmdadGarList('48ff9bd2-289b-47e5-8925-b770e245d2f0', geoLocation);
-    response.data.emdadgarList.forEach((element) {
-      reliefWorkerList.add(ReliefWorker(name: element.fullName, score: element.score));
-    });
-    setState(() {});
+    // GeoLocation geoLocation = GeoLocation(lat: widget.latLng!.latitude, long: widget.latLng!.longitude);
+    // response = await ApiProvider.getEmdadGarList('48ff9bd2-289b-47e5-8925-b770e245d2f0', geoLocation);
+    // response.data.emdadgarList.forEach((element) {
+    //   reliefWorkerList.add(ReliefWorker(name: element.fullName, score: element.score));
+    // });
+    // setState(() {});
   }
 
   @override

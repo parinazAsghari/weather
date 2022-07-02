@@ -1,12 +1,15 @@
+import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/choose_day_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../../constants.dart';
 import '../../../../../widgets/DialogWidgets.dart';
 import '../../../../../widgets/custom_submit_button.dart';
+import 'package:emdad_khodro_saipa/globals.dart' as globals;
 
 class ChooseReliefWorkerPage extends StatefulWidget {
   const ChooseReliefWorkerPage({Key? key}) : super(key: key);
@@ -17,12 +20,57 @@ class ChooseReliefWorkerPage extends StatefulWidget {
 
 class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
   int? selectedIndex;
+  int? selectedWorker;
 
   List<ReliefWorker> reliefWorkerList = [
-    ReliefWorker(name: 'امداد تست', score: 4.67),
-    ReliefWorker(name: 'امداد تست 1', score: 3.78),
-    ReliefWorker(name: 'امداد تست 2', score: 2.75),
+    // ReliefWorker(fullName: 'امداد تست', score: 4.67),
+    // ReliefWorker(fullName: 'امداد تست 1', score: 3.78),
+    // ReliefWorker(fullName: 'امداد تست 2', score: 2.75),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    getEmdadgarList();
+
+  }
+  bool loading = true;
+
+  getEmdadgarList() async {
+    var result = await ApiProvider.getEmdadgarList(LatLng(globals.submitHomeServiceRequest.latitude!, globals.submitHomeServiceRequest.longitude!));
+
+    if(result.resultCode ==0){
+      reliefWorkerList.clear();
+      result.data!.emdadgarList!.forEach((element) {
+        reliefWorkerList.add(ReliefWorker(
+          firstName: element.firstName,
+          lastName: element.lastName,
+          fullName: element.fullName,
+          id: element.id,
+          score: element.score,
+          image: element.imageBase64
+        ));
+      });
+      setState(() {
+
+        loading = false;
+      });
+    }
+    else{
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'خطا در ارتباط با سرور، لطفا دوباره سعی کنید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +109,13 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
 
         // _serviceNotImportant(),
 
+        if(loading)Center(child: CircularProgressIndicator(),),
         Expanded(
           child: ListView.builder(
             itemCount: reliefWorkerList.length + 1,
             itemBuilder: (ctx, i) {
               if (i == reliefWorkerList.length) {
-                return CustomSubmitButton(onTap: _onSubmitTap, text: 'تایید');
+                return CustomSubmitButton(onTap: _onSubmitTap, text: 'تائید و ادامه');
               } else {
                 return CustomNeomorphicBox(
                   title: '',
@@ -75,10 +124,11 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
                   isFull: false,
                   height: 75 / 640,
                   isChildText: false,
-                  widget: _subItemsServis(title: reliefWorkerList[i].name, imagePath: 'assets/images/relief_worker.png', score: reliefWorkerList[i].score),
+                  widget: _subItemsServis(title: reliefWorkerList[i].fullName!, imagePath: 'assets/images/relief_worker.png', score: reliefWorkerList[i].score!),
                   onTap: () {
                     setState(() {
                       selectedIndex = i;
+                      selectedWorker = reliefWorkerList[i].id;
                     });
                   },
                 );
@@ -98,12 +148,14 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
             return MessageDialogWidget(
               dismissable: true,
               title: 'ورود اطلاعات',
-              body: 'لطفا خدمت رسان مورد نظر خود را وارد نمائید',
+              body: 'لطفا خدمت رسان مورد نظر خود را انتخاب نمائید',
               positiveTxt: 'باشه',
             );
           });
       return;
     }
+    globals.submitHomeServiceRequest.emdadgarId = selectedWorker;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -200,10 +252,13 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
 }
 
 class ReliefWorker {
-  @required
-  double score;
-  @required
-  String name;
 
-  ReliefWorker({required this.score, required this.name});
+  double? score;
+  String? lastName;
+  int? id;
+  String? firstName;
+  String? fullName;
+  String? image;
+
+  ReliefWorker({ this.score,  this.lastName, this.firstName, this.fullName, this.id, this.image});
 }

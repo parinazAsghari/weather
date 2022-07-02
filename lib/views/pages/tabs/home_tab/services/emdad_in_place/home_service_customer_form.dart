@@ -3,7 +3,9 @@ import 'package:emdad_khodro_saipa/models/car.dart';
 import 'package:emdad_khodro_saipa/views/car_compact_drop_down.dart';
 import 'package:emdad_khodro_saipa/views/pages/add_new_car.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
+import 'package:emdad_khodro_saipa/views/pages/modules/map/map_module.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_in_place_map.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/submit_address.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,17 +17,18 @@ import '../../../../../widgets/LoadingWidgets.dart';
 import '../../../../../widgets/custom_submit_button.dart';
 import '../../../../../widgets/custom_text_field.dart';
 import '../../../../drop_down.dart';
+import 'package:emdad_khodro_saipa/globals.dart' as globals;
 
-class SubmitOnSiteService extends StatefulWidget {
-  SubmitOnSiteService({
+class HomeServiceCustomerForm extends StatefulWidget {
+  HomeServiceCustomerForm({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SubmitOnSiteService> createState() => _SubmitOnSiteServiceState();
+  State<HomeServiceCustomerForm> createState() => _HomeServiceCustomerFormState();
 }
 
-class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
+class _HomeServiceCustomerFormState extends State<HomeServiceCustomerForm> {
   bool _isPhysicalLimit = false;
   bool _isSpeechLimit = false;
   bool _isHearingLimit = false;
@@ -34,7 +37,6 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   String limit = 'جسمی';
 
   final TextEditingController _carModelCtrl = TextEditingController();
-  final TextEditingController _chassingNumberCtrl = TextEditingController();
   final TextEditingController _currentKmCtrl = TextEditingController();
 
   String? _carProblem;
@@ -44,12 +46,16 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   String? nationalCode;
 
   String? _carModelDefaultValue;
-  final TextEditingController _carModelController = TextEditingController();
 
   // Map<String, dynamic> carModelListItem = {'': 'مدل خودرو', 'ساینا': 'ساینا','کوییک':'کوییک','پراید':'پراید','تیبا':'تیبا','وانت':'وانت','سراتو':'سراتو','چانگان':'چانگان','شاهین':'شاهین'};
   Map<dynamic, dynamic> carModelListItem = {};
   TextEditingController _userFullNameController = TextEditingController();
-  TextEditingController _userNationalCodeController = TextEditingController();
+  TextEditingController _userNationalCodeController = TextEditingController(text: globals.getProfile.data!.nationalCode);
+  final TextEditingController _chassisNoCtrl = TextEditingController();
+  final TextEditingController _lastNameCtrl = TextEditingController(text: globals.getProfile.data!.lastName!);
+  TextEditingController _coverCarIdCtrl = TextEditingController();
+
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -57,18 +63,20 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
   void initState() {
     super.initState();
     getCarsData();
+    Future.delayed(Duration.zero).then((value) => getCoverCarId());
   }
 
   List myCarsList = [];
   Map<String, dynamic> userCarsItem = {};
-  getCarsData()async{
-    HiveDB _hiveDB = HiveDB();
-    myCarsList = await _hiveDB.getData('', 'userBox');
+  getCarsData() async {
+    // HiveDB _hiveDB = HiveDB();
+    // myCarsList = await _hiveDB.getData('', 'userBox');
 
-    print('this is mycarsList==== > ${myCarsList.length}');
+    myCarsList = globals.getProfile.data!.carInfos!;
 
-    if(myCarsList.isEmpty){
-      final entry = {'مدل خودرو':'مدل خودرو'};
+
+    if (myCarsList.isEmpty) {
+      final entry = {'مدل خودرو': 'مدل خودرو'};
       carModelListItem.addEntries(entry.entries);
       setState(() {});
       return;
@@ -77,10 +85,61 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
       final entry = {element: element};
       carModelListItem.addEntries(entry.entries);
     });
-    _carModelCtrl.text = '${myCarsList.first.brand} - ${myCarsList.first.createDate}';
+    _carModelCtrl.text = '${myCarsList.first.name} - ${myCarsList.first.productionYear}';
+    _chassisNoCtrl.text = '${myCarsList.first.chassisNo}';
 
     setState(() {});
     return;
+  }
+
+  void getCoverCarId(){
+    // _coverCarIdCtrl.text = globals.getProfile.data!.coverCars!.where((element) => element.name == _carModelCtrl.text).first.id.toString();
+
+
+
+    // _coverCarIdCtrl.text = globals.getProfile.data!.coverCars!.firstWhere((element) => element.name == _carModelCtrl.text).name!;
+    // print(_coverCarIdCtrl.text);
+
+    globals.getProfile.data!.coverCars!.forEach((element) {
+      if(element.name == _carModelCtrl.text){
+        _coverCarIdCtrl.text = element.id.toString();
+        print(_coverCarIdCtrl.text);
+
+        return;
+      }
+      return;
+
+    });
+    // if(_coverCarIdCtrl.text.isEmpty){
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return MessageDialogWidget(
+    //           dismissable: true,
+    //           title: 'ورود اطلاعات',
+    //           body: 'امکان ثبت درخواست برای خودروی انتخاب شده وجود ندارد',
+    //           positiveTxt: 'باشه',
+    //         );
+    //       });
+    //
+    //   return;
+    // }
+
+
+    // if(_coverCarIdCtrl.text.isEmpty){
+    //   showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return MessageDialogWidget(
+    //           dismissable: true,
+    //           title: 'ورود اطلاعات',
+    //           body: 'امکان ثبت درخواست برای خودروی انتخاب شده وجود ندارد',
+    //           positiveTxt: 'باشه',
+    //         );
+    //       });
+    //
+    //   return;
+    // }
   }
 
   @override
@@ -139,7 +198,7 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                           const Text('انتخاب خودرو *', textAlign: TextAlign.right,),
                           TextButton(
                               onPressed: (){
-                                Navigator.pop(context);
+                                // Navigator.pop(context);
                                 Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddNewCar(isCarFromDataBase: false)));
 
@@ -151,47 +210,63 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
                         ],
                       ),
 
-                      CarCompactDropDown(
-                        readOnlyDropDown: false,
-                        primaryBackgroundColor: Colors.transparent,
-                        iconColor: Colors.pink,
-                        dropdownMenuItemStyle: const TextStyle(color: Colors.black),
-                        defaultValue: _carModelDefaultValue,
-                        // firstItemSelectMessage: 'انتخاب',
-                        alignmentCenterLeft: false,
-                        enabledBorderColor: Colors.black,
-                        items: carModelListItem,
-                        validations: const [],
-                        onChange: (value) {
-                          _carModelCtrl.text = value;
-                          _carModelController.text = value;
-                        },
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: CarCompactDropDown(
+                          readOnlyDropDown: false,
+                          primaryBackgroundColor: Colors.transparent,
+                          iconColor: Colors.pink,
+                          dropdownMenuItemStyle: const TextStyle(color: Colors.black),
+                          defaultValue: _carModelDefaultValue,
+                          // firstItemSelectMessage: 'انتخاب',
+                          alignmentCenterLeft: false,
+                          enabledBorderColor: Colors.black,
+                          items: carModelListItem,
+                          validations: const [],
+                          onChange: (value) {
+                            _carModelCtrl.text = value;
+                            _chassisNoCtrl.text = myCarsList.firstWhere((element) => element.name == value).chassisNo!;
+                            getCoverCarId();
+                          },
+                        ),
                       ),
                     ],
                   ),
                 ),
                 CustomTextField(
-                  title: 'نام و نام خانوادگی',
-                  height: 28,
-                  controller: _userFullNameController,
+                  title: 'نام خانوادگی *',
+                  height: 35,
+                  marginTop: 11,
+                  controller: _lastNameCtrl,
                 ),
                 SizedBox(
                   height: 8,
                 ),
                 CustomTextField(
-                  title: 'کد ملی',
-                  height: 28,
+                  title: 'کد ملی *',
+                  height: 35,
+                  marginTop: 11,
                   controller: _userNationalCodeController,
                 ),
                 SizedBox(
                   height: 8,
                 ),
 
+                CustomTextField(
+                  title: ' شماره شاسی خودرو *',
+                  height: 35,
+                  marginTop: 11,
+                  controller: _chassisNoCtrl,
+                ),
                 // _customTextField(
                 //     title: 'شماره شاسی *', controller: _chassingNumberCtrl),
+                SizedBox(
+                  height: 8,
+                ),
                 CustomTextField(
                   title: 'کیلومتر فعلی خودرو *',
-                  height: 28,
+                  height: 35,
+                  marginTop: 11,
                   controller: _currentKmCtrl,
                 ),
 
@@ -237,7 +312,7 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
             SizedBox(
               height: 8,
             ),
-            CustomSubmitButton(onTap: _onSubmitTap, text: 'ثبت درخواست'),
+            CustomSubmitButton(onTap: _onSubmitTap, text: 'تائید و ادامه'),
           ],
         ),
       ),
@@ -337,10 +412,9 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
     );
   }
 
-  _onSubmitTap() {
-    print('carmodel + ${_carModelCtrl.text}');
-    print('chassing + ${_chassingNumberCtrl.text}');
-    print('current km + ${_currentKmCtrl.text}');
+  _onSubmitTap() async {
+    print(_coverCarIdCtrl.text);
+
     if (_carModelCtrl.text.isEmpty) {
       showDialog(
           context: context,
@@ -355,20 +429,63 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
 
       return;
     }
-    // if (_chassingNumberCtrl.text.isEmpty) {
-    //   showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return MessageDialogWidget(
-    //           dismissable: true,
-    //           title: 'ورود اطلاعات',
-    //           body: 'لطفا شماره شاسی خودرو خود را وارد نمائید',
-    //           positiveTxt: 'باشه',
-    //         );
-    //       });
-    //
-    //   return;
-    // }
+    if(_coverCarIdCtrl.text.isEmpty){
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'امکان ثبت درخواست برای خودروی انتخاب شده وجود ندارد.',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+    if (_lastNameCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا نام خانوادگی خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+    if (_userNationalCodeController.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا کد ملی خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
+
+    if (_chassisNoCtrl.text.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MessageDialogWidget(
+              dismissable: true,
+              title: 'ورود اطلاعات',
+              body: 'لطفا شماره شاسی خودرو خود را وارد نمائید',
+              positiveTxt: 'باشه',
+            );
+          });
+
+      return;
+    }
 
     if (_currentKmCtrl.text.isEmpty) {
       showDialog(
@@ -385,16 +502,34 @@ class _SubmitOnSiteServiceState extends State<SubmitOnSiteService> {
       return;
     }
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CircleLoadingWidget(
-            dismissable: false,
-            msgTxt: 'لطفا منتظر بمانید',
-          );
-        });
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return CircleLoadingWidget(
+    //         dismissable: false,
+    //         msgTxt: 'لطفا منتظر بمانید',
+    //       );
+    //     });
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => EmdadInPlaceMap(title: 'title', hasCarProblem: false)));
+    //store data
+    globals.submitHomeServiceRequest.nationalCode = _userNationalCodeController.text;
+    globals.submitHomeServiceRequest.mobileNumber = globals.getProfile.data!.mobileNumber!;
+    globals.submitHomeServiceRequest.lastName = _lastNameCtrl.text;
+    globals.submitHomeServiceRequest.chassisNo = _chassisNoCtrl.text;
+    globals.submitHomeServiceRequest.distanceTraveledKm = int.parse(_currentKmCtrl.text);
+    globals.submitHomeServiceRequest.coverCarId = int.parse(_coverCarIdCtrl.text);
+
+
+    // Navigator.of(context).pop();
+    LatLng latLng = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => MapModule()));
+
+    globals.submitHomeServiceRequest.latitude = latLng.latitude;
+    globals.submitHomeServiceRequest.longitude = latLng.longitude;
+
+     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SubmitAddress(latLng: latLng,)));
+
+
+
 
     //clear textFields
     // _idCtrl.clear();

@@ -31,7 +31,7 @@ class Data {
   String? nationalCode;
   List<CarInfos>? carInfos;
   List<Defects>? defects;
-  List<Packages>? coverCars;
+  List<CoverCars>? coverCars;
   List<Packages>? packages;
 
   Data(
@@ -66,9 +66,9 @@ class Data {
       });
     }
     if (json['coverCars'] != null) {
-      coverCars = <Packages>[];
+      coverCars = <CoverCars>[];
       json['coverCars'].forEach((v) {
-        coverCars!.add(new Packages.fromJson(v));
+        coverCars!.add(new CoverCars.fromJson(v));
       });
     }
     if (json['packages'] != null) {

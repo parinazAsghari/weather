@@ -16,7 +16,8 @@ import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_charge
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_on_site_packages.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/packages_and_sub_services.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/home_service_customer_form.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_map/emdad_map.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/speed_meter.dart';
@@ -634,7 +635,7 @@ class _HomeTabState extends State<HomeTab> {
 
       },
           () {
-        return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EmdadOnSitePackages()));
+        return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomeServiceCustomerForm()));
       },
           () {
         return Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const GoldenCard()));
@@ -1133,7 +1134,7 @@ import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_charge
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/car_toll/car_toll.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/compass/compass_service.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad.dart';
-import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/emdad_on_site_packages.dart';
+import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/packages_and_sub_services.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/components/speedometer.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/speedometer/speed_meter.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/weather/weather.dart';
