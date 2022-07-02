@@ -84,7 +84,8 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
         if(element.packageId == 5){
           packageFiveList.add(
               ListTile(
-                title: Text(element.name!),
+                contentPadding: EdgeInsets.all(16),
+                title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Checkbox(
                   onChanged: (value) {
                     setState(() {
@@ -101,13 +102,16 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                   },
                   value:  globals.finalSubServices.contains(element.id!)? true:false,
                 ),
+                subtitle: Text(element.fullDescription!),
+                trailing: Text(element.totalPrice!.toString() + ' ریال'),
               )
           );
         }
         if(element.packageId == 7){
           packageSevenList.add(
               ListTile(
-                title: Text(element.name!),
+                contentPadding: EdgeInsets.all(16),
+                title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Checkbox(
                   onChanged: (value) {
                     setState(() {
@@ -124,13 +128,16 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                   },
                   value:  globals.finalSubServices.contains(element.id!)? true:false,
                 ),
+                subtitle: Text(element.fullDescription!),
+                trailing: Text(element.totalPrice!.toString() + ' ریال'),
               )
           );
         }
         if(element.packageId == 8){
           packageEightList.add(
               ListTile(
-                title: Text(element.name!),
+                contentPadding: EdgeInsets.all(16),
+                title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Checkbox(
                   onChanged: (value) {
                     setState(() {
@@ -147,13 +154,17 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                   },
                   value:  globals.finalSubServices.contains(element.id!)? true:false,
                 ),
+                subtitle: Text(element.fullDescription!),
+                trailing: Text(element.totalPrice!.toString() + ' ریال'),
               )
           );
         }
         if(element.packageId == 9){
           packageNineList.add(
               ListTile(
-                title: Text(element.name!),
+                contentPadding: EdgeInsets.all(16),
+
+                title: Text(element.name!, style: TextStyle(fontWeight: FontWeight.bold),),
                 leading: Checkbox(
                   onChanged: (value) {
                     setState(() {
@@ -170,6 +181,8 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                   },
                   value:  globals.finalSubServices.contains(element.id!)? true:false,
                 ),
+                subtitle: Text(element.fullDescription!),
+                trailing: Text(element.totalPrice!.toString() + ' ریال'),
               )
           );
         }
@@ -242,13 +255,14 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                 var controller = ExpandableController.of(context);
                                 return Padding(
                                   padding: EdgeInsets.zero,
-                                  child: InkWell(
-                                    onTap: () {
-                                      controller?.toggle();
-                                    },
-                                    child: Column(
-                                      children: [
-                                        CustomNeomorphicBox(
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          controller?.toggle();
+
+                                        },
+                                        child: CustomNeomorphicBox(
                                           title: '',
                                           index: 0,
                                           selectedIndex: 1,
@@ -273,17 +287,17 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                           isChildText: false,
                                           widget: _subItemBox(title: 'سرویس‌ خودرو', imagePath: 'assets/images/bazdid_fani.png'),
                                         ),
-                                        Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
-                                            // color: Theme.of(context).cardColor,
-                                          ),
-                                          child: SizedBox(
-                                            child: ListView(shrinkWrap: true, children: packageFiveList),
-                                          ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+                                          // color: Theme.of(context).cardColor,
                                         ),
-                                      ],
-                                    ),
+                                        child: SizedBox(
+                                          child: ListView(shrinkWrap: true, children: packageFiveList),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
@@ -339,13 +353,14 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                 var controller = ExpandableController.of(context);
                                 return Padding(
                                   padding: EdgeInsets.zero,
-                                  child: InkWell(
-                                    onTap: () {
-                                      controller?.toggle();
-                                    },
-                                    child: Column(
-                                      children: [
-                                        CustomNeomorphicBox(
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          controller?.toggle();
+
+                                        },
+                                        child: CustomNeomorphicBox(
                                           title: '',
                                           index: 0,
                                           selectedIndex: 1,
@@ -370,17 +385,17 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                           isChildText: false,
                                           widget: _subItemBox(title: 'آپشن و لوازم جانبی', imagePath: 'assets/images/accessory.png'),
                                         ),
-                                        Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
-                                            // color: Theme.of(context).cardColor,
-                                          ),
-                                          child: SizedBox(
-                                            child: ListView(shrinkWrap: true, children: packageSevenList),
-                                          ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+                                          // color: Theme.of(context).cardColor,
                                         ),
-                                      ],
-                                    ),
+                                        child: SizedBox(
+                                          child: ListView(shrinkWrap: true, children: packageSevenList),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
@@ -436,13 +451,14 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                 var controller = ExpandableController.of(context);
                                 return Padding(
                                   padding: EdgeInsets.zero,
-                                  child: InkWell(
-                                    onTap: () {
-                                      controller?.toggle();
-                                    },
-                                    child: Column(
-                                      children: [
-                                        CustomNeomorphicBox(
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          controller?.toggle();
+
+                                        },
+                                        child: CustomNeomorphicBox(
                                           title: '',
                                           index: 0,
                                           selectedIndex: 1,
@@ -467,17 +483,17 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                           isChildText: false,
                                           widget: _subItemBox(title: 'بازدید فنی و پیش از سفر', imagePath: 'assets/images/accessory.png'),
                                         ),
-                                        Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
-                                            // color: Theme.of(context).cardColor,
-                                          ),
-                                          child: SizedBox(
-                                            child: ListView(shrinkWrap: true, children: packageEightList),
-                                          ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+                                          // color: Theme.of(context).cardColor,
                                         ),
-                                      ],
-                                    ),
+                                        child: SizedBox(
+                                          child: ListView(shrinkWrap: true, children: packageEightList),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
@@ -533,13 +549,14 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                 var controller = ExpandableController.of(context);
                                 return Padding(
                                   padding: EdgeInsets.zero,
-                                  child: InkWell(
-                                    onTap: () {
-                                      controller?.toggle();
-                                    },
-                                    child: Column(
-                                      children: [
-                                        CustomNeomorphicBox(
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          controller?.toggle();
+
+                                        },
+                                        child: CustomNeomorphicBox(
                                           title: '',
                                           index: 0,
                                           selectedIndex: 1,
@@ -564,17 +581,17 @@ class _PackagesAndSubServicesState extends State<PackagesAndSubServices> {
                                           isChildText: false,
                                           widget: _subItemBox(title: 'تعمیرات غیر فوریتی', imagePath: 'assets/images/firs_service.png'),
                                         ),
-                                        Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
-                                            // color: Theme.of(context).cardColor,
-                                          ),
-                                          child: SizedBox(
-                                            child: ListView(shrinkWrap: true, children: packageNineList),
-                                          ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+                                          // color: Theme.of(context).cardColor,
                                         ),
-                                      ],
-                                    ),
+                                        child: SizedBox(
+                                          child: ListView(shrinkWrap: true, children: packageNineList),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },

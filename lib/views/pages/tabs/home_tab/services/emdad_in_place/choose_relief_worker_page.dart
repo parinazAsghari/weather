@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:emdad_khodro_saipa/api_provider/provider.dart';
 import 'package:emdad_khodro_saipa/views/pages/tabs/home_tab/services/emdad_in_place/choose_day_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
@@ -124,7 +126,9 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
                   isFull: false,
                   height: 75 / 640,
                   isChildText: false,
-                  widget: _subItemsServis(title: reliefWorkerList[i].fullName!, imagePath: 'assets/images/relief_worker.png', score: reliefWorkerList[i].score!),
+                  widget: _subItemsServis(title: reliefWorkerList[i].fullName!,
+                      imagePath: reliefWorkerList[i].image!,
+                      score: reliefWorkerList[i].score!),
                   onTap: () {
                     setState(() {
                       selectedIndex = i;
@@ -165,6 +169,9 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
   }
 
   Widget _subItemsServis({required String title, required String imagePath, required double score}) {
+
+    
+    
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -172,16 +179,16 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
         const SizedBox(
           width: 12,
         ),
-        Container(
-          alignment: Alignment.center,
-          // height: 60,
-          // width: 60,
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
-            // height: 4,
-          ),
-        ),
+        // Container(
+        //   alignment: Alignment.center,
+        //   // height: 60,
+        //   // width: 60,
+        //   child: Image.asset(
+        //     imagePath,
+        //     fit: BoxFit.cover,
+        //     // height: 4,
+        //   ),
+        // ),
         const SizedBox(
           width: 8,
         ),
@@ -217,6 +224,26 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
               ],
             ),
           ],
+        ),
+
+        Expanded(child: Container()),
+
+        Container(
+          padding: EdgeInsets.only(left: 16),
+          alignment: Alignment.center,
+          height: 70,
+          width: 70,
+
+          child: Image.memory(base64Decode(imagePath))
+          ,
+          /*
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+            // height: 4,
+          ),
+
+           */
         ),
       ],
     );
