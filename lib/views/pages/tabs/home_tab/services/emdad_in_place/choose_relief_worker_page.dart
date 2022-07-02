@@ -170,6 +170,8 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
 
   Widget _subItemsServis({required String title, required String imagePath, required double score}) {
 
+    String finalImage = imagePath.substring(imagePath.indexOf(',')+1, imagePath.length);
+
     
     
     return Row(
@@ -232,9 +234,9 @@ class _ChooseReliefWorkerPageState extends State<ChooseReliefWorkerPage> {
           padding: EdgeInsets.only(left: 16),
           alignment: Alignment.center,
           height: 70,
-          width: 70,
+          // width: 70,
 
-          child: Image.memory(base64Decode(imagePath))
+          child: Image.memory(base64Decode(finalImage))
           ,
           /*
           child: Image.asset(

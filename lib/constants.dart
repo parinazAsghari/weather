@@ -4,7 +4,8 @@
 import 'package:flutter/material.dart';
 
 
-String mainServerUrl = '185.94.99.204:7252';
+// String mainServerUrl = '185.94.99.204:7252';
+String mainServerUrl = '193.201.194.24:8081';
 
 
 

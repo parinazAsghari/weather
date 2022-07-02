@@ -3,6 +3,7 @@ import 'package:emdad_khodro_saipa/models/response_model/get_time_table.dart';
 import 'package:emdad_khodro_saipa/views/pages/home_page.dart';
 import 'package:emdad_khodro_saipa/views/widgets/LoadingWidgets.dart';
 import 'package:emdad_khodro_saipa/views/widgets/custom_neomorphic_box.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../../../../../constants.dart';
@@ -34,6 +35,10 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
   // ];
   List<DayTime> dayList = [];
 
+  List<String> uniqueDate = [];
+  List<String> uniqueTime = [];
+
+
 
   @override
   void initState() {
@@ -47,6 +52,22 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
     GetTimeTable result = await ApiProvider.getTimeTable();
 
     if(result.resultCode == 0){
+      result.data!.items!.forEach((element) {
+        if(!uniqueDate.contains(element.persianDate)){
+          uniqueDate.add(element.persianDate!);
+        }
+        // if(!uniqueTime.contains(element.time!)){
+        //   uniqueTime.add(element.time!);
+        //
+        // }
+
+      });
+
+
+
+
+
+
       result.data!.items!.forEach((element) {
         dayList.add(DayTime(
             jalajiDate: element.persianDate!,
@@ -95,44 +116,160 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
   }
 
   Widget _body() {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.only(top: 16, bottom: 8),
-          alignment: Alignment.center,
-          child: const Text(
-            'انتخاب روز',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 16, bottom: 8),
+            alignment: Alignment.center,
+            child: const Text(
+              'انتخاب تاریخ و زمان ارائه خدمت',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
           ),
-        ),
 
-        if(loading)Center(child: CircularProgressIndicator(),),
-        Expanded(
-          child: ListView.builder(
-            itemCount: dayList.length + 1,
-            itemBuilder: (ctx, i) {
-              if (i == dayList.length) {
-                return CustomSubmitButton(text: 'تایید نهایی', onTap: _onSubmitTap);
-              } else {
-                return CustomNeomorphicBox(
-                  title: dayList[i].title,
-                  isFull: dayList[i].isFull,
-                  index: i,
-                  selectedIndex: selectedIndex,
-                  height: 40 / 640,
-                  onTap: () {
-                    if (!dayList[i].isFull) {
-                      setState(() {
-                        selectedIndex = i;
-                      });
-                    }
-                  },
-                );
-              }
-            },
+          if(loading)Center(child: CircularProgressIndicator(),),
+
+
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: uniqueDate.length +1,
+            itemBuilder: (BuildContext context, int index){
+
+                if(index == uniqueDate.length){
+                  return CustomSubmitButton(text: 'ثبت نهایی', onTap: _onSubmitTap);
+                }else{
+                  return ExpandableNotifier(
+                      child: Expandable(
+                        collapsed: Builder(
+                          builder: (context) {
+                            var controller = ExpandableController.of(context);
+
+                            return InkWell(
+                              onTap: (){
+                                controller?.toggle();
+
+                              },
+                              child: CustomNeomorphicBox(
+                                title: uniqueDate[index],
+                                isFull: false,
+                                index: index,
+                                selectedIndex: selectedIndex,
+                                height: 40 / 640,
+                                onTap: () {
+                                  // if (!dayList[index].isFull) {
+                                  //   setState(() {
+                                  //     selectedIndex = index;
+                                  //   });
+                                  // }
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        expanded: Container(
+                          decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(16)),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.zero,
+                                child: Builder(
+                                  builder: (context) {
+                                    var controller = ExpandableController.of(context);
+
+                                    List<Widget> finalTimeList = [];
+                                    dayList.forEach((element) {
+                                      if(element.title == uniqueDate[index]){
+                                        finalTimeList.add(Text(element.time));
+                                      }
+                                    });
+
+
+                                    return Padding(
+                                      padding: EdgeInsets.zero,
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: (){
+                                              controller?.toggle();
+
+                                            },
+                                            child: CustomNeomorphicBox(
+                                              title: uniqueDate[index],
+                                              isFull: false,
+                                              index: index,
+                                              selectedIndex: selectedIndex,
+                                              height: 40 / 640,
+                                              onTap: () {
+                                                if (!dayList[index].isFull) {
+                                                  setState(() {
+                                                    selectedIndex = index;
+                                                  });
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
+                                              // color: Theme.of(context).cardColor,
+                                            ),
+                                            child: SizedBox(
+                                              child: ListView(shrinkWrap: true, children: finalTimeList),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                  );
+                }
+
+
+              },
+
           ),
-        ),
-      ],
+
+
+
+
+          //old UI
+          /*
+          Expanded(
+            child: ListView.builder(
+              itemCount: dayList.length + 1,
+              itemBuilder: (ctx, i) {
+                if (i == dayList.length) {
+                  return CustomSubmitButton(text: 'ثبت نهایی', onTap: _onSubmitTap);
+                } else {
+                  return CustomNeomorphicBox(
+                    title: dayList[i].title,
+                    isFull: dayList[i].isFull,
+                    index: i,
+                    selectedIndex: selectedIndex,
+                    height: 40 / 640,
+                    onTap: () {
+                      if (!dayList[i].isFull) {
+                        setState(() {
+                          selectedIndex = i;
+                        });
+                      }
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+
+           */
+        ],
+      ),
     );
   }
 
