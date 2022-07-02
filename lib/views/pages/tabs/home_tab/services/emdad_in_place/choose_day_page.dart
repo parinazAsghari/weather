@@ -21,6 +21,7 @@ class ChooseDayPage extends StatefulWidget {
 
 class _ChooseDayPageState extends State<ChooseDayPage> {
   int? selectedIndex;
+  String? selectedTime;
 
 
 
@@ -53,8 +54,8 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
 
     if(result.resultCode == 0){
       result.data!.items!.forEach((element) {
-        if(!uniqueDate.contains(element.persianDate)){
-          uniqueDate.add(element.persianDate!);
+        if(!uniqueDate.contains(element.persianDateText)){
+          uniqueDate.add(element.persianDateText!);
         }
         // if(!uniqueTime.contains(element.time!)){
         //   uniqueTime.add(element.time!);
@@ -70,9 +71,9 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
 
       result.data!.items!.forEach((element) {
         dayList.add(DayTime(
-            jalajiDate: element.persianDate!,
+            jalajiDate: element.persianDateText!,
             time: element.time!,
-            title: "${element.persianDateText}  ${element.time}",
+            title: element.persianDateText,
             isFull: false
         )
         );
@@ -157,6 +158,8 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
                                 selectedIndex: selectedIndex,
                                 height: 40 / 640,
                                 onTap: () {
+                                  controller?.toggle();
+
                                   // if (!dayList[index].isFull) {
                                   //   setState(() {
                                   //     selectedIndex = index;
@@ -180,7 +183,29 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
                                     List<Widget> finalTimeList = [];
                                     dayList.forEach((element) {
                                       if(element.title == uniqueDate[index]){
-                                        finalTimeList.add(Text(element.time));
+                                        finalTimeList.add(
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                              child: CustomNeomorphicBox(
+
+
+                                                title: element.time,
+                                                isFull: false,
+                                                index: index,
+                                                selectedIndex: selectedIndex,
+                                                selectedTitle: selectedTime,
+                                                height: 40 / 640,
+                                                onTap: () {
+                                                  if (!dayList[index].isFull) {
+                                                    setState(() {
+                                                      // selectedIndex = index;
+                                                      selectedTime = element.time;
+                                                    });
+                                                  }
+                                                },
+                                              ),
+                                            )
+                                        );
                                       }
                                     });
 
@@ -201,11 +226,13 @@ class _ChooseDayPageState extends State<ChooseDayPage> {
                                               selectedIndex: selectedIndex,
                                               height: 40 / 640,
                                               onTap: () {
-                                                if (!dayList[index].isFull) {
-                                                  setState(() {
-                                                    selectedIndex = index;
-                                                  });
-                                                }
+                                                controller?.toggle();
+
+                                                // if (!dayList[index].isFull) {
+                                                //   setState(() {
+                                                //     selectedIndex = index;
+                                                //   });
+                                                // }
                                               },
                                             ),
                                           ),

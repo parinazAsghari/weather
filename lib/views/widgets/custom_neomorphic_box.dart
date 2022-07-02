@@ -11,6 +11,7 @@ class CustomNeomorphicBox extends StatelessWidget {
   Widget? widget;
   int? index;
   int? selectedIndex;
+  String? selectedTitle;
   Function() onTap;
   double? marginTop;
   double? marginBottom;
@@ -31,6 +32,7 @@ class CustomNeomorphicBox extends StatelessWidget {
     @required required this.selectedIndex,
     required this.isFull,
     required this.onTap,
+    this.selectedTitle,
     this.marginBottom = 8,
     this.marginLeft = 24,
     this.marginRight = 24,
@@ -41,7 +43,7 @@ class CustomNeomorphicBox extends StatelessWidget {
     this.paddingBottom = 0,
     this.paddingTop = 0,
     this.fontSize = 14,
-    this.depth = 8,
+    this.depth = 1,
     required this.height,
     this.isChildText = true,
     this.widget,
@@ -72,7 +74,7 @@ class CustomNeomorphicBox extends StatelessWidget {
           ),
           depth: depth,
           lightSource: LightSource.topLeft,
-          color: selectedIndex == index ? dark_theme_white_low : Theme.of(context).cardColor,
+          color: selectedIndex == index? dark_theme_white_low :selectedTitle==title?dark_theme_white_low: Theme.of(context).cardColor,
           shadowDarkColor: Theme.of(context).shadowColor,
         ),
         child: isChildText
